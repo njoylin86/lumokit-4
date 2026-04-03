@@ -7,7 +7,7 @@
 
 ## Syfte
 
-Detta dokument definierar den exakta process Agenten (Claude) ska följa varje gång en referensbild och en kundbrief laddas upp. Resultatet av processen är alltid ett färdigt LumoKit JSON-payload redo att pushas till WordPress via `tools/push_to_wp.py`.
+Detta dokument definierar den exakta process Agenten (Claude) ska följa varje gång en referensbild laddas upp. En screenshot ska räcka — ingen ytterligare instruktion krävs. Resultatet ska vara en **visuellt identisk** implementation av designen, pushad till WordPress och redo att fyllas med innehåll.
 
 Avvik **aldrig** från dessa faser. Hoppa **inte** över steg.
 
@@ -16,127 +16,130 @@ Avvik **aldrig** från dessa faser. Hoppa **inte** över steg.
 ## Fas 1: Input & Setup
 
 ### 1.1 Ta emot inputs
-Agenten kräver två inputs innan arbetet börjar:
+En screenshot räcker. Om en kundbrief medföljer, använd den för ton och namngivning. Om inte — härled allt från bilden.
 
-| Input | Format | Krävs |
-|---|---|---|
-| Referensbild | PNG / JPG / WebP (mockup eller inspirationsbild) | Ja |
-| Kundbrief | Fritext (varumärke, ton, syfte, målgrupp) | Ja |
+### 1.2 Identifiera och lista alla sektioner
+Gå igenom hela bilden uppifrån och ned. Lista **varje synlig sektion** och ge den ett blocknamn innan du börjar koda något:
 
-Om något av dessa saknas — **stanna och fråga användaren** innan du fortsätter.
+```
+1. lumo/hero-section
+2. lumo/services-row
+3. lumo/content-image
+...
+```
 
-### 1.2 Identifiera komponenten
-Bestäm komponenttyp baserat på bilden:
-- Är det en hel sektion (Hero, Features, Testimonials, CTA, Footer)?
-- Är det ett enskilt UI-element (Card, Button, Nav)?
-
-Namnge komponenten enligt konventionen `lumo/[komponent-namn]` (kebab-case, t.ex. `lumo/hero-section`, `lumo/feature-grid`).
-
-### 1.3 Skapa output-fil
-Bestäm filnamnet för payloaden:
+### 1.3 Namnge output-filer
 ```
 .tmp/[klientnamn]_[komponent].json
 ```
-Exempel: `.tmp/acme_hero.json`
 
 ---
 
-## Fas 2: Analys & Design Tokens
+## Fas 2: Pixelnoggrann Bildanalys
 
-Använd din vision-förmåga för att noggrant analysera referensbilden. Extrahera följande designtokens **innan** du skriver en rad HTML.
+**Målet är identisk återgivning — inte en "liknande" design.**
 
-### 2.1 Färgpalett
-Identifiera de dominerande färgerna i bilden. Mappa varje färg till närmaste Tailwind-ekvivalent.
+Analysera bilden systematiskt för varje sektion. Skriv ned alla värden i din reasoning innan du skriver HTML.
 
-**Procedur:**
-1. Identifiera bakgrundsfärg(er) → mappa till Tailwind `bg-*`
-2. Identifiera primär textfärg → mappa till Tailwind `text-*`
-3. Identifiera accentfärg (knappar, highlights) → mappa till Tailwind `bg-*` / `border-*`
-4. Identifiera sekundär textfärg (subtext, labels) → mappa till Tailwind `text-*`
+### 2.1 Elementordning (KRITISK)
+Läs av varje elements position i bilden **uppifrån och ned, vänster till höger**. Skriv ned ordningen explicit:
 
-**Output-format (internt, skriv i din reasoning):**
 ```
-background:   bg-gray-950
-text-primary: text-white
-accent:       bg-blue-600
-text-muted:   text-gray-400
+Sektion: Hero
+1. H1 "Webbyrå Stockholm"
+2. Label "ADS, SEO OCH WEBBDESIGN"  ← under H1, inte ovanför
+3. Brödtext
+4. CTA-knapp
+5. Illustration (höger kolumn)
 ```
 
-Om bilden använder en anpassad färg som inte har en nära Tailwind-ekvivalent (< 15% avvikelse), använd närmaste match. Dokumentera avvikelsen i en kommentar i JSON-filen.
+DOM-ordningen ska matcha den visuella ordningen exakt. Gissa aldrig.
 
-### 2.2 Typografisk hierarki
-Analysera textelement i bilden:
+### 2.2 Färger — exakta värden
+Identifiera varje färg och dess exakta hex-värde så nära som möjligt. Mappa sedan till Tailwind. Om ingen Tailwind-klass matchar inom rimlig tolerans, använd inline `style="color:#XXXXXX"`.
 
-| Nivå | Vad du tittar på | Tailwind-klasser |
+| Element | Hex (uppskattat) | Tailwind-klass |
 |---|---|---|
-| H1 / Huvudrubrik | Storlek, vikt, radavstånd | `text-5xl font-bold leading-tight` |
-| H2 / Underrubrik | Storlek, vikt | `text-2xl font-semibold` |
-| Brödtext | Storlek, färg, radavstånd | `text-base text-gray-300 leading-relaxed` |
-| Label / Tag | Storlek, versaler, spacing | `text-xs uppercase tracking-widest` |
+| Bakgrund | #e0f7fa | bg-cyan-100 |
+| H1 text | #111827 | text-gray-900 |
+| Muted text | #6b7280 | text-gray-500 |
+| Accent/knapp | #f472b6 | bg-pink-400 |
 
-Välj alltid från Tailwinds standardskala. Gissa inte — basera storleksvalen på proportionerna i bilden.
+### 2.3 Typografi — exakta proportioner
+Mät varje textelements relativa storlek mot sidan:
 
-### 2.3 Spacing & Layout
-- **Padding/margin:** Uppskatta gutter och inre padding. Mappa till Tailwind spacing-skala (`p-4`, `py-16`, `gap-8` etc.)
-- **Layout-typ:** Är det Flexbox eller Grid? Hur många kolumner? Hur staplas det på mobil?
-- **Max-bredd:** Har innehållet ett `max-w-*`-container?
+- **H1:** Hur stor är den relativt brödtexten? → `text-5xl` / `text-6xl` / `text-7xl`
+- **Font-weight:** Normal, medium, semibold, bold, extrabold?
+- **Letter-spacing:** Är det tracking-wide, tracking-widest (versaler med luft)?
+- **Line-height:** Tight, normal, relaxed?
+- **Versaler:** Är texten uppercase?
+- **Font-familj:** Är det en Google Font? Identifiera vilken och importera den via `<link>` i `html_template`.
 
-### 2.4 Border & Rundning
-- Knappar: `rounded`, `rounded-full`, `rounded-lg`?
-- Kort/boxar: Har de `border`, `shadow`, `rounded-xl`?
+### 2.4 Spacing — exakta avstånd
+Uppskatta padding och margin relativt till sektionens höjd/bredd:
 
-### 2.5 Spara tokens lokalt (i reasoning)
-Sammanfatta alla tokens i ett block i din reasoning-process innan du går till Fas 3. Detta säkerställer enhetlighet genom hela komponenten.
+- Sektionens vertikala padding: liten (`py-8`), mellan (`py-16`), stor (`py-24`)?
+- Avstånd mellan element: tätt (`gap-2`), normalt (`gap-6`), luftigt (`gap-12`)?
+- Innehållets max-bredd: smal (`max-w-3xl`), standard (`max-w-6xl`), full?
+
+### 2.5 Layout & Proportioner
+- Hur många kolumner? Exakt kolumnbredd (50/50, 40/60, 33/66)?
+- Hur är elementen vertikalt justerade (top, center, bottom)?
+- Hur staplas det på mobil?
+
+### 2.6 Knappar & Interaktiva element
+Analysera varje knapp noggrant:
+- Fylld (`bg-*`) eller outline (`border-*`)?
+- Border-tjocklek (1px, 2px)?
+- Border-radius (ingen, `rounded-lg`, `rounded-full`)?
+- Text-transform (uppercase, normal)?
+- Padding (kompakt, normal, generös)?
+
+### 2.7 Kort, bilder & dekorativa element
+- Har kort `border`, `shadow`, `rounded-*`?
+- Vilken `object-fit` används för bilder (cover, contain)?
+- Finns det gradient-overlays eller opacity på bilder?
 
 ---
 
-## Fas 3: Tailwind-kodning
+## Fas 3: HTML-generering
 
-### 3.1 Regler för HTML-generering
+### 3.1 Regler
 
-1. **Enbart semantisk HTML5.** Använd `<section>`, `<article>`, `<header>`, `<nav>`, `<h1>`–`<h3>`, `<p>`, `<a>`, `<ul>`, `<li>`, `<img>`, `<figure>`.
-2. **Inga `<script>`- eller `<iframe>`-taggar** — någonsin. Dessa blockeras av LumoKit Bridge.
-3. **Enbart Tailwind utility-klasser** för all styling. Inga inline `style=""`-attribut.
-4. **Responsivitet är obligatoriskt.** Varje komponent måste fungera på tre breakpoints:
-   - Mobil (default, ingen prefix)
-   - Tablet (`md:`)
-   - Desktop (`lg:`)
-5. **Hårdkoda innehållet i detta steg.** Skriv riktiga exempeltexter och bild-URL:er i HTML:en. Det är lättare att verifiera layouten och sedan abstrahera i Fas 4.
-6. **Följ designtokens från Fas 2 exakt.** Avvik inte kreativt från referensbilden om inte kundbriefet kräver det.
+1. **Semantisk HTML5** — `<section>`, `<h1>`–`<h3>`, `<p>`, `<a>`, `<ul>`, `<li>`, `<img>`.
+2. **Inga `<script>`- eller `<iframe>`-taggar** — blockeras av LumoKit Bridge.
+3. **Tailwind för layout och spacing.** För färg, border och typografi på `<a>`-taggar och knappar: använd alltid inline `style` — WordPress-teman skriver annars över Tailwind.
+4. **Responsivitet är obligatoriskt** — mobil (default), tablet (`md:`), desktop (`lg:`).
+5. **Elementordning följer Fas 2.1 exakt** — ingen kreativ omtolkning.
+6. **Google Fonts** — om en specifik font identifieras, importera den överst i `html_template`:
+   ```html
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+   ```
 
-### 3.2 Komponentstruktur (mall)
-```html
-<section class="[bakgrund] [padding]">
-  <div class="max-w-6xl mx-auto px-4 [layout]">
-    <!-- Innehåll här -->
-  </div>
-</section>
-```
+### 3.2 Kvalitetskontroll — jämför mot bilden
+Innan du går till Fas 4, gå igenom denna checklista:
 
-Anpassa strukturen efter komponenttypen, men behåll alltid ett `max-w-*`-wrapper för innehållet.
-
-### 3.3 Kvalitetskontroll innan Fas 4
-Kontrollera mentalt:
-- [ ] Ser layouten rätt ut på mobil (single-column)?
-- [ ] Ser layouten rätt ut på desktop (multi-column om bilden visar det)?
-- [ ] Är färgerna i linje med tokens från Fas 2?
-- [ ] Är typografin proportionerlig mot referensbilden?
-- [ ] Finns det inga hårdkodade `style`-attribut?
+- [ ] Elementordningen matchar bilden uppifrån och ned?
+- [ ] Färgerna stämmer (bakgrund, text, accent)?
+- [ ] Knappens stil stämmer (fylld/outline, rundning)?
+- [ ] Kolumnproportioner stämmer (50/50 etc.)?
+- [ ] Typografins storlek och vikt stämmer?
+- [ ] Spacing känns identisk med bilden?
+- [ ] Responsivitet hanterad?
 
 ---
 
 ## Fas 4: Data-mappning (ACF) & JSON-generering
 
 ### 4.1 Identifiera dynamiska fält
-Gå igenom HTML:en från Fas 3 och markera **allt innehåll som en klient kan vilja redigera:**
+Allt innehåll en klient kan vilja redigera:
 - All text (rubriker, brödtext, knapptexter, labels)
 - Alla bild-URL:er
 - Alla länk-URL:er
 
-Statiska strukturelement (layout-divar, ikoner inbakade i SVG) behöver **inte** bli dynamiska fält.
+Statiska strukturelement (divar, SVG-ikoner) är inte dynamiska.
 
-### 4.2 Namnge variabler
-Använd beskrivande, snake_case-namn på engelska:
+### 4.2 Namnge variabler (snake_case, engelska)
 
 | Innehåll | Variabelnamn |
 |---|---|
@@ -149,83 +152,84 @@ Använd beskrivande, snake_case-namn på engelska:
 | Kortbild | `card_image` |
 | Kortitel | `card_title` |
 
-För repeterande element (t.ex. tre feature-kort), använd suffix: `feature_1_title`, `feature_1_icon`, `feature_2_title`, etc.
+För repeterande element: `feature_1_title`, `feature_2_title` etc.
 
-### 4.3 Ersätt hårdkodat innehåll med mustache-syntax
-Byt ut varje hårdkodat värde mot `{{variabelnamn}}`:
-
-```html
-<!-- Innan -->
-<h1 class="text-5xl font-bold text-white">Välkommen till Acme</h1>
-
-<!-- Efter -->
-<h1 class="text-5xl font-bold text-white">{{headline}}</h1>
-```
-
-För `<img>`-taggar, ersätt `src`-attributet:
-```html
-<img src="{{background_image}}" alt="Background" class="w-full h-full object-cover">
-```
-
-### 4.4 Tillåtna ACF-fälttyper
-Använd **enbart** dessa fälttyper i schemat:
-
-| Innehållstyp | ACF-typ |
-|---|---|
-| Kort text (rubrik, label, knapptext) | `text` |
-| Längre text (brödtext, beskrivning) | `textarea` |
-| Bild-URL | `image` |
-| Länk-URL | `url` |
-
-Använd **aldrig** `wysiwyg`, `repeater`, `flexible_content` eller andra avancerade typer — de stöds inte av LumoKit Bridge v1.
-
-### 4.5 Generera JSON-payload
-Sätt ihop det slutgiltiga JSON-objektet:
+### 4.3 Default-värden (obligatoriskt)
+Varje fält i schemat **måste** ha ett `default`-värde. Defaults ska vara kontextuella — baserade på texten och innehållet som faktiskt syns i referensbilden, inte generiska placeholders som "Lorem ipsum".
 
 ```json
 {
+  "name": "headline",
+  "type": "text",
+  "label": "Huvudrubrik",
+  "default": "Webbyrå Stockholm"
+}
+```
+
+För `image`-fält, sätt `default` till en `placehold.co`-URL med dimensioner som passar komponenten:
+- Hero/bakgrundsbild: `https://placehold.co/1200x800`
+- Kortbild (kvadrat): `https://placehold.co/600x600`
+- Bred sektionsbild: `https://placehold.co/1200x600`
+- Profilbild: `https://placehold.co/400x400`
+
+### 4.4 Tillåtna ACF-fälttyper
+
+| Innehållstyp | ACF-typ |
+|---|---|
+| Kort text | `text` |
+| Längre text | `textarea` |
+| Bild | `image` |
+| Länk | `url` |
+
+### 4.4 JSON-format
+```json
+{
   "block_name": "lumo/[komponent-namn]",
-  "title": "[Komponentens visningsnamn]",
-  "html_template": "[HTML-strängen med {{variabler}}, escaped med \\n för radbrytningar]",
+  "title": "[Visningsnamn]",
+  "html_template": "[HTML på en rad med \\n och escapade \\\"]",
   "schema": [
-    {
-      "name": "[variabelnamn]",
-      "type": "[text|textarea|image|url]",
-      "label": "[Läsbart namn på svenska]"
-    }
+    { "name": "headline", "type": "text", "label": "Huvudrubrik" }
   ]
 }
 ```
 
-**Regler för `html_template`-strängen:**
-- Hela HTML:en ska vara på **en rad** med `\n` för radbrytningar.
-- Inga riktiga radbrytningar inuti JSON-strängen (ogiltigt JSON).
-- Dubbelcitattecken inuti HTML-attribut måste escapas: `\"`.
-
-### 4.6 Spara och pusha
-1. Spara JSON till `.tmp/[klientnamn]_[komponent].json`
-2. Kör: `python tools/push_to_wp.py .tmp/[klientnamn]_[komponent].json`
-3. Bekräfta `[OK]`-respons med `post_id`
-4. Vid fel: Läs felmeddelandet, korrigera payload eller tool, försök igen. Dokumentera felet enligt Self-Improvement Loop i CLAUDE.md.
-
----
-
-## Snabbreferens: Fas-översikt
-
-```
-INPUT (Bild + Brief)
-      ↓
-FAS 1: Setup        → Identifiera komponent, namnge output-fil
-      ↓
-FAS 2: Tokens       → Extrahera färger, typografi, spacing, rundning
-      ↓
-FAS 3: HTML         → Bygg responsiv Tailwind-layout med hårdkodat innehåll
-      ↓
-FAS 4: ACF-mappning → Abstrahera till {{variabler}}, bygg schema, spara JSON
-      ↓
-PUSH               → python tools/push_to_wp.py .tmp/[fil].json
-```
+### 4.5 Spara och pusha
+1. Spara varje komponent till `.tmp/[klientnamn]_[komponent].json`
+2. `python3 tools/push_to_wp.py .tmp/[fil].json` — för varje komponent
+3. `python3 tools/compile_tailwind.py` — kompilera och pusha CSS
+4. Skapa en page spec-fil `.tmp/[klientnamn]_page.json` med alla block i rätt ordning:
+   ```json
+   {
+     "title": "[Sidans titel]",
+     "slug": "[url-slug]",
+     "blocks": [
+       "lumo/hero-section",
+       "lumo/services-row",
+       "lumo/contact-form"
+     ]
+   }
+   ```
+5. `python3 tools/build_page.py .tmp/[klientnamn]_page.json` — skapar sidan i WordPress
+6. Bekräfta `[OK]` och presentera `page_url` för användaren.
 
 ---
 
-*Detta dokument är Agentens primära regelbok för komponentgenerering. Uppdatera det när nya constraints eller fälttyper upptäcks.*
+## Snabbreferens
+
+```
+SCREENSHOT
+      ↓
+FAS 1: Lista alla sektioner
+      ↓
+FAS 2: Pixelnoggrann analys (ordning, färger, typografi, spacing, knappar)
+      ↓
+FAS 3: HTML (Tailwind + inline style för knappar, responsivt)
+      ↓
+      Kvalitetskontroll mot bilden
+      ↓
+FAS 4: ACF-mappning → JSON → push → compile CSS
+```
+
+---
+
+*Detta dokument är Agentens primära regelbok. Uppdatera det när nya constraints upptäcks.*
