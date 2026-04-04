@@ -1,0 +1,11 @@
+{
+  "block_name": "lumo/two-column-cards",
+  "title": "Two Column Cards",
+  "html_template": "<section class=\"bg-pink-50 py-16\">\n  <div class=\"max-w-6xl mx-auto px-6\">\n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-8\">\n      <div class=\"bg-white rounded-2xl shadow-sm p-8\">\n        <h3 class=\"text-xl font-bold text-gray-900 mb-4\">{{card_1_title}}</h3>\n        <p class=\"text-gray-500 text-sm leading-relaxed mb-4\">{{card_1_text}}</p>\n      </div>\n      <div class=\"bg-white rounded-2xl shadow-sm p-8\">\n        <h3 class=\"text-xl font-bold text-gray-900 mb-4\">{{card_2_title}}</h3>\n        <p class=\"text-gray-500 text-sm leading-relaxed mb-4\">{{card_2_text}}</p>\n      </div>\n    </div>\n  </div>\n</section>",
+  "schema": [
+    { "name": "card_1_title", "type": "text", "label": "Kort 1 – Titel", "default": "Konverteringsspårning" },
+    { "name": "card_1_text", "type": "textarea", "label": "Kort 1 – Text", "default": "Att spåra konvertering innebär att vi ser när (och hur) era kunder surfar på er hemsida. Kartläggningen är oändlig för att förstå kundflödet." },
+    { "name": "card_2_title", "type": "text", "label": "Kort 2 – Titel", "default": "Konverteringsoptimering" },
+    { "name": "card_2_text", "type": "textarea", "label": "Kort 2 – Text", "default": "Har ni en hemsida i dagsläget? Grymt! Vad sägs om högre konvertering som snabbar upp trafiken ni redan har, och leder in nya kunder?" }
+  ]
+}

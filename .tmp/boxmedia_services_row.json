@@ -1,0 +1,13 @@
+{
+  "block_name": "lumo/services-row",
+  "title": "Services Row",
+  "html_template": "<section class=\"bg-white py-16\">\n  <div class=\"max-w-6xl mx-auto px-6\">\n    <div class=\"grid grid-cols-1 md:grid-cols-3 gap-10\">\n      <div class=\"text-center\">\n        <h3 class=\"text-xl font-bold text-gray-900 mb-3\">{{service_1_title}}</h3>\n        <p class=\"text-gray-500 text-sm leading-relaxed\">{{service_1_text}}</p>\n      </div>\n      <div class=\"text-center\">\n        <h3 class=\"text-xl font-bold text-gray-900 mb-3\">{{service_2_title}}</h3>\n        <p class=\"text-gray-500 text-sm leading-relaxed\">{{service_2_text}}</p>\n      </div>\n      <div class=\"text-center\">\n        <h3 class=\"text-xl font-bold text-gray-900 mb-3\">{{service_3_title}}</h3>\n        <p class=\"text-gray-500 text-sm leading-relaxed\">{{service_3_text}}</p>\n      </div>\n    </div>\n  </div>\n</section>",
+  "schema": [
+    { "name": "service_1_title", "type": "text", "label": "Tjänst 1 – Titel", "default": "Google Ads" },
+    { "name": "service_1_text", "type": "textarea", "label": "Tjänst 1 – Beskrivning", "default": "Google Ads är en självklarhet för de flesta företag. Men visste du att Bing och andra plattformar kan ge fler konverteringar?" },
+    { "name": "service_2_title", "type": "text", "label": "Tjänst 2 – Titel", "default": "Sökmotoroptimering" },
+    { "name": "service_2_text", "type": "textarea", "label": "Tjänst 2 – Beskrivning", "default": "Sökmotoroptimering är utan tvekan ett av de som lönar sig mest — det är bara svårare att bygga." },
+    { "name": "service_3_title", "type": "text", "label": "Tjänst 3 – Titel", "default": "Webbdesign" },
+    { "name": "service_3_text", "type": "textarea", "label": "Tjänst 3 – Beskrivning", "default": "En hemsida som levererar för A och O, och en förutsättning för att kunna utvecklas." }
+  ]
+}

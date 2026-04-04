@@ -1,0 +1,13 @@
+{
+  "block_name": "lumo/contact-form",
+  "title": "Contact Form",
+  "html_template": "<section class=\"bg-gradient-to-b from-white to-cyan-100 py-16 lg:py-24\">\n  <div class=\"max-w-4xl mx-auto px-6\">\n    <h2 class=\"text-3xl font-bold text-gray-900 text-center mb-2\">{{headline}}</h2>\n    <p class=\"text-gray-500 text-sm text-center mb-10\">{{subheadline}}</p>\n    <form class=\"space-y-4\">\n      <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n        <input type=\"text\" placeholder=\"{{label_name}}\" class=\"w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-300\">\n        <input type=\"email\" placeholder=\"{{label_email}}\" class=\"w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-300\">\n      </div>\n      <textarea placeholder=\"{{label_message}}\" rows=\"5\" class=\"w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-300\"></textarea>\n      <div class=\"pt-2\">\n        <button type=\"submit\" class=\"bg-gray-900 hover:bg-gray-700 text-white font-semibold py-3 px-10 rounded-full transition\">{{submit_text}}</button>\n      </div>\n    </form>\n  </div>\n</section>",
+  "schema": [
+    { "name": "headline", "type": "text", "label": "Rubrik", "default": "Sugen på att få ett offert?" },
+    { "name": "subheadline", "type": "text", "label": "Underrubrik", "default": "Kontakta oss idag för att få en gratis offert på ert projekt!" },
+    { "name": "label_name", "type": "text", "label": "Namnfältets placeholder", "default": "Namn*" },
+    { "name": "label_email", "type": "text", "label": "E-postfältets placeholder", "default": "Email*" },
+    { "name": "label_message", "type": "text", "label": "Meddelandefältets placeholder", "default": "Berätta hur vi kan hjälpa dig *" },
+    { "name": "submit_text", "type": "text", "label": "Skicka-knappens text", "default": "Skicka" }
+  ]
+}

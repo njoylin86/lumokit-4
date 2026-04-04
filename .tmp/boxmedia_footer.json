@@ -1,0 +1,12 @@
+{
+  "block_name": "lumo/site-footer",
+  "title": "Site Footer",
+  "html_template": "<footer style=\"background:#111827;color:#9ca3af;\">\n  <div class=\"max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4\">\n    <p style=\"font-size:0.8rem;margin:0;\">{{copyright}}</p>\n    <div class=\"flex gap-6\">\n      <a href=\"{{link_1_url}}\" style=\"font-size:0.8rem;color:#9ca3af;text-decoration:none;\">{{link_1_label}}</a>\n      <a href=\"{{link_2_url}}\" style=\"font-size:0.8rem;color:#9ca3af;text-decoration:none;\">{{link_2_label}}</a>\n    </div>\n  </div>\n</footer>",
+  "schema": [
+    { "name": "copyright", "type": "text", "label": "Copyrighttext", "default": "© 2026 Boxmedia. Alla rättigheter förbehållna." },
+    { "name": "link_1_label", "type": "text", "label": "Länk 1 – Text", "default": "Integritetspolicy" },
+    { "name": "link_1_url", "type": "url", "label": "Länk 1 – URL", "default": "/integritetspolicy" },
+    { "name": "link_2_label", "type": "text", "label": "Länk 2 – Text", "default": "Cookie Policy" },
+    { "name": "link_2_url", "type": "url", "label": "Länk 2 – URL", "default": "/cookie-policy" }
+  ]
+}

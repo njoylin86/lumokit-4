@@ -1,0 +1,13 @@
+{
+  "block_name": "lumo/expertise-section",
+  "title": "Expertise Section",
+  "html_template": "<section class=\"bg-gradient-to-b from-pink-50 to-teal-50 py-16 lg:py-24\">\n  <div class=\"max-w-6xl mx-auto px-6\">\n    <div class=\"flex flex-col lg:flex-row items-center gap-12\">\n      <div class=\"lg:w-1/2 flex justify-center\">\n        <img src=\"{{section_image}}\" alt=\"Illustration\" class=\"w-full max-w-md\">\n      </div>\n      <div class=\"lg:w-1/2\">\n        <h2 class=\"text-3xl font-bold text-gray-900 mb-4\">{{headline}}</h2>\n        <p class=\"text-gray-600 text-sm leading-relaxed mb-4\">{{body_text}}</p>\n        <ul class=\"space-y-2 text-gray-600 text-sm\">\n          <li class=\"flex items-start gap-2\"><span class=\"text-pink-400 font-bold\">&#8226;</span>{{bullet_1}}</li>\n          <li class=\"flex items-start gap-2\"><span class=\"text-pink-400 font-bold\">&#8226;</span>{{bullet_2}}</li>\n          <li class=\"flex items-start gap-2\"><span class=\"text-pink-400 font-bold\">&#8226;</span>{{bullet_3}}</li>\n        </ul>\n      </div>\n    </div>\n  </div>\n</section>",
+  "schema": [
+    { "name": "headline", "type": "text", "label": "Rubrik", "default": "Proffs på digital marknadsföring" },
+    { "name": "body_text", "type": "textarea", "label": "Brödtext", "default": "Vi vet vem du är. När du anlitar oss på Boxmedia behöver du inga förkunskaper sedan tidigare. Vi förstår att digital marknadsföring kan kännas komplicerat." },
+    { "name": "bullet_1", "type": "text", "label": "Punkt 1", "default": "Vi fixar er SEO och sökmotoroptimering" },
+    { "name": "bullet_2", "type": "text", "label": "Punkt 2", "default": "Vi gör marknadsanalyser och fångar er kraft att konvertera" },
+    { "name": "bullet_3", "type": "text", "label": "Punkt 3", "default": "Vi skapar annonser och får er att synas bättre" },
+    { "name": "section_image", "type": "image", "label": "Illustration", "default": "https://placehold.co/600x600" }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "block_name": "lumo/services-grid",
+  "title": "Services Grid",
+  "html_template": "<section class=\"bg-white py-16\">\n  <div class=\"max-w-6xl mx-auto px-6\">\n    <h2 class=\"text-3xl font-bold text-gray-900 text-center mb-12\">{{section_title}}</h2>\n    <div class=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8\">\n      <div>\n        <h4 class=\"font-bold text-gray-900 mb-2\">{{service_1_title}}</h4>\n        <p class=\"text-gray-500 text-sm leading-relaxed\">{{service_1_text}}</p>\n      </div>\n      <div>\n        <h4 class=\"font-bold text-gray-900 mb-2\">{{service_2_title}}</h4>\n        <p class=\"text-gray-500 text-sm leading-relaxed\">{{service_2_text}}</p>\n      </div>\n      <div>\n        <h4 class=\"font-bold text-gray-900 mb-2\">{{service_3_title}}</h4>\n        <p class=\"text-gray-500 text-sm leading-relaxed\">{{service_3_text}}</p>\n      </div>\n      <div>\n        <h4 class=\"font-bold text-gray-900 mb-2\">{{service_4_title}}</h4>\n        <p class=\"text-gray-500 text-sm leading-relaxed\">{{service_4_text}}</p>\n      </div>\n      <div>\n        <h4 class=\"font-bold text-gray-900 mb-2\">{{service_5_title}}</h4>\n        <p class=\"text-gray-500 text-sm leading-relaxed\">{{service_5_text}}</p>\n      </div>\n      <div>\n        <h4 class=\"font-bold text-gray-900 mb-2\">{{service_6_title}}</h4>\n        <p class=\"text-gray-500 text-sm leading-relaxed\">{{service_6_text}}</p>\n      </div>\n    </div>\n  </div>\n</section>",
+  "schema": [
+    { "name": "section_title", "type": "text", "label": "Sektionsrubrik", "default": "Du kan även anlita oss för:" },
+    { "name": "service_1_title", "type": "text", "label": "Tjänst 1 – Titel", "default": "Grafisk design" },
+    { "name": "service_1_text", "type": "textarea", "label": "Tjänst 1 – Text", "default": "Logotyper, kläddesign eller förpackningsdesign? Oavsett vad du söker när det kommer till grafisk design fixar vi det!" },
+    { "name": "service_2_title", "type": "text", "label": "Tjänst 2 – Titel", "default": "Wordpress" },
+    { "name": "service_2_text", "type": "textarea", "label": "Tjänst 2 – Text", "default": "Vi kan wordpress! Behöver du en hemsida? Vi sätter rätt din webbplats uppdateras, följer best practice och förbli säker!" },
+    { "name": "service_3_title", "type": "text", "label": "Tjänst 3 – Titel", "default": "E-handel" },
+    { "name": "service_3_text", "type": "textarea", "label": "Tjänst 3 – Text", "default": "Starta E-handel och webbshop? Vi hjälper dig! Vi kan hjälpa dig med att lägga in produkter till felsortering via Woocommerce." },
+    { "name": "service_4_title", "type": "text", "label": "Tjänst 4 – Titel", "default": "Google Cloudhosting" },
+    { "name": "service_4_text", "type": "textarea", "label": "Tjänst 4 – Text", "default": "Professionell hosting genom Google. Vi hjälper era hemsidor till Google Cloud-infrastruktur, vilket ger bättre stabilitet och säkerhet." },
+    { "name": "service_5_title", "type": "text", "label": "Tjänst 5 – Titel", "default": "Marknadsföring i sociala medier" },
+    { "name": "service_5_text", "type": "textarea", "label": "Tjänst 5 – Text", "default": "Vi är vassa på sociala medier — din spjutspets för Instagram, Facebook och Meta. Producerar professionella annonser och engagemang." },
+    { "name": "service_6_title", "type": "text", "label": "Tjänst 6 – Titel", "default": "Video och foto" },
+    { "name": "service_6_text", "type": "textarea", "label": "Tjänst 6 – Text", "default": "Riktiga bilder är viktigare än någonsin. Anlita oss för att skapa professionella, cineastiska bilder och videomaterial." }
+  ]
+}
