@@ -46,6 +46,22 @@ function lumokit_register_routes() {
 		],
 	] );
 
+	register_rest_route( 'lumokit/v1', '/settings', [
+		[
+			'methods'             => WP_REST_Server::CREATABLE,
+			'callback'            => 'lumokit_save_settings',
+			'permission_callback' => 'lumokit_auth_check',
+		],
+	] );
+
+	register_rest_route( 'lumokit/v1', '/options', [
+		[
+			'methods'             => WP_REST_Server::CREATABLE,
+			'callback'            => 'lumokit_save_options',
+			'permission_callback' => 'lumokit_auth_check',
+		],
+	] );
+
 	register_rest_route( 'lumokit/v1', '/components', [
 		[
 			'methods'             => WP_REST_Server::READABLE,
@@ -55,6 +71,24 @@ function lumokit_register_routes() {
 		[
 			'methods'             => WP_REST_Server::CREATABLE,
 			'callback'            => 'lumokit_save_component',
+			'permission_callback' => 'lumokit_auth_check',
+		],
+	] );
+
+	// ---------------------------------------------------------------------------
+	// WP Code snippet management: /wp-json/lumokit/v1/snippets
+	// GET  – list all snippets created by LumoKit
+	// POST – create or update a snippet (upsert by title)
+	// ---------------------------------------------------------------------------
+	register_rest_route( 'lumokit/v1', '/snippets', [
+		[
+			'methods'             => WP_REST_Server::READABLE,
+			'callback'            => 'lumokit_get_snippets',
+			'permission_callback' => 'lumokit_auth_check',
+		],
+		[
+			'methods'             => WP_REST_Server::CREATABLE,
+			'callback'            => 'lumokit_save_snippet',
 			'permission_callback' => 'lumokit_auth_check',
 		],
 	] );
@@ -131,23 +165,58 @@ function lumokit_build_site( WP_REST_Request $request ) {
 		}
 	}
 
-	// --- Add menu items in order ---
+	// --- Add menu items in order, with optional dropdown support ---
+	// First pass: create parent group items (custom links) for any menu_parent values.
+	$parent_item_ids = []; // [ 'Tjänster' => 42, ... ]
+
 	foreach ( $pages_spec as $page_spec ) {
-		$slug  = $page_spec['slug'] ?? sanitize_title( $page_spec['title'] );
-		$page  = get_page_by_path( $slug, OBJECT, 'page' );
-		$label = $page_spec['menu_label'] ?? $page_spec['title'];
+		$parent_label = ! empty( $page_spec['menu_parent'] )
+			? sanitize_text_field( $page_spec['menu_parent'] )
+			: null;
+
+		if ( $parent_label && ! isset( $parent_item_ids[ $parent_label ] ) ) {
+			$parent_item_ids[ $parent_label ] = wp_update_nav_menu_item( $menu_id, 0, [
+				'menu-item-title'  => $parent_label,
+				'menu-item-url'    => '#',
+				'menu-item-type'   => 'custom',
+				'menu-item-status' => 'publish',
+			] );
+		}
+	}
+
+	// Second pass: create page items, nested under parent when menu_parent is set.
+	foreach ( $pages_spec as $page_spec ) {
+		$label = ! empty( $page_spec['menu_label'] ) ? $page_spec['menu_label'] : null;
+
+		// Skip pages with no menu_label and no menu_parent — they are not in the menu.
+		if ( empty( $label ) && empty( $page_spec['menu_parent'] ) ) {
+			continue;
+		}
+
+		$slug = $page_spec['slug'] ?? sanitize_title( $page_spec['title'] );
+		$page = get_page_by_path( $slug, OBJECT, 'page' );
 
 		if ( ! $page ) {
 			continue;
 		}
 
-		wp_update_nav_menu_item( $menu_id, 0, [
-			'menu-item-title'     => $label,
+		$item_args = [
+			'menu-item-title'     => $label ?? $page_spec['title'],
 			'menu-item-object'    => 'page',
 			'menu-item-object-id' => $page->ID,
 			'menu-item-type'      => 'post_type',
 			'menu-item-status'    => 'publish',
-		] );
+		];
+
+		$parent_label = ! empty( $page_spec['menu_parent'] )
+			? sanitize_text_field( $page_spec['menu_parent'] )
+			: null;
+
+		if ( $parent_label && isset( $parent_item_ids[ $parent_label ] ) ) {
+			$item_args['menu-item-parent-id'] = $parent_item_ids[ $parent_label ];
+		}
+
+		wp_update_nav_menu_item( $menu_id, 0, $item_args );
 	}
 
 	// --- Assign menu to lumokit-primary location ---
@@ -270,6 +339,72 @@ function lumokit_save_styles( WP_REST_Request $request ) {
 }
 
 /**
+ * POST /wp-json/lumokit/v1/settings
+ * Stores platform configuration as WP options. Not exposed in WP Admin.
+ * Called by build_all.py when bundle contains a "platform_config" section.
+ *
+ * Accepted fields:
+ *   platform            string  e.g. "boxmedia" or "" to clear
+ *   trustindex_script   string  raw embed script tag
+ *   booking_widget_id   string  widget ID/key
+ */
+function lumokit_save_settings( WP_REST_Request $request ) {
+	$body    = $request->get_json_params();
+	$updated = [];
+
+	$allowed = [ 'platform', 'trustindex_script', 'booking_widget_id' ];
+
+	foreach ( $allowed as $key ) {
+		if ( array_key_exists( $key, $body ) ) {
+			update_option( 'lumokit_' . $key, $body[ $key ], false );
+			$updated[] = $key;
+		}
+	}
+
+	return rest_ensure_response( [
+		'success' => true,
+		'updated' => $updated,
+	] );
+}
+
+
+/**
+ * POST /wp-json/lumokit/v1/options
+ * Sets ACF options page field values (company info etc.).
+ * Called by build_all.py when bundle contains a "global_settings" section.
+ *
+ * Body: { "site_company_name": "Acme AB", "site_phone": "08-123 456", ... }
+ */
+function lumokit_save_options( WP_REST_Request $request ) {
+	if ( ! function_exists( 'update_field' ) ) {
+		return new WP_Error( 'acf_missing', 'ACF is not active.', [ 'status' => 500 ] );
+	}
+
+	$body    = $request->get_json_params();
+	$allowed = [
+		'site_company_name',
+		'site_address',
+		'site_phone',
+		'site_email',
+		'site_opening_hours',
+	];
+	$updated = [];
+
+	foreach ( $allowed as $key ) {
+		if ( array_key_exists( $key, $body ) ) {
+			update_field( $key, $body[ $key ], 'option' );
+			$updated[] = $key;
+		}
+	}
+
+	return rest_ensure_response( [
+		'success' => true,
+		'updated' => $updated,
+	] );
+}
+
+
+/**
  * GET /wp-json/lumokit/v1/components
  */
 function lumokit_get_components( WP_REST_Request $request ) {
@@ -291,7 +426,7 @@ function lumokit_get_components( WP_REST_Request $request ) {
 function lumokit_save_component( WP_REST_Request $request ) {
 	$body = $request->get_json_params();
 
-	$required = [ 'block_name', 'title', 'html_template', 'schema' ];
+	$required = [ 'block_name', 'title', 'html_template' ];
 	foreach ( $required as $field ) {
 		if ( empty( $body[ $field ] ) ) {
 			return new WP_Error(
@@ -300,6 +435,10 @@ function lumokit_save_component( WP_REST_Request $request ) {
 				[ 'status' => 400 ]
 			);
 		}
+	}
+	// schema is optional — static/design-only components may have no ACF fields
+	if ( ! array_key_exists( 'schema', $body ) ) {
+		return new WP_Error( 'missing_field', 'Required field missing: schema', [ 'status' => 400 ] );
 	}
 
 	$block_name    = sanitize_text_field( $body['block_name'] );
@@ -328,6 +467,136 @@ function lumokit_save_component( WP_REST_Request $request ) {
 
 
 // ---------------------------------------------------------------------------
+// 1b. WP Code Snippet Management
+// ---------------------------------------------------------------------------
+
+/**
+ * GET /wp-json/lumokit/v1/snippets
+ * Returns all wpcode posts tagged as created by LumoKit.
+ */
+function lumokit_get_snippets( WP_REST_Request $request ) {
+	if ( ! post_type_exists( 'wpcode' ) ) {
+		return new WP_Error( 'wpcode_missing', 'WP Code plugin is not active.', [ 'status' => 503 ] );
+	}
+
+	$posts = get_posts( [
+		'post_type'      => 'wpcode',
+		'posts_per_page' => -1,
+		'post_status'    => [ 'publish', 'draft' ],
+		'meta_key'       => '_lumokit_managed',
+		'meta_value'     => '1',
+	] );
+
+	$snippets = [];
+	foreach ( $posts as $post ) {
+		$snippets[] = [
+			'id'       => $post->ID,
+			'title'    => $post->post_title,
+			'location' => get_post_meta( $post->ID, 'wpcode_auto_insert_location', true ),
+			'type'     => get_post_meta( $post->ID, 'wpcode_snippet_type', true ),
+			'active'   => $post->post_status === 'publish',
+		];
+	}
+
+	return rest_ensure_response( $snippets );
+}
+
+/**
+ * POST /wp-json/lumokit/v1/snippets
+ * Creates or updates a WP Code snippet (upsert by title).
+ *
+ * Expected JSON body:
+ * {
+ *   "title":    "Google Tag Manager",
+ *   "code":     "<script>...</script>",
+ *   "location": "site_wide_header",   // or "site_wide_footer", "after_post", etc.
+ *   "type":     "html",               // "html" | "php" | "css" | "js" (default: "html")
+ *   "active":   true
+ * }
+ */
+function lumokit_save_snippet( WP_REST_Request $request ) {
+	if ( ! post_type_exists( 'wpcode' ) ) {
+		return new WP_Error( 'wpcode_missing', 'WP Code plugin is not active.', [ 'status' => 503 ] );
+	}
+
+	$body = $request->get_json_params();
+
+	if ( empty( $body['title'] ) || empty( $body['code'] ) ) {
+		return new WP_Error( 'missing_field', 'Required fields: title, code', [ 'status' => 400 ] );
+	}
+
+	$title    = sanitize_text_field( $body['title'] );
+	$code     = $body['code'];
+	$location = sanitize_text_field( $body['location'] ?? 'site_wide_header' );
+	$type     = sanitize_text_field( $body['type'] ?? 'html' );
+	$active   = ! empty( $body['active'] );
+	$status   = $active ? 'publish' : 'draft';
+
+	// Upsert: find existing LumoKit-managed snippet with same title
+	$existing = get_posts( [
+		'post_type'   => 'wpcode',
+		'title'       => $title,
+		'post_status' => [ 'publish', 'draft' ],
+		'numberposts' => 1,
+		'meta_key'    => '_lumokit_managed',
+		'meta_value'  => '1',
+	] );
+
+	$post_id = null;
+	$is_update = false;
+
+	// Bypass kses content filters so PHP/HTML snippet code is stored verbatim.
+	kses_remove_filters();
+
+	if ( ! empty( $existing ) ) {
+		$post_id   = $existing[0]->ID;
+		$is_update = true;
+		wp_update_post( [
+			'ID'           => $post_id,
+			'post_content' => $code,
+			'post_status'  => $status,
+		] );
+	} else {
+		$post_id = wp_insert_post( [
+			'post_title'   => $title,
+			'post_content' => $code,
+			'post_type'    => 'wpcode',
+			'post_status'  => $status,
+		] );
+
+		if ( is_wp_error( $post_id ) ) {
+			kses_init_filters();
+			return new WP_Error( 'insert_failed', $post_id->get_error_message(), [ 'status' => 500 ] );
+		}
+	}
+
+	kses_init_filters();
+
+	// Set WP Code meta fields
+	update_post_meta( $post_id, 'wpcode_snippet_type', $type );
+	update_post_meta( $post_id, 'wpcode_auto_insert_location', $location );
+	update_post_meta( $post_id, 'wpcode_auto_insert', $active ? 1 : 0 );
+
+	// WP Code also stores snippet type as a taxonomy term (wpcode_type)
+	if ( taxonomy_exists( 'wpcode_type' ) ) {
+		wp_set_object_terms( $post_id, $type, 'wpcode_type' );
+	}
+
+	// Mark as LumoKit-managed so we can filter/list them
+	update_post_meta( $post_id, '_lumokit_managed', '1' );
+
+	return rest_ensure_response( [
+		'success'   => true,
+		'id'        => $post_id,
+		'title'     => $title,
+		'location'  => $location,
+		'active'    => $active,
+		'message'   => $is_update ? 'Snippet updated.' : 'Snippet created.',
+	] );
+}
+
+
+// ---------------------------------------------------------------------------
 // 2. Dynamic ACF & Block Registration
 //    Runs on acf/init – loops all saved components and registers:
 //      a) A Gutenberg block via acf_register_block_type()  (skipped for header/footer)
@@ -346,14 +615,127 @@ function lumokit_register_dynamic_blocks() {
 		return;
 	}
 
-	// Register ACF Options Page for header/footer editing
+	// Register ACF Options Pages
 	if ( function_exists( 'acf_add_options_page' ) ) {
+		// Parent menu item
 		acf_add_options_page( [
-			'page_title' => 'LumoKit — Header & Footer',
-			'menu_title' => 'Header & Footer',
-			'menu_slug'  => 'lumokit-global',
+			'page_title' => 'LumoKit',
+			'menu_title' => 'LumoKit',
+			'menu_slug'  => 'lumokit-menu',
 			'capability' => 'edit_posts',
 			'icon_url'   => 'dashicons-star-filled',
+			'redirect'   => false,
+		] );
+
+		// Sub-page: Header & Footer
+		acf_add_options_sub_page( [
+			'page_title'  => 'LumoKit — Header & Footer',
+			'menu_title'  => 'Header & Footer',
+			'menu_slug'   => 'lumokit-global',
+			'parent_slug' => 'lumokit-menu',
+			'capability'  => 'edit_posts',
+		] );
+
+		// Sub-page: Global Settings
+		acf_add_options_sub_page( [
+			'page_title'  => 'LumoKit — Inställningar',
+			'menu_title'  => 'Inställningar',
+			'menu_slug'   => 'lumokit-settings',
+			'parent_slug' => 'lumokit-menu',
+			'capability'  => 'edit_posts',
+		] );
+	}
+
+	// Register global settings fields.
+	// Base fields are always shown. Platform-specific fields are appended
+	// only when a platform is active — labels are intentionally neutral.
+	if ( function_exists( 'acf_add_local_field_group' ) ) {
+		$settings_fields = [
+			[
+				'key'   => 'field_lumo_settings_tab_company',
+				'label' => 'Företagsinformation',
+				'name'  => '',
+				'type'  => 'tab',
+			],
+			[
+				'key'           => 'field_lumo_site_company_name',
+				'name'          => 'site_company_name',
+				'label'         => 'Företagsnamn',
+				'type'          => 'text',
+				'default_value' => '',
+			],
+			[
+				'key'           => 'field_lumo_site_address',
+				'name'          => 'site_address',
+				'label'         => 'Adress',
+				'type'          => 'textarea',
+				'rows'          => 3,
+				'default_value' => '',
+			],
+			[
+				'key'           => 'field_lumo_site_phone',
+				'name'          => 'site_phone',
+				'label'         => 'Telefon',
+				'type'          => 'text',
+				'default_value' => '',
+			],
+			[
+				'key'           => 'field_lumo_site_email',
+				'name'          => 'site_email',
+				'label'         => 'E-post',
+				'type'          => 'text',
+				'default_value' => '',
+			],
+			[
+				'key'          => 'field_lumo_site_opening_hours',
+				'name'         => 'site_opening_hours',
+				'label'        => 'Öppettider',
+				'type'         => 'textarea',
+				'rows'         => 4,
+				'default_value' => '',
+				'instructions' => 'T.ex. Mån–Fre 08–17, Lör 10–14',
+			],
+		];
+
+		// Append integration fields when a platform is active.
+		// These fields have neutral labels — no platform name is exposed to the client.
+		if ( get_option( 'lumokit_platform', '' ) !== '' ) {
+			$settings_fields[] = [
+				'key'   => 'field_lumo_settings_tab_integrations',
+				'label' => 'Integrationer',
+				'name'  => '',
+				'type'  => 'tab',
+			];
+			$settings_fields[] = [
+				'key'          => 'field_lumo_site_trustindex_script',
+				'name'         => 'site_trustindex_script',
+				'label'        => 'Recensionswidget',
+				'type'         => 'textarea',
+				'rows'         => 5,
+				'instructions' => 'Embed-kod för recensionswidgeten. Laddas automatiskt på alla sidor.',
+			];
+			$settings_fields[] = [
+				'key'          => 'field_lumo_site_booking_widget_id',
+				'name'         => 'site_booking_widget_id',
+				'label'        => 'Bokningsmodul — ID',
+				'type'         => 'text',
+				'instructions' => 'ID-nyckel för bokningsmodulen.',
+			];
+		}
+
+		acf_add_local_field_group( [
+			'key'      => 'group_lumokit_global_settings',
+			'title'    => 'Inställningar',
+			'fields'   => $settings_fields,
+			'location' => [
+				[
+					[
+						'param'    => 'options_page',
+						'operator' => '==',
+						'value'    => 'lumokit-settings',
+					],
+				],
+			],
 		] );
 	}
 
@@ -415,12 +797,93 @@ function lumokit_register_dynamic_blocks() {
 			] );
 		}
 	}
+
+	// -------------------------------------------------------------------------
+	// Boxmedia: per-page ACF field for booking treatment ID.
+	// Only registered when platform is boxmedia.
+	// -------------------------------------------------------------------------
+	if ( get_option( 'lumokit_platform', '' ) === 'boxmedia' && function_exists( 'acf_add_local_field_group' ) ) {
+		acf_add_local_field_group( [
+			'key'    => 'group_boxmedia_booking',
+			'title'  => 'Bokning',
+			'fields' => [
+				[
+					'key'          => 'field_boxmedia_treatment_id',
+					'name'         => 'booking_treatment_id',
+					'label'        => 'Treatment ID',
+					'type'         => 'number',
+					'instructions' => 'Numeriskt ID för behandlingen. Lämna tomt för att visa standardwidgeten utan förvald behandling.',
+					'required'     => 0,
+					'min'          => '',
+					'max'          => '',
+					'step'         => 1,
+				],
+			],
+			'location' => [
+				[
+					[
+						'param'    => 'post_type',
+						'operator' => '==',
+						'value'    => 'page',
+					],
+				],
+			],
+		] );
+	}
 }
 
 function lumokit_block_short_name( $block_name ) {
 	$parts = explode( '/', $block_name );
 	return end( $parts );
 }
+
+// ---------------------------------------------------------------------------
+// 3. Boxmedia: Booking widget injection (before footer)
+//    Outputs the booking widget div on all pages when platform is boxmedia.
+//    Per-page treatment ID comes from the ACF field "booking_treatment_id".
+// ---------------------------------------------------------------------------
+
+add_action( 'wp_footer', 'lumokit_inject_booking_widget', 5 );
+
+function lumokit_inject_booking_widget() {
+	if ( get_option( 'lumokit_platform', '' ) !== 'boxmedia' ) {
+		return;
+	}
+
+	if ( ! function_exists( 'get_field' ) ) {
+		return;
+	}
+
+	$treatment_id   = get_field( 'booking_treatment_id', get_the_ID() );
+	$treatment_attr = $treatment_id ? esc_attr( $treatment_id ) : '';
+	?>
+	<div id="tdl-booking-widget" data-treatment="<?php echo $treatment_attr; ?>"></div>
+	<script>
+	const t = document.getElementById('tdl-booking-widget')?.dataset.treatment;
+	if (t) window.tdlWidgetConfig.treatmentIds = [t];
+	</script>
+	<?php
+}
+
+
+// ---------------------------------------------------------------------------
+// Filter: return default_value when a LumoKit field has no saved value.
+// Runs on both frontend (get_field) and in the Gutenberg editor.
+// ---------------------------------------------------------------------------
+
+add_filter( 'acf/load_value', 'lumokit_acf_load_default', 10, 3 );
+
+function lumokit_acf_load_default( $value, $post_id, $field ) {
+	if ( ! empty( $value ) ) {
+		return $value;
+	}
+	// Scope to LumoKit fields only (keys start with "field_lumo")
+	if ( strpos( $field['key'], 'field_lumo' ) !== 0 ) {
+		return $value;
+	}
+	return ! empty( $field['default_value'] ) ? $field['default_value'] : $value;
+}
+
 
 function lumokit_schema_to_acf_fields( array $schema, $block_name ) {
 	$fields      = [];
@@ -436,11 +899,18 @@ function lumokit_schema_to_acf_fields( array $schema, $block_name ) {
 			$type = 'text';
 		}
 
+		// default_value pre-fills the field in the Gutenberg editor.
+		// Skip for image (needs attachment ID, not URL) and nav_menu fields.
+		$default_value = ( $type !== 'image' && $type !== 'nav_menu' )
+			? ( $field_def['default'] ?? '' )
+			: '';
+
 		$fields[] = [
-			'key'   => 'field_' . $slug_prefix . '_' . $name,
-			'name'  => $name,
-			'label' => $label,
-			'type'  => $type,
+			'key'           => 'field_' . $slug_prefix . '_' . $name,
+			'name'          => $name,
+			'label'         => $label,
+			'type'          => $type,
+			'default_value' => $default_value,
 		];
 	}
 
@@ -449,7 +919,52 @@ function lumokit_schema_to_acf_fields( array $schema, $block_name ) {
 
 
 // ---------------------------------------------------------------------------
-// 3. Block Render Callback
+// 3. Global Settings Helper
+//    Returns mustache replacements for all {{site_*}} variables.
+//    Available in every component — both regular blocks and header/footer.
+// ---------------------------------------------------------------------------
+
+function lumokit_get_global_replacements() {
+	// ACF fields from the client-visible options page
+	$acf_fields = [
+		'site_company_name',
+		'site_address',
+		'site_phone',
+		'site_email',
+		'site_opening_hours',
+	];
+
+	$replacements = [];
+
+	if ( function_exists( 'get_field' ) ) {
+		foreach ( $acf_fields as $field ) {
+			$value = get_field( $field, 'option' );
+			$replacements[ '{{' . $field . '}}' ] = $value ?: '';
+		}
+	}
+
+	// Platform flag — set by builder, stored as hidden WP option
+	$platform = get_option( 'lumokit_platform', '' );
+
+	if ( $platform === 'boxmedia' ) {
+		$replacements['{{site_booking_cta_link}}'] = '#tdl-booking-widget';
+	} else {
+		$replacements['{{site_booking_cta_link}}'] = '#';
+	}
+
+	// Integration fields — editable by client in WP Admin when platform is active,
+	// but only injected/used when platform is set.
+	if ( $platform !== '' && function_exists( 'get_field' ) ) {
+		$replacements['{{site_trustindex_script}}']  = get_field( 'site_trustindex_script', 'option' ) ?: '';
+		$replacements['{{site_booking_widget_id}}']  = get_field( 'site_booking_widget_id', 'option' ) ?: '';
+	}
+
+	return $replacements;
+}
+
+
+// ---------------------------------------------------------------------------
+// 4. Block Render Callback
 // ---------------------------------------------------------------------------
 
 function lumokit_render_block( $block, $content = '', $is_preview = false ) {
@@ -502,6 +1017,9 @@ function lumokit_render_block( $block, $content = '', $is_preview = false ) {
 		$replacements[ '{{' . $name . '}}' ] = $value ?? '';
 	}
 
+	// Merge global {{site_*}} variables — available in every block
+	$replacements = array_merge( lumokit_get_global_replacements(), $replacements );
+
 	$output = str_replace(
 		array_keys( $replacements ),
 		array_values( $replacements ),
@@ -514,7 +1032,7 @@ function lumokit_render_block( $block, $content = '', $is_preview = false ) {
 
 
 // ---------------------------------------------------------------------------
-// 4. Register nav menu locations
+// 5. Register nav menu locations
 // ---------------------------------------------------------------------------
 
 add_action( 'init', 'lumokit_register_menus' );
@@ -527,7 +1045,7 @@ function lumokit_register_menus() {
 
 
 // ---------------------------------------------------------------------------
-// 5. Strip theme header/footer via output buffering
+// 8. Strip theme header/footer via output buffering
 // ---------------------------------------------------------------------------
 
 add_action( 'template_redirect', 'lumokit_start_buffer' );
@@ -537,18 +1055,25 @@ function lumokit_start_buffer() {
 }
 
 function lumokit_strip_theme_chrome( $html ) {
-	// Remove BlankSlate's <header id="header">...</header>
+	// Remove theme headers
 	$html = preg_replace( '/<header\s[^>]*id=["\']header["\'][^>]*>.*?<\/header>/is', '', $html );
-	// Remove BlankSlate's <footer id="footer">...</footer>
-	$html = preg_replace( '/<footer\s[^>]*id=["\']footer["\'][^>]*>.*?<\/footer>/is', '', $html );
-	// Remove page title header (<header class="header">)
 	$html = preg_replace( '/<header\s[^>]*class=["\']header["\'][^>]*>.*?<\/header>/is', '', $html );
+	// Remove theme footers
+	$html = preg_replace( '/<footer\s[^>]*id=["\']footer["\'][^>]*>.*?<\/footer>/is', '', $html );
+	// Remove sidebars and widget areas (all common patterns)
+	$html = preg_replace( '/<aside\b[^>]*>.*?<\/aside>/is', '', $html );
+	$html = preg_replace( '/<div\s[^>]*id=["\']sidebar["\'][^>]*>.*?<\/div>/is', '', $html );
+	$html = preg_replace( '/<div\s[^>]*id=["\']secondary["\'][^>]*>.*?<\/div>/is', '', $html );
+	$html = preg_replace( '/<div\s[^>]*class=["\'][^"\']*widget-area[^"\']*["\'][^>]*>.*?<\/div>/is', '', $html );
+	$html = preg_replace( '/<div\s[^>]*class=["\'][^"\']*widgets[^"\']*["\'][^>]*>.*?<\/div>/is', '', $html );
+	// Remove empty paragraphs and leftover theme wrappers
+	$html = preg_replace( '/<p>\s*<\/p>/is', '', $html );
 	return $html;
 }
 
 
 // ---------------------------------------------------------------------------
-// 5. Inject Header & Footer on every page
+// 9. Inject Header & Footer on every page
 // ---------------------------------------------------------------------------
 
 add_action( 'wp_body_open', 'lumokit_inject_header' );
@@ -620,6 +1145,9 @@ function lumokit_render_injected( $block_name ) {
 		$replacements[ '{{' . $name . '}}' ] = $value ?? '';
 	}
 
+	// Merge global {{site_*}} variables — available in header/footer too
+	$replacements = array_merge( lumokit_get_global_replacements(), $replacements );
+
 	$output = str_replace(
 		array_keys( $replacements ),
 		array_values( $replacements ),
@@ -632,7 +1160,36 @@ function lumokit_render_injected( $block_name ) {
 
 
 // ---------------------------------------------------------------------------
-// 6. Enqueue compiled Tailwind CSS on the frontend
+// 6. Inject global widgets (Trustindex, Booking) on every page
+// ---------------------------------------------------------------------------
+
+add_action( 'wp_footer', 'lumokit_inject_global_widgets', 5 );
+
+function lumokit_inject_global_widgets() {
+	$platform = get_option( 'lumokit_platform', '' );
+
+	if ( $platform === 'boxmedia' ) {
+		// Read from ACF options — the client can update these in WP Admin → Inställningar
+		$trustindex_script = function_exists( 'get_field' ) ? get_field( 'site_trustindex_script', 'option' ) : '';
+		$booking_widget_id = function_exists( 'get_field' ) ? get_field( 'site_booking_widget_id', 'option' ) : '';
+
+		// Trustindex: output the raw embed script globally
+		if ( ! empty( $trustindex_script ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo "\n" . $trustindex_script . "\n";
+		}
+
+		// Boxmedia booking widget: renders before the footer on all pages
+		if ( ! empty( $booking_widget_id ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<div id="tdl-booking-widget" style="width:100%;text-align:center;padding:40px 24px;" data-widget-id="' . esc_attr( $booking_widget_id ) . '"></div>' . "\n";
+		}
+	}
+}
+
+
+// ---------------------------------------------------------------------------
+// 7. Enqueue compiled Tailwind CSS on the frontend
 // ---------------------------------------------------------------------------
 
 add_action( 'wp_head', 'lumokit_output_styles' );
@@ -641,11 +1198,34 @@ function lumokit_output_styles() {
 	$css = get_option( LUMOKIT_CSS_OPTION_KEY, '' );
 	echo '<style id="lumokit-styles">' . $css . '</style>' . "\n";
 	echo '<style id="lumokit-reset">body{margin:0;}</style>' . "\n";
+	echo '<style id="lumokit-nav">
+			nav ul{list-style:none!important;margin:0!important;padding:0!important;}
+			nav li{display:inline-block!important;position:relative;margin:0 10px!important;}
+			nav li:first-child{margin-left:0!important;}
+			nav li:last-child{margin-right:0!important;}
+			nav a{text-decoration:none;color:inherit!important;}
+			nav .sub-menu{
+				display:none!important;
+				position:absolute;
+				top:100%;
+				left:0;
+				min-width:180px;
+				padding:8px 0;
+				z-index:1000;
+				background:#ffffff;
+				border:1px solid rgba(0,0,0,0.08);
+				border-radius:4px;
+				box-shadow:0 4px 16px rgba(0,0,0,0.1);
+			}
+			nav li:hover>.sub-menu{display:block!important;}
+			nav .sub-menu li{display:block!important;width:100%;margin:0!important;}
+			nav .sub-menu a{display:block;padding:10px 18px;}
+		</style>' . "\n";
 }
 
 
 // ---------------------------------------------------------------------------
-// 5. Register a custom block category for LumoKit blocks in the editor
+// 10. Register a custom block category for LumoKit blocks in the editor
 // ---------------------------------------------------------------------------
 
 add_filter( 'block_categories_all', 'lumokit_register_block_category', 10, 2 );
