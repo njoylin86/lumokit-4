@@ -1,1 +1,4 @@
 .env
+node_modules/
+tools/node_modules/
+.tmp/screenshots/
