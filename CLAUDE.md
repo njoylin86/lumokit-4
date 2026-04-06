@@ -14,6 +14,8 @@ You operate strictly within the WAT framework. Probabilistic AI (you) handles re
 **Layer 1: Workflows (The Instructions)**
 - Markdown SOPs stored in `workflows/` (or referenced below in this document).
 - Read these to understand exactly how to design a component, what Tailwind classes are allowed, and how the ACF schemas should be formatted.
+- `workflows/build_site_structure.md` — **Start here for any new client build.** Covers: brief → component audit → page spec → `build_site.py`.
+- `workflows/design_engine_prd.md` — Component design from screenshots. Called as a sub-step by `build_site_structure.md` when new components are needed.
 
 **Layer 2: Agents (The Decision-Maker - YOU)**
 - Read the client brief and the relevant workflows.
@@ -26,6 +28,21 @@ You operate strictly within the WAT framework. Probabilistic AI (you) handles re
 - `tools/compile_tailwind.py`: Compiles the JIT Tailwind CSS locally.
 - `tools/push_to_wp.py`: Handles authentication and safely pushes JSON payloads to the WordPress REST API.
 - `tools/pull_from_wp.py`: Fetches the current state of a component.
+
+## KRITISK REGEL — Komponentdesign från referensbilder
+
+**Skriv ALDRIG HTML för en komponent utan att först ha läst referensbilden och redovisat analysen i chatten.**
+
+Flödet är alltid:
+1. Läs referensbilden med `Read`-verktyget
+2. Skriv ut bildanalysen i chatten (layout, färger, typografi, spacing per sektion)
+3. Vänta — användaren ska kunna se analysen innan HTML genereras
+4. Skriv HTML först efter att analysen är redovisad
+
+Om ingen referensbild finns — fråga användaren innan du fortsätter.
+Att gissa eller skriva "generiska" komponenter utan bildanalys är **alltid fel**.
+
+---
 
 ## Core Rules of Operation
 
