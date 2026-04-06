@@ -1,0 +1,223 @@
+{
+  "site_name": "Mellanströms Tandklinik",
+  "platform_config": {
+    "platform": "boxmedia"
+  },
+  "components": [
+    {
+      "block_name": "lumo/site-header",
+      "title": "Site Header",
+      "html_template": "<style>@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');body,body *{font-family:'Inter',sans-serif!important;}body h1,body h2,body h3,body h4{font-family:'Space Grotesk',sans-serif!important;}</style><header style=\"background:#0d0d0d;padding:0 24px;position:sticky;top:0;z-index:999;\"><div style=\"max-width:72rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:68px;\"><a href=\"/\" style=\"font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:700;color:#ffffff;text-decoration:none;text-transform:uppercase;letter-spacing:0.06em;\">{{logo_text}}</a><nav style=\"color:#ffffff;\">{{lumokit-primary}}</nav><a href=\"{{cta_link}}\" style=\"background:#00e676;color:#0d0d0d;font-weight:700;font-size:0.88rem;padding:10px 22px;border-radius:24px;text-decoration:none;white-space:nowrap;\">{{cta_text}}</a></div></header>",
+      "schema": [
+        {
+          "name": "logo_text",
+          "type": "text",
+          "label": "Logotyptext",
+          "default": "Mellanströms Tandklinik"
+        },
+        {
+          "name": "lumokit-primary",
+          "type": "nav_menu",
+          "label": "Primär meny"
+        },
+        {
+          "name": "cta_text",
+          "type": "text",
+          "label": "Knapptext",
+          "default": "Boka tid"
+        },
+        {
+          "name": "cta_link",
+          "type": "url",
+          "label": "Knapplänk",
+          "default": "#tdl-booking-widget"
+        }
+      ]
+    },
+    {
+      "block_name": "lumo/site-footer",
+      "title": "Site Footer",
+      "html_template": "<footer style=\"background:#0d0d0d;padding:64px 24px 0;\"><div style=\"max-width:72rem;margin:0 auto;\"><div style=\"display:grid;grid-template-columns:repeat(4,1fr);gap:40px;padding-bottom:48px;\"><div><p style=\"font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#00e676;margin:0 0 16px;\">Klinik</p><ul style=\"list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;\"><li><a href=\"/\" style=\"color:#9ca3af;font-size:0.88rem;text-decoration:none;\">Startsida</a></li><li><a href=\"/om-oss\" style=\"color:#9ca3af;font-size:0.88rem;text-decoration:none;\">Om oss</a></li><li><a href=\"/kontakta-oss\" style=\"color:#9ca3af;font-size:0.88rem;text-decoration:none;\">Kontakta oss</a></li></ul></div><div><p style=\"font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#00e676;margin:0 0 16px;\">Behandlingar</p><ul style=\"list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;\"><li><a href=\"/behandlingar/akuttandvard\" style=\"color:#9ca3af;font-size:0.88rem;text-decoration:none;\">Akuttandvård</a></li><li><a href=\"/behandlingar/kirurgi\" style=\"color:#9ca3af;font-size:0.88rem;text-decoration:none;\">Kirurgi</a></li></ul></div><div><p style=\"font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#00e676;margin:0 0 16px;\">Kontakt</p><ul style=\"list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;\"><li><a href=\"tel:{{site_phone}}\" style=\"color:#9ca3af;font-size:0.88rem;text-decoration:none;\">{{site_phone}}</a></li><li><a href=\"mailto:{{site_email}}\" style=\"color:#9ca3af;font-size:0.88rem;text-decoration:none;\">{{site_email}}</a></li></ul></div><div><p style=\"font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#00e676;margin:0 0 16px;\">Adress</p><p style=\"color:#9ca3af;font-size:0.88rem;line-height:1.7;margin:0 0 16px;white-space:pre-line;\">{{site_address}}</p><p style=\"font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#00e676;margin:0 0 8px;\">Öppettider</p><p style=\"color:#9ca3af;font-size:0.88rem;line-height:1.7;margin:0;white-space:pre-line;\">{{site_opening_hours}}</p></div></div><div style=\"border-top:1px solid rgba(255,255,255,0.08);\"></div><div style=\"display:flex;align-items:center;justify-content:space-between;padding:24px 0;\"><div style=\"display:flex;gap:20px;align-items:center;\"><a href=\"{{facebook_url}}\" style=\"color:#6b7280;font-size:0.8rem;text-decoration:none;\">Facebook</a><a href=\"{{instagram_url}}\" style=\"color:#6b7280;font-size:0.8rem;text-decoration:none;\">Instagram</a><a href=\"{{linkedin_url}}\" style=\"color:#6b7280;font-size:0.8rem;text-decoration:none;\">LinkedIn</a></div><p style=\"color:#4b5563;font-size:0.78rem;margin:0;\">© {{year}} {{site_company_name}}</p></div><div style=\"border-top:1px solid rgba(255,255,255,0.08);\"></div><div style=\"padding:24px 0 32px;\"><p style=\"font-family:'Space Grotesk',sans-serif;font-size:clamp(3rem,8vw,7rem);font-weight:700;color:#ffffff;margin:0;line-height:1;text-transform:uppercase;letter-spacing:-0.02em;opacity:0.15;\">{{logo_text}}</p></div></div></footer>",
+      "schema": [
+        {
+          "name": "logo_text",
+          "type": "text",
+          "label": "Logotyptext",
+          "default": "Mellanströms Tandklinik"
+        },
+        {
+          "name": "year",
+          "type": "text",
+          "label": "År",
+          "default": "2025"
+        },
+        {
+          "name": "facebook_url",
+          "type": "url",
+          "label": "Facebook-länk",
+          "default": "#"
+        },
+        {
+          "name": "instagram_url",
+          "type": "url",
+          "label": "Instagram-länk",
+          "default": "#"
+        },
+        {
+          "name": "linkedin_url",
+          "type": "url",
+          "label": "LinkedIn-länk",
+          "default": "#"
+        }
+      ]
+    },
+    {
+      "block_name": "lumo/vt-page-hero",
+      "title": "Behandlingssida Hero (med punchlines)",
+      "html_template": "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200\"/><section style=\"background:#0d0d0d;padding:80px 24px;\"><div style=\"max-width:72rem;margin:0 auto;\"><p style=\"font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.14em;color:#00e676;margin:0 0 16px;\">{{eyebrow}}</p><h1 style=\"font-size:clamp(2rem,4vw,3.2rem);font-weight:700;color:#ffffff;margin:0 0 28px;line-height:1.1;max-width:640px;\">{{headline}}</h1><ul style=\"list-style:none;padding:0;margin:0 0 36px;display:flex;flex-direction:column;gap:10px;\"><li style=\"display:flex;align-items:center;gap:10px;color:#ffffff;font-size:1rem;\"><span class=\"material-symbols-outlined\" style=\"font-size:20px;color:#00e676;\">check_circle</span>{{punchline_1}}</li><li style=\"display:flex;align-items:center;gap:10px;color:#ffffff;font-size:1rem;\"><span class=\"material-symbols-outlined\" style=\"font-size:20px;color:#00e676;\">check_circle</span>{{punchline_2}}</li><li style=\"display:flex;align-items:center;gap:10px;color:#ffffff;font-size:1rem;\"><span class=\"material-symbols-outlined\" style=\"font-size:20px;color:#00e676;\">check_circle</span>{{punchline_3}}</li><li style=\"display:flex;align-items:center;gap:10px;color:#ffffff;font-size:1rem;\"><span class=\"material-symbols-outlined\" style=\"font-size:20px;color:#00e676;\">check_circle</span>{{punchline_4}}</li></ul><div style=\"display:flex;gap:16px;flex-wrap:wrap;\"><a href=\"{{site_booking_cta_link}}\" style=\"display:inline-block;background:#00e676;color:#0d0d0d;font-weight:700;font-size:0.95rem;padding:14px 32px;border-radius:24px;text-decoration:none;\">{{cta_text}}</a><a href=\"{{cta_2_link}}\" style=\"display:inline-block;background:transparent;color:#ffffff;font-weight:600;font-size:0.95rem;padding:14px 32px;border-radius:24px;text-decoration:none;border:2px solid rgba(255,255,255,0.3);\">{{cta_2_text}}</a></div></div></section>",
+      "schema": [
+        {
+          "name": "eyebrow",
+          "type": "text",
+          "label": "Etikett",
+          "default": "Mellanströms Tandklinik"
+        },
+        {
+          "name": "headline",
+          "type": "text",
+          "label": "Rubrik",
+          "default": "Behandling"
+        },
+        {
+          "name": "punchline_1",
+          "type": "text",
+          "label": "USP 1",
+          "default": "Erfarna tandläkare"
+        },
+        {
+          "name": "punchline_2",
+          "type": "text",
+          "label": "USP 2",
+          "default": "Ingen remiss krävs"
+        },
+        {
+          "name": "punchline_3",
+          "type": "text",
+          "label": "USP 3",
+          "default": "Flexibla tider"
+        },
+        {
+          "name": "punchline_4",
+          "type": "text",
+          "label": "USP 4",
+          "default": "Tandvårdskort godkänt"
+        },
+        {
+          "name": "cta_text",
+          "type": "text",
+          "label": "Knapptext 1",
+          "default": "Boka tid"
+        },
+        {
+          "name": "cta_2_text",
+          "type": "text",
+          "label": "Knapptext 2",
+          "default": "Ring oss"
+        },
+        {
+          "name": "cta_2_link",
+          "type": "url",
+          "label": "Knapplänk 2",
+          "default": "#"
+        }
+      ]
+    },
+    {
+      "block_name": "lumo/ms-inner-hero",
+      "title": "Enkel sidhero (utan punchlines)",
+      "html_template": "<section style=\"background:#0d0d0d;padding:80px 24px;\"><div style=\"max-width:72rem;margin:0 auto;\"><p style=\"font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.14em;color:#00e676;margin:0 0 16px;\">{{eyebrow}}</p><h1 style=\"font-size:clamp(2rem,4vw,3.2rem);font-weight:700;color:#ffffff;margin:0 0 16px;line-height:1.1;max-width:640px;\">{{headline}}</h1><p style=\"font-size:1.05rem;color:#9ca3af;margin:0;max-width:540px;line-height:1.6;\">{{subheadline}}</p></div></section>",
+      "schema": [
+        {
+          "name": "eyebrow",
+          "type": "text",
+          "label": "Etikett",
+          "default": "Mellanströms Tandklinik"
+        },
+        {
+          "name": "headline",
+          "type": "text",
+          "label": "Rubrik",
+          "default": "Om oss"
+        },
+        {
+          "name": "subheadline",
+          "type": "text",
+          "label": "Underrubrik",
+          "default": ""
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "title": "Hem",
+      "slug": "hem",
+      "menu_label": "Start",
+      "blocks": [
+        "lumo/vt-hero",
+        "lumo/vt-how",
+        "lumo/vt-treatments",
+        "lumo/vt-cta-green",
+        "lumo/vt-faq"
+      ]
+    },
+    {
+      "title": "Om oss",
+      "slug": "om-oss",
+      "menu_label": "Om oss",
+      "blocks": [
+        "lumo/ms-inner-hero",
+        "lumo/vt-about",
+        "lumo/vt-cta-green"
+      ]
+    },
+    {
+      "title": "Akuttandvård",
+      "slug": "behandlingar/akuttandvard",
+      "menu_label": "Akuttandvård",
+      "menu_parent": "Behandlingar",
+      "blocks": [
+        "lumo/vt-page-hero",
+        "lumo/vt-treatment-detail",
+        "lumo/vt-cta-green"
+      ]
+    },
+    {
+      "title": "Kirurgi",
+      "slug": "behandlingar/kirurgi",
+      "menu_label": "Kirurgi",
+      "menu_parent": "Behandlingar",
+      "blocks": [
+        "lumo/vt-page-hero",
+        "lumo/vt-treatment-detail",
+        "lumo/vt-cta-green"
+      ]
+    },
+    {
+      "title": "Kontakta oss",
+      "slug": "kontakta-oss",
+      "menu_label": "Kontakt",
+      "blocks": [
+        "lumo/ms-inner-hero",
+        "lumo/vt-contact"
+      ]
+    }
+  ],
+  "global_settings": {
+    "site_company_name": "Mellanströms Tandklinik",
+    "site_address": "Mellanströmsvägen 12\n123 45 Stockholm",
+    "site_phone": "08-123 456 78",
+    "site_email": "info@mellanstromstandklinik.se",
+    "site_opening_hours": "Mån–Fre 08:00–17:00\nLör 10:00–14:00\nSön Stängt"
+  }
+}
