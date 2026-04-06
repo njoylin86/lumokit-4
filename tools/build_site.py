@@ -39,11 +39,26 @@ load_dotenv(ROOT / ".env")
 WP_URL          = os.getenv("WP_URL", "").rstrip("/")
 WP_USERNAME     = os.getenv("WP_USERNAME", "")
 WP_APP_PASSWORD = os.getenv("WP_APP_PASSWORD", "")
+WP_ENV          = os.getenv("WP_ENV", "development").strip().lower()
 
 ENDPOINT = f"{WP_URL}/wp-json/lumokit/v1/site"
 
 
-def build_site(spec_path: str) -> None:
+def check_env_guard(allow_production: bool) -> None:
+    """Block accidental writes to production unless --production flag is passed."""
+    if WP_ENV == "production" and not allow_production:
+        print(f"[BLOCKED] WP_ENV is set to 'production' in .env")
+        print(f"          Target: {WP_URL}")
+        print(f"          Refusing to build without explicit --production flag.")
+        print(f"          If you are sure, re-run with: --production")
+        sys.exit(1)
+    if WP_ENV == "production" and allow_production:
+        print(f"[WARN] Building on PRODUCTION: {WP_URL}")
+
+
+def build_site(spec_path: str, allow_production: bool = False) -> None:
+    check_env_guard(allow_production)
+
     path = Path(spec_path)
     if not path.exists():
         print(f"[ERROR] File not found: {spec_path}")
@@ -81,7 +96,8 @@ def build_site(spec_path: str) -> None:
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python tools/build_site.py <path_to_site_spec.json>")
+        print("Usage: python tools/build_site.py <path_to_site_spec.json> [--production]")
         sys.exit(1)
 
-    build_site(sys.argv[1])
+    allow_production = "--production" in sys.argv
+    build_site(sys.argv[1], allow_production=allow_production)

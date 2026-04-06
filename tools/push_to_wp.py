@@ -23,14 +23,29 @@ from dotenv import load_dotenv
 ROOT = Path(__file__).resolve().parent.parent
 load_dotenv(ROOT / ".env")
 
-WP_URL      = os.getenv("WP_URL", "").rstrip("/")
-WP_USERNAME = os.getenv("WP_USERNAME", "")
+WP_URL          = os.getenv("WP_URL", "").rstrip("/")
+WP_USERNAME     = os.getenv("WP_USERNAME", "")
 WP_APP_PASSWORD = os.getenv("WP_APP_PASSWORD", "")
+WP_ENV          = os.getenv("WP_ENV", "development").strip().lower()
 
 ENDPOINT = f"{WP_URL}/wp-json/lumokit/v1/components"
 
 
-def push(payload_path: str) -> None:
+def check_env_guard(allow_production: bool) -> None:
+    """Block accidental writes to production unless --production flag is passed."""
+    if WP_ENV == "production" and not allow_production:
+        print(f"[BLOCKED] WP_ENV is set to 'production' in .env")
+        print(f"          Target: {WP_URL}")
+        print(f"          Refusing to push without explicit --production flag.")
+        print(f"          If you are sure, re-run with: --production")
+        sys.exit(1)
+    if WP_ENV == "production" and allow_production:
+        print(f"[WARN] Pushing to PRODUCTION: {WP_URL}")
+
+
+def push(payload_path: str, allow_production: bool = False) -> None:
+    check_env_guard(allow_production)
+
     # --- Read payload file ------------------------------------------------
     path = Path(payload_path)
     if not path.exists():
@@ -71,7 +86,8 @@ def push(payload_path: str) -> None:
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python tools/push_to_wp.py <path_to_payload.json>")
+        print("Usage: python tools/push_to_wp.py <path_to_payload.json> [--production]")
         sys.exit(1)
 
-    push(sys.argv[1])
+    allow_production = "--production" in sys.argv
+    push(sys.argv[1], allow_production=allow_production)
