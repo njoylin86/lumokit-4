@@ -102,14 +102,45 @@ Analysera varje knapp noggrant:
 
 ---
 
+## HÅRT GATE — Måste passeras innan Fas 3
+
+**Innan någon HTML skrivs måste agenten redovisa följande i chatten för varje sektion.**
+Användaren ska kunna läsa och godkänna analysen. Hoppa ALDRIG över detta steg.
+
+För varje sektion, skriv ut:
+
+```
+### [Sektionsnamn] — Bildanalys
+
+Layout:      [t.ex. "2 kolumner 50/50, text vänster, bild höger"]
+Bakgrund:    [hex-värde]
+Rubrik:      [storlek, vikt, färg, versaler?]
+Brödtext:    [storlek, färg, radavstånd]
+Knappar:     [fylld/outline, färg, rundning, text]
+Spacing:     [padding top/bottom, gap mellan element]
+Övrigt:      [shadows, borders, ikoner, overlay etc.]
+```
+
+Agenten får INTE börja skriva HTML förrän analysen är redovisad i chatten.
+Om referensbild saknas för en sektion — fråga användaren innan du fortsätter.
+
+---
+
 ## Fas 3: HTML-generering
 
 ### 3.1 Regler
 
 1. **Semantisk HTML5** — `<section>`, `<h1>`–`<h3>`, `<p>`, `<a>`, `<ul>`, `<li>`, `<img>`.
 2. **Inga `<script>`- eller `<iframe>`-taggar** — blockeras av LumoKit Bridge.
-3. **Tailwind för layout och spacing.** För färg, border och typografi på `<a>`-taggar och knappar: använd alltid inline `style` — WordPress-teman skriver annars över Tailwind.
-4. **Responsivitet är obligatoriskt** — mobil (default), tablet (`md:`), desktop (`lg:`).
+3. **Använd ALLTID inline `style="..."` — aldrig Tailwind-klasser i `class="..."`.**
+   Enda undantaget: `class="material-symbols-outlined"` för Google Icons är tillåtet.
+   Stilsättning på ikonelementet görs ändå via inline style (storlek, färg etc.).
+   Tailwind kräver kompilering för att fungera. Utan det händer ingenting och layouten
+   bryts. Inga undantag — inte ens för `flex`, `grid`, `max-w-*` eller spacing.
+   Rätt: `style="display:flex;max-width:72rem;margin:0 auto;padding:24px;"`
+   Fel: `class="flex max-w-6xl mx-auto px-6"`
+4. **Responsivitet** — använd `clamp()` för typografi och `min()` / procent för bredder
+   istället för Tailwind breakpoints. Lägg media queries i `<style>`-taggar vid behov.
 5. **Elementordning följer Fas 2.1 exakt** — ingen kreativ omtolkning.
 6. **Google Fonts** — om en specifik font identifieras, importera den överst i `html_template`:
    ```html
