@@ -44,6 +44,7 @@ console.log(`[INFO] Screenshotting ${url} ...`);
 const browser = await puppeteer.launch({
   headless: "new",
   args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  protocolTimeout: 120000,
 });
 
 const page = await browser.newPage();
@@ -51,12 +52,16 @@ const page = await browser.newPage();
 // Desktop viewport
 await page.setViewport({ width: 1440, height: 900, deviceScaleFactor: 2 });
 
-await page.goto(url, { waitUntil: "networkidle0", timeout: 30000 });
+try {
+  await page.goto(url, { waitUntil: "networkidle2", timeout: 25000 });
+} catch (e) {
+  // Timeout OK — Tailwind CDN may still be processing
+}
 
-// Wait for fonts and images to settle
-await new Promise((r) => setTimeout(r, 800));
+// Give Tailwind CDN time to inject styles
+await new Promise((r) => setTimeout(r, 4000));
 
-await page.screenshot({ path: outPath, fullPage: true });
+await page.screenshot({ path: outPath, fullPage: false });
 
 await browser.close();
 
