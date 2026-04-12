@@ -361,6 +361,15 @@ function lumokit_save_settings( WP_REST_Request $request ) {
 		}
 	}
 
+	// Mirror integration fields to the ACF options namespace (options_{name})
+	// so that get_field( 'site_*', 'option' ) and {{site_*}} template variables work.
+	if ( array_key_exists( 'trustindex_script', $body ) ) {
+		update_option( 'options_site_trustindex_script', $body['trustindex_script'], false );
+	}
+	if ( array_key_exists( 'booking_widget_id', $body ) ) {
+		update_option( 'options_site_booking_widget_id', $body['booking_widget_id'], false );
+	}
+
 	return rest_ensure_response( [
 		'success' => true,
 		'updated' => $updated,
