@@ -29,6 +29,7 @@ Bundle format:
 
 import json
 import os
+import subprocess
 import sys
 from pathlib import Path
 
@@ -47,6 +48,7 @@ COMPONENTS_ENDPOINT = f"{WP_URL}/wp-json/lumokit/v1/components"
 SITE_ENDPOINT       = f"{WP_URL}/wp-json/lumokit/v1/site"
 SETTINGS_ENDPOINT   = f"{WP_URL}/wp-json/lumokit/v1/settings"
 OPTIONS_ENDPOINT    = f"{WP_URL}/wp-json/lumokit/v1/options"
+SNIPPETS_ENDPOINT   = f"{WP_URL}/wp-json/lumokit/v1/snippets"
 
 
 def check_env_guard(allow_production: bool) -> None:
@@ -132,6 +134,25 @@ def push_global_settings(settings: dict) -> None:
             print(f"         {response.text}")
 
 
+def push_snippets(snippets: list) -> None:
+    for snippet in snippets:
+        response = requests.post(
+            SNIPPETS_ENDPOINT,
+            json=snippet,
+            auth=(WP_USERNAME, WP_APP_PASSWORD),
+            timeout=30,
+        )
+        if response.status_code == 200:
+            data = response.json()
+            print(f"  [OK]   Snippet '{snippet.get('title')}': {data.get('message', 'saved')}")
+        else:
+            print(f"  [ERROR] HTTP {response.status_code} for snippet '{snippet.get('title')}'")
+            try:
+                print(f"         {response.json()}")
+            except Exception:
+                print(f"         {response.text}")
+
+
 def build_site(site_name: str, pages: list) -> None:
     spec = {"site_name": site_name, "pages": pages}
 
@@ -172,12 +193,13 @@ def build_all(bundle_path: str, allow_production: bool = False) -> None:
     pages           = bundle.get("pages", [])
     platform_config = bundle.get("platform_config")
     global_settings = bundle.get("global_settings")
+    snippets        = bundle.get("snippets", [])
 
     if not site_name or not pages:
         print("[ERROR] Bundle must contain 'site_name' and 'pages'.")
         sys.exit(1)
 
-    total_steps = 2 + (1 if platform_config else 0) + (1 if global_settings else 0)
+    total_steps = 2 + (1 if platform_config else 0) + (1 if global_settings else 0) + (1 if snippets else 0)
     step = 0
 
     # --- Step 0a: Push platform config (hidden, only if present) ----------
@@ -191,6 +213,12 @@ def build_all(bundle_path: str, allow_production: bool = False) -> None:
         step += 1
         print(f"\n[{step}/{total_steps}] Pushing global settings...")
         push_global_settings(global_settings)
+
+    # --- Step 0c: Push snippets (Google Fonts, analytics etc.) -----------
+    if snippets:
+        step += 1
+        print(f"\n[{step}/{total_steps}] Pushing {len(snippets)} snippet(s)...")
+        push_snippets(snippets)
 
     # --- Step 1: Push components ------------------------------------------
     step += 1
@@ -213,6 +241,15 @@ def build_all(bundle_path: str, allow_production: bool = False) -> None:
     step += 1
     print(f"\n[{step}/{total_steps}] Building site '{site_name}' with {len(pages)} page(s)...")
     build_site(site_name, pages)
+
+    # --- Step 3: Compile & push CSS from this bundle only -----------------
+    print(f"\n[CSS] Compiling Tailwind CSS from {Path(bundle_path).name} ...")
+    result = subprocess.run(
+        [sys.executable, str(Path(__file__).parent / "compile_tailwind.py"), str(path)],
+        cwd=str(ROOT),
+    )
+    if result.returncode != 0:
+        print("[WARN] CSS compilation failed — push styles manually with compile_tailwind.py")
 
     print(f"\n[DONE] {site_name} is live.")
 
