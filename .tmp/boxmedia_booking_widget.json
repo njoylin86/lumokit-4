@@ -1,7 +1,0 @@
-{
-  "title": "Boxmedia — Booking Widget",
-  "code": "<?php $booking_token = esc_js( get_option( 'lumokit_booking_widget_id', '' ) ); ?>\n<?php if ( $booking_token ) : ?>\n<script async type=\"module\" src=\"https://booking-widget-prod-nj23eril7a-lz.a.run.app/v2/widgetloader.js\"></script>\n<script>\nwindow.tdlWidgetConfig = { mode: 'embedded', apiToken: '<?php echo $booking_token; ?>' };\n</script>\n<?php endif; ?>",
-  "location": "site_wide_header",
-  "type": "php",
-  "active": true
-}
