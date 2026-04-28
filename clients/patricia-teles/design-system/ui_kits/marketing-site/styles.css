@@ -1,0 +1,55 @@
+/* UI Kit base — Patricia Teles marketing site */
+@import url("../../colors_and_type.css");
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { background: var(--white); color: var(--fg); font-family: var(--font-sans); }
+
+img { max-width: 100%; display: block; }
+button { font: inherit; cursor: pointer; }
+
+/* Buttons */
+.pt-btn {
+  font-family: var(--font-sans);
+  font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.22em;
+  padding: 14px 28px; border: 1px solid transparent;
+  border-radius: var(--radius-sm); cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-standard);
+  background: var(--ink-700); color: #fff;
+}
+.pt-btn:hover { background: var(--ink-900); }
+.pt-btn.ghost {
+  background: transparent; color: var(--ink-700); border-color: var(--ink-700);
+}
+.pt-btn.ghost:hover { background: var(--blush-50); }
+
+/* Eyebrow */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.22em;
+  color: var(--blush-600);
+}
+
+/* Layout */
+.container { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+
+/* Page transitions */
+.page-enter { animation: fadeIn 360ms var(--ease-out) both;}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Form */
+.pt-input, .pt-textarea {
+  width: 100%; box-sizing: border-box;
+  background: #fff; border: 1px solid transparent;
+  padding: 12px 14px; border-radius: var(--radius-sm);
+  font-family: var(--font-sans); font-size: 14px; color: var(--ink-700);
+  transition: border-color var(--dur-fast) var(--ease-standard);
+}
+.pt-input:focus, .pt-textarea:focus { outline: none; border-color: var(--blush-500); }
+.pt-label { display: block; font-size: 13px; color: var(--ink-700); font-weight: 400; margin-bottom: 6px; }
+.pt-label .req { color: var(--blush-600); }

@@ -1,0 +1,21 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8"/>
+<title>Shadow & elevation</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 36px 28px; background: var(--blush-50); font-family: var(--font-sans);}
+  .row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+  .b { aspect-ratio: 1.2; background: var(--white); border-radius: var(--radius-sm); display:flex; flex-direction:column; align-items:center; justify-content:center;}
+  .name { font-size: 12px; font-weight: 600; color: var(--fg-strong); margin-bottom: 4px;}
+  .px { font-family: var(--font-mono); font-size: 10px; color: var(--fg-muted);}
+</style></head>
+<body>
+  <div class="row">
+    <div class="b" style="box-shadow:var(--shadow-xs)"><div class="name">xs</div><div class="px">hairline</div></div>
+    <div class="b" style="box-shadow:var(--shadow-sm)"><div class="name">sm</div><div class="px">card rest</div></div>
+    <div class="b" style="box-shadow:var(--shadow-md)"><div class="name">md</div><div class="px">hover</div></div>
+    <div class="b" style="box-shadow:var(--shadow-lg)"><div class="name">lg</div><div class="px">overlay</div></div>
+    <div class="b" style="box-shadow:var(--shadow-inset)"><div class="name">inset</div><div class="px">swatch</div></div>
+  </div>
+</body></html>
