@@ -1,4 +1,19 @@
 .env
 node_modules/
 tools/node_modules/
-.tmp/screenshots/
+
+# .tmp/ is a per-build scratch directory — never commit to git.
+# Client-specific work lives in clients/<name>/, not in .tmp/.
+.tmp/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Per-client build artifacts (the input files content/, design-system/,
+# build_bundle.py ARE committed; bundle.json is regenerated each build)
+clients/*/bundle.json
+
+# Boilerplate snapshot can be large (50MB+) — track via Git LFS or store
+# off-repo. Comment this line out if you want it in regular git.
+boilerplate/*.wpress
