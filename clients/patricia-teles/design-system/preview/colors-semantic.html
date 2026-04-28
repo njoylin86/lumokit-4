@@ -1,0 +1,36 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8"/>
+<title>Color — Supporting & Semantic</title>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 24px; background: var(--white); font-family: var(--font-sans); }
+  .group { margin-bottom: 16px; }
+  .row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .sw { aspect-ratio: 1.6; border-radius: var(--radius-sm); display: flex; flex-direction: column; justify-content: flex-end; padding: 10px; box-shadow: var(--shadow-inset); }
+  .sw .name { font-size: 11px; font-weight: 600; letter-spacing: 0.04em; }
+  .sw .hex { font-family: var(--font-mono); font-size: 10px; opacity: 0.85; }
+  .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.22em; color: var(--blush-600); margin: 0 0 10px; font-weight: 500;}
+</style></head>
+<body>
+  <div class="group">
+    <div class="label">Supporting · From treatment-card photography</div>
+    <div class="row">
+      <div class="sw" style="background:#b9d9cf;color:#1f1f1f"><div class="name">Mint</div><div class="hex">b9d9cf</div></div>
+      <div class="sw" style="background:#b8cfe0;color:#1f1f1f"><div class="name">Sky</div><div class="hex">b8cfe0</div></div>
+      <div class="sw" style="background:#d6c2d9;color:#1f1f1f"><div class="name">Lilac</div><div class="hex">d6c2d9</div></div>
+      <div class="sw" style="background:#f4b6bf;color:#1f1f1f"><div class="name">Rose</div><div class="hex">f4b6bf</div></div>
+      <div class="sw" style="background:#fafafa;color:#1f1f1f;border:1px solid #ececec"><div class="name">Paper</div><div class="hex">fafafa</div></div>
+    </div>
+  </div>
+  <div class="group">
+    <div class="label">Semantic · Feedback states</div>
+    <div class="row">
+      <div class="sw" style="background:#6c9b87;color:#fff"><div class="name">Success</div><div class="hex">6c9b87</div></div>
+      <div class="sw" style="background:#d9a85e;color:#fff"><div class="name">Warning</div><div class="hex">d9a85e</div></div>
+      <div class="sw" style="background:#c5615e;color:#fff"><div class="name">Danger</div><div class="hex">c5615e</div></div>
+      <div class="sw" style="background:#6f8fa8;color:#fff"><div class="name">Info</div><div class="hex">6f8fa8</div></div>
+      <div class="sw" style="background:#f5c136;color:#1f1f1f"><div class="name">Star</div><div class="hex">f5c136</div></div>
+    </div>
+  </div>
+</body></html>

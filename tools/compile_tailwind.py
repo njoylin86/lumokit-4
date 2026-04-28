@@ -1,10 +1,11 @@
 """
 compile_tailwind.py
-Compiles Tailwind CSS from all local component payloads and pushes the
-resulting stylesheet to WordPress via the LumoKit REST API.
+Compiles Tailwind CSS from a specific bundle (or all .tmp/*.json as fallback)
+and pushes the resulting stylesheet to WordPress via the LumoKit REST API.
 
 Usage:
-    python tools/compile_tailwind.py
+    python tools/compile_tailwind.py .tmp/myclient_bundle.json   ← recommended
+    python tools/compile_tailwind.py                              ← scans all .tmp/*.json
 
 Requirements:
     - Node.js + npx must be installed
@@ -34,21 +35,35 @@ WP_APP_PASSWORD = os.getenv("WP_APP_PASSWORD", "")
 STYLES_ENDPOINT = f"{WP_URL}/wp-json/lumokit/v1/styles"
 
 
-def extract_templates() -> str:
-    """Read all .tmp/*.json payloads and concatenate their html_templates."""
-    payload_files = list(TMP_DIR.glob("*.json"))
+def extract_templates(bundle_path: Path | None = None) -> str:
+    """Extract html_templates from a specific bundle file, or all .tmp/*.json as fallback.
 
-    if not payload_files:
-        print("[ERROR] No JSON payload files found in .tmp/")
-        sys.exit(1)
+    Always pass a specific bundle_path to avoid cross-client CSS contamination.
+    """
+    if bundle_path:
+        payload_files = [bundle_path]
+        print(f"[INFO] Compiling CSS from: {bundle_path.name}")
+    else:
+        payload_files = list(TMP_DIR.glob("*.json"))
+        if not payload_files:
+            print("[ERROR] No JSON payload files found in .tmp/")
+            sys.exit(1)
+        print(f"[WARN] No bundle specified — scanning all {len(payload_files)} file(s) in .tmp/")
+        print(f"       Pass a specific bundle to avoid CSS from unrelated clients.")
 
     html_parts = []
     for path in payload_files:
         try:
             with open(path, "r", encoding="utf-8") as f:
                 data = json.load(f)
+            # Single-component format
             if "html_template" in data:
                 html_parts.append(data["html_template"])
+            # Bundle format — extract from nested components array
+            elif "components" in data:
+                for component in data["components"]:
+                    if "html_template" in component:
+                        html_parts.append(component["html_template"])
         except Exception as e:
             print(f"[WARN]  Skipping {path.name}: {e}")
 
@@ -87,6 +102,22 @@ def compile_css(html: str) -> str:
     with open(output_file, "r", encoding="utf-8") as f:
         css = f.read()
 
+    # Prepend Google Fonts + Material Symbols imports so fonts load on all LumoKit pages.
+    # CSS @import must appear before any other rules.
+    font_imports = (
+        "@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800"
+        "&family=Inter:wght@300;400;500;600&display=swap');\n"
+        "@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:"
+        "opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');\n"
+        ".material-symbols-outlined{"
+        "font-family:'Material Symbols Outlined';font-weight:normal;font-style:normal;"
+        "font-size:1em;line-height:1;letter-spacing:normal;text-transform:none;"
+        "display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;"
+        "font-variation-settings:'FILL' 0,'wght' 300,'GRAD' 0,'opsz' 24;"
+        "vertical-align:middle;}\n"
+    )
+    css = font_imports + css
+
     print(f"[INFO] Compiled CSS: {len(css):,} bytes.")
     return css
 
@@ -115,6 +146,15 @@ def push_css(css: str) -> None:
 
 
 if __name__ == "__main__":
-    html = extract_templates()
+    bundle_path = None
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    if args:
+        p = Path(args[0])
+        if not p.exists():
+            print(f"[ERROR] Bundle not found: {p}")
+            sys.exit(1)
+        bundle_path = p
+
+    html = extract_templates(bundle_path)
     css  = compile_css(html)
     push_css(css)

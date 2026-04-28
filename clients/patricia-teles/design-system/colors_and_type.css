@@ -1,0 +1,263 @@
+/* =============================================================
+   Patricia Teles — Colors & Type
+   A clean, calming, accessible system for a modern dental clinic.
+   Designed to feel medical-warm: soft blush, hygienic whites,
+   confident graphite ink, sharp modern typography.
+   ============================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@200;300;400;500;600;700&display=swap");
+
+:root {
+  /* ---------- Brand Colors ---------- */
+  /* Blush family — warm, calming, dental-clean */
+  --blush-50:  #fdf5f8;   /* page tint, lightest wash             */
+  --blush-100: #fbeaf0;   /* card / hero halo                     */
+  --blush-200: #f6d7e0;   /* form panel, soft surface             */
+  --blush-300: #efbecc;   /* hover wash                           */
+  --blush-400: #e29db0;   /* subtle accent                        */
+  --blush-500: #d4889e;   /* primary accent rose                  */
+  --blush-600: #b56a82;   /* link active / pressed                */
+  --blush-700: #8a4f64;   /* deep rose for emphasis               */
+
+  /* Ink family — graphite, calm and high-contrast on blush */
+  --ink-50:  #f7f7f7;
+  --ink-100: #ececec;
+  --ink-200: #d6d6d6;
+  --ink-300: #a8a8a8;
+  --ink-400: #6e6e6e;
+  --ink-500: #4a4a4a;
+  --ink-600: #323232;     /* body text                            */
+  --ink-700: #1f1f1f;     /* headlines, primary button bg         */
+  --ink-900: #0a0a0a;
+
+  /* Pure surface */
+  --white:   #ffffff;
+  --paper:   #fafafa;     /* off-white section bg                 */
+
+  /* Optional supporting hues taken from inspiration treatment cards */
+  --mint:    #b9d9cf;
+  --sky:     #b8cfe0;
+  --lilac:   #d6c2d9;
+  --rose:    #f4b6bf;
+
+  /* Semantic — feedback & states */
+  --success: #6c9b87;
+  --warning: #d9a85e;
+  --danger:  #c5615e;
+  --info:    #6f8fa8;
+  --star:    #f5c136;     /* review stars                          */
+
+  /* ---------- Semantic Foundations ---------- */
+  --bg:           var(--white);
+  --bg-soft:      var(--blush-50);
+  --bg-panel:     var(--blush-200);
+  --bg-inverse:   var(--ink-700);
+
+  --fg:           var(--ink-600);
+  --fg-muted:     var(--ink-400);
+  --fg-subtle:    var(--ink-300);
+  --fg-strong:    var(--ink-700);
+  --fg-inverse:   var(--white);
+  --fg-accent:    var(--blush-600);
+
+  --border:       var(--ink-100);
+  --border-soft:  var(--blush-200);
+  --border-strong:var(--ink-200);
+
+  --button-bg:        var(--ink-700);
+  --button-fg:        var(--white);
+  --button-bg-hover:  var(--ink-900);
+  --button-bg-ghost:  transparent;
+  --button-border-ghost: var(--ink-700);
+
+  /* ---------- Type ---------- */
+  --font-serif: "Cormorant Garamond", "Cormorant", "Times New Roman", Georgia, serif;
+  --font-sans:  "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono:  ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Type scale — modular, calm rhythm. Tight on display, airy on body. */
+  --fs-display: clamp(48px, 6vw, 88px);
+  --fs-h1:      clamp(40px, 4.4vw, 64px);
+  --fs-h2:      clamp(30px, 3vw, 44px);
+  --fs-h3:      24px;
+  --fs-h4:      20px;
+  --fs-body:    16px;
+  --fs-small:   14px;
+  --fs-tiny:    12px;
+  --fs-eyebrow: 11px;
+
+  --lh-tight:   1.08;
+  --lh-snug:    1.25;
+  --lh-normal:  1.55;
+  --lh-loose:   1.7;
+
+  --tracking-tight:    -0.02em;
+  --tracking-normal:   0;
+  --tracking-wide:     0.08em;
+  --tracking-eyebrow:  0.22em;   /* the spaced-caps look from inspiration */
+
+  /* ---------- Spacing ---------- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  24px;
+  --space-6:  32px;
+  --space-7:  48px;
+  --space-8:  64px;
+  --space-9:  96px;
+  --space-10: 128px;
+
+  /* ---------- Radii ---------- */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  /* ---------- Shadow / Elevation ---------- */
+  --shadow-xs: 0 1px 2px rgba(31, 31, 31, 0.04);
+  --shadow-sm: 0 2px 8px rgba(31, 31, 31, 0.05), 0 1px 2px rgba(31,31,31,0.04);
+  --shadow-md: 0 8px 24px rgba(31, 31, 31, 0.06), 0 2px 6px rgba(31,31,31,0.04);
+  --shadow-lg: 0 24px 60px rgba(31, 31, 31, 0.10), 0 6px 14px rgba(31,31,31,0.05);
+  --shadow-inset: inset 0 0 0 1px rgba(31, 31, 31, 0.06);
+
+  /* ---------- Motion ---------- */
+  --ease-standard: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --dur-fast: 140ms;
+  --dur-base: 240ms;
+  --dur-slow: 480ms;
+
+  /* ---------- Layout ---------- */
+  --maxw-prose: 62ch;
+  --maxw-content: 1180px;
+  --maxw-narrow: 760px;
+}
+
+/* =============================================================
+   Base elements — semantic CSS for the brand
+   ============================================================= */
+
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Display & Headings — serif voice for editorial moments */
+.display, h1.display {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-strong);
+}
+
+h1 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-strong);
+  margin: 0 0 var(--space-5);
+}
+
+h2 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-strong);
+  margin: 0 0 var(--space-4);
+}
+
+h3 {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--fs-h3);
+  line-height: var(--lh-snug);
+  letter-spacing: 0;
+  color: var(--fg-strong);
+  margin: 0 0 var(--space-3);
+}
+
+h4 {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--fs-h4);
+  line-height: var(--lh-snug);
+  color: var(--fg-strong);
+  margin: 0 0 var(--space-3);
+}
+
+/* Eyebrow — spaced uppercase serving as section labels.
+   Lifted directly from the inspiration treatment grids. */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: var(--fs-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--fg-accent);
+}
+
+/* Body */
+p {
+  margin: 0 0 var(--space-4);
+  color: var(--fg);
+  font-size: var(--fs-body);
+  line-height: var(--lh-loose);
+  max-width: var(--maxw-prose);
+}
+
+p.lead {
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--fg);
+}
+
+small, .small { font-size: var(--fs-small); color: var(--fg-muted); }
+.tiny { font-size: var(--fs-tiny); color: var(--fg-muted); letter-spacing: 0.04em; }
+
+/* Inline */
+a {
+  color: var(--fg-strong);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--blush-400);
+  transition: color var(--dur-fast) var(--ease-standard),
+              text-decoration-color var(--dur-fast) var(--ease-standard);
+}
+a:hover { color: var(--blush-600); text-decoration-color: var(--blush-600); }
+
+strong, b { font-weight: 600; color: var(--fg-strong); }
+em, i { font-style: italic; }
+
+code, pre, kbd {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  background: var(--ink-50);
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: var(--space-7) 0;
+}
+
+/* Selection */
+::selection { background: var(--blush-200); color: var(--ink-700); }

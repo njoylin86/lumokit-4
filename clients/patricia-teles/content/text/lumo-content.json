@@ -1,0 +1,758 @@
+{
+  "settings": {
+    "company_name": "Patricia Teles",
+    "company_phone": "079-077 50 65",
+    "company_email": "ptelesdoc@gmail.com",
+    "company_address": "Jakobsbergsgatan 8, 4tr, 11144 Stockholm"
+  },
+  "menus": [
+    {
+      "name": "Huvudmeny",
+      "location": "menu-1",
+      "items": [
+        {
+          "label": "Hem",
+          "slug": "hem"
+        },
+        {
+          "label": "Om oss",
+          "slug": "om-oss"
+        },
+        {
+          "label": "Behandlingar",
+          "url": "#",
+          "children": [
+            {
+              "label": "Tandimplantat",
+              "slug": "tandimplantat"
+            },
+            {
+              "label": "Invisalign",
+              "slug": "invisalign"
+            },
+            {
+              "label": "Akuttandvård",
+              "slug": "akuttandvard"
+            },
+            {
+              "label": "Basundersökning",
+              "slug": "basundersokning"
+            },
+            {
+              "label": "Allmän tandvård",
+              "slug": "allman-tandvard"
+            },
+            {
+              "label": "Tandvårdsrädsla",
+              "slug": "tandvardsradsla"
+            }
+          ]
+        },
+        {
+          "label": "Kontakt",
+          "slug": "kontakt"
+        },
+        {
+          "label": "Boka tid",
+          "url": "#tdl-booking-widget"
+        }
+      ]
+    },
+    {
+      "name": "Footermeny",
+      "location": "menu-2",
+      "items": [
+        {
+          "label": "Integritetspolicy",
+          "url": "/policy"
+        },
+        {
+          "label": "Cookies",
+          "url": "/cookies"
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "slug": "hem",
+      "template": "template-home.php",
+      "type": "home",
+      "sections": {
+        "hero": {
+          "h1": "Hem",
+          "ingress": "En trygg plats för din munhälsa i hjärtat av Stockholm. Vi erbjuder modern tandvård med personlig omsorg för hela familjen.",
+          "bulletins": [
+            "Personlig omsorg",
+            "Moderna metoder",
+            "Erfarna tandläkare",
+            "Trygg miljö"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "hem-bg.jpg",
+          "prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. A radiant, confident person smiling broadly, showing healthy, bright teeth. The background is heavily blurred bokeh, indicating a clean, modern, and inviting atmosphere without revealing specific clinic details. 85mm lens, f/1.8, subject in sharp focus, background heavily blurred bokeh, warm soft natural light. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "alt": "En strålande person med ett brett, varmt leende."
+        },
+        "intro": {
+          "h2": "Din munhälsa, vår prioritet",
+          "ingress": "Vi möter dig där du är och skapar en behandlingsplan anpassad för just dina behov. Målet är alltid en frisk mun och ett leende du trivs med."
+        },
+        "treatments_section": [
+          {
+            "title": "Tandimplantat",
+            "image_id": "tandimplantat.jpg",
+            "link": "/tandimplantat"
+          },
+          {
+            "title": "Invisalign",
+            "image_id": "invisalign.jpg",
+            "link": "/invisalign"
+          },
+          {
+            "title": "Akuttandvård",
+            "image_id": "akuttandvard.jpg",
+            "link": "/akuttandvard"
+          },
+          {
+            "title": "Basundersökning",
+            "image_id": "basundersokning.jpg",
+            "link": "/basundersokning"
+          },
+          {
+            "title": "Allmän tandvård",
+            "image_id": "allman-tandvard.jpg",
+            "link": "/allman-tandvard"
+          },
+          {
+            "title": "Tandvårdsrädsla",
+            "image_id": "tandvardsradsla.jpg",
+            "link": "/tandvardsradsla"
+          }
+        ],
+        "content_block_1": {
+          "h2": "En modern klinik där du känner dig sedd",
+          "text_html": "<p>På Patricia Teles Tandvård har vi skapat en miljö där du kan känna dig helt <strong>lugn och trygg</strong>. Vi vet att ett besök hos tandläkaren kan väcka oro för vissa, och därför tar vi oss alltid tid att lyssna och förklara varje steg. Vårt team arbetar med den senaste tekniken och beprövade metoder för att säkerställa att du får den absolut bästa vården.</p><p>Vi är övertygade om att en god relation bygger på tillit, och vi strävar efter att du ska uppleva oss som både kompetenta och empatiska. Från det ögonblick du kliver in genom dörren vill vi att du ska känna dig välkommen och omhändertagen, oavsett om det gäller en rutinmässig kontroll eller en mer omfattande behandling.</p><p>Vi värdesätter din tid och arbetar effektivt utan att kompromissa med kvalitet eller personligt bemötande. Vår ambition är att du ska lämna oss med ett leende, både på grund av din förbättrade munhälsa och den positiva upplevelsen.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "image_1_id": "hem-image-1.jpg",
+          "image_2_id": "hem-image-2.jpg",
+          "image_1_prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. A friendly dentist, wearing clean professional attire, gently engaging in a reassuring conversation with a calm patient. Their faces are partially visible, conveying trust and care. The background is soft and heavily blurred, suggesting a comfortable, private setting. 85mm portrait lens, f/1.4, subject sharp, background heavily blurred bokeh, warm soft light. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "image_1_alt": "Tandläkare och patient i lugn, trygg dialog.",
+          "image_2_prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. Extreme close-up of healthy, pearly white teeth, reflecting soft light, with a very shallow depth of field. The background is a clean, diffused white. Macro lens, f/2.8, extreme close-up, shallow depth of field, clean white or neutral background. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "image_2_alt": "Närbild på strålande vita, friska tänder."
+        },
+        "content_block_2": {
+          "h2": "Helhetsperspektiv för hållbar hälsa",
+          "text_html": "<p>Vi ser din munhälsa som en viktig del av din allmänna hälsa. Därför arbetar vi med ett helhetsperspektiv där vi inte bara åtgärdar akuta problem, utan också fokuserar på <strong>förebyggande vård</strong> och långsiktiga lösningar. Våra tandläkare och tandhygienister samarbetar för att ge dig de bästa förutsättningarna för en livslång god munhälsa.</p><p>Detta innebär att vi alltid går igenom din historik, diskuterar dina vanor och ger dig konkreta råd för hur du bäst tar hand om dina tänder mellan besöken hos oss. Vi tror på att utbildning och information är nyckeln till att du ska kunna göra medvetna val för din egen hälsa.</p><p>Vi erbjuder ett brett spektrum av tjänster, från grundläggande undersökningar och hygienbehandlingar till mer avancerade estetiska ingrepp och implantat. Målet är att du ska kunna få all den vård du behöver under ett och samma tak, hos ett team du litar på.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            }
+          },
+          "h3": "Vad kan vi hjälpa dig med idag?",
+          "subtext_html": "<p>Oavsett om du behöver en akut tid, en regelbunden kontroll eller funderar på en större förändring, finns vi här för dig. Vi erbjuder:</p><ul><li>Basundersökning och förebyggande vård</li><li>Estetisk tandvård, inklusive Invisalign</li><li>Tandimplantat för att ersätta förlorade tänder</li><li>Hjälp vid tandvårdsrädsla med extra omtanke</li></ul>"
+        }
+      }
+    },
+    {
+      "slug": "om-oss",
+      "template": "template-about.php",
+      "type": "about",
+      "sections": {
+        "hero": {
+          "h1": "Om oss",
+          "ingress": "Lär känna Patricia Teles Tandvård och teamet som brinner för din munhälsa. Vi bygger långvariga relationer baserade på förtroende och kvalitet.",
+          "bulletins": [
+            "Tryggt och omsorgsfullt",
+            "Personligt bemötande",
+            "Högsta kvalitet",
+            "Modern tandvård"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "om-oss-bg.jpg",
+          "prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. A warm and professional dentist, looking directly at the camera with a gentle, reassuring smile, conveying competence and approachability. The background is soft, out of focus, suggesting a clean and inviting professional environment. 85mm lens, f/1.8, subject in sharp focus, background heavily blurred bokeh, warm soft natural light. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "alt": "En varm och professionell tandläkare med ett lugnande leende."
+        },
+        "content_block_1": {
+          "h2": "Vår historia och vision",
+          "text_html": "<p>Patricia Teles Tandvård grundades med en klar vision: att skapa en tandvårdsklinik där varje patient känner sig <strong>trygg, sedd och delaktig</strong> i sin egen vård. Vi vet att förtroende är grundläggande, och därför har vi byggt vår verksamhet på transparens, empati och högsta möjliga kvalitet i varje behandling.</p><p>Vi är stolta över att kunna erbjuda en modern och personlig tandvård som utgår från varje individs unika behov. Hos oss är du inte bara en patient bland många, utan en viktig person med egna önskemål och förutsättningar. Vi strävar efter att du ska få en positiv upplevelse, oavsett om det är ditt första besök eller om du varit med oss under många år.</p><p>Vår passion ligger i att hjälpa dig uppnå och bibehålla en god munhälsa som bidrar till ditt allmänna välbefinnande. Vi investerar kontinuerligt i vidareutbildning och den senaste tekniken för att säkerställa att du alltid får den mest effektiva och skonsamma behandlingen.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "image_1_id": "om-oss-image-1.jpg",
+          "image_2_id": "om-oss-image-2.jpg",
+          "image_1_prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. A compassionate dentist, with hands gently guiding or explaining something to a patient whose face is mostly out of frame, focusing on the dentist's attentive expression and professional posture. The background is heavily blurred bokeh, emphasizing the caring interaction. 85mm portrait lens, f/1.4, subject sharp, background heavily blurred bokeh, warm soft light. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "image_1_alt": "En omtänksam tandläkare interagerar med patient.",
+          "image_2_prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. Extreme close-up of gloved hands (white dental gloves) holding a small, clean, and modern dental mirror or a simple examination probe, against a clean, diffused neutral background. The tool should not appear intimidating. Macro lens, f/2.8, extreme close-up, shallow depth of field, clean white or neutral background. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "image_2_alt": "Närbild av händer i handskar som håller ett rent tandläkarverktyg."
+        },
+        "text_blocks": [
+          {
+            "h3": "Vår filosofi och approach till tandvård",
+            "text_html": "<p>Vår grundfilosofi är att erbjuda <strong>tandvård med hjärta och hjärna</strong>. Det innebär att vi kombinerar avancerad medicinsk kunskap och teknik med ett varmt, lyhört och personligt bemötande. Vi tror på vikten av att informera dig tydligt om dina behandlingsalternativ så att du kan fatta välgrundade beslut.</p><p>Vi tar oss tid att förstå din situation, lyssna på dina frågor och svara ärligt. Målet är alltid att uppnå bästa möjliga resultat för din munhälsa på ett sätt som känns bekvämt och tryggt för dig.</p>"
+          },
+          {
+            "h3": "Teamet – bakgrund och kompetens",
+            "text_html": "<p>Vårt team består av erfarna tandläkare, tandhygienister och tandsköterskor som alla delar en gemensam passion för munhälsa och patientvård. Vi är <strong>kontinuerligt uppdaterade</strong> med den senaste forskningen och tekniken genom vidareutbildningar och kurser.</p><p>Varje medlem i teamet bidrar med sin unika kompetens och erfarenhet för att du ska få en heltäckande vård. Vi samarbetar nära för att säkerställa en sömlös och effektiv upplevelse, från första kontakt till avslutad behandling.</p>"
+          },
+          {
+            "h3": "Kliniken – miljö och utrustning",
+            "text_html": "<p>Vår klinik är designad för att vara en lugn och inbjudande plats där du kan känna dig bekväm. Vi har lagt stor vikt vid att skapa en <strong>harmonisk atmosfär</strong>, långt ifrån den traditionella \"klinikkänslan\".</p><p>Utrustningsmässigt är vi i framkant med modern teknik som möjliggör exakta diagnoser, skonsamma behandlingar och optimerade resultat. Detta inkluderar digital röntgen, intraorala kameror och bekväma behandlingsstolar, allt för din säkerhet och komfort.</p>"
+          },
+          {
+            "h3": "Trygghet för patienter med tandvårdsrädsla",
+            "text_html": "<p>Vi förstår att tandvårdsrädsla är vanligt och tar det på största allvar. Hos oss får du alltid extra tid och utrymme för att känna dig trygg. Vi arbetar med <strong>förståelse, tålamod och gradvis exponering</strong>.</p><p>Tillsammans går vi igenom behandlingen i din takt, och du har alltid kontroll. Vi använder bedövning och smärtlindring effektivt, och vårt team är utbildat för att lugna och stötta dig genom hela besöket. Berätta för oss om din rädsla, så anpassar vi oss.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "kontakt",
+      "template": "template-contact.php",
+      "type": "contact",
+      "sections": {
+        "hero": {
+          "h1": "Kontakt",
+          "ingress": "Har du frågor, vill boka tid eller veta mer om våra behandlingar? Kontakta oss – vi hjälper dig gärna!",
+          "bulletins": [
+            "Enkel bokning online",
+            "Centralt i Stockholm",
+            "Tillgängliga tider",
+            "Personlig service"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "kontakt-bg.jpg",
+          "prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. A friendly and welcoming person (gender neutral, mid-age) with a gentle, reassuring smile, looking invitingly towards the viewer. The background is heavily blurred bokeh, suggesting a professional yet approachable setting. 85mm lens, f/1.8, subject in sharp focus, background heavily blurred bokeh, warm soft natural light. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "alt": "En lugn och välkomnande person med ett milt leende."
+        },
+        "contact_block": {
+          "h2": "Hur du når oss och vad du kan förvänta dig",
+          "text_html": "<p>Vi finns här för att svara på dina frågor och hjälpa dig att boka en tid som passar just dig. Du kan enkelt nå oss via telefon under våra öppettider, eller skicka ett mejl när det passar dig bäst. Vi strävar efter att svara snabbt och ge dig den information du behöver för att känna dig trygg inför ditt besök hos oss.</p><p>Vår klinik ligger centralt i Stockholm, lättillgänglig med kollektivtrafik. Vi ser fram emot att välkomna dig!</p>"
+        }
+      }
+    },
+    {
+      "slug": "tandimplantat",
+      "template": "template-treatment.php",
+      "type": "treatment",
+      "sections": {
+        "hero": {
+          "h1": "Tandimplantat",
+          "ingress": "Återfå ett komplett leende och full funktion med tandimplantat – en trygg och hållbar lösning för förlorade tänder.",
+          "bulletins": [
+            "Naturligt utseende",
+            "Hållbar lösning",
+            "Full funktion",
+            "Trygg process"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "tandimplantat-bg.jpg",
+          "prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. A mature, confident person smiling genuinely, showcasing a natural-looking, complete set of healthy teeth, including where dental implants have seamlessly restored their smile. Subject in sharp focus, background heavily blurred bokeh, warm soft natural light. 85mm lens, f/1.8, subject in sharp focus, background heavily blurred bokeh, warm soft natural light. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "alt": "En glad person ler med ett naturligt och komplett leende, efter implantatbehandling."
+        },
+        "intro": {
+          "h2": "Ersätt förlorade tänder med högsta kvalitet",
+          "ingress": "Tandimplantat erbjuder en permanent och estetisk lösning när du saknar en eller flera tänder. Vi hjälper dig genom hela processen, från konsultation till färdigt resultat."
+        },
+        "content_block_1": {
+          "h2": "Vad är ett tandimplantat och hur fungerar det?",
+          "text_html": "<p>Ett tandimplantat är en <strong>konstgjord tandrot</strong>, oftast tillverkad av biokompatibelt titan, som opereras in i käkbenet. Denna skruv fungerar som en stabil grund för en ny tandkrona, bro eller protes. Materialet titan är valt för dess förmåga att växa ihop med käkbenet i en process som kallas osseointegration, vilket skapar en mycket stark och hållbar förankring.</p><p>Processen börjar med en noggrann undersökning och planering där vi tar röntgenbilder och analyserar din käkbenstruktur för att säkerställa bästa möjliga förutsättningar. Själva ingreppet är relativt litet och utförs under lokalbedövning, vilket gör det i princip smärtfritt. Efter att implantatet har placerats får det läka in i käkbenet under några månader.</p><p>När implantatet har läkt fast kan en specialtillverkad krona, bro eller protes fästas ovanpå. Resultatet blir en tand som ser ut, känns och fungerar precis som en naturlig tand. Du kan äta, tala och le med fullt självförtroende igen.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "image_1_id": "tandimplantat-image-1.jpg",
+          "image_2_id": "tandimplantat-image-2.jpg",
+          "image_1_prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. A dentist's gloved hands gently pointing to a clear, simplified dental model showing a single tooth implant structure or a conceptual diagram (no text) to a patient (patient's face blurred or out of frame). The focus is on the explanation of the procedure. 85mm portrait lens, f/1.4, subject sharp, background heavily blurred bokeh, warm soft light. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "image_1_alt": "Tandläkare visar en modell av tandimplantat för en patient.",
+          "image_2_prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. Extreme close-up of a meticulously crafted, small dental ceramic crown, possibly with a subtle hint of a titanium implant screw, resting on a clean, reflective white surface. The focus is on the precision and quality of the material. Macro lens, f/2.8, extreme close-up, shallow depth of field, clean white or neutral background. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "image_2_alt": "Närbild av en blank keramisk tandkrona och implantatskruv."
+        },
+        "content_block_2": {
+          "h2": "Fördelar med tandimplantat och vad du kan förvänta dig",
+          "text_html": "<p>De främsta fördelarna med tandimplantat är det <strong>naturliga utseendet och den förbättrade funktionen</strong>. Till skillnad från andra lösningar, som proteser som kan glida, sitter implantat stadigt på plats, vilket gör att du kan äta alla typer av mat utan oro. De bidrar också till att bevara käkbenet, vilket motverkar benförlust som annars kan uppstå när tänder saknas.</p><p>Hos oss får du en skräddarsydd behandlingsplan anpassad efter dina unika förutsättningar. Vi arbetar med modern utrustning och beprövade metoder för att säkerställa ett lyckat och långvarigt resultat. Vårt team finns vid din sida genom hela processen, svarar på alla dina frågor och ser till att du känner dig trygg.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            }
+          },
+          "h3": "Din väg till ett nytt leende",
+          "subtext_html": "<p>Processen att få tandimplantat är noggrant planerad och utförs i flera steg för att säkerställa bästa möjliga resultat:</p><ul><li><strong>Initial konsultation:</strong> En grundlig undersökning och diskussion om dina mål.</li><li><strong>Planering:</strong> Med hjälp av 3D-röntgen planerar vi placeringen exakt.</li><li><strong>Implantatkirurgi:</strong> Själva placeringen av titanskruven i käkbenet.</li><li><strong>Läkningsperiod:</strong> Implantatet integreras med benet, vanligtvis 3-6 månader.</li><li><strong>Krona/bro/protes:</strong> Tillverkning och fästning av den nya tanden.</li></ul>"
+        },
+        "faq": [
+          {
+            "question": "Gör det ont att få tandimplantat?",
+            "answer": "Själva ingreppet utförs under lokalbedövning, så du känner ingen smärta. Efteråt kan du uppleva mild ömhet eller svullnad, men detta hanteras enkelt med smärtstillande medel som vi rekommenderar."
+          },
+          {
+            "question": "Hur länge håller ett tandimplantat?",
+            "answer": "Med god munhygien och regelbundna tandläkarbesök kan tandimplantat hålla livet ut. Titanet är ett mycket hållbart material som växer fast i benet och är resistent mot karies."
+          },
+          {
+            "question": "Vem kan få tandimplantat?",
+            "answer": "De flesta kan få tandimplantat, förutsatt att de har tillräckligt med käkben och god allmän hälsa. Vi gör alltid en noggrann bedömning vid konsultationen för att se om du är en lämplig kandidat."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "invisalign",
+      "template": "template-treatment.php",
+      "type": "treatment",
+      "sections": {
+        "hero": {
+          "h1": "Invisalign",
+          "ingress": "Uppnå ditt drömleende diskret och effektivt med Invisalign – de nästan osynliga skenorna som rätar ut dina tänder.",
+          "bulletins": [
+            "Nästan osynligt",
+            "Bekvämt att bära",
+            "Avtagbara skenor",
+            "Effektiva resultat"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "invisalign-bg.jpg",
+          "prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. Photorealistic portrait of a confident young woman smiling broadly showing straight white teeth, soft natural daylight, shallow depth of field with heavily blurred neutral background. 85mm lens, f/1.8, subject in sharp focus, background heavily blurred bokeh, warm soft natural light. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "alt": "Ung kvinna ler stort med raka, vita tänder efter Invisalign."
+        },
+        "intro": {
+          "h2": "Räta ut dina tänder – utan synliga rälsar",
+          "ingress": "Invisalign erbjuder en modern och bekväm metod för att korrigera tandställningen. Med genomskinliga, avtagbara skenor får du ett vackrare leende nästan utan att det märks."
+        },
+        "content_block_1": {
+          "h2": "Hur fungerar Invisalign?",
+          "text_html": "<p>Invisalign är ett innovativt system som använder en serie av <strong>nästan osynliga, avtagbara plastskenor</strong> för att gradvis flytta dina tänder till önskad position. Varje skena är specialtillverkad för just dina tänder och byts ut ungefär varannan vecka. Skenorna sätter ett skonsamt men konstant tryck på tänderna, vilket får dem att röra sig stegvis.</p><p>Behandlingen inleds med en grundlig undersökning och 3D-skanning av dina tänder. Med hjälp av avancerad datorteknik skapar vi en detaljerad behandlingsplan som visar exakt hur dina tänder kommer att röra sig och hur slutresultatet förväntas se ut. Detta gör att du kan se ditt framtida leende redan innan behandlingen påbörjas.</p><p>Du bär skenorna 20–22 timmar per dygn och tar endast ut dem när du äter, dricker (annat än vatten), borstar tänderna eller använder tandtråd. Flexibiliteten att kunna ta ut skenorna underlättar munhygienen och ger dig frihet att njuta av all mat du älskar.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "image_1_id": "invisalign-image-1.jpg",
+          "image_2_id": "invisalign-image-2.jpg",
+          "image_1_prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. Photorealistic photograph of a dentist in a white coat holding up a transparent clear dental aligner showing it to a patient, background completely blurred bokeh. 85mm portrait lens, f/1.4, subject sharp, background heavily blurred bokeh, warm soft light. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "image_1_alt": "Tandläkare håller upp genomskinlig Invisalign-aligner för patient.",
+          "image_2_prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. Photorealistic macro photograph of a single transparent clear dental aligner on a clean white surface, soft diffused light, extreme close-up. Macro lens, f/2.8, extreme close-up, shallow depth of field, clean white or neutral background. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "image_2_alt": "Närbild på genomskinlig Invisalign-aligner mot vit bakgrund."
+        },
+        "content_block_2": {
+          "h2": "Fördelar med Invisalign och vad du kan förvänta dig",
+          "text_html": "<p>Den mest uppenbara fördelen med Invisalign är den <strong>diskreta aspekten</strong> – skenorna är nästan osynliga, vilket gör dem till ett populärt val för både vuxna och ungdomar som vill korrigera sina tänder utan att behöva bära traditionella, synliga rälsar. Dessutom är de avtagbara, vilket underlättar både måltider och daglig munhygien.</p><p>Invisalign-skenorna är tillverkade av ett slätt och bekvämt material, vilket minimerar irritation i munnen jämfört med metallfästen. Behandlingstiden varierar beroende på ditt individuella fall, men många upplever synliga resultat redan efter några månader. Vi följer dig noggrant under hela behandlingsperioden med regelbundna kontroller för att säkerställa att allt går som planerat.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            }
+          },
+          "h3": "Så här går en Invisalign-behandling till",
+          "subtext_html": "<p>Att få ett rakt leende med Invisalign är en strukturerad process:</p><ul><li><strong>Konsultation:</strong> Vi bedömer om Invisalign är rätt för dig och svarar på dina frågor.</li><li><strong>Digital skanning:</strong> Avtryck av dina tänder tas för en 3D-modell.</li><li><strong>Behandlingsplan:</strong> Vi visar en virtuell visualisering av ditt nya leende.</li><li><strong>Tillverkning:</strong> Dina personliga skenor produceras.</li><li><strong>Användning:</strong> Du bär skenorna och byter dem regelbundet enligt plan.</li><li><strong>Uppföljning:</strong> Regelbundna kontroller för att följa framstegen.</li></ul>"
+        },
+        "faq": [
+          {
+            "question": "Hur länge måste jag bära Invisalign-skenorna?",
+            "answer": "Behandlingstiden varierar per individ, från några månader upp till ett par år. Generellt sett ligger snittet på 6-18 månader, beroende på hur omfattande korrigeringen är."
+          },
+          {
+            "question": "Gör det ont att ha Invisalign?",
+            "answer": "När du byter till en ny skena kan du känna ett visst tryck eller ömhet de första dagarna, vilket är normalt och ett tecken på att tänderna flyttar sig. Det är sällan smärtsamt och avtar snabbt."
+          },
+          {
+            "question": "Kan jag äta vad jag vill med Invisalign?",
+            "answer": "Ja! Eftersom skenorna är avtagbara kan du ta ut dem när du äter och dricker (förutom vatten). Det innebär att du inte behöver göra några kostomläggningar under din behandling."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "akuttandvard",
+      "template": "template-treatment.php",
+      "type": "treatment",
+      "sections": {
+        "hero": {
+          "h1": "Akuttandvård",
+          "ingress": "Akut tandvärk eller skada? Vi finns här för dig när du behöver snabb och professionell hjälp.",
+          "bulletins": [
+            "Snabb hjälp",
+            "Lindrar smärta",
+            "Professionell vård",
+            "Trygg hantering"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "akuttandvard-bg.jpg",
+          "prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. A person (gender neutral) with a look of calm relief and a gentle, reassuring smile after receiving urgent dental care. The expression conveys comfort and well-being. Background heavily blurred bokeh, warm soft natural light. 85mm lens, f/1.8, subject in sharp focus, background heavily blurred bokeh, warm soft natural light. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "alt": "En person med ett lugnt leende som utstrålar lättnad."
+        },
+        "intro": {
+          "h2": "Snabbt omhändertagande vid akuta besvär",
+          "ingress": "När olyckan är framme eller smärtan slår till akut, är det viktigt att få hjälp snabbt. Vi prioriterar akuta ärenden för att du ska få lindring och rätt behandling så fort som möjligt."
+        },
+        "content_block_1": {
+          "h2": "När behöver jag akuttandvård?",
+          "text_html": "<p>Akuttandvård är till för situationer som kräver omedelbar uppmärksamhet för att <strong>lindra smärta, förhindra ytterligare skada eller rädda en tand</strong>. Vanliga orsaker till att söka akuttandvård inkluderar intensiv tandvärk, svullnad i munnen eller ansiktet, en utslagen eller avslagen tand, skador på tandkött eller tunga, samt en fyllning eller krona som lossnat och orsakar obehag.</p><p>Det är viktigt att inte ignorera akuta symtom, då de kan förvärras och leda till mer komplicerade problem om de inte behandlas i tid. En liten smärta kan indikera en infektion som behöver snabb åtgärd för att inte sprida sig. Har du drabbats av trauma mot munnen eller tänderna är det också avgörande att agera snabbt för att maximera chanserna att rädda tanden.</p><p>Om du är osäker på om ditt besvär kräver akuttandvård, rekommenderar vi att du ringer oss. Vi kan då ge råd och bedöma om du behöver en akut tid eller om det kan vänta till nästa lediga tid.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "image_1_id": "akuttandvard-image-1.jpg",
+          "image_2_id": "akuttandvard-image-2.jpg",
+          "image_1_prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. A dentist (gloved hands gently touching or examining a patient's jaw/face, not showing discomfort) offering reassurance and attentive care to a patient. The focus is on the dentist's calm and professional demeanor, with the patient's face partially obscured or out of focus. Background heavily blurred bokeh. 85mm portrait lens, f/1.4, subject sharp, background heavily blurred bokeh, warm soft light. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "image_1_alt": "Tandläkare ger lugnande och professionell vård vid akutbesök.",
+          "image_2_prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. Extreme close-up of a sterile, clean dental kit or organized set of essential, non-intimidating dental instruments (e.g., small mirror, cotton rolls) on a pristine white or neutral tray, conveying readiness and professionalism. Macro lens, f/2.8, extreme close-up, shallow depth of field, clean white or neutral background. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "image_2_alt": "Närbild på ett sterilt akut-tandvårdskit."
+        },
+        "content_block_2": {
+          "h2": "Hur vi hjälper dig vid akut besvär",
+          "text_html": "<p>När du kontaktar oss med ett akut ärende, kommer vi att ställa några frågor för att bedöma situationens allvarlighetsgrad och boka in dig så snabbt som möjligt. Vårt mål är att <strong>lindra din smärta och åtgärda problemet</strong> effektivt. Vid besöket kommer vi att utföra en noggrann undersökning för att ställa en diagnos.</p><p>Baserat på diagnosen diskuterar vi den bästa behandlingsplanen med dig. Detta kan innebära allt från smärtlindring och tillfällig fyllning till mer omfattande ingrepp som rotfyllning eller extraktion av en skadad tand. Vi ser till att du känner dig informerad och trygg genom hela processen, och att behandlingen utförs så skonsamt som möjligt.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            }
+          },
+          "h3": "Viktigt att tänka på vid akut tandvärk",
+          "subtext_html": "<p>Har du akut tandvärk eller en skada? Här är några tips medan du väntar på att komma till oss:</p><ul><li><strong>Vid tandvärk:</strong> Undvik extrem kyla/värme, ta receptfria smärtstillande.</li><li><strong>Vid utslagen tand:</strong> Förvara tanden i mjölk eller saliv och sök genast vård.</li><li><strong>Vid svullnad:</strong> Försök kyla området med en ispåse.</li><li><strong>Vid blödning:</strong> Tryck med en ren kompress på det blödande området.</li></ul>"
+        },
+        "faq": [
+          {
+            "question": "Vad gör jag om jag har slagit ut en tand?",
+            "answer": "Försök hitta tanden och hantera den försiktigt vid kronan (inte roten). Skölj den lätt med vatten om den är smutsig. Förvara den i mjölk eller i din mun (under tungan) och sök akut tandvård omedelbart. Tiden är avgörande."
+          },
+          {
+            "question": "Kan jag få en akut tid på helgen?",
+            "answer": "Våra akuttider är främst under ordinarie öppettider. För akuta problem utanför dessa, rekommenderar vi att du ringer oss så kan vi ge dig råd eller hänvisa dig till en akuttandvård som har öppet."
+          },
+          {
+            "question": "Hur mycket kostar akuttandvård?",
+            "answer": "Kostnaden varierar beroende på vilken behandling som krävs. Vi informerar dig alltid om kostnaden innan behandlingen påbörjas så att du har full kontroll."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "basundersokning",
+      "template": "template-treatment.php",
+      "type": "treatment",
+      "sections": {
+        "hero": {
+          "h1": "Basundersökning",
+          "ingress": "Grunden för en god munhälsa är en regelbunden basundersökning. Vi ser till att dina tänder mår bra och upptäcker problem i tid.",
+          "bulletins": [
+            "Förebygger problem",
+            "Tidig upptäckt",
+            "Personliga råd",
+            "Frisk mun"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "basundersokning-bg.jpg",
+          "prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. A healthy, confident person smiling naturally, showcasing a bright and well-maintained set of teeth, symbolizing the benefits of regular check-ups. Background heavily blurred bokeh, warm soft natural light. 85mm lens, f/1.8, subject in sharp focus, background heavily blurred bokeh, warm soft natural light. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "alt": "En frisk och glad person ler med hälsosamma tänder."
+        },
+        "intro": {
+          "h2": "Din regelbundna kontroll för en frisk mun",
+          "ingress": "En basundersökning är en viktig investering i din långsiktiga munhälsa. Vi undersöker, rengör och ger dig råd för att dina tänder ska hålla hela livet."
+        },
+        "content_block_1": {
+          "h2": "Vad ingår i en basundersökning hos oss?",
+          "text_html": "<p>En basundersökning är mer än bara en snabb titt i munnen; det är en <strong>grundlig hälsokontroll av din mun</strong>. Vid ditt besök hos oss kommer vi att noggrant undersöka dina tänder, tandkött och slemhinnor. Vi letar efter tecken på karies (hål i tänderna), tandköttsinflammation, parodontit (tandlossning) och andra potentiella problem som kan påverka din munhälsa.</p><p>Vi tar även nödvändiga röntgenbilder för att kunna upptäcka dolda problem, som karies mellan tänderna eller i gamla fyllningar, samt bedöma käkbenets status. Dessa bilder är avgörande för att få en helhetsbild av din munhälsa och för att kunna ge dig en korrekt diagnos.</p><p>Under undersökningen tar vi även bort tandsten och plack, putsar och fluorbehandlar tänderna vid behov. Du får också personliga råd om hur du bäst kan sköta din munhygien hemma för att förebygga framtida problem och bibehålla en frisk mun.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "image_1_id": "basundersokning-image-1.jpg",
+          "image_2_id": "basundersokning-image-2.jpg",
+          "image_1_prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. A dentist, wearing gloves, gently and carefully examining a patient's mouth with a small dental mirror and probe. The patient's face is only partially visible or blurred, emphasizing the professional and gentle care of the dentist. The background is heavily blurred bokeh. 85mm portrait lens, f/1.4, subject sharp, background heavily blurred bokeh, warm soft light. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "image_1_alt": "Tandläkare utför en noggrann basundersökning på patient.",
+          "image_2_prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. Extreme close-up of a set of clean, polished basic dental examination tools: a small dental mirror and a gentle probe, neatly arranged on a sterile, light-colored tray. Macro lens, f/2.8, extreme close-up, shallow depth of field, clean white or neutral background. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "image_2_alt": "Närbild på sterila verktyg för basundersökning."
+        },
+        "content_block_2": {
+          "h2": "Varför är regelbundna basundersökningar så viktiga?",
+          "text_html": "<p>Regelbundna basundersökningar är nyckeln till att <strong>bibehålla en god munhälsa och förebygga allvarligare problem</strong>. Många munproblem utvecklas långsamt och ger inga symtom i ett tidigt skede. Genom att komma på regelbundna kontroller kan vi upptäcka och åtgärda problem innan de blir stora och mer kostsamma att behandla.</p><p>Tidig upptäckt av karies eller tandköttsinflammation kan innebära en enklare och mindre omfattande behandling. Det handlar om att ge dig de bästa förutsättningarna för att behålla dina naturliga tänder livet ut. Dessutom får du alltid aktuella råd om din munhygien, vilket stärker din egen förmåga att ta hand om dina tänder mellan besöken.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            }
+          },
+          "h3": "Vad ingår i din undersökning?",
+          "subtext_html": "<p>Din basundersökning är en omfattande kontroll av:</p><ul><li><strong>Tänder:</strong> Letar efter karies, sprickor och slitage.</li><li><strong>Tandkött:</strong> Kontroll av inflammation, blödning och tandlossning.</li><li><strong>Slemhinnor:</strong> Screening för förändringar och munslemhinnans hälsa.</li><li><strong>Käkben:</strong> Bedömning via röntgenbilder.</li><li><strong>Munhygien:</strong> Borttagning av tandsten och råd för egenvård.</li></ul>"
+        },
+        "faq": [
+          {
+            "question": "Hur ofta bör jag göra en basundersökning?",
+            "answer": "Rekommendationen är oftast en gång per år, men det kan variera beroende på din munhälsa. Har du hög risk för karies eller tandlossning kan tätare kontroller vara nödvändiga. Din tandläkare ger dig en individuell rekommendation."
+          },
+          {
+            "question": "Gör en basundersökning ont?",
+            "answer": "En basundersökning är i allmänhet helt smärtfri. Om vi upptäcker något som kan orsaka obehag, informerar vi dig alltid och går försiktigt fram. Vår prioritet är din komfort."
+          },
+          {
+            "question": "Varför behöver jag röntgenbilder om jag inte har ont?",
+            "answer": "Röntgenbilder är oumbärliga för att upptäcka problem som inte syns med blotta ögat, till exempel karies mellan tänderna eller under gamla fyllningar, samt bedöma käkbenets status och rötternas hälsa."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "allman-tandvard",
+      "template": "template-treatment.php",
+      "type": "treatment",
+      "sections": {
+        "hero": {
+          "h1": "Allmän tandvård",
+          "ingress": "Från regelbundna kontroller till rotfyllningar och fyllningar – vi erbjuder komplett allmän tandvård för hela familjen.",
+          "bulletins": [
+            "Omfattande vård",
+            "Förebyggande fokus",
+            "Personliga planer",
+            "Familjevänligt"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "allman-tandvard-bg.jpg",
+          "prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. A diverse, happy family (e.g., adult with child) sharing a moment of genuine joy, both smiling broadly, conveying overall good oral health and well-being. Their smiles are natural and healthy. Background heavily blurred bokeh, warm soft natural light. 85mm lens, f/1.8, subject in sharp focus, background heavily blurred bokeh, warm soft natural light. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "alt": "En glad familj ler brett och visar upp friska tänder."
+        },
+        "intro": {
+          "h2": "Omfattande vård för hela din munhälsa",
+          "ingress": "Allmän tandvård är grunden för en frisk mun och omfattar allt från förebyggande åtgärder till behandling av akuta och kroniska problem. Vi är din partner för ett livslångt leende."
+        },
+        "content_block_1": {
+          "h2": "Vårt breda utbud inom allmän tandvård",
+          "text_html": "<p>Under paraplyet allmän tandvård samlas de flesta av de behandlingar som behövs för att <strong>upprätthålla, återställa och förbättra din munhälsa</strong>. Hos Patricia Teles Tandvård erbjuder vi ett brett spektrum av tjänster för att möta dina behov, oavsett ålder eller specifikt problem. Vårt fokus ligger alltid på att erbjuda en individanpassad vård som bygger på de senaste metoderna och materialen.</p><p>Detta inkluderar regelbundna basundersökningar för att tidigt upptäcka och förebygga problem, professionell tandrengöring för att ta bort tandsten och plack, samt behandling av karies (hål i tänderna) med moderna fyllnadsmaterial. Vi utför även rotfyllningar när pulpan blivit infekterad, och extraktioner av tänder som inte går att rädda.</p><p>Vi arbetar också proaktivt med att ge dig råd och instruktioner för din dagliga munhygien. Att förstå hur du bäst tar hand om dina tänder hemma är en viktig del i att bibehålla en god munhälsa mellan dina besök hos oss.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "image_1_id": "allman-tandvard-image-1.jpg",
+          "image_2_id": "allman-tandvard-image-2.jpg",
+          "image_1_prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. A compassionate dentist gently conversing or explaining something to a patient of any age (face partially obscured or blurred), conveying trust and personalized care for various general dental needs. Background heavily blurred bokeh. 85mm portrait lens, f/1.4, subject sharp, background heavily blurred bokeh, warm soft light. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "image_1_alt": "En tandläkare har en lugn diskussion med en patient.",
+          "image_2_prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. Extreme close-up of a modern, simple toothbrush with a subtle dab of toothpaste on its bristles, resting on a clean, bright white surface. The focus is on daily oral hygiene. Macro lens, f/2.8, extreme close-up, shallow depth of field, clean white or neutral background. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "image_2_alt": "Närbild på en modern tandborste med tandkräm."
+        },
+        "content_block_2": {
+          "h2": "Din partner för ett friskt leende – livet igenom",
+          "text_html": "<p>Vårt mål är att vara din långsiktiga partner för en frisk mun. Vi strävar efter att bygga en relation baserad på <strong>förtroende och öppen kommunikation</strong>. Vi lyssnar på dina önskemål, besvarar dina frågor och förklarar tydligt alla behandlingsalternativ så att du kan känna dig trygg med de beslut du fattar om din munhälsa.</p><p>Genom att kontinuerligt följa din munhälsa kan vi erbjuda en sammanhållen vård som anpassas över tid. Oavsett om du behöver en rutinmässig kontroll, en fyllning eller hjälp med ett mer komplext problem, är vårt erfarna team redo att hjälpa dig med största omsorg och precision. Vi är här för att stödja dig på din resa mot ett hälsosamt och vackert leende.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            }
+          },
+          "h3": "Exempel på tjänster inom allmän tandvård",
+          "subtext_html": "<p>Vi erbjuder ett omfattande utbud av allmänna tandvårdstjänster, anpassade efter dina behov:</p><ul><li><strong>Basundersökning:</strong> Kontroll av tänder, tandkött och munhälsa.</li><li><strong>Tandstensborttagning:</strong> Professionell rengöring och polering.</li><li><strong>Fyllningar:</strong> Lagningar av karies med moderna, hållbara material.</li><li><strong>Rotfyllningar:</strong> Behandling av infekterade tänder.</li><li><strong>Extraktioner:</strong> Borttagning av skadade tänder när nödvändigt.</li><li><strong>Förebyggande vård:</strong> Fluorbehandling och munhygieninstruktioner.</li></ul>"
+        },
+        "faq": [
+          {
+            "question": "Hur ofta ska jag besöka tandläkaren för allmän tandvård?",
+            "answer": "För de flesta rekommenderas ett besök en gång per år för en basundersökning och tandrengöring. Om du har specifika problem eller en högre risk för karies eller tandlossning, kan tätare besök vara aktuellt."
+          },
+          {
+            "question": "Vilka material används för fyllningar?",
+            "answer": "Idag använder vi i huvudsak moderna, tandfärgade kompositmaterial som är både estetiska och hållbara. Dessa anpassas för att matcha dina egna tänder och ger ett naturligt resultat."
+          },
+          {
+            "question": "Kan allmän tandvård hjälpa mig med tandköttsproblem?",
+            "answer": "Ja, absolut. Inom allmän tandvård behandlar vi tidiga stadier av tandköttsinflammation (gingivit) genom professionell rengöring och råd om munhygien. Vid mer avancerad tandlossning (parodontit) kan vi också erbjuda initial behandling och remittera vid behov."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "tandvardsradsla",
+      "template": "template-treatment.php",
+      "type": "treatment",
+      "sections": {
+        "hero": {
+          "h1": "Tandvårdsrädsla",
+          "ingress": "Känner du oro inför tandläkarbesöket? Hos oss möts du med extra förståelse, tålamod och metoder som gör din upplevelse trygg och lugn.",
+          "bulletins": [
+            "Extra omtanke",
+            "Lugn miljö",
+            "Full kontroll",
+            "Steg-för-steg"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "tandvardsradsla-bg.jpg",
+          "prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. A calm and reassured person (gender neutral, serene expression) with a gentle, appreciative smile, reflecting a sense of peace and relief after a positive dental experience. Background heavily blurred bokeh, warm soft natural light. 85mm lens, f/1.8, subject in sharp focus, background heavily blurred bokeh, warm soft natural light. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "alt": "En lugn och trygg person med ett mjukt, lättat leende."
+        },
+        "intro": {
+          "h2": "Vi möter dig med förståelse och tålamod",
+          "ingress": "Att känna obehag eller rädsla inför tandläkarbesöket är vanligt. Hos Patricia Teles Tandvård tar vi din oro på största allvar och anpassar besöket efter dina behov."
+        },
+        "content_block_1": {
+          "h2": "Att hantera tandvårdsrädsla – din trygghet är vår prioritet",
+          "text_html": "<p>Tandvårdsrädsla, eller odontofobi, är en vanlig upplevelse för många, och det är absolut inget att skämmas för. Det kan handla om rädslan för smärta, att känna sig utlämnad, för ljud och lukter, eller tidigare negativa erfarenheter. På Patricia Teles Tandvård har vi <strong>lång erfarenhet av att möta patienter med tandvårdsrädsla</strong> och vårt viktigaste mål är att du ska känna dig trygg och i kontroll under hela ditt besök.</p><p>Vi börjar alltid med ett lugnt samtal där du får berätta om dina känslor och vad som oroar dig. Vi lyssnar noga och anpassar sedan behandlingen och besöket efter dina specifika behov och önskemål. Du har alltid möjlighet att pausa behandlingen när du vill, och vi förklarar varje steg tydligt innan vi utför det. Vi arbetar med skonsamma metoder och effektiv smärtlindring för att göra upplevelsen så bekväm som möjligt.</p><p>Det handlar om att bygga upp förtroende och låta dig återta kontrollen över din tandvård. Många av våra patienter som tidigare lidit av tandvårdsrädsla har genom vår metodik kunnat övervinna sin oro och ser idag fram emot sina regelbundna kontroller.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "image_1_id": "tandvardsradsla-image-1.jpg",
+          "image_2_id": "tandvardsradsla-image-2.jpg",
+          "image_1_prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. A dentist or assistant gently placing a comforting hand on a patient's shoulder (patient's face blurred or out of frame), providing reassurance and empathy during a discussion. The interaction is calm and supportive. Background heavily blurred bokeh. 85mm portrait lens, f/1.4, subject sharp, background heavily blurred bokeh, warm soft light. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "image_1_alt": "Tandläkare ger patient extra förståelse och stöd.",
+          "image_2_prompt": "Photorealistic photography, modern minimalist Scandinavian aesthetic, soft natural light, clean surfaces, warm whites. Extreme close-up of a soft, textured fabric, like a knitted blanket or a smooth, comforting stone, gently held in a patient's hand (hand partially visible), symbolizing comfort and tactile reassurance. Macro lens, f/2.8, extreme close-up, shallow depth of field, clean white or neutral background. No text of any kind, no signs, no labels, no screens, no logos visible anywhere in the image.",
+          "image_2_alt": "Närbild av en hand som håller ett mjukt, tryggt föremål."
+        },
+        "content_block_2": {
+          "h2": "Våra metoder för en lugn och trygg upplevelse",
+          "text_html": "<p>För att minimera din oro använder vi flera strategier och verktyg. En viktig del är <strong>kommunikation och transparens</strong>. Vi förklarar alltid vad som ska hända, varför och hur det kommer att kännas. Du kan få en spegel att titta i, eller vi kan täcka över munnen om det känns bättre. Du bestämmer tempot.</p><p>Vi är också mycket noga med att använda effektiv bedövning som får verka ordentligt innan vi börjar behandla. För patienter med stark ångest kan vi diskutera möjligheten till lustgas eller lugnande medicin som ett komplement, i samråd med dig. Vår klinikmiljö är designad för att vara så lugnande som möjligt, med mjuka färger och en avslappnad atmosfär. Vårt team är utbildat i att vara extra lyhörda och empatiska.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            }
+          },
+          "h3": "Steg mot en tryggare tandvårdsupplevelse",
+          "subtext_html": "<p>Vi arbetar tillsammans för att du ska känna dig bekväm:</p><ul><li><strong>Första samtalet:</strong> Berätta om din rädsla, vi lyssnar.</li><li><strong>Gradvis introduktion:</strong> Vi börjar i din takt, små steg i taget.</li><li><strong>Kontroll:</strong> Du har alltid en stoppsignal och bestämmer när vi tar pauser.</li><li><strong>Bedövning:</strong> Effektiv och skonsam smärtlindring.</li><li><strong>Information:</strong> Tydlig förklaring av varje moment.</li><li><strong>Uppföljning:</strong> Vi utvärderar tillsammans efter varje besök.</li></ul>"
+        },
+        "faq": [
+          {
+            "question": "Kan jag ta med en vän eller familjemedlem?",
+            "answer": "Absolut. Om det känns tryggare för dig att ha någon du litar på med under besöket är det oftast inga problem. Meddela oss gärna i förväg så vi kan förbereda."
+          },
+          {
+            "question": "Vad händer om jag får panik under behandlingen?",
+            "answer": "Du har alltid full kontroll. Vi kommer överens om en stoppsignal (t.ex. att räcka upp handen) som gör att vi omedelbart avbryter behandlingen. Då kan vi ta en paus och prata om vad som oroar dig."
+          },
+          {
+            "question": "Finns det mediciner som kan hjälpa mot tandvårdsrädsla?",
+            "answer": "Ja, i vissa fall kan vi i samråd med dig och din allmänläkare överväga att skriva ut en lugnande tablett att ta innan besöket. Detta kan hjälpa dig att slappna av och underlätta behandlingen."
+          }
+        ]
+      }
+    }
+  ]
+}

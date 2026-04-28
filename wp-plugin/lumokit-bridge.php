@@ -9,7 +9,13 @@
 
 defined( 'ABSPATH' ) || exit;
 
+// Single source of truth for bridge version. Bumped by tools/release.py.
+define( 'LUMOKIT_BRIDGE_VERSION', '1.0.0' );
+
 define( 'LUMOKIT_OPTION_KEY', 'lumokit_components' );
+
+// Maps override field keys → their component's html_template (for editor pre-population)
+$GLOBALS['lumokit_override_templates'] = [];
 define( 'LUMOKIT_CSS_OPTION_KEY', 'lumokit_compiled_css' );
 
 
@@ -59,6 +65,29 @@ function lumokit_register_routes() {
 			'methods'             => WP_REST_Server::CREATABLE,
 			'callback'            => 'lumokit_save_options',
 			'permission_callback' => 'lumokit_auth_check',
+		],
+	] );
+
+	// Public contact-form submission endpoint — no auth, basic spam protection.
+	// Version endpoint — public, used by tools/build_all.py to record what's deployed.
+	register_rest_route( 'lumokit/v1', '/version', [
+		[
+			'methods'             => WP_REST_Server::READABLE,
+			'callback'            => function () {
+				return rest_ensure_response( [
+					'bridge_version' => defined( 'LUMOKIT_BRIDGE_VERSION' ) ? LUMOKIT_BRIDGE_VERSION : '0.0.0',
+					'wp_version'     => get_bloginfo( 'version' ),
+				] );
+			},
+			'permission_callback' => '__return_true',
+		],
+	] );
+
+	register_rest_route( 'lumokit/v1', '/contact', [
+		[
+			'methods'             => WP_REST_Server::CREATABLE,
+			'callback'            => 'lumokit_handle_contact',
+			'permission_callback' => '__return_true',
 		],
 	] );
 
@@ -219,10 +248,41 @@ function lumokit_build_site( WP_REST_Request $request ) {
 		wp_update_nav_menu_item( $menu_id, 0, $item_args );
 	}
 
+	// Third pass: append custom-URL items (e.g. anchor CTAs like "Boka tid").
+	$extra_items = ! empty( $body['extra_menu_items'] ) && is_array( $body['extra_menu_items'] )
+		? $body['extra_menu_items']
+		: [];
+
+	foreach ( $extra_items as $extra ) {
+		if ( empty( $extra['label'] ) || empty( $extra['url'] ) ) {
+			continue;
+		}
+		wp_update_nav_menu_item( $menu_id, 0, [
+			'menu-item-title'  => sanitize_text_field( $extra['label'] ),
+			'menu-item-url'    => esc_url_raw( $extra['url'] ),
+			'menu-item-type'   => 'custom',
+			'menu-item-status' => 'publish',
+		] );
+	}
+
 	// --- Assign menu to lumokit-primary location ---
 	$locations                    = get_theme_mod( 'nav_menu_locations', [] );
 	$locations['lumokit-primary'] = $menu_id;
 	set_theme_mod( 'nav_menu_locations', $locations );
+
+	// --- Set the "hem" page as the static front page (so / renders the home page,
+	// not the default blog or "Sample Page"). Only acts when a page with slug "hem"
+	// was built in this run.
+	foreach ( $pages as $page_spec ) {
+		if ( ( $page_spec['slug'] ?? '' ) === 'hem' ) {
+			$home_page = get_page_by_path( 'hem', OBJECT, 'page' );
+			if ( $home_page ) {
+				update_option( 'show_on_front', 'page' );
+				update_option( 'page_on_front', $home_page->ID );
+			}
+			break;
+		}
+	}
 
 	return rest_ensure_response( [
 		'success'   => true,
@@ -270,17 +330,59 @@ function lumokit_build_page( WP_REST_Request $request ) {
 		);
 	}
 
-	// Build Gutenberg block markup
+	// Build Gutenberg block markup. Bake schema defaults into the block's `data`
+	// attribute so ACF treats them as saved values from the start. This makes
+	// "clear field in WP Admin → field actually disappears" work — without this,
+	// the render fallback would always restore defaults and frustrate editors.
 	$content_parts = [];
 	foreach ( $block_names as $block_name ) {
-		$short_name = lumokit_block_short_name( $block_name );
-		$block_id   = 'block_' . uniqid();
-		$content_parts[] = sprintf(
-			'<!-- wp:acf/%s {"id":"%s","name":"acf/%s","mode":"preview"} /-->',
-			$short_name,
-			$block_id,
-			$short_name
-		);
+		$short_name  = lumokit_block_short_name( $block_name );
+		$block_id    = 'block_' . uniqid();
+		$slug_prefix = sanitize_title( str_replace( '/', '_', $block_name ) );
+		$schema      = $components[ $block_name ]['schema'] ?? [];
+
+		$data = new stdClass();
+		foreach ( $schema as $field_def ) {
+			$name      = sanitize_key( $field_def['name'] ?? '' );
+			$type      = $field_def['type'] ?? 'text';
+			$default   = $field_def['default'] ?? '';
+			$field_key = 'field_' . $slug_prefix . '_' . $name;
+
+			if ( $type === 'nav_menu' ) {
+				continue;
+			}
+
+			$value_to_bake = $default;
+			if ( $type === 'image' ) {
+				// ACF expects an attachment ID for image fields. Look it up from the URL
+				// in our schema default. If the URL doesn't resolve to a known attachment,
+				// skip baking — admin will show "select image" but at least frontend renders.
+				if ( ! empty( $default ) && filter_var( $default, FILTER_VALIDATE_URL ) ) {
+					$attachment_id = attachment_url_to_postid( $default );
+					if ( $attachment_id ) {
+						$value_to_bake = $attachment_id;
+					} else {
+						continue;
+					}
+				} elseif ( is_numeric( $default ) ) {
+					$value_to_bake = (int) $default;
+				} else {
+					continue;
+				}
+			}
+
+			$data->{$name}        = $value_to_bake;
+			$data->{'_' . $name}  = $field_key;
+		}
+
+		$attrs = [
+			'id'   => $block_id,
+			'name' => 'acf/' . $short_name,
+			'data' => $data,
+			'mode' => 'preview',
+		];
+
+		$content_parts[] = '<!-- wp:acf/' . $short_name . ' ' . wp_json_encode( $attrs, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . ' /-->';
 	}
 	$post_content = implode( "\n", $content_parts );
 
@@ -344,19 +446,54 @@ function lumokit_save_styles( WP_REST_Request $request ) {
  * Called by build_all.py when bundle contains a "platform_config" section.
  *
  * Accepted fields:
- *   platform            string  e.g. "boxmedia" or "" to clear
- *   trustindex_script   string  raw embed script tag
- *   booking_widget_id   string  widget ID/key
+ *   platform               string  e.g. "boxmedia" or "" to clear
+ *   trustindex_script      string  raw embed script tag (legacy)
+ *   booking_widget_id      string  widget ID/key (legacy boxmedia)
+ *   site_reviews_score        string  WordPress shortcode for review score widget
+ *   site_reviews_testimonials string  WordPress shortcode for customer reviews/testimonials widget
+ *   site_booking_api_key   string  API key for the booking widget
  */
 function lumokit_save_settings( WP_REST_Request $request ) {
 	$body    = $request->get_json_params();
 	$updated = [];
 
-	$allowed = [ 'platform', 'trustindex_script', 'booking_widget_id' ];
+	$allowed = [ 'platform', 'trustindex_script', 'booking_widget_id', 'site_reviews_score', 'site_reviews_testimonials', 'site_booking_api_key', 'site_booking_treatment_id' ];
 
 	foreach ( $allowed as $key ) {
 		if ( array_key_exists( $key, $body ) ) {
 			update_option( 'lumokit_' . $key, $body[ $key ], false );
+			$updated[] = $key;
+		}
+	}
+
+	// Mirror integration fields to the ACF options namespace (options_{name})
+	// so that get_field( 'site_*', 'option' ) and {{site_*}} template variables work.
+	if ( array_key_exists( 'trustindex_script', $body ) ) {
+		update_option( 'options_site_trustindex_script', $body['trustindex_script'], false );
+	}
+	if ( array_key_exists( 'booking_widget_id', $body ) ) {
+		update_option( 'options_site_booking_widget_id', $body['booking_widget_id'], false );
+	}
+	if ( array_key_exists( 'site_reviews_score', $body ) ) {
+		update_option( 'options_site_reviews_score', $body['site_reviews_score'], false );
+	}
+	if ( array_key_exists( 'site_reviews_testimonials', $body ) ) {
+		update_option( 'options_site_reviews_testimonials', $body['site_reviews_testimonials'], false );
+	}
+	if ( array_key_exists( 'site_booking_api_key', $body ) ) {
+		update_option( 'options_site_booking_api_key', $body['site_booking_api_key'], false );
+		// Mirror to the legacy key so existing WP Code snippets reading lumokit_booking_widget_id keep working.
+		update_option( 'lumokit_booking_widget_id', $body['site_booking_api_key'], false );
+	}
+	if ( array_key_exists( 'site_booking_treatment_id', $body ) ) {
+		update_option( 'options_site_booking_treatment_id', $body['site_booking_treatment_id'], false );
+	}
+	// Accept per-page treatment IDs: any key starting with "site_booking_treatment_"
+	// is mirrored to ACF options. Allows pushing all 6 treatment IDs in one call.
+	foreach ( $body as $key => $value ) {
+		if ( is_string( $key ) && strpos( $key, 'site_booking_treatment_' ) === 0
+		     && $key !== 'site_booking_treatment_id' ) {
+			update_option( 'options_' . $key, $value, false );
 			$updated[] = $key;
 		}
 	}
@@ -387,6 +524,12 @@ function lumokit_save_options( WP_REST_Request $request ) {
 		'site_phone',
 		'site_email',
 		'site_opening_hours',
+		'site_facebook',
+		'site_instagram',
+		'site_linkedin',
+		'site_twitter',
+		'site_tiktok',
+		'site_youtube',
 	];
 	$updated = [];
 
@@ -401,6 +544,78 @@ function lumokit_save_options( WP_REST_Request $request ) {
 		'success' => true,
 		'updated' => $updated,
 	] );
+}
+
+
+/**
+ * POST /wp-json/lumokit/v1/contact
+ * Public endpoint — receives submissions from the native contact form and
+ * emails them to the site_email address from ACF options. Basic spam guards:
+ *   - Honeypot field "website" must be empty
+ *   - Required fields validated
+ *   - Throttled per IP via transient (1 submission per 30 seconds)
+ */
+function lumokit_handle_contact( WP_REST_Request $request ) {
+	$body = $request->get_json_params();
+	if ( ! is_array( $body ) ) {
+		$body = $request->get_params();
+	}
+
+	// Honeypot — silently succeed so bots think they got through.
+	if ( ! empty( $body['website'] ) ) {
+		return rest_ensure_response( [ 'success' => true ] );
+	}
+
+	$name    = sanitize_text_field( $body['name'] ?? '' );
+	$email   = sanitize_email( $body['email'] ?? '' );
+	$phone   = sanitize_text_field( $body['phone'] ?? '' );
+	$message = sanitize_textarea_field( $body['message'] ?? '' );
+
+	if ( empty( $name ) || empty( $email ) || empty( $message ) ) {
+		return new WP_Error( 'missing_field', 'Namn, e-post och meddelande krävs.', [ 'status' => 400 ] );
+	}
+	if ( ! is_email( $email ) ) {
+		return new WP_Error( 'bad_email', 'Ogiltig e-postadress.', [ 'status' => 400 ] );
+	}
+
+	// Rate-limit per IP.
+	$ip  = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+	$key = 'lumokit_contact_' . md5( $ip );
+	if ( get_transient( $key ) ) {
+		return new WP_Error( 'too_fast', 'Vänta en stund innan du skickar igen.', [ 'status' => 429 ] );
+	}
+	set_transient( $key, 1, 30 );
+
+	// Recipient — site_email from ACF options, falls back to admin_email.
+	$to = '';
+	if ( function_exists( 'get_field' ) ) {
+		$to = get_field( 'site_email', 'option' );
+	}
+	if ( empty( $to ) ) {
+		$to = get_option( 'admin_email' );
+	}
+
+	$subject  = '[' . get_bloginfo( 'name' ) . '] Nytt meddelande från ' . $name;
+	$body_txt = "Nytt meddelande via kontaktformuläret:\n\n";
+	$body_txt .= "Namn: $name\n";
+	$body_txt .= "E-post: $email\n";
+	if ( ! empty( $phone ) ) {
+		$body_txt .= "Telefon: $phone\n";
+	}
+	$body_txt .= "\nMeddelande:\n$message\n";
+
+	$headers = [
+		'Content-Type: text/plain; charset=UTF-8',
+		'Reply-To: ' . $name . ' <' . $email . '>',
+	];
+
+	$sent = wp_mail( $to, $subject, $body_txt, $headers );
+
+	if ( ! $sent ) {
+		return new WP_Error( 'send_failed', 'Vi kunde inte skicka meddelandet just nu. Försök igen senare eller ring oss.', [ 'status' => 500 ] );
+	}
+
+	return rest_ensure_response( [ 'success' => true ] );
 }
 
 
@@ -695,31 +910,141 @@ function lumokit_register_dynamic_blocks() {
 				'default_value' => '',
 				'instructions' => 'T.ex. Mån–Fre 08–17, Lör 10–14',
 			],
+			[
+				'key'   => 'field_lumo_settings_tab_social',
+				'label' => 'Sociala medier',
+				'name'  => '',
+				'type'  => 'tab',
+			],
+			[
+				'key'           => 'field_lumo_site_facebook',
+				'name'          => 'site_facebook',
+				'label'         => 'Facebook',
+				'type'          => 'url',
+				'default_value' => '',
+				'instructions'  => 'Fullständig URL till Facebook-sidan',
+			],
+			[
+				'key'           => 'field_lumo_site_instagram',
+				'name'          => 'site_instagram',
+				'label'         => 'Instagram',
+				'type'          => 'url',
+				'default_value' => '',
+				'instructions'  => 'Fullständig URL till Instagram-profilen',
+			],
+			[
+				'key'           => 'field_lumo_site_linkedin',
+				'name'          => 'site_linkedin',
+				'label'         => 'LinkedIn',
+				'type'          => 'url',
+				'default_value' => '',
+				'instructions'  => 'Fullständig URL till LinkedIn-sidan',
+			],
+			[
+				'key'           => 'field_lumo_site_twitter',
+				'name'          => 'site_twitter',
+				'label'         => 'Twitter / X',
+				'type'          => 'url',
+				'default_value' => '',
+				'instructions'  => 'Fullständig URL till Twitter/X-profilen',
+			],
+			[
+				'key'           => 'field_lumo_site_tiktok',
+				'name'          => 'site_tiktok',
+				'label'         => 'TikTok',
+				'type'          => 'url',
+				'default_value' => '',
+				'instructions'  => 'Fullständig URL till TikTok-profilen',
+			],
+			[
+				'key'           => 'field_lumo_site_youtube',
+				'name'          => 'site_youtube',
+				'label'         => 'YouTube',
+				'type'          => 'url',
+				'default_value' => '',
+				'instructions'  => 'Fullständig URL till YouTube-kanalen',
+			],
 		];
 
-		// Append integration fields when a platform is active.
-		// These fields have neutral labels — no platform name is exposed to the client.
+		// Shortcode widgets — always shown, platform-agnostic.
+		$settings_fields[] = [
+			'key'   => 'field_lumo_settings_tab_widgets',
+			'label' => 'Widgets',
+			'name'  => '',
+			'type'  => 'tab',
+		];
+		$settings_fields[] = [
+			'key'          => 'field_lumo_site_reviews_score',
+			'name'         => 'site_reviews_score',
+			'label'        => 'Recensioner — Betygswidget (shortcode)',
+			'type'         => 'textarea',
+			'rows'         => 3,
+			'instructions' => 'Shortcode för betygswidgeten (stjärnor/score). Används via {{site_reviews_score}} i designen.',
+		];
+		$settings_fields[] = [
+			'key'          => 'field_lumo_site_reviews_testimonials',
+			'name'         => 'site_reviews_testimonials',
+			'label'        => 'Recensioner — Kundrecensioner (shortcode)',
+			'type'         => 'textarea',
+			'rows'         => 3,
+			'instructions' => 'Shortcode för kundrecensioner/testimonials. Används via {{site_reviews_testimonials}} i designen.',
+		];
+		$settings_fields[] = [
+			'key'          => 'field_lumo_site_booking_api_key',
+			'name'         => 'site_booking_api_key',
+			'label'        => 'Bokning — API-nyckel',
+			'type'         => 'text',
+			'instructions' => 'API-nyckel för bokningswidgeten. Används i komponenter via {{site_booking_api_key}}.',
+		];
+		$settings_fields[] = [
+			'key'          => 'field_lumo_site_booking_treatment_id',
+			'name'         => 'site_booking_treatment_id',
+			'label'        => 'Bokning — Behandlings-ID (global default)',
+			'type'         => 'text',
+			'instructions' => 'TDL-behandlings-ID som visas på sidor utan eget ID. Lämna tomt om widgeten bara ska visas på behandlingssidor.',
+		];
+		// Per-treatment-page IDs. Field name = site_booking_treatment_<slug>
+		// (slugar med bindestreck normaliseras till understreck).
+		$treatments = [
+			'tandimplantat'    => 'Tandimplantat',
+			'invisalign'       => 'Invisalign',
+			'akuttandvard'     => 'Akuttandvård',
+			'basundersokning'  => 'Basundersökning',
+			'allman_tandvard'  => 'Allmän tandvård',
+			'tandvardsradsla'  => 'Tandvårdsrädsla',
+		];
+		foreach ( $treatments as $slug => $label ) {
+			$settings_fields[] = [
+				'key'          => 'field_lumo_site_booking_treatment_' . $slug,
+				'name'         => 'site_booking_treatment_' . $slug,
+				'label'        => 'Bokning — Behandlings-ID: ' . $label,
+				'type'         => 'text',
+				'instructions' => 'TDL-behandlings-ID för ' . $label . '-sidan.',
+			];
+		}
+
+		// Append legacy integration fields when boxmedia platform is active.
 		if ( get_option( 'lumokit_platform', '' ) !== '' ) {
 			$settings_fields[] = [
 				'key'   => 'field_lumo_settings_tab_integrations',
-				'label' => 'Integrationer',
+				'label' => 'Integrationer (avancerat)',
 				'name'  => '',
 				'type'  => 'tab',
 			];
 			$settings_fields[] = [
 				'key'          => 'field_lumo_site_trustindex_script',
 				'name'         => 'site_trustindex_script',
-				'label'        => 'Recensionswidget',
+				'label'        => 'Recensionswidget — embed-kod',
 				'type'         => 'textarea',
 				'rows'         => 5,
-				'instructions' => 'Embed-kod för recensionswidgeten. Laddas automatiskt på alla sidor.',
+				'instructions' => 'Rå embed-kod (script-tagg). Används om shortcode-fältet ovan är tomt.',
 			];
 			$settings_fields[] = [
 				'key'          => 'field_lumo_site_booking_widget_id',
 				'name'         => 'site_booking_widget_id',
 				'label'        => 'Bokningsmodul — ID',
 				'type'         => 'text',
-				'instructions' => 'ID-nyckel för bokningsmodulen.',
+				'instructions' => 'ID-nyckel för bokningsmodulen (legacy).',
 			];
 		}
 
@@ -781,6 +1106,25 @@ function lumokit_register_dynamic_blocks() {
 				'supports'        => [ 'align' => false, 'mode' => false ],
 			] );
 
+			// Append HTML override tab — one click in editor opens the raw template for editing
+			$override_field_key = 'field_' . $slug_prefix . '_lumo_html_override';
+			$GLOBALS['lumokit_override_templates'][ $override_field_key ] = $component['html_template'];
+
+			$fields[] = [
+				'key'   => 'field_' . $slug_prefix . '_tab_html',
+				'label' => 'HTML',
+				'name'  => '',
+				'type'  => 'tab',
+			];
+			$fields[] = [
+				'key'          => $override_field_key,
+				'name'         => 'lumo_html_override',
+				'label'        => 'Block HTML',
+				'type'         => 'textarea',
+				'rows'         => 25,
+				'instructions' => 'Redigera HTML för detta block på denna sida. Lämna tomt för att använda den globala mallen.',
+			];
+
 			acf_add_local_field_group( [
 				'key'      => $group_key,
 				'title'    => $component['title'] . ' Fields',
@@ -837,33 +1181,7 @@ function lumokit_block_short_name( $block_name ) {
 	return end( $parts );
 }
 
-// ---------------------------------------------------------------------------
-// 3. Boxmedia: Booking widget injection (before footer)
-//    Outputs the booking widget div on all pages when platform is boxmedia.
-//    Per-page treatment ID comes from the ACF field "booking_treatment_id".
-// ---------------------------------------------------------------------------
 
-add_action( 'wp_footer', 'lumokit_inject_booking_widget', 5 );
-
-function lumokit_inject_booking_widget() {
-	if ( get_option( 'lumokit_platform', '' ) !== 'boxmedia' ) {
-		return;
-	}
-
-	if ( ! function_exists( 'get_field' ) ) {
-		return;
-	}
-
-	$treatment_id   = get_field( 'booking_treatment_id', get_the_ID() );
-	$treatment_attr = $treatment_id ? esc_attr( $treatment_id ) : '';
-	?>
-	<div id="tdl-booking-widget" data-treatment="<?php echo $treatment_attr; ?>"></div>
-	<script>
-	const t = document.getElementById('tdl-booking-widget')?.dataset.treatment;
-	if (t) window.tdlWidgetConfig.treatmentIds = [t];
-	</script>
-	<?php
-}
 
 
 // ---------------------------------------------------------------------------
@@ -874,6 +1192,15 @@ function lumokit_inject_booking_widget() {
 add_filter( 'acf/load_value', 'lumokit_acf_load_default', 10, 3 );
 
 function lumokit_acf_load_default( $value, $post_id, $field ) {
+	// HTML override fields: pre-populate with the component's template in the editor
+	// so the developer can see and edit it. On the frontend we skip this — empty = use global template.
+	if ( isset( $GLOBALS['lumokit_override_templates'][ $field['key'] ] ) ) {
+		if ( ( $value === false || $value === null ) && is_admin() ) {
+			return $GLOBALS['lumokit_override_templates'][ $field['key'] ];
+		}
+		return $value;
+	}
+
 	if ( ! empty( $value ) ) {
 		return $value;
 	}
@@ -899,18 +1226,16 @@ function lumokit_schema_to_acf_fields( array $schema, $block_name ) {
 			$type = 'text';
 		}
 
-		// default_value pre-fills the field in the Gutenberg editor.
-		// Skip for image (needs attachment ID, not URL) and nav_menu fields.
-		$default_value = ( $type !== 'image' && $type !== 'nav_menu' )
-			? ( $field_def['default'] ?? '' )
-			: '';
-
+		// Don't register default_value with ACF — it would silently re-inject the
+		// default when a field is cleared, defeating "clear → disappears" behavior.
+		// Defaults are baked directly into the block's data attribute by
+		// lumokit_build_page() instead (single source of truth).
 		$fields[] = [
 			'key'           => 'field_' . $slug_prefix . '_' . $name,
 			'name'          => $name,
 			'label'         => $label,
 			'type'          => $type,
-			'default_value' => $default_value,
+			'default_value' => '',
 		];
 	}
 
@@ -932,6 +1257,12 @@ function lumokit_get_global_replacements() {
 		'site_phone',
 		'site_email',
 		'site_opening_hours',
+		'site_facebook',
+		'site_instagram',
+		'site_linkedin',
+		'site_twitter',
+		'site_tiktok',
+		'site_youtube',
 	];
 
 	$replacements = [];
@@ -952,8 +1283,16 @@ function lumokit_get_global_replacements() {
 		$replacements['{{site_booking_cta_link}}'] = '#';
 	}
 
-	// Integration fields — editable by client in WP Admin when platform is active,
-	// but only injected/used when platform is set.
+	// Shortcode widgets — always resolved, platform-agnostic.
+	if ( function_exists( 'get_field' ) ) {
+		$reviews_score        = get_field( 'site_reviews_score', 'option' ) ?: '';
+		$reviews_testimonials = get_field( 'site_reviews_testimonials', 'option' ) ?: '';
+		$replacements['{{site_reviews_score}}']        = $reviews_score ? do_shortcode( $reviews_score ) : '';
+		$replacements['{{site_reviews_testimonials}}'] = $reviews_testimonials ? do_shortcode( $reviews_testimonials ) : '';
+		$replacements['{{site_booking_api_key}}']      = get_field( 'site_booking_api_key', 'option' ) ?: '';
+	}
+
+	// Legacy integration fields — only when platform is active.
 	if ( $platform !== '' && function_exists( 'get_field' ) ) {
 		$replacements['{{site_trustindex_script}}']  = get_field( 'site_trustindex_script', 'option' ) ?: '';
 		$replacements['{{site_booking_widget_id}}']  = get_field( 'site_booking_widget_id', 'option' ) ?: '';
@@ -992,7 +1331,20 @@ function lumokit_render_block( $block, $content = '', $is_preview = false ) {
 		return;
 	}
 
+	// Use per-page HTML override if a developer has saved one for this block instance
+	$html_override = get_field( 'lumo_html_override' );
+	if ( ! empty( $html_override ) ) {
+		$html_template = $html_override;
+	}
+
 	$replacements = [];
+
+	// Per-field detection: has the user explicitly saved a value for THIS field?
+	// ACF stores block field data keyed by field key (not name) in $block['data'].
+	// If the field key is present, the user has saved this field — even an empty
+	// value should be respected (editor expects "clear field → disappears").
+	$block_data  = is_array( $block['data'] ?? null ) ? $block['data'] : [];
+	$slug_prefix = sanitize_title( str_replace( '/', '_', $block_name ) );
 
 	foreach ( $schema as $field_def ) {
 		$name    = sanitize_key( $field_def['name'] ?? '' );
@@ -1004,27 +1356,39 @@ function lumokit_render_block( $block, $content = '', $is_preview = false ) {
 			$value = $value['url'] ?? '';
 		}
 
-		// Fall back to schema default when ACF field is empty
-		if ( empty( $value ) && ! empty( $default ) ) {
+		// Has user explicitly set this specific field? Check if the field key OR
+		// the underscore-prefixed key (ACF's reference marker) exists in block data.
+		$field_key      = 'field_' . $slug_prefix . '_' . $name;
+		$user_set_field = array_key_exists( $field_key, $block_data )
+			|| array_key_exists( '_' . $name, $block_data )
+			|| array_key_exists( $name, $block_data );
+
+		// Fall back to schema default ONLY when the user has never saved this field.
+		if ( ! $user_set_field && empty( $value ) && ! empty( $default ) ) {
 			$value = $default;
 		}
 
-		// Fall back to placeholder image if still empty
-		if ( $type === 'image' && empty( $value ) ) {
+		if ( $type === 'image' && empty( $value ) && ! $user_set_field ) {
 			$value = 'https://placehold.co/800x600';
 		}
 
 		$replacements[ '{{' . $name . '}}' ] = $value ?? '';
 	}
 
-	// Merge global {{site_*}} variables — available in every block
-	$replacements = array_merge( lumokit_get_global_replacements(), $replacements );
+	// Merge global {{site_*}} variables — placed AFTER per-field so chained
+	// substitution works: a per-field default of "tel:{{site_phone}}" gets the
+	// {{site_phone}} resolved on the next iteration of str_replace.
+	$replacements = array_merge( $replacements, lumokit_get_global_replacements() );
 
 	$output = str_replace(
 		array_keys( $replacements ),
 		array_values( $replacements ),
 		$html_template
 	);
+
+	// Run shortcodes embedded via mustache substitution (e.g. {{site_reviews_testimonials}}
+	// expands to "[trustindex …]" which must be processed before echoing).
+	$output = do_shortcode( $output );
 
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo $output;
@@ -1121,7 +1485,7 @@ function lumokit_render_injected( $block_name ) {
 				'menu_class'     => '',
 				'fallback_cb'    => false,
 				'echo'           => false,
-				'items_wrap'     => '%3$s',
+				'items_wrap'     => '<ul>%3$s</ul>',
 			] );
 			$replacements[ '{{' . $name . '}}' ] = $value ?: '';
 			continue;
@@ -1145,14 +1509,19 @@ function lumokit_render_injected( $block_name ) {
 		$replacements[ '{{' . $name . '}}' ] = $value ?? '';
 	}
 
-	// Merge global {{site_*}} variables — available in header/footer too
-	$replacements = array_merge( lumokit_get_global_replacements(), $replacements );
+	// Merge global {{site_*}} variables — placed AFTER per-field so chained
+	// substitution works (see lumokit_render_block for rationale).
+	$replacements = array_merge( $replacements, lumokit_get_global_replacements() );
 
 	$output = str_replace(
 		array_keys( $replacements ),
 		array_values( $replacements ),
 		$html_template
 	);
+
+	// Run shortcodes embedded via mustache substitution (e.g. {{site_reviews_testimonials}}
+	// expands to "[trustindex …]" which must be processed before echoing).
+	$output = do_shortcode( $output );
 
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo $output;
@@ -1166,31 +1535,73 @@ function lumokit_render_injected( $block_name ) {
 add_action( 'wp_footer', 'lumokit_inject_global_widgets', 5 );
 
 function lumokit_inject_global_widgets() {
+	$has_acf  = function_exists( 'get_field' );
 	$platform = get_option( 'lumokit_platform', '' );
 
-	if ( $platform === 'boxmedia' ) {
-		// Read from ACF options — the client can update these in WP Admin → Inställningar
-		$trustindex_script = function_exists( 'get_field' ) ? get_field( 'site_trustindex_script', 'option' ) : '';
-		$booking_widget_id = function_exists( 'get_field' ) ? get_field( 'site_booking_widget_id', 'option' ) : '';
-
-		// Trustindex: output the raw embed script globally
-		if ( ! empty( $trustindex_script ) ) {
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo "\n" . $trustindex_script . "\n";
+	// TDL/Dentneo booking widget: api key acts as the apiToken for the loader.
+	// Treatment id is resolved per-page: first try ACF field
+	// `site_booking_treatment_<slug>` (one per treatment page), then fall back
+	// to the global `site_booking_treatment_id`. Default empty.
+	$booking_api_key      = $has_acf ? get_field( 'site_booking_api_key', 'option' ) : '';
+	$booking_treatment_id = '';
+	if ( $has_acf ) {
+		$queried = get_queried_object();
+		$slug    = ( $queried instanceof WP_Post ) ? $queried->post_name : '';
+		if ( $slug ) {
+			$per_page_id = get_field( 'site_booking_treatment_' . str_replace( '-', '_', $slug ), 'option' );
+			if ( ! empty( $per_page_id ) ) {
+				$booking_treatment_id = $per_page_id;
+			}
 		}
-
-		// Boxmedia booking widget: renders before the footer on all pages
-		if ( ! empty( $booking_widget_id ) ) {
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo '<div id="tdl-booking-widget" style="width:100%;text-align:center;padding:40px 24px;" data-widget-id="' . esc_attr( $booking_widget_id ) . '"></div>' . "\n";
+		if ( empty( $booking_treatment_id ) ) {
+			$booking_treatment_id = get_field( 'site_booking_treatment_id', 'option' );
 		}
 	}
+	if ( ! empty( $booking_api_key ) ) {
+		$treatment_attr = $booking_treatment_id
+			? ' data-treatment="' . esc_attr( $booking_treatment_id ) . '"'
+			: '';
+		echo '<div id="tdl-booking-widget"' . $treatment_attr . '></div>' . "\n";
+		?>
+		<script>
+		  (function() {
+		    var t = document.getElementById('tdl-booking-widget') &&
+		            document.getElementById('tdl-booking-widget').dataset.treatment;
+		    if (t && window.tdlWidgetConfig) { window.tdlWidgetConfig.treatmentIds = [t]; }
+		  })();
+		</script>
+		<?php
+	}
+
+	// Reviews are NOT injected globally — placed manually via {{site_reviews_score}}
+	// and {{site_reviews_testimonials}} in the relevant component templates.
 }
 
 
 // ---------------------------------------------------------------------------
 // 7. Enqueue compiled Tailwind CSS on the frontend
 // ---------------------------------------------------------------------------
+
+add_action( 'wp_head', 'lumokit_inject_booking_head', 1 );
+
+function lumokit_inject_booking_head() {
+	if ( ! function_exists( 'get_field' ) ) {
+		return;
+	}
+	$booking_api_key = get_field( 'site_booking_api_key', 'option' );
+	if ( empty( $booking_api_key ) ) {
+		return;
+	}
+	?>
+	<script async type="module" src="https://booking-widget-prod-nj23eril7a-lz.a.run.app/v2/widgetloader.js"></script>
+	<script>
+	  window.tdlWidgetConfig = {
+	    mode: "embedded",
+	    apiToken: <?php echo wp_json_encode( $booking_api_key ); ?>
+	  };
+	</script>
+	<?php
+}
 
 add_action( 'wp_head', 'lumokit_output_styles' );
 
