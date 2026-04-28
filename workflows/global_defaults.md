@@ -60,6 +60,42 @@ Hitta ikonnamn på: fonts.google.com/icons
 - Inga `<script>`- eller `<iframe>`-taggar
 - Alla dynamiska fält använder mustache-syntax: `{{fältnamn}}`
 
+## Globala kontaktuppgifter — ALDRIG per-sida ACF-fält
+
+Telefon, adress, e-post, öppettider och sociala medier är alltid globala värden från ACF Options Page. Lägg **aldrig** till dessa som fält i ett komponents schema — använd mustache-variablerna direkt i `html_template`.
+
+| Mustache-variabel | Innehåll |
+|---|---|
+| `{{site_phone}}` | Telefonnummer |
+| `{{site_address}}` | Adress |
+| `{{site_email}}` | E-postadress |
+| `{{site_opening_hours}}` | Öppettider |
+| `{{site_company_name}}` | Företagsnamn |
+
+| `{{site_facebook}}` | Facebook-URL |
+| `{{site_instagram}}` | Instagram-URL |
+| `{{site_linkedin}}` | LinkedIn-URL |
+| `{{site_twitter}}` | Twitter/X-URL |
+| `{{site_tiktok}}` | TikTok-URL |
+| `{{site_youtube}}` | YouTube-URL |
+
+| `{{site_reviews_score}}` | Betygswidget — stjärnor/score (renderad HTML från shortcode) |
+| `{{site_reviews_testimonials}}` | Kundrecensioner/testimonials (renderad HTML från shortcode) |
+| `{{site_booking_api_key}}` | API-nyckel för bokningswidgeten |
+
+**`{{site_booking_api_key}}`** — injiceras **automatiskt** på alla sidor ovanför footern som `<div id="tdl-booking-widget">`. Lägg aldrig till detta manuellt i en komponent.
+
+**`{{site_reviews_score}}`** och **`{{site_reviews_testimonials}}`** — injiceras **aldrig** automatiskt. Placera manuellt i rätt komponent i designen där respektive widget ska visas.
+
+Länkformat:
+```html
+<a href="tel:{{site_phone}}">{{site_phone}}</a>
+<a href="mailto:{{site_email}}">{{site_email}}</a>
+<a href="{{site_instagram}}" target="_blank">Instagram</a>
+```
+
+---
+
 ## ACF-fält
 
 - Tillåtna typer: `text`, `textarea`, `image`, `url`, `nav_menu`
