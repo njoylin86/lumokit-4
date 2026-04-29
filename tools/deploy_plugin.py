@@ -17,10 +17,9 @@ import os
 import sys
 from pathlib import Path
 
-from dotenv import load_dotenv
+from env_loader import ROOT, load_env
 
-ROOT = Path(__file__).resolve().parent.parent
-load_dotenv(ROOT / ".env")
+load_env()
 
 LOCAL_FILE = ROOT / "wp-plugin" / "lumokit-bridge.php"
 
@@ -51,6 +50,20 @@ def main() -> None:
     transport = paramiko.Transport((host, port))
     transport.connect(username=user, password=password)
     sftp = paramiko.SFTPClient.from_transport(transport)
+
+    # Create remote directory tree if it doesn't exist
+    remote_dir = str(Path(remote).parent)
+    dirs = remote_dir.replace("\\", "/").split("/")
+    current = ""
+    for part in dirs:
+        if not part:
+            continue
+        current = current + "/" + part if current else part
+        try:
+            sftp.stat(current)
+        except FileNotFoundError:
+            print(f"[INFO] Creating remote dir: {current}")
+            sftp.mkdir(current)
 
     print(f"[INFO] Uploading {LOCAL_FILE.name} → {remote}")
     sftp.put(str(LOCAL_FILE), remote)

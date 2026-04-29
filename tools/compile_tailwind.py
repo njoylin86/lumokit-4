@@ -20,13 +20,12 @@ import sys
 from pathlib import Path
 
 import requests
-from dotenv import load_dotenv
+from env_loader import ROOT, load_env
 
-ROOT = Path(__file__).resolve().parent.parent
 TOOLS_DIR = ROOT / "tools"
 TMP_DIR = ROOT / ".tmp"
 
-load_dotenv(ROOT / ".env")
+load_env()
 
 WP_URL          = os.getenv("WP_URL", "").rstrip("/")
 WP_USERNAME     = os.getenv("WP_USERNAME", "")

@@ -18,13 +18,9 @@ import sys
 from pathlib import Path
 
 import requests
-from dotenv import load_dotenv
+from env_loader import ROOT, load_env
 
-# ---------------------------------------------------------------------------
-# Load credentials from .env (project root)
-# ---------------------------------------------------------------------------
-ROOT = Path(__file__).resolve().parent.parent
-load_dotenv(ROOT / ".env")
+load_env()
 
 WP_URL          = os.getenv("WP_URL", "").rstrip("/")
 WP_USERNAME     = os.getenv("WP_USERNAME", "")
