@@ -193,6 +193,8 @@ html, body { overflow-x: hidden; max-width: 100vw; }
 .site-footer .contact a { font-family: var(--font-sans); font-size: 14px; color: var(--ink-600); text-decoration: none; line-height: 1.5; }
 .site-footer .contact a:hover { color: var(--blush-600); }
 .site-footer .contact .row { margin-bottom: 12px; }
+.site-footer .contact .row .label .ico { color: var(--blush-500); display: inline-flex; vertical-align: -3px; margin-right: 4px; }
+.site-footer .contact .row .label .ico svg { width: 14px; height: 14px; }
 .site-footer .contact .row .label {
   display: block; font-size: 10px; text-transform: uppercase;
   letter-spacing: 0.18em; color: var(--fg-muted); margin-bottom: 4px;
@@ -216,12 +218,30 @@ section.surface-paper { background: var(--paper); padding: 80px 0; }
 
 /* Hero */
 .hero { position: relative; padding: 0; overflow: hidden; background: var(--blush-50); }
+
+/* Reserve space for the Trustindex score widget so its async load doesn't
+   push other content. Roughly the badge's natural height. */
+.hero .caption .hero-score { min-height: 56px; }
+
+/* Quick onload fade (350ms) — masks the brief font-swap moment.
+   Short enough to feel responsive, long enough to feel polished. */
+.hero { opacity: 0; transition: opacity 350ms ease-out; }
+body.lumo-loaded .hero { opacity: 1; }
+/* Failsafe — never leave hero hidden if JS fails */
+@keyframes lumo-show-hero { to { opacity: 1; } }
+.hero { animation: lumo-show-hero 0s linear 800ms forwards; }
 .hero .halo { position: absolute; left: 0; right: 0; bottom: 0; height: 96px; background: var(--blush-50); z-index: 0; }
 .hero .frame {
   position: relative; max-width: none; margin: 0; height: 720px;
   overflow: hidden; border-radius: 0; z-index: 1;
 }
 .hero .frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Home page hero: align photo to the right so the subject doesn't get cropped off.
+   Subtle cool/desaturate filter neutralizes a yellow color cast in the photo. */
+body.home .hero .frame img {
+  object-position: right center;
+  filter: hue-rotate(-8deg) saturate(0.82) brightness(1.02);
+}
 .hero .frame::after {
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(10,10,10,0.20) 0%, rgba(10,10,10,0.40) 35%, rgba(10,10,10,0.75) 80%, rgba(10,10,10,0.85) 100%);
@@ -319,6 +339,17 @@ section.surface-paper { background: var(--paper); padding: 80px 0; }
   text-transform: uppercase; letter-spacing: 0.22em;
   color: #fff; text-align: center; padding: 20px; line-height: 1.3;
 }
+/* Arrow indicator on card hover — hint that the card is clickable. */
+.treatments .card .card-arrow {
+  position: absolute; bottom: 16px; right: 16px;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(255,255,255,0.95); color: var(--ink-700);
+  display: inline-flex; align-items: center; justify-content: center;
+  opacity: 0; transform: translateY(4px);
+  transition: opacity var(--dur-fast) var(--ease-standard),
+    transform var(--dur-fast) var(--ease-standard);
+}
+.treatments .card:hover .card-arrow { opacity: 1; transform: translateY(0); }
 
 /* Content blocks */
 .content-block { padding: 96px 0; }
@@ -373,8 +404,14 @@ section.surface-paper { background: var(--paper); padding: 80px 0; }
 }
 .contact-panel .line {
   font-family: var(--font-sans); font-size: 14px; color: var(--blush-700); margin-bottom: 8px;
+  display: flex; align-items: center; gap: 10px;
 }
 .contact-panel .line a { color: var(--blush-700); text-decoration: underline; text-underline-offset: 3px; }
+.contact-panel .line .ico {
+  flex-shrink: 0; color: var(--blush-500);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.contact-panel .line .ico svg { display: block; }
 .contact-panel .row {
   display: flex; justify-content: space-between; padding: 6px 0;
   font-family: var(--font-sans); font-size: 14px; color: var(--ink-600);
@@ -549,6 +586,19 @@ section.surface-paper { background: var(--paper); padding: 80px 0; }
     margin-top: 14px; padding: 14px 20px; text-align: center;
     border-bottom: none; border-radius: 999px;
   }
+
+  /* Tablet: behåll horisontell padding på alla containrar/wrappers — section
+     rules ovan använder shorthand `padding: Npx 0` som annars skulle nollställa
+     left/right. Placeras SIST så longhand vinner cascade-kampen. */
+  .container,
+  .text-blocks .inner,
+  .contact-panel .inner,
+  .faq .inner,
+  .map-section .inner,
+  .reviews-section .inner,
+  .contact-form-section .inner {
+    padding-left: 32px; padding-right: 32px;
+  }
 }
 @media (max-width: 600px) {
   .site-header .inner { padding: 14px 20px; }
@@ -570,6 +620,14 @@ section.surface-paper { background: var(--paper); padding: 80px 0; }
     flex: 1 1 0; text-align: center; padding: 15px 20px; font-size: 14px;
     min-width: 0;
   }
+  /* Center CTA buttons inside content sections on mobile (hero handled separately above). */
+  .content-block .btn-row,
+  .content-block .buttons,
+  .text-blocks .btn-row,
+  .contact-panel .btn-row,
+  .map-section .btn-row,
+  .reviews-section .btn-row,
+  .intro .btn-row { justify-content: center; }
   .hero .buttons .btn-ghost { background: rgba(255,255,255,0.95); color: var(--ink-700); border-color: rgba(255,255,255,0.95); }
   .hero .buttons .btn-ghost:hover { background: #fff; color: var(--ink-900); }
   .hero .caption .hero-score { justify-content: center; text-align: center; }
@@ -608,6 +666,45 @@ CHECK_ICON = (
     'stroke="currentColor" stroke-width="1.75" stroke-linecap="round" '
     'stroke-linejoin="round" aria-hidden="true">'
     '<path d="M20 6L9 17l-5-5"/></svg>'
+)
+
+# Stroked outline icons matching the LumoKit aesthetic. All use currentColor so
+# they inherit text color where they're placed.
+ICON_PHONE = (
+    '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" '
+    'stroke="currentColor" stroke-width="1.5" stroke-linecap="round" '
+    'stroke-linejoin="round" aria-hidden="true">'
+    '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 '
+    '19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 '
+    '2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 '
+    '9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 '
+    '2.81.7A2 2 0 0 1 22 16.92z"/></svg>'
+)
+ICON_MAIL = (
+    '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" '
+    'stroke="currentColor" stroke-width="1.5" stroke-linecap="round" '
+    'stroke-linejoin="round" aria-hidden="true">'
+    '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>'
+    '<polyline points="22,6 12,13 2,6"/></svg>'
+)
+ICON_PIN = (
+    '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" '
+    'stroke="currentColor" stroke-width="1.5" stroke-linecap="round" '
+    'stroke-linejoin="round" aria-hidden="true">'
+    '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>'
+    '<circle cx="12" cy="10" r="3"/></svg>'
+)
+ICON_CLOCK = (
+    '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" '
+    'stroke="currentColor" stroke-width="1.5" stroke-linecap="round" '
+    'stroke-linejoin="round" aria-hidden="true">'
+    '<circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>'
+)
+ICON_ARROW = (
+    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" '
+    'stroke="currentColor" stroke-width="2" stroke-linecap="round" '
+    'stroke-linejoin="round" aria-hidden="true">'
+    '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>'
 )
 
 
@@ -654,9 +751,28 @@ def make_variant(base_component: dict, suffix: str, content: dict, title_suffix:
 # ---------------------------------------------------------------------------
 
 def build_site_header_component(tokens_css: str, logo_svg: str) -> dict:
+    # Preconnect + preload — laddar Google Fonts parallellt med HTML så att
+    # Cormorant Garamond + Outfit hinner vara klara innan första paint.
+    font_preload = """
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@400;500;600&display=swap">
+"""
     style_block = f"<style>\n{tokens_css}\n{LAYOUT_CSS}\n</style>"
+    onload_script = """<script>
+(function(){
+  var done = false;
+  function reveal(){ if (done) return; done = true; document.body.classList.add('lumo-loaded'); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(reveal);
+  if (document.readyState !== 'loading') { reveal(); }
+  else document.addEventListener('DOMContentLoaded', reveal);
+  setTimeout(reveal, 600);
+})();
+</script>"""
     html = f"""
+{font_preload}
 {style_block}
+{onload_script}
 <header class="site-header">
   <div class="inner">
     <a href="/" class="logo" aria-label="{{{{site_company_name}}}}">{logo_svg}</a>
@@ -712,15 +828,15 @@ def build_site_footer_component(logo_svg: str) -> dict:
     <div class="contact">
       <h4>Kontakt</h4>
       <div class="row">
-        <span class="label">Telefon</span>
+        <span class="label"><span class="ico">{ICON_PHONE}</span> Telefon</span>
         <a href="tel:{{{{site_phone}}}}">{{{{site_phone}}}}</a>
       </div>
       <div class="row">
-        <span class="label">E-post</span>
+        <span class="label"><span class="ico">{ICON_MAIL}</span> E-post</span>
         <a href="mailto:{{{{site_email}}}}">{{{{site_email}}}}</a>
       </div>
       <div class="row">
-        <span class="label">Besöksadress</span>
+        <span class="label"><span class="ico">{ICON_PIN}</span> Besöksadress</span>
         <a href="https://maps.google.com/?q={PATRICIA_ADDRESS_ENCODED}" target="_blank" rel="noopener">{{{{site_address}}}}</a>
       </div>
     </div>
@@ -820,6 +936,7 @@ def build_treatments_grid_component() -> dict:
             f'<img src="{{{{card_{i}_image}}}}" alt="{{{{card_{i}_name}}}}"/>'
             f'<div class="overlay"></div>'
             f'<div class="label">{{{{card_{i}_name}}}}</div>'
+            f'<span class="card-arrow" aria-hidden="true">{ICON_ARROW}</span>'
             f'</a>'
         )
 
@@ -908,12 +1025,12 @@ def build_contact_panel_component() -> dict:
       <span class="eyebrow">Telefon &amp; e-post</span>
       <h3>{{{{heading}}}}</h3>
       <p class="intro-text">{{{{intro_text}}}}</p>
-      <div class="line"><a href="tel:{{{{site_phone}}}}">{{{{site_phone}}}}</a></div>
-      <div class="line"><a href="mailto:{{{{site_email}}}}">{{{{site_email}}}}</a></div>
-      <div class="line" style="margin-top:18px;"><a href="https://maps.google.com/?q={PATRICIA_ADDRESS_ENCODED}" target="_blank" rel="noopener">{{{{site_address}}}}</a></div>
+      <div class="line"><span class="ico">{ICON_PHONE}</span><a href="tel:{{{{site_phone}}}}">{{{{site_phone}}}}</a></div>
+      <div class="line"><span class="ico">{ICON_MAIL}</span><a href="mailto:{{{{site_email}}}}">{{{{site_email}}}}</a></div>
+      <div class="line" style="margin-top:18px;"><span class="ico">{ICON_PIN}</span><a href="https://maps.google.com/?q={PATRICIA_ADDRESS_ENCODED}" target="_blank" rel="noopener">{{{{site_address}}}}</a></div>
     </div>
     <div>
-      <span class="eyebrow">När vi har öppet</span>
+      <span class="eyebrow"><span class="ico">{ICON_CLOCK}</span> När vi har öppet</span>
       <h3>Öppettider</h3>
       <div class="hours">{{{{opening_hours}}}}</div>
     </div>
@@ -1015,10 +1132,10 @@ def build_contact_panel_with_form_component() -> dict:
       <span class="eyebrow">Kontakta oss</span>
       <h3>{{{{heading}}}}</h3>
       <p class="intro-text">{{{{intro_text}}}}</p>
-      <div class="line"><a href="tel:{{{{site_phone}}}}">{{{{site_phone}}}}</a></div>
-      <div class="line"><a href="mailto:{{{{site_email}}}}">{{{{site_email}}}}</a></div>
-      <div class="line" style="margin-top:18px;"><a href="https://maps.google.com/?q={PATRICIA_ADDRESS_ENCODED}" target="_blank" rel="noopener">{{{{site_address}}}}</a></div>
-      <div class="line" style="margin-top:24px;"><span class="eyebrow" style="display:block;margin-bottom:6px;">Öppettider</span><span class="hours">{{{{opening_hours}}}}</span></div>
+      <div class="line"><span class="ico">{ICON_PHONE}</span><a href="tel:{{{{site_phone}}}}">{{{{site_phone}}}}</a></div>
+      <div class="line"><span class="ico">{ICON_MAIL}</span><a href="mailto:{{{{site_email}}}}">{{{{site_email}}}}</a></div>
+      <div class="line" style="margin-top:18px;"><span class="ico">{ICON_PIN}</span><a href="https://maps.google.com/?q={PATRICIA_ADDRESS_ENCODED}" target="_blank" rel="noopener">{{{{site_address}}}}</a></div>
+      <div class="line" style="margin-top:24px;"><span class="eyebrow" style="display:flex;align-items:center;gap:6px;margin-bottom:6px;"><span class="ico">{ICON_CLOCK}</span> Öppettider</span><span class="hours">{{{{opening_hours}}}}</span></div>
     </div>
     <form class="cf-form" data-lumo-contact-form>
       <div class="cf-field">
