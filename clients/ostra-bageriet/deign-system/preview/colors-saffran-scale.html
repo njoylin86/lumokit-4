@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Colors · Saffran scale</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; background: var(--ob-bg); }
+  .wrap { width: 700px; padding: 24px; box-sizing: border-box; font-family: var(--ob-font-sans); }
+  .row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+  .sw { aspect-ratio: 1 / 1.1; border-radius: 10px; padding: 8px; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; }
+  .step { font-size: 11px; font-weight: 600; }
+  .hex { font-size: 10px; font-variant-numeric: tabular-nums; opacity: 0.85; }
+  .light { color: #fff; }
+  .dark { color: var(--ob-bark); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="row">
+      <div class="sw dark"  style="background:var(--ob-saffran-50)"><span class="step">50</span><span class="hex">#FFF1E0</span></div>
+      <div class="sw dark"  style="background:var(--ob-saffran-100)"><span class="step">100</span><span class="hex">#FFDBA8</span></div>
+      <div class="sw dark"  style="background:var(--ob-saffran-200)"><span class="step">200</span><span class="hex">#FFC074</span></div>
+      <div class="sw dark"  style="background:var(--ob-saffran-300)"><span class="step">300</span><span class="hex">#FFA040</span></div>
+      <div class="sw light" style="background:var(--ob-saffran-400)"><span class="step">400</span><span class="hex">#F08420</span></div>
+      <div class="sw light" style="background:var(--ob-saffran-500)"><span class="step">500</span><span class="hex">#D86B0F</span></div>
+      <div class="sw light" style="background:var(--ob-saffran-600)"><span class="step">600</span><span class="hex">#B35305</span></div>
+    </div>
+  </div>
+</body>
+</html>

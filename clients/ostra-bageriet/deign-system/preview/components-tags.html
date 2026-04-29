@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Components · Tags & badges</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; background: var(--ob-bg); font-family: var(--ob-font-sans); }
+  .wrap { width: 700px; padding: 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px; }
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .label { font-size: 11px; color: var(--ob-fg-subtle); letter-spacing: 0.06em; text-transform: uppercase; min-width: 80px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; line-height: 1; }
+  .chip-veg { background: var(--ob-skog-50); color: var(--ob-skog-600); border: 1px solid var(--ob-skog-100); }
+  .chip-vegan { background: var(--ob-skog-500); color: var(--ob-cream); }
+  .chip-gf { background: var(--ob-saffran-50); color: var(--ob-saffran-600); border: 1px solid var(--ob-saffran-100); }
+  .chip-new { background: var(--ob-granat); color: #fff; }
+  .chip-student { background: var(--ob-stone-100); color: var(--ob-ink); }
+  .chip-cat { background: transparent; color: var(--ob-fg-muted); border: 1px solid var(--ob-border-strong); }
+  .badge-corner { font-family: var(--ob-font-hand); color: var(--ob-saffran-500); font-size: 22px; }
+  .dot { width: 6px; height: 6px; border-radius: 999px; background: currentColor; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="row"><span class="label">Diet</span>
+      <span class="chip chip-veg"><span class="dot"></span>Veg</span>
+      <span class="chip chip-vegan">Vegan</span>
+      <span class="chip chip-gf">Glutenfri</span>
+    </div>
+    <div class="row"><span class="label">Status</span>
+      <span class="chip chip-new">Nytt</span>
+      <span class="chip chip-student">Studentpris</span>
+      <span class="chip chip-cat">Catering</span>
+      <span class="chip chip-cat">Dagens</span>
+    </div>
+    <div class="row"><span class="label">Hand</span>
+      <span class="badge-corner">Färskt idag —</span>
+      <span class="badge-corner">stamkundernas favorit</span>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<title>Östra Bageriet — Om oss</title>
+<meta name="viewport" content="width=1200">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="styles.css?v=8">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="data.js"></script>
+</head>
+<body>
+<div id="root" data-screen-label="Website Om oss"></div>
+
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel">
+
+const HOURS = [
+  { d: "Måndag",  t: "06:30 – 19:00" },
+  { d: "Tisdag",  t: "06:30 – 19:00" },
+  { d: "Onsdag",  t: "06:30 – 19:00" },
+  { d: "Torsdag", t: "06:30 – 19:00" },
+  { d: "Fredag",  t: "06:30 – 19:00" },
+  { d: "Lördag",  t: "09:00 – 17:00" },
+  { d: "Söndag",  t: "Stängt", off: true },
+];
+
+function App() {
+  return (
+    <div>
+      <Nav active="Om oss" />
+      <div className="ob-page">
+        <PageHeader
+          eyebrow="Om oss"
+          title="Familjedrivet sedan 2008"
+          sub="Sedan 2008. Vi bakar varje morgon, brygger Löfbergs och rullar wraps direkt på platta åt KTH-studenter, pendlare och stamkunder."
+          image="../../assets/food/breads.jpg"
+        />
+
+        <FeatureRow
+          image="../../assets/food/kanelbulle.png"
+          eyebrow="Hantverket"
+          title="Bakat varje morgon, hela året"
+          body="Surdegen jäser över natten. Kanelbullen rullas vid sex. När de första pendlartågen rullar in är vänthallen full av doft. Det är hela poängen."
+        />
+
+        <FeatureRow
+          reverse
+          image="../../assets/food/kebab-skewers.png"
+          eyebrow="Två hav"
+          title="Svenska rötter, orientalisk kärlek"
+          body="Hummus och tarator bredvid leverpastej och ost & skinka. Vi tror inte att man måste välja. Det är vår mathållning, och stamkunderna verkar hålla med."
+        />
+
+        <section className="ob-section">
+          <SectionHeader eyebrow="Stamkunderna säger" title="Tack för att ni kommer tillbaka" />
+          <div className="ob-quotes">
+            {window.OB_QUOTES.map(q => <Testimonial key={q.name} t={q} />)}
+          </div>
+        </section>
+
+        <section id="hitta" className="ob-section ob-section--soft">
+          <SectionHeader
+            eyebrow="Hitta hit"
+            title="Inne i Östra stations vänthall"
+            sub="Mellan biljettluckorna och perrongerna. Närmaste tunnelbana är Tekniska högskolan, fem minuters promenad."
+          />
+          <div className="ob-visit">
+            <div className="ob-visit__map" aria-label="Karta över Östra station">
+              <span className="ob-visit__pin">📍</span>
+              <span className="ob-visit__map-label">Östra station</span>
+            </div>
+            <div className="ob-visit__info">
+              <div className="ob-visit__block">
+                <h4 className="ob-visit__h">Adress</h4>
+                <p className="ob-body">Drottning Kristinas väg 1<br/>114 28 Stockholm</p>
+              </div>
+              <div className="ob-visit__block">
+                <h4 className="ob-visit__h">Hitta in</h4>
+                <p className="ob-body">Inne i vänthallen, till vänster om biljettluckorna. Skylten med träfasaden.</p>
+              </div>
+              <div className="ob-visit__block">
+                <h4 className="ob-visit__h">Kontakt</h4>
+                <p className="ob-body">08-612 50 50<br/>SMS 073-99 38 704<br/>Fkuorie@hotmail.com</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="ob-hours">
+            <h4 className="ob-visit__h">Öppettider</h4>
+            <ul className="ob-hours__list">
+              {HOURS.map(h => (
+                <li key={h.d} className={"ob-hours__row" + (h.off ? " is-off" : "")}>
+                  <span>{h.d}</span>
+                  <span>{h.t}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      </div>
+      <Footer />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

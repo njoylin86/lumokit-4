@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Brand · Logo</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; background: var(--ob-bg); }
+  .wrap {
+    width: 700px;
+    height: 240px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    box-sizing: border-box;
+  }
+  .panel-cream {
+    background: var(--ob-cream);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid var(--ob-border);
+  }
+  .panel-dark {
+    background: var(--ob-stone-900);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .panel-cream img, .panel-dark img {
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+  }
+  .panel-dark img {
+    /* Logo is dark on light — invert-ish for dark bg using filter */
+    filter: drop-shadow(0 0 0.4px var(--ob-cream));
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="panel-cream"><img src="../assets/logo.png" alt="Östra Bageriet logo on cream"></div>
+    <div class="panel-dark"><img src="../assets/logo.png" alt="Östra Bageriet logo on dark"></div>
+  </div>
+</body>
+</html>

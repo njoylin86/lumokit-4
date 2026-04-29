@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Components · Form inputs</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; background: var(--ob-bg); font-family: var(--ob-font-sans); }
+  .wrap { width: 700px; padding: 24px; box-sizing: border-box; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  label { display: block; font-size: 12px; color: var(--ob-fg-muted); margin-bottom: 6px; font-weight: 600; }
+  .field { width: 100%; padding: 12px 14px; border-radius: var(--ob-r-sm); border: 1px solid var(--ob-border-strong); background: var(--ob-paper); font: inherit; font-size: 14px; box-sizing: border-box; color: var(--ob-fg); }
+  .field:focus { outline: none; border-color: var(--ob-skog-500); box-shadow: var(--ob-ring-focus); }
+  .stepper { display: inline-flex; align-items: center; background: var(--ob-paper); border: 1px solid var(--ob-border-strong); border-radius: 999px; padding: 4px; gap: 4px; }
+  .stepper button { width: 30px; height: 30px; border-radius: 999px; border: 0; background: var(--ob-stone-100); color: var(--ob-fg); font-size: 16px; font-weight: 700; cursor: pointer; }
+  .stepper button.plus { background: var(--ob-skog-500); color: #fff; }
+  .stepper .num { min-width: 28px; text-align: center; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .seg { display: inline-flex; background: var(--ob-stone-100); padding: 4px; border-radius: 999px; gap: 2px; }
+  .seg button { padding: 8px 14px; border: 0; background: transparent; border-radius: 999px; font: inherit; font-size: 13px; font-weight: 600; color: var(--ob-fg-muted); cursor: pointer; }
+  .seg button.active { background: var(--ob-paper); color: var(--ob-skog-600); box-shadow: var(--ob-shadow-1); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div>
+      <label>Sök i menyn</label>
+      <input class="field" placeholder="Halloumi, kyckling, vegan…" value="halloumi">
+    </div>
+    <div>
+      <label>Antal</label>
+      <div class="stepper"><button>−</button><span class="num">2</span><button class="plus">+</button></div>
+    </div>
+    <div>
+      <label>Pristyp</label>
+      <div class="seg"><button class="active">Ordinarie</button><button>Student</button></div>
+    </div>
+    <div>
+      <label>Anteckning till köket</label>
+      <input class="field" placeholder="Allergier, byten…">
+    </div>
+  </div>
+</body>
+</html>

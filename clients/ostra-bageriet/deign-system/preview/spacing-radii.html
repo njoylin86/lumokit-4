@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Spacing · Radii</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; background: var(--ob-bg); font-family: var(--ob-font-sans); }
+  .wrap { width: 700px; padding: 24px; box-sizing: border-box; display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+  .tile { background: var(--ob-paper); border: 1px solid var(--ob-border); height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; box-shadow: var(--ob-shadow-1); }
+  .name { font-size: 12px; font-weight: 600; }
+  .px { font-size: 11px; color: var(--ob-fg-subtle); font-variant-numeric: tabular-nums; }
+  .pill { width: 48px; height: 16px; background: var(--ob-saffran-300); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="tile" style="border-radius: 4px;"><span class="name">xs</span><span class="px">4 px</span></div>
+    <div class="tile" style="border-radius: 8px;"><span class="name">sm</span><span class="px">8 px</span></div>
+    <div class="tile" style="border-radius: 14px;"><span class="name">md</span><span class="px">14 px</span></div>
+    <div class="tile" style="border-radius: 22px;"><span class="name">lg</span><span class="px">22 px</span></div>
+    <div class="tile" style="border-radius: 32px;"><span class="name">xl</span><span class="px">32 px</span></div>
+    <div class="tile" style="border-radius: 999px;"><span class="name">pill</span><span class="px">999 px</span></div>
+  </div>
+</body>
+</html>

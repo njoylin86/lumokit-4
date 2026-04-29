@@ -1,0 +1,213 @@
+/* ==========================================================================
+   Östra Bageriet — Colors & Type
+   A fresh, modern palette built around the brown/gold of the logo, with
+   a deep forest "Skog" green as primary and a warm saffron-orange accent
+   that nods to oriental spices (saffron, paprika, sumac, turmeric).
+   ========================================================================== */
+
+/* ---------- Webfonts (Google Fonts) ---------- */
+/* Playfair Display — display serif, echoes the curvy "B" in the logo */
+/* DM Sans — clean modern sans for UI + body */
+/* Caveat — handwritten accent for tags / "fresh today" callouts */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=DM+Sans:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap");
+
+:root {
+  /* ---------- Brand core ---------- */
+  --ob-cream:        #FBF6EC;   /* warm page bg, like flour-dusted parchment */
+  --ob-cream-2:      #F4ECDC;   /* secondary surface, slightly toasted */
+  --ob-paper:        #FFFCF6;   /* card / dialog surface */
+
+  /* Logo browns — kept as accents, never primary */
+  --ob-bark:         #4A2C1A;   /* deep brown from logo wordmark */
+  --ob-coffee:       #6B3F22;   /* mid brown */
+  --ob-wheat:        #C9A063;   /* gold/wheat from logo cup + ears */
+  --ob-wheat-soft:   #E2C895;   /* lighter wheat tint */
+
+  /* Skog — primary brand green (fresh, herby, modern) */
+  --ob-skog-50:      #EEF4EC;
+  --ob-skog-100:     #D6E4D0;
+  --ob-skog-200:     #A9C49E;
+  --ob-skog-300:     #7CA46E;
+  --ob-skog-400:     #5A8A4D;
+  --ob-skog-500:     #3F6E36;   /* primary */
+  --ob-skog-600:     #2F5728;
+  --ob-skog-700:     #234020;
+  --ob-skog-800:     #182C16;
+
+  /* Saffran — warm orange accent (oriental spice, saffron/paprika) */
+  --ob-saffran-50:   #FFF1E0;
+  --ob-saffran-100:  #FFDBA8;
+  --ob-saffran-200:  #FFC074;
+  --ob-saffran-300:  #FFA040;
+  --ob-saffran-400:  #F08420;   /* primary accent */
+  --ob-saffran-500:  #D86B0F;
+  --ob-saffran-600:  #B35305;
+
+  /* Accent reds — pomegranate/tomato, used very sparingly for sale tags */
+  --ob-granat:       #B83A2A;
+  --ob-granat-soft:  #E97C5C;
+
+  /* ---------- Neutrals ---------- */
+  --ob-ink:          #1F1B16;   /* primary text on cream */
+  --ob-ink-2:        #4A4338;   /* secondary text */
+  --ob-ink-3:        #7A6F5F;   /* muted/captions */
+  --ob-line:         #E6DCC6;   /* hairline dividers */
+  --ob-line-strong:  #C9BCA0;
+  --ob-stone-50:     #F6F1E6;
+  --ob-stone-100:    #ECE4D2;
+  --ob-stone-900:    #1A1611;   /* deep "night oven" bg */
+
+  /* ---------- Semantic ---------- */
+  --ob-bg:           var(--ob-cream);
+  --ob-bg-alt:       var(--ob-cream-2);
+  --ob-bg-dark:      var(--ob-stone-900);
+  --ob-surface:      var(--ob-paper);
+  --ob-fg:           var(--ob-ink);
+  --ob-fg-muted:     var(--ob-ink-2);
+  --ob-fg-subtle:    var(--ob-ink-3);
+  --ob-fg-on-dark:   var(--ob-cream);
+  --ob-border:       var(--ob-line);
+  --ob-border-strong:var(--ob-line-strong);
+
+  --ob-primary:      var(--ob-skog-500);
+  --ob-primary-hover:var(--ob-skog-600);
+  --ob-primary-press:var(--ob-skog-700);
+  --ob-on-primary:   var(--ob-cream);
+
+  --ob-accent:       var(--ob-saffran-400);
+  --ob-accent-hover: var(--ob-saffran-500);
+  --ob-accent-press: var(--ob-saffran-600);
+  --ob-on-accent:    #FFFFFF;
+
+  --ob-success:      #4F8A3C;
+  --ob-warning:      var(--ob-saffran-400);
+  --ob-danger:       var(--ob-granat);
+  --ob-info:         #3B6E8A;
+
+  /* ---------- Typography families ---------- */
+  --ob-font-display: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  --ob-font-sans:    "DM Sans", "Helvetica Neue", system-ui, sans-serif;
+  --ob-font-hand:    "Caveat", "Segoe Script", cursive;
+
+  /* ---------- Type scale ---------- */
+  --ob-text-xs:   12px;
+  --ob-text-sm:   14px;
+  --ob-text-md:   16px;
+  --ob-text-lg:   18px;
+  --ob-text-xl:   22px;
+  --ob-text-2xl:  28px;
+  --ob-text-3xl:  36px;
+  --ob-text-4xl:  48px;
+  --ob-text-5xl:  64px;
+  --ob-text-6xl:  84px;
+
+  /* ---------- Spacing (4px base) ---------- */
+  --ob-s-1: 4px;
+  --ob-s-2: 8px;
+  --ob-s-3: 12px;
+  --ob-s-4: 16px;
+  --ob-s-5: 20px;
+  --ob-s-6: 24px;
+  --ob-s-8: 32px;
+  --ob-s-10: 40px;
+  --ob-s-12: 48px;
+  --ob-s-16: 64px;
+  --ob-s-20: 80px;
+  --ob-s-24: 96px;
+
+  /* ---------- Radii ---------- */
+  --ob-r-xs: 4px;
+  --ob-r-sm: 8px;
+  --ob-r-md: 14px;
+  --ob-r-lg: 22px;
+  --ob-r-xl: 32px;
+  --ob-r-pill: 999px;
+
+  /* ---------- Shadows ---------- */
+  --ob-shadow-1: 0 1px 2px rgba(31, 27, 22, 0.06), 0 1px 1px rgba(31, 27, 22, 0.04);
+  --ob-shadow-2: 0 6px 16px -8px rgba(31, 27, 22, 0.18), 0 2px 4px rgba(31, 27, 22, 0.05);
+  --ob-shadow-3: 0 18px 40px -16px rgba(31, 27, 22, 0.28), 0 6px 12px -6px rgba(31, 27, 22, 0.10);
+  --ob-shadow-warm: 0 16px 36px -18px rgba(216, 107, 15, 0.30);
+  --ob-ring-focus: 0 0 0 3px rgba(63, 110, 54, 0.28);
+}
+
+/* ==========================================================================
+   Semantic typography classes — drop these on elements directly
+   ========================================================================== */
+
+.ob-display-xl,
+.ob-display-lg,
+.ob-display-md,
+.ob-h1,
+.ob-h2,
+.ob-h3 {
+  font-family: var(--ob-font-display);
+  color: var(--ob-fg);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.ob-display-xl { font-size: clamp(56px, 8vw, var(--ob-text-6xl)); font-weight: 700; line-height: 0.98; letter-spacing: -0.02em; }
+.ob-display-lg { font-size: clamp(44px, 6vw, var(--ob-text-5xl)); font-weight: 700; line-height: 1.02; letter-spacing: -0.015em; }
+.ob-display-md { font-size: var(--ob-text-4xl); font-weight: 600; }
+
+.ob-h1 { font-size: var(--ob-text-3xl); }
+.ob-h2 { font-size: var(--ob-text-2xl); font-weight: 500; }
+.ob-h3 { font-size: var(--ob-text-xl); font-weight: 500; }
+
+.ob-eyebrow {
+  font-family: var(--ob-font-sans);
+  font-size: var(--ob-text-xs);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ob-saffran-500);
+}
+
+.ob-lede {
+  font-family: var(--ob-font-sans);
+  font-size: var(--ob-text-lg);
+  line-height: 1.55;
+  color: var(--ob-fg-muted);
+  text-wrap: pretty;
+}
+
+.ob-body {
+  font-family: var(--ob-font-sans);
+  font-size: var(--ob-text-md);
+  line-height: 1.6;
+  color: var(--ob-fg);
+}
+
+.ob-caption {
+  font-family: var(--ob-font-sans);
+  font-size: var(--ob-text-sm);
+  line-height: 1.45;
+  color: var(--ob-fg-subtle);
+}
+
+.ob-mono,
+.ob-price {
+  font-family: var(--ob-font-sans);
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-weight: 600;
+}
+
+.ob-hand {
+  font-family: var(--ob-font-hand);
+  font-weight: 600;
+  color: var(--ob-saffran-500);
+  font-size: var(--ob-text-2xl);
+  line-height: 1.1;
+}
+
+.ob-tag {
+  font-family: var(--ob-font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

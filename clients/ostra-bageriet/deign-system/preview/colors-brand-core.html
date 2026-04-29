@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Colors · Brand core</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; background: var(--ob-bg); }
+  .wrap {
+    width: 700px;
+    padding: 24px;
+    box-sizing: border-box;
+    font-family: var(--ob-font-sans);
+  }
+  .row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .sw {
+    border-radius: var(--ob-r-md);
+    padding: 14px;
+    height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .sw .name { font-weight: 600; font-size: 13px; }
+  .sw .hex { font-family: var(--ob-font-sans); font-size: 11px; opacity: 0.8; font-variant-numeric: tabular-nums; }
+  .sw .var { font-size: 10px; opacity: 0.65; font-variant-numeric: tabular-nums; }
+  .light { color: var(--ob-cream); }
+  .dark { color: var(--ob-ink); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="row">
+      <div class="sw light" style="background:var(--ob-skog-500)"><div><div class="name">Skog</div><div class="var">--ob-skog-500</div></div><div class="hex">#3F6E36</div></div>
+      <div class="sw light" style="background:var(--ob-saffran-400)"><div><div class="name">Saffran</div><div class="var">--ob-saffran-400</div></div><div class="hex">#F08420</div></div>
+      <div class="sw light" style="background:var(--ob-bark)"><div><div class="name">Bark</div><div class="var">--ob-bark</div></div><div class="hex">#4A2C1A</div></div>
+      <div class="sw dark" style="background:var(--ob-wheat)"><div><div class="name">Wheat</div><div class="var">--ob-wheat</div></div><div class="hex">#C9A063</div></div>
+    </div>
+  </div>
+</body>
+</html>

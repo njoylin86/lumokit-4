@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<title>Östra Bageriet — Hem</title>
+<meta name="viewport" content="width=1200">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="styles.css?v=8">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="data.js"></script>
+</head>
+<body>
+<div id="root" data-screen-label="Website Home"></div>
+
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel">
+
+/* Pick three "today's picks" — one sandwich, one salad, one sweet */
+const PICKS = [
+  window.OB_MENU.brod[0],
+  window.OB_MENU.sallader[0],
+  window.OB_MENU.bakverk[0],
+];
+
+function App() {
+  return (
+    <div>
+      <Nav active="Hem" />
+      <div className="ob-page">
+        <Hero />
+
+        <section className="ob-section">
+          <SectionHeader
+            eyebrow="Vad är gott idag"
+            title="Tre färska från disken"
+            sub="Ett smakprov från dagens meny. Hela utbudet hittar du på menysidan."
+          />
+          <div className="ob-picks">
+            {PICKS.map((p) => <MenuCard key={p.id} item={p} />)}
+          </div>
+          <div className="ob-section__cta">
+            <a href="meny.html" className="ob-btn ob-btn--primary ob-btn--lg">Se hela menyn</a>
+          </div>
+        </section>
+
+        <FeatureRow
+          image="../../assets/food/breads.jpg"
+          eyebrow="Sedan 2008"
+          title="Vi bakar på morgonen, hela året"
+          body="Östra Bageriet är ett litet familjedrivet ställe inne i Östra stations vänthall. Vi bakar varje morgon, brygger Löfbergs och rullar wraps direkt på platta åt KTH-studenter, pendlare och stamkunder."
+          cta="Läs mer om oss"
+          ctaHref="om-oss.html"
+        />
+
+        <FeatureRow
+          reverse
+          image="../../assets/food/kebab-skewers.png"
+          eyebrow="Catering"
+          title="Brickor, lunch och möten"
+          body="Vi levererar i hela centrala Stockholm, måndag till fredag. Be om en offert så skräddarsyr vi efter ditt event — från fikabricka till heldagslunch."
+          cta="Be om offert"
+          ctaHref="catering.html"
+        />
+
+        <section className="ob-section">
+          <SectionHeader eyebrow="Stamkunderna säger" title="Tack för att ni kommer tillbaka" />
+          <div className="ob-quotes">
+            {window.OB_QUOTES.map(q => <Testimonial key={q.name} t={q} />)}
+          </div>
+        </section>
+      </div>
+      <Footer />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

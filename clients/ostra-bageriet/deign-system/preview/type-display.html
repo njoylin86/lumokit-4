@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Type · Display</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; background: var(--ob-bg); }
+  .wrap { width: 700px; padding: 28px; box-sizing: border-box; }
+  .stack > * + * { margin-top: 10px; }
+  .meta { font-family: var(--ob-font-sans); font-size: 11px; color: var(--ob-fg-subtle); letter-spacing: 0.06em; text-transform: uppercase; }
+  .display { font-family: var(--ob-font-display); color: var(--ob-fg); line-height: 1.0; letter-spacing: -0.02em; font-weight: 700; }
+  .xl { font-size: 64px; }
+  .lg { font-size: 48px; }
+  .md { font-size: 36px; font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="wrap stack">
+    <div class="meta">Playfair Display · 700 · -0.02em</div>
+    <div class="display xl">Bakat på morgonen.</div>
+    <div class="display lg">Serverat hela dagen.</div>
+    <div class="display md">Smörgåsar med smak av två hav</div>
+  </div>
+</body>
+</html>

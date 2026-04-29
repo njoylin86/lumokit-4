@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Spacing · Shadows</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; background: var(--ob-bg); font-family: var(--ob-font-sans); }
+  .wrap { width: 700px; padding: 36px 24px; box-sizing: border-box; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; align-items: center; }
+  .tile { background: var(--ob-paper); border-radius: 14px; height: 90px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+  .name { font-size: 12px; font-weight: 600; }
+  .role { font-size: 11px; color: var(--ob-fg-subtle); }
+  .s1 { box-shadow: var(--ob-shadow-1); }
+  .s2 { box-shadow: var(--ob-shadow-2); }
+  .s3 { box-shadow: var(--ob-shadow-3); }
+  .sw { box-shadow: var(--ob-shadow-warm); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="tile s1"><span class="name">shadow-1</span><span class="role">resting</span></div>
+    <div class="tile s2"><span class="name">shadow-2</span><span class="role">card</span></div>
+    <div class="tile s3"><span class="name">shadow-3</span><span class="role">hover / pop</span></div>
+    <div class="tile sw" style="background: var(--ob-saffran-400); color:#fff;"><span class="name">shadow-warm</span><span class="role">CTA only</span></div>
+  </div>
+</body>
+</html>

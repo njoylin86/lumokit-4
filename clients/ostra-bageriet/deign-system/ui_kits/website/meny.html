@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<title>Östra Bageriet — Meny</title>
+<meta name="viewport" content="width=1200">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="styles.css?v=8">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="data.js"></script>
+</head>
+<body>
+<div id="root" data-screen-label="Website Menu"></div>
+
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel">
+
+function App() {
+  return (
+    <div>
+      <Nav active="Meny" />
+      <div className="ob-page">
+        <PageHeader
+          eyebrow="Meny"
+          title="Hela menyn"
+          sub="Bakat på morgonen, grillat på beställning. Studentpris hela dagen, mot giltig legg."
+          image="../../assets/food/sandwich-platter.png"
+        />
+
+        <section className="ob-section">
+          <CategoryStrip cats={window.OB_CATS} />
+          {window.OB_CATS.map((cat, i) => (
+            <MenuGroup
+              key={cat.id}
+              cat={cat}
+              items={window.OB_MENU[cat.id]}
+              reverse={i % 2 === 1}
+            />
+          ))}
+        </section>
+
+        <section className="ob-section ob-section--soft">
+          <SectionHeader
+            eyebrow="Catering"
+            title="Vill du beställa till kontoret?"
+            sub="Vi gör fikabrickor, lunchbrickor och hela möteslunchen. Vardagar, hela centrala Stockholm."
+          />
+          <div className="ob-section__cta">
+            <a href="catering.html" className="ob-btn ob-btn--accent ob-btn--lg">Se cateringen</a>
+          </div>
+        </section>
+      </div>
+      <Footer />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

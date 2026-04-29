@@ -1,0 +1,108 @@
+{
+  "client": {
+    "name": "Östra Bageriet",
+    "slug": "ostra-bageriet",
+    "domain": "rivy.templweb.com",
+    "industry": "Bageri, kafé & catering",
+    "tagline": "Bakat på morgonen. Serverat hela dagen.",
+    "language": "sv",
+    "platform": null
+  },
+
+  "brand": {
+    "primary_color": "#3F6E36",
+    "primary_hover": "#2F5728",
+    "accent_color": "#F08420",
+    "accent_hover": "#D86B0F",
+    "bg_color": "#FBF6EC",
+    "bg_alt": "#F4ECDC",
+    "dark_bg": "#1A1611",
+    "text_color": "#1F1B16",
+    "text_muted": "#4A4338",
+    "text_subtle": "#7A6F5F",
+    "border_color": "#E6DCC6",
+    "font_display": "Playfair Display",
+    "font_sans": "DM Sans",
+    "font_hand": "Caveat"
+  },
+
+  "contact": {
+    "address": "Drottning Kristinas väg 1, 114 28 Stockholm",
+    "maps_url": "https://maps.google.com/?q=Drottning+Kristinas+väg+1,+114+28+Stockholm",
+    "phone": "08-612 50 50",
+    "phone_href": "tel:0861250050",
+    "sms": "073-99 38 704",
+    "sms_href": "sms:0739938704",
+    "email": "Fkuorie@hotmail.com",
+    "email_href": "mailto:Fkuorie@hotmail.com"
+  },
+
+  "opening_hours": [
+    { "days": "Måndag–Fredag", "hours": "07:00–18:00" },
+    { "days": "Lördag",        "hours": "08:00–16:00" },
+    { "days": "Söndag",        "hours": "Stängt" }
+  ],
+
+  "design_references": {
+    "hem":      ".tmp/design_html/hem.html",
+    "meny":     ".tmp/design_html/meny.html",
+    "catering": ".tmp/design_html/catering.html",
+    "colors":   "clients/ostra-bageriet/deign-system/colors_and_type.css",
+    "logo":     "clients/ostra-bageriet/deign-system/assets/logo.png"
+  },
+
+  "pages": [
+    {
+      "title": "Hem",
+      "slug": "hem",
+      "menu_label": "Hem",
+      "is_front_page": true,
+      "blocks": [
+        "lumo/ob-hero",
+        "lumo/ob-trust-strip",
+        "lumo/ob-food-grid",
+        "lumo/ob-manifesto",
+        "lumo/ob-catering-preview",
+        "lumo/ob-visit-strip"
+      ],
+      "content_hints": "Fullskärms fotohero med rundade hörn, Caveat-handstil på andra raden, 4 punchlines, 2 CTA-knappar, färsk-notering i Caveat. Trust-strip med 5 nyckeltal. Asymmetriskt food-foto-grid (5 bilder). Mörk manifesto-sektion med citat. Förhandsvisning av 3 cateringpaket. Besöks-/kontaktsektion med adress, öppettider, karta."
+    },
+    {
+      "title": "Meny",
+      "slug": "meny",
+      "menu_label": "Meny",
+      "blocks": [
+        "lumo/ob-page-hero-text",
+        "lumo/ob-menu-section"
+      ],
+      "content_hints": "Textbaserat page-hero (ingen foto) med stor Playfair-rubrik + Caveat-accent i skog-grönt. Sticky kategori-tabs (Bröd & smörgåsar, Italienska sandwich, Sallader, Drycker). 4 menysektioner med artikelrader: namn, beskrivning, pris ordinarie / studentpris. Diet-taggar: vegan, vegetarisk, glutenfri, nybakat."
+    },
+    {
+      "title": "Catering",
+      "slug": "catering",
+      "menu_label": "Catering",
+      "blocks": [
+        "lumo/ob-page-hero-photo",
+        "lumo/ob-usp-strip",
+        "lumo/ob-catering-packages",
+        "lumo/ob-how-it-works",
+        "lumo/ob-offert-form"
+      ],
+      "content_hints": "Foto page-hero med rundade hörn (grillad kyckling), Caveat-accent. 3 USP-kort (leverans, 24h beställning, skräddarsytt). 3 paketskort: Frukost 85:-, Lunchsmörgåsar 120:- (markerad populär i saffron), Mezetallrik 165:-. 4-stegs hur-det-fungerar-sektion. Offertformulär: företag, kontakt, email, telefon, datum, antal, paket-dropdown, fritext."
+    }
+  ],
+
+  "global_components": {
+    "header": "lumo/ob-site-header",
+    "footer": "lumo/ob-site-footer",
+    "note": "Header och footer injiceras globalt av Bridge-pluginet — aldrig med i pages[].blocks."
+  },
+
+  "menu": {
+    "items": ["Hem", "Meny", "Catering", "Kontakt"],
+    "cta": { "label": "Beställ →", "href": "/catering" },
+    "kontakt_anchor": "/#kontakt"
+  },
+
+  "existing_components": []
+}

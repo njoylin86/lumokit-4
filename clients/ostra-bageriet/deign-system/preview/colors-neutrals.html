@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Colors · Neutrals & surfaces</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; background: var(--ob-bg); }
+  .wrap { width: 700px; padding: 24px; box-sizing: border-box; font-family: var(--ob-font-sans); }
+  .row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .sw { border-radius: 12px; padding: 12px; height: 100px; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; border: 1px solid var(--ob-border); }
+  .name { font-size: 12px; font-weight: 600; }
+  .hex { font-size: 11px; font-variant-numeric: tabular-nums; opacity: 0.7; }
+  .light { color: var(--ob-cream); border-color: transparent; }
+  .dark { color: var(--ob-ink); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="row" style="margin-bottom: 10px;">
+      <div class="sw dark" style="background:var(--ob-cream)"><span class="name">Cream</span><span class="hex">#FBF6EC · bg</span></div>
+      <div class="sw dark" style="background:var(--ob-cream-2)"><span class="name">Cream-2</span><span class="hex">#F4ECDC · bg-alt</span></div>
+      <div class="sw dark" style="background:var(--ob-paper)"><span class="name">Paper</span><span class="hex">#FFFCF6 · surface</span></div>
+      <div class="sw dark" style="background:var(--ob-stone-50)"><span class="name">Stone 50</span><span class="hex">#F6F1E6</span></div>
+    </div>
+    <div class="row">
+      <div class="sw dark" style="background:var(--ob-stone-100)"><span class="name">Stone 100</span><span class="hex">#ECE4D2</span></div>
+      <div class="sw light" style="background:var(--ob-ink-3)"><span class="name">Ink 3</span><span class="hex">#7A6F5F · subtle</span></div>
+      <div class="sw light" style="background:var(--ob-ink-2)"><span class="name">Ink 2</span><span class="hex">#4A4338 · muted</span></div>
+      <div class="sw light" style="background:var(--ob-stone-900)"><span class="name">Night oven</span><span class="hex">#1A1611 · bg-dark</span></div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Type · Accents</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; background: var(--ob-bg); }
+  .wrap { width: 700px; padding: 28px; box-sizing: border-box; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center; }
+  .card { background: var(--ob-paper); border: 1px solid var(--ob-border); border-radius: var(--ob-r-md); padding: 22px; box-shadow: var(--ob-shadow-1); }
+  .meta { font-family: var(--ob-font-sans); font-size: 11px; color: var(--ob-fg-subtle); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+  .price-row { display: flex; align-items: baseline; gap: 12px; }
+  .price { font-family: var(--ob-font-sans); font-variant-numeric: tabular-nums lining-nums; font-weight: 600; font-size: 28px; color: var(--ob-fg); }
+  .price-student { color: var(--ob-saffran-500); font-size: 16px; font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="meta">Hand / Caveat</div>
+      <div class="ob-hand">Färskt idag —</div>
+      <div class="ob-hand" style="font-size: 32px;">studentpris hela dagen</div>
+    </div>
+    <div class="card">
+      <div class="meta">Price · tabular nums</div>
+      <div class="price-row">
+        <span class="price">85:-</span>
+        <span class="price-student">student 75:-</span>
+      </div>
+      <div class="price-row" style="margin-top: 8px;">
+        <span class="price">110:-</span>
+        <span class="price-student">student 90:-</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

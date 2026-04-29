@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Components · Iconography</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  html, body { margin: 0; padding: 0; background: var(--ob-bg); font-family: var(--ob-font-sans); }
+  .wrap { width: 700px; padding: 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 18px; }
+  .row { display: flex; gap: 22px; align-items: center; color: var(--ob-fg); }
+  .row svg { width: 24px; height: 24px; stroke-width: 1.75; }
+  .meta { font-size: 11px; color: var(--ob-fg-subtle); letter-spacing: 0.06em; text-transform: uppercase; min-width: 130px; }
+  .emoji-row { display: flex; gap: 28px; font-size: 32px; align-items: center; }
+  .emoji-row span small { display: block; font-family: var(--ob-font-sans); font-size: 11px; color: var(--ob-fg-subtle); text-align: center; margin-top: 4px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="row">
+      <span class="meta">Lucide · 1.75</span>
+      <i data-lucide="croissant"></i>
+      <i data-lucide="coffee"></i>
+      <i data-lucide="leaf"></i>
+      <i data-lucide="utensils"></i>
+      <i data-lucide="map-pin"></i>
+      <i data-lucide="phone"></i>
+      <i data-lucide="clock"></i>
+      <i data-lucide="shopping-bag"></i>
+      <i data-lucide="heart"></i>
+    </div>
+    <div class="row">
+      <span class="meta">Menu emoji</span>
+      <div class="emoji-row">
+        <span>🥖<small>Bröd</small></span>
+        <span>🥗<small>Sallader</small></span>
+        <span>🌯<small>Wraps</small></span>
+        <span>☕<small>Drycker</small></span>
+        <span>🧁<small>Bakverk</small></span>
+      </div>
+    </div>
+  </div>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

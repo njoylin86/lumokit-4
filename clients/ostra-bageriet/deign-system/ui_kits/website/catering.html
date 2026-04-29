@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<title>Östra Bageriet — Catering</title>
+<meta name="viewport" content="width=1200">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<link rel="stylesheet" href="styles.css?v=8">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="data.js"></script>
+</head>
+<body>
+<div id="root" data-screen-label="Website Catering"></div>
+
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel">
+
+const FACTS = [
+  { k: "Leverans", v: "Inom centrala Stockholm, mån–fre" },
+  { k: "Beställ senast", v: "Dagen innan kl 15:00" },
+  { k: "Min. antal",  v: "4 personer" },
+  { k: "Faktura",     v: "Ja, för företag" },
+];
+
+function App() {
+  return (
+    <div>
+      <Nav active="Catering" />
+      <div className="ob-page">
+        <PageHeader
+          eyebrow="Catering"
+          title="Brickor, lunch och möten"
+          sub="Vi levererar i hela centrala Stockholm, måndag till fredag. Be om en offert så skräddarsyr vi efter ditt event."
+          image="../../assets/food/meze-platter.png"
+        />
+
+        <section className="ob-section">
+          <div className="ob-tiers">
+            {window.OB_TIERS.map(t => <PricingTier key={t.name} tier={t} />)}
+          </div>
+        </section>
+
+        <section className="ob-section ob-section--soft">
+          <SectionHeader
+            eyebrow="Det praktiska"
+            title="Bra att veta"
+          />
+          <dl className="ob-facts">
+            {FACTS.map(f => (
+              <div key={f.k} className="ob-facts__row">
+                <dt>{f.k}</dt>
+                <dd>{f.v}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        <section className="ob-section">
+          <QuoteForm />
+        </section>
+      </div>
+      <Footer />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
