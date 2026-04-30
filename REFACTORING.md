@@ -4,6 +4,18 @@ Identifierade svagheter och förbättringsområden. Används som underlag för `
 
 ---
 
+## Vision: Fullständig Automation
+
+**Långsiktigt mål:** LumoKit ska köras helt autonomt på en server — från brief till färdig WordPress-sajt — med minimal eller ingen mänsklig inblandning. Varje refactoring-beslut ska utvärderas mot detta mål: flyttar det systemet mot eller bort från självkörande drift?
+
+Konkret innebär det:
+- Deterministiska pipelines som kan triggas via API/webhook
+- Felhantering som återhämtar sig utan manuell intervention
+- Ingen manuell rensning, filhantering eller kommandokörning krävs av operatören
+- AI fattar beslut, deterministisk kod exekverar dem — utan att en människa sitter mitt i loopen
+
+---
+
 ## 1. AI är en opålitlig fabriksarbetare
 
 **Problem:** Fabriken bygger på att en språkmodell följer workflows konsekvent. AI har inget verkligt minne mellan sessioner, kan misstolka instruktioner, och kan producera subtilt fel HTML som ser rätt ut men har brister.
@@ -40,11 +52,13 @@ Identifierade svagheter och förbättringsområden. Används som underlag för `
 
 ---
 
-## 6. WordPress-beroendet är en ouppackad flaskhals
+## 6. WordPress-beroendet är en ouppackad flaskhals ✅ ÅTGÄRDAT
 
-**Problem:** All deploy går via REST API och SFTP till en specifik WP-instans. Om servern är nere, API:et ändras, eller ACF uppdateras och bryter schema-formatet — stannar hela fabriken utan tydlig felhantering.
-
-**Mål:** Lägg till explicit felhantering och retry-logik i `push_to_wp.py`. Separera "build" (lokal) från "deploy" (nätverksberoende) tydligare så att en misslyckad deploy inte förstör en lyckad build.
+**Lösning:**
+- `retry_post()` med exponential backoff (max 3 försök) i både `build_all.py` och `push_to_wp.py`
+- `deploy_state.json` skrivs till `clients/<name>/.tmp/` efter varje komponent — håller reda på vad som lyckades/misslyckades
+- `--resume`-flagga i `build_all.py` hoppar över komponenter med status `ok` i state-filen
+- En kraschad halvdeploy kan återupptas exakt där den slutade
 
 ---
 

@@ -31,6 +31,8 @@ import json
 import os
 import subprocess
 import sys
+import time
+from datetime import datetime
 from pathlib import Path
 
 import requests
@@ -48,6 +50,32 @@ SITE_ENDPOINT       = f"{WP_URL}/wp-json/lumokit/v1/site"
 SETTINGS_ENDPOINT   = f"{WP_URL}/wp-json/lumokit/v1/settings"
 OPTIONS_ENDPOINT    = f"{WP_URL}/wp-json/lumokit/v1/options"
 SNIPPETS_ENDPOINT   = f"{WP_URL}/wp-json/lumokit/v1/snippets"
+
+
+def retry_post(url: str, payload: dict, max_attempts: int = 3, **kwargs) -> requests.Response:
+    """POST with exponential backoff on connection errors and timeouts."""
+    for attempt in range(1, max_attempts + 1):
+        try:
+            return requests.post(url, json=payload, **kwargs)
+        except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
+            if attempt == max_attempts:
+                raise
+            wait = 2 ** attempt
+            print(f"  [RETRY] {type(e).__name__} — retrying in {wait}s ({attempt}/{max_attempts})...")
+            time.sleep(wait)
+
+
+def load_deploy_state(state_path: Path) -> dict:
+    if state_path.exists():
+        try:
+            return json.loads(state_path.read_text(encoding="utf-8"))
+        except Exception:
+            return {}
+    return {}
+
+
+def save_deploy_state(state_path: Path, state: dict) -> None:
+    state_path.write_text(json.dumps(state, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 def check_env_guard(allow_production: bool) -> None:
@@ -68,12 +96,16 @@ def push_component(component: dict) -> bool:
         print(f"  [ERROR] Component missing fields: {missing}")
         return False
 
-    response = requests.post(
-        COMPONENTS_ENDPOINT,
-        json=component,
-        auth=(WP_USERNAME, WP_APP_PASSWORD),
-        timeout=30,
-    )
+    try:
+        response = retry_post(
+            COMPONENTS_ENDPOINT,
+            component,
+            auth=(WP_USERNAME, WP_APP_PASSWORD),
+            timeout=30,
+        )
+    except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
+        print(f"  [ERROR] Could not reach {WP_URL} after 3 attempts: {e}")
+        return False
 
     if response.status_code == 200:
         data = response.json()
@@ -97,12 +129,12 @@ def push_platform_config(config: dict) -> None:
     if not payload:
         return
 
-    response = requests.post(
-        SETTINGS_ENDPOINT,
-        json=payload,
-        auth=(WP_USERNAME, WP_APP_PASSWORD),
-        timeout=30,
-    )
+    try:
+        response = retry_post(SETTINGS_ENDPOINT, payload,
+                              auth=(WP_USERNAME, WP_APP_PASSWORD), timeout=30)
+    except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
+        print(f"  [ERROR] Could not reach {WP_URL}: {e}")
+        return
 
     if response.status_code == 200:
         data = response.json()
@@ -117,12 +149,12 @@ def push_platform_config(config: dict) -> None:
 
 
 def push_global_settings(settings: dict) -> None:
-    response = requests.post(
-        OPTIONS_ENDPOINT,
-        json=settings,
-        auth=(WP_USERNAME, WP_APP_PASSWORD),
-        timeout=30,
-    )
+    try:
+        response = retry_post(OPTIONS_ENDPOINT, settings,
+                              auth=(WP_USERNAME, WP_APP_PASSWORD), timeout=30)
+    except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
+        print(f"  [ERROR] Could not reach {WP_URL}: {e}")
+        return
     if response.status_code == 200:
         data = response.json()
         print(f"  [OK]   Global settings set: {', '.join(data.get('updated', []))}")
@@ -136,12 +168,12 @@ def push_global_settings(settings: dict) -> None:
 
 def push_snippets(snippets: list) -> None:
     for snippet in snippets:
-        response = requests.post(
-            SNIPPETS_ENDPOINT,
-            json=snippet,
-            auth=(WP_USERNAME, WP_APP_PASSWORD),
-            timeout=30,
-        )
+        try:
+            response = retry_post(SNIPPETS_ENDPOINT, snippet,
+                                  auth=(WP_USERNAME, WP_APP_PASSWORD), timeout=30)
+        except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
+            print(f"  [ERROR] Could not reach {WP_URL}: {e}")
+            continue
         if response.status_code == 200:
             data = response.json()
             print(f"  [OK]   Snippet '{snippet.get('title')}': {data.get('message', 'saved')}")
@@ -209,15 +241,22 @@ def print_mode_banner(overwrite_content: bool, keep_pages: set, force: bool) -> 
 
 def build_all(bundle_path: str, allow_production: bool = False,
               overwrite_content: bool = False, force: bool = False,
-              keep_pages: set | None = None) -> None:
+              keep_pages: set | None = None, resume: bool = False) -> None:
     check_env_guard(allow_production)
     keep_pages = keep_pages or set()
     print_mode_banner(overwrite_content, keep_pages, force)
 
-    path = Path(bundle_path)
+    path = Path(bundle_path).resolve()
     if not path.exists():
         print(f"[ERROR] File not found: {bundle_path}")
         sys.exit(1)
+
+    # Deploy state lives in the same dir as the bundle (clients/<name>/.tmp/ or legacy .tmp/)
+    state_path = path.parent / "deploy_state.json"
+    state = load_deploy_state(state_path) if resume else {}
+    if resume and state:
+        already_ok = [k for k, v in state.get("components", {}).items() if v.get("status") == "ok"]
+        print(f"[RESUME] Found deploy state — {len(already_ok)} component(s) already deployed, skipping.")
 
     with open(path, "r", encoding="utf-8") as f:
         bundle = json.load(f)
@@ -260,14 +299,25 @@ def build_all(bundle_path: str, allow_production: bool = False,
     if components:
         print(f"\n[{step}/{total_steps}] Pushing {len(components)} component(s)...")
         failed = []
+        component_state = state.get("components", {})
         for component in components:
+            block_name = component.get("block_name", "unknown")
+            if resume and component_state.get(block_name, {}).get("status") == "ok":
+                print(f"  [SKIP]  {block_name} (already deployed)")
+                continue
             ok = push_component(component)
+            component_state[block_name] = {
+                "status": "ok" if ok else "failed",
+                "at": datetime.now().isoformat(timespec="seconds"),
+            }
+            save_deploy_state(state_path, {"bundle": path.name, "components": component_state})
             if not ok:
-                failed.append(component.get("block_name", "unknown"))
+                failed.append(block_name)
 
         if failed:
-            print(f"\n[ERROR] {len(failed)} component(s) failed to push: {failed}")
-            print("        Fix the errors above before building the site.")
+            print(f"\n[ERROR] {len(failed)} component(s) failed: {failed}")
+            print(f"        Deploy state saved to {state_path.relative_to(ROOT)}")
+            print(f"        Fix errors and re-run with --resume to skip successful components.")
             sys.exit(1)
     else:
         print(f"\n[{step}/{total_steps}] No components in bundle — skipping component push.")
@@ -326,7 +376,6 @@ def build_all(bundle_path: str, allow_production: bool = False,
     except Exception:
         pass
 
-    from datetime import datetime
     record = {
         "deployed_at": datetime.now().isoformat(timespec="seconds"),
         "bundle":      str(Path(bundle_path).name),
@@ -350,7 +399,8 @@ if __name__ == "__main__":
         print("  --overwrite-content    Skriv över sidornas innehåll. Visar varning + frågar JA.")
         print("                         Eventuella WP Admin-redigeringar går förlorade.")
         print("  --keep-pages slug,..   Vid --overwrite-content: behåll dessa sidor orörda.")
-        print("  --force                Hoppa över JA-prompten (för automation/CI).")
+        print("  --force                Hoppa över JA-prompten (för automation/CI).
+  --resume               Hoppa över komponenter som redan lyckades i föregående körning.")
         print("  --production           Tillåt push mot WP_ENV=production.")
         sys.exit(1)
 
@@ -359,6 +409,7 @@ if __name__ == "__main__":
     allow_production = "--production" in args
     overwrite_content = "--overwrite-content" in args
     force = "--force" in args
+    resume = "--resume" in args
     keep_pages: set = set()
     if "--keep-pages" in args:
         idx = args.index("--keep-pages")
@@ -367,4 +418,4 @@ if __name__ == "__main__":
 
     build_all(bundle_path, allow_production=allow_production,
               overwrite_content=overwrite_content, force=force,
-              keep_pages=keep_pages)
+              keep_pages=keep_pages, resume=resume)

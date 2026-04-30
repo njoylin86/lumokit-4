@@ -12,10 +12,23 @@ Never hard-code credentials – they live in .env only.
 import json
 import os
 import sys
+import time
 from pathlib import Path
 
 import requests
 from env_loader import ROOT, load_env
+
+
+def retry_post(url: str, payload: dict, max_attempts: int = 3, **kwargs) -> requests.Response:
+    for attempt in range(1, max_attempts + 1):
+        try:
+            return requests.post(url, json=payload, **kwargs)
+        except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
+            if attempt == max_attempts:
+                raise
+            wait = 2 ** attempt
+            print(f"[RETRY] {type(e).__name__} — retrying in {wait}s ({attempt}/{max_attempts})...")
+            time.sleep(wait)
 
 # ---------------------------------------------------------------------------
 # Load credentials — resolves --env flag, client .env, or root .env
@@ -60,15 +73,18 @@ def push(payload_path: str, allow_production: bool = False) -> None:
         print(f"[ERROR] Payload missing required fields: {missing}")
         sys.exit(1)
 
-    # --- Send POST request -----------------------------------------------
+    # --- Send POST request (with retry) ----------------------------------
     print(f"[INFO] Pushing '{payload['block_name']}' to {ENDPOINT} ...")
 
-    response = requests.post(
-        ENDPOINT,
-        json=payload,
-        auth=(WP_USERNAME, WP_APP_PASSWORD),
-        timeout=30,
-    )
+    try:
+        response = retry_post(
+            ENDPOINT, payload,
+            auth=(WP_USERNAME, WP_APP_PASSWORD),
+            timeout=30,
+        )
+    except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
+        print(f"[ERROR] Could not reach {WP_URL} after 3 attempts: {e}")
+        sys.exit(1)
 
     # --- Handle response --------------------------------------------------
     if response.status_code == 200:
