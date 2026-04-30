@@ -258,6 +258,13 @@ def build_all(bundle_path: str, allow_production: bool = False,
         already_ok = [k for k, v in state.get("components", {}).items() if v.get("status") == "ok"]
         print(f"[RESUME] Found deploy state — {len(already_ok)} component(s) already deployed, skipping.")
 
+    # --- Pre-deploy validation --------------------------------------------
+    print("[VALIDATE] Kör bundle-validering...")
+    from validate_bundle import validate_bundle
+    if not validate_bundle(path, strict=False):
+        print("\n[ABORTED] Åtgärda felen ovan innan deploy.")
+        sys.exit(1)
+
     with open(path, "r", encoding="utf-8") as f:
         bundle = json.load(f)
 

@@ -24,11 +24,12 @@ Konkret innebär det:
 
 ---
 
-## 2. Kvalitetskontroll är cirkulär
+## 2. Kvalitetskontroll är cirkulär ✅ ÅTGÄRDAT
 
-**Problem:** Självgranskning via screenshot innebär att AI bedömer sitt eget arbete. Systematiska fel kan passera oupptäckta varje gång.
-
-**Mål:** Separera design-steget från valideringssteget. Validering bör ha objektiva, kodade kriterier (t.ex. kontrastkrav, obligatoriska fält, HTML-validering).
+**Lösning:** `tools/validate_bundle.py` körs automatiskt som pre-deploy-steg i `build_all.py`.
+- **Fel (blockerar deploy):** mustache-variabel utan schema-fält, schema-fält utan mustache-variabel, `<script>`/`<iframe>`, saknade required-fält
+- **Varningar (blockerar ej):** misstänkta låg-kontrast-kombinationer — flaggas men design-beslutet fattas av människa/AI
+- `--strict`-flagga finns för den som vill att kontrast-varningar också blockerar
 
 ---
 
