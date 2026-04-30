@@ -54,10 +54,12 @@ def address_link(address: str, label: str | None = None,
     return f'<a href="{href}" target="_blank" rel="noopener"{cls_attr}{style_attr}>{label or address}</a>'
 
 ROOT = Path(__file__).resolve().parent.parent
-CONTENT  = ROOT / ".tmp" / "content" / "text" / "lumo-content.json"
-MANIFEST = ROOT / ".tmp" / "content" / "_media_manifest.json"
-TOKENS   = ROOT / ".tmp" / "Design system" / "colors_and_type.css"
-OUT_DIR  = ROOT / ".tmp"
+
+
+def _resolve_tmp(client: str | None) -> Path:
+    if client:
+        return ROOT / "clients" / client / ".tmp"
+    return ROOT / ".tmp"
 
 REPRESENTATIVE_TREATMENT_SLUG = "tandimplantat"
 
@@ -76,16 +78,14 @@ HERO_EYEBROW = {
 }
 
 
-LOGO_FULL = (ROOT / ".tmp" / "Design system" / "assets" / "logo.svg")
-LOGO_MARK = (ROOT / ".tmp" / "Design system" / "assets" / "logo-mark.svg")
-
-
-def load() -> tuple[dict, dict, str, str, str]:
-    content   = json.loads(CONTENT.read_text(encoding="utf-8"))
-    manifest  = json.loads(MANIFEST.read_text(encoding="utf-8"))
-    tokens    = TOKENS.read_text(encoding="utf-8")
-    logo_full = LOGO_FULL.read_text(encoding="utf-8") if LOGO_FULL.exists() else ""
-    logo_mark = LOGO_MARK.read_text(encoding="utf-8") if LOGO_MARK.exists() else ""
+def load(tmp: Path) -> tuple[dict, dict, str, str, str]:
+    content   = json.loads((tmp / "content" / "text" / "lumo-content.json").read_text(encoding="utf-8"))
+    manifest  = json.loads((tmp / "content" / "_media_manifest.json").read_text(encoding="utf-8"))
+    tokens    = (tmp / "Design system" / "colors_and_type.css").read_text(encoding="utf-8")
+    logo_full_path = tmp / "Design system" / "assets" / "logo.svg"
+    logo_mark_path = tmp / "Design system" / "assets" / "logo-mark.svg"
+    logo_full = logo_full_path.read_text(encoding="utf-8") if logo_full_path.exists() else ""
+    logo_mark = logo_mark_path.read_text(encoding="utf-8") if logo_mark_path.exists() else ""
     return content, manifest, tokens, logo_full, logo_mark
 
 
@@ -988,7 +988,16 @@ BUILDERS = {
 
 
 def main() -> None:
-    content, manifest, tokens, logo_full, logo_mark = load()
+    import argparse
+    parser = argparse.ArgumentParser(description="Generate HTML mockups for client review.")
+    parser.add_argument("--client", help='Client name, e.g. "ostra-bageriet". Reads from clients/<name>/.tmp/')
+    args = parser.parse_args()
+
+    tmp = _resolve_tmp(args.client)
+    out_dir = tmp
+    print(f"[INFO] Reading from: {tmp.relative_to(ROOT)}")
+
+    content, manifest, tokens, logo_full, logo_mark = load(tmp)
     settings = content.get("settings", {})
 
     # Build a list of treatment pages for the footer column
@@ -1016,7 +1025,7 @@ def main() -> None:
         html = page_shell(title, body, tokens, settings,
                           logo_full=logo_full, logo_mark=logo_mark,
                           treatments=treatments)
-        out_path = OUT_DIR / pages_to_render[ptype]
+        out_path = out_dir / pages_to_render[ptype]
         out_path.write_text(html, encoding="utf-8")
         rendered.append((page["slug"], out_path))
 

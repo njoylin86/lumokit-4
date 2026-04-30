@@ -3,9 +3,10 @@ pull_from_wp.py
 Fetches the current state of all (or a specific) LumoKit component from WordPress.
 
 Usage:
-    python tools/pull_from_wp.py                        # list all components
-    python tools/pull_from_wp.py lumo/hero-section      # print one component
-    python tools/pull_from_wp.py lumo/hero-section --save   # save to .tmp/
+    python tools/pull_from_wp.py                                        # list all components
+    python tools/pull_from_wp.py lumo/hero-section                      # print one component
+    python tools/pull_from_wp.py lumo/hero-section --save --client ostra-bageriet
+    python tools/pull_from_wp.py lumo/hero-section --save               # save to root .tmp/ (legacy)
 
 Per the "Pull Before Push" rule in CLAUDE.md, always run this before modifying
 an existing component to avoid overwriting client content.
@@ -41,7 +42,7 @@ def fetch_all() -> list:
     return response.json()
 
 
-def pull(block_name: str | None, save: bool) -> None:
+def pull(block_name: str | None, save: bool, client: str | None = None) -> None:
     components = fetch_all()
 
     if not block_name:
@@ -61,8 +62,11 @@ def pull(block_name: str | None, save: bool) -> None:
     print(json.dumps(match, indent=2, ensure_ascii=False))
 
     if save:
-        tmp_dir = ROOT / ".tmp"
-        tmp_dir.mkdir(exist_ok=True)
+        if client:
+            tmp_dir = ROOT / "clients" / client / ".tmp"
+        else:
+            tmp_dir = ROOT / ".tmp"
+        tmp_dir.mkdir(parents=True, exist_ok=True)
         slug     = block_name.replace("/", "-")
         out_path = tmp_dir / f"{slug}_pulled.json"
         with open(out_path, "w", encoding="utf-8") as f:
@@ -73,7 +77,8 @@ def pull(block_name: str | None, save: bool) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Pull LumoKit component(s) from WordPress.")
     parser.add_argument("block_name", nargs="?", help='e.g. "lumo/hero-section"')
-    parser.add_argument("--save", action="store_true", help="Save result to .tmp/")
+    parser.add_argument("--save", action="store_true", help="Save result to client .tmp/")
+    parser.add_argument("--client", help='Client name, e.g. "ostra-bageriet". Saves to clients/<name>/.tmp/')
     args = parser.parse_args()
 
-    pull(args.block_name, args.save)
+    pull(args.block_name, args.save, args.client)

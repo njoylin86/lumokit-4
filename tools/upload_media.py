@@ -39,8 +39,8 @@ WP_APP_PASSWORD = os.getenv("WP_APP_PASSWORD", "")
 WP_ENV          = os.getenv("WP_ENV", "development").strip().lower()
 
 MEDIA_ENDPOINT      = f"{WP_URL}/wp-json/wp/v2/media"
-DEFAULT_SOURCE_DIR  = ROOT / ".tmp" / "content" / "image"
-DEFAULT_MANIFEST    = ROOT / ".tmp" / "content" / "_media_manifest.json"
+DEFAULT_SOURCE_DIR  = ROOT / ".tmp" / "content" / "image"   # legacy fallback
+DEFAULT_MANIFEST    = ROOT / ".tmp" / "content" / "_media_manifest.json"  # legacy fallback
 ALLOWED_EXTENSIONS  = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg"}
 
 
@@ -126,10 +126,11 @@ def upload_image(file_path: Path) -> dict | None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Upload images to WP media library.")
-    parser.add_argument("--dir", default=str(DEFAULT_SOURCE_DIR),
-                        help="Source directory of images (default: .tmp/content/image)")
-    parser.add_argument("--manifest", default=str(DEFAULT_MANIFEST),
-                        help="Manifest path (default: .tmp/content/_media_manifest.json)")
+    parser.add_argument("--client", help='Client name, e.g. "ostra-bageriet". Sets default --dir and --manifest to clients/<name>/.tmp/content/...')
+    parser.add_argument("--dir", default=None,
+                        help="Source directory of images")
+    parser.add_argument("--manifest", default=None,
+                        help="Manifest path")
     parser.add_argument("--force", action="store_true",
                         help="Re-upload every file, ignoring the manifest")
     parser.add_argument("--dry-run", action="store_true",
@@ -140,8 +141,16 @@ def main() -> None:
 
     check_env_guard(args.production)
 
-    source_dir   = Path(args.dir).resolve()
-    manifest_path = Path(args.manifest).resolve()
+    if args.client:
+        client_tmp = ROOT / "clients" / args.client / ".tmp"
+        default_dir      = client_tmp / "content" / "image"
+        default_manifest = client_tmp / "content" / "_media_manifest.json"
+    else:
+        default_dir      = DEFAULT_SOURCE_DIR
+        default_manifest = DEFAULT_MANIFEST
+
+    source_dir    = Path(args.dir).resolve()    if args.dir      else default_dir
+    manifest_path = Path(args.manifest).resolve() if args.manifest else default_manifest
     manifest      = load_manifest(manifest_path)
 
     files = discover_images(source_dir)

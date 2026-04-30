@@ -4,8 +4,9 @@ Compiles Tailwind CSS from a specific bundle (or all .tmp/*.json as fallback)
 and pushes the resulting stylesheet to WordPress via the LumoKit REST API.
 
 Usage:
-    python tools/compile_tailwind.py .tmp/myclient_bundle.json   ← recommended
-    python tools/compile_tailwind.py                              ← scans all .tmp/*.json
+    python tools/compile_tailwind.py clients/<client>/bundle.json   ← recommended
+    python tools/compile_tailwind.py .tmp/myclient_bundle.json      ← legacy
+    python tools/compile_tailwind.py                                 ← scans all .tmp/*.json
 
 Requirements:
     - Node.js + npx must be installed
@@ -23,7 +24,7 @@ import requests
 from env_loader import ROOT, load_env
 
 TOOLS_DIR = ROOT / "tools"
-TMP_DIR = ROOT / ".tmp"
+TMP_DIR = ROOT / ".tmp"  # fallback only — prefer client-local .tmp/
 
 load_env()
 
@@ -34,14 +35,33 @@ WP_APP_PASSWORD = os.getenv("WP_APP_PASSWORD", "")
 STYLES_ENDPOINT = f"{WP_URL}/wp-json/lumokit/v1/styles"
 
 
-def extract_templates(bundle_path: Path | None = None) -> str:
+def tmp_dir_for(bundle_path: Path | None) -> Path:
+    """Return the scratch directory for this build.
+
+    If the bundle lives inside a clients/<client>/ tree, use clients/<client>/.tmp/.
+    Otherwise fall back to root .tmp/.
+    """
+    if bundle_path:
+        parts = bundle_path.resolve().parts
+        if "clients" in parts:
+            client_root = Path(*parts[: parts.index("clients") + 2])
+            client_tmp = client_root / ".tmp"
+            client_tmp.mkdir(exist_ok=True)
+            return client_tmp
+    return TMP_DIR
+
+
+def extract_templates(bundle_path: Path | None = None) -> tuple[str, Path]:
     """Extract html_templates from a specific bundle file, or all .tmp/*.json as fallback.
 
     Always pass a specific bundle_path to avoid cross-client CSS contamination.
+    Returns (combined html, tmp_dir).
     """
+    scratch = tmp_dir_for(bundle_path)
     if bundle_path:
         payload_files = [bundle_path]
-        print(f"[INFO] Compiling CSS from: {bundle_path.name}")
+        print(f"[INFO] Compiling CSS from: {bundle_path}")
+        print(f"[INFO] Scratch dir: {scratch}")
     else:
         payload_files = list(TMP_DIR.glob("*.json"))
         if not payload_files:
@@ -67,13 +87,13 @@ def extract_templates(bundle_path: Path | None = None) -> str:
             print(f"[WARN]  Skipping {path.name}: {e}")
 
     print(f"[INFO] Extracted templates from {len(html_parts)} component(s).")
-    return "\n".join(html_parts)
+    return "\n".join(html_parts), scratch
 
 
-def compile_css(html: str) -> str:
+def compile_css(html: str, scratch: Path = TMP_DIR) -> str:
     """Write templates to a temp file and run Tailwind JIT compilation."""
-    templates_file = TMP_DIR / "templates.html"
-    output_file    = TMP_DIR / "lumokit.css"
+    templates_file = scratch / "templates.html"
+    output_file    = scratch / "lumokit.css"
 
     with open(templates_file, "w", encoding="utf-8") as f:
         f.write(html)
@@ -154,6 +174,6 @@ if __name__ == "__main__":
             sys.exit(1)
         bundle_path = p
 
-    html = extract_templates(bundle_path)
-    css  = compile_css(html)
+    html, scratch = extract_templates(bundle_path)
+    css  = compile_css(html, scratch)
     push_css(css)

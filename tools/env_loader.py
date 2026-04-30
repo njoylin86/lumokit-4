@@ -3,9 +3,11 @@ env_loader.py
 Centralised .env resolution for LumoKit tools.
 
 Fallback chain (first match wins):
-  1. --env <path>          explicit flag anywhere in sys.argv
-  2. clients/<client>/.env inferred from a bundle path arg (e.g. .tmp/ostra-bageriet_bundle.json)
-  3. <ROOT>/.env           project-root default
+  1. --env <path>              explicit flag anywhere in sys.argv
+  2. clients/<client>/.env     inferred from bundle path:
+       - clients/<client>/bundle.json  (new standard)
+       - .tmp/<client>_bundle.json     (legacy)
+  3. <ROOT>/.env               project-root default
 """
 
 import re
@@ -29,12 +31,25 @@ def _explicit_env_flag() -> Path | None:
 
 def _client_env_from_bundle() -> Path | None:
     """
-    Scan sys.argv for a bundle path like .tmp/<client>_bundle.json and
-    resolve clients/<client>/.env if it exists.
+    Scan sys.argv for a bundle path and resolve clients/<client>/.env.
+
+    Recognises:
+      clients/<client>/bundle.json     — new standard
+      .tmp/<client>_bundle.json        — legacy
     """
-    bundle_pattern = re.compile(r"([a-z0-9][a-z0-9_-]*)_bundle\.json$", re.I)
     for arg in sys.argv[1:]:
-        m = bundle_pattern.search(arg)
+        p = Path(arg)
+        parts = p.parts
+        # New standard: clients/<client>/bundle.json
+        if "clients" in parts:
+            idx = list(parts).index("clients")
+            if idx + 1 < len(parts):
+                client_name = parts[idx + 1]
+                candidate = ROOT / "clients" / client_name / ".env"
+                if candidate.exists():
+                    return candidate
+        # Legacy: .tmp/<client>_bundle.json
+        m = re.search(r"([a-z0-9][a-z0-9_-]*)_bundle\.json$", arg, re.I)
         if m:
             candidate = ROOT / "clients" / m.group(1) / ".env"
             if candidate.exists():

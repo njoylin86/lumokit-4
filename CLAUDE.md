@@ -67,21 +67,25 @@ When a tool fails or the WP REST API returns an error (e.g., a 400 Bad Request d
 
 ## File Structure
 ```text
-.tmp/             # TEMPORÄR — genererade JSON-payloads för pågående klientbuild. Rensas mellan klientbuilds.
-.tmp/template/    # Referensmallar (HTML-template, design-screenshots, DESIGN.md). Aldrig klientdata.
-tools/            # Python scripts for deterministic execution (API pushes, Tailwind JIT)
-workflows/        # Markdown SOPs defining design rules and ACF mapping logic
-wp-plugin/        # PHP code for the "LumoKit Bridge" installed on the WordPress host
-.env              # API keys and WP credentials (NEVER store secrets in code)
+clients/<name>/         # All client-specific data lives here
+clients/<name>/.tmp/    # Per-client scratch dir — HTML mockups, screenshots, compiled CSS, pulled components
+clients/<name>/bundle.json        # Generated bundle (not committed)
+clients/<name>/content/           # Source content (committed)
+clients/<name>/design-system/     # Design tokens, assets (committed)
+tools/                  # Python scripts for deterministic execution (API pushes, Tailwind JIT)
+workflows/              # Markdown SOPs defining design rules and ACF mapping logic
+wp-plugin/              # PHP code for the "LumoKit Bridge" installed on the WordPress host
+.env                    # API keys and WP credentials (NEVER store secrets in code)
 ```
 
 ## .tmp/ Livscykel — KRITISK REGEL
-`.tmp/` är en **engångsmapp per klientbuild**. Gamla bundle-filer från tidigare klienter får ALDRIG ligga kvar när en ny build startar.
+Varje klient har sin **egna** `.tmp/`-mapp under `clients/<name>/.tmp/`. Klienters scratch-data blandas aldrig.
 
-- **En aktiv bundle i taget** — `[klientnamn]_bundle.json`
-- **Rensa `.tmp/*.json` innan ny klientbuild** — gamla filers CSS-klasser kompileras annars in i den nya sitens stylesheet
-- **`python3 tools/build_all.py .tmp/klient_bundle.json`** kompilerar CSS ENBART från angiven bundle — använd alltid explicit sökväg
-- **`compile_tailwind.py` utan argument** är VARNING-läge — skannar allt i `.tmp/` och är aldrig rätt i produktion
+- **Standard sökväg:** `clients/<klientnamn>/.tmp/`
+- **Bundle:** `clients/<klientnamn>/bundle.json`
+- **Kompilering:** `python3 tools/build_all.py clients/<klient>/bundle.json` — scratch skrivs automatiskt till `clients/<klient>/.tmp/`
+- **`compile_tailwind.py` utan argument** är VARNING-läge — använd aldrig i produktion
+- **Root `.tmp/`** är legacy — använd inte för nya klientbuilds
 
 ## Mission Statement
 Your job is to read instructions, design beautiful Tailwind components, output precise JSON schemas, call the right tools to compile/push, and build bulletproof WordPress sites. Keep it reliable and structured.

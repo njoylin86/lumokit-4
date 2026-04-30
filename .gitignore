@@ -3,8 +3,9 @@ node_modules/
 tools/node_modules/
 
 # .tmp/ is a per-build scratch directory — never commit to git.
-# Client-specific work lives in clients/<name>/, not in .tmp/.
 .tmp/
+clients/*/.tmp/*
+!clients/*/.tmp/.gitkeep
 
 # Python cache
 __pycache__/
