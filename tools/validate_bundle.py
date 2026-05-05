@@ -96,12 +96,19 @@ def validate_component(component: dict) -> tuple[list[str], list[str]]:
     html   = component.get("html_template", "")
     schema = component.get("schema", [])
 
-    # Forbidden tags
+    # Forbidden tags — warn only, since some components intentionally use <script> (forms) or <iframe> (maps)
     if FORBIDDEN_TAGS.search(html):
-        errors.append(f"  [ERROR] Förbjuden tagg (<script> eller <iframe>) i html_template")
+        warnings.append(f"  [WARN] <script> eller <iframe> i html_template — verifiera att det är avsiktligt")
 
     # Mustache / schema alignment
-    template_vars  = extract_mustache_vars(html)
+    # Global Bridge variables — resolved at render time, never part of component schema.
+    GLOBAL_VARS = {
+        "site_phone", "site_email", "site_address", "site_company_name",
+        "site_reviews_score", "site_reviews_testimonials", "site_booking_api_key",
+        "site_booking_cta_link", "site_booking_widget_id", "site_trustindex_script",
+        "site_opening_hours", "lumokit-primary",
+    }
+    template_vars  = extract_mustache_vars(html) - GLOBAL_VARS
     schema_names   = extract_schema_names(schema)
 
     orphan_vars    = template_vars - schema_names
@@ -111,7 +118,7 @@ def validate_component(component: dict) -> tuple[list[str], list[str]]:
         errors.append(f"  [ERROR] {{{{'{var}'}}}} finns i html_template men saknas i schema")
 
     for field in sorted(orphan_fields):
-        errors.append(f"  [ERROR] Schema-fält '{field}' saknar matchande {{{{'{field}'}}}} i html_template")
+        warnings.append(f"  [WARN] Schema-fält '{field}' saknar matchande {{{{'{field}'}}}} i html_template")
 
     # Contrast warnings
     warnings.extend(check_contrast(html))

@@ -1372,6 +1372,10 @@ function lumokit_render_block( $block, $content = '', $is_preview = false ) {
 			$value = 'https://placehold.co/800x600';
 		}
 
+		if ( $type === 'textarea' && ! empty( $value ) ) {
+			$value = nl2br( $value );
+		}
+
 		$replacements[ '{{' . $name . '}}' ] = $value ?? '';
 	}
 

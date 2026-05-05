@@ -406,8 +406,8 @@ if __name__ == "__main__":
         print("  --overwrite-content    Skriv över sidornas innehåll. Visar varning + frågar JA.")
         print("                         Eventuella WP Admin-redigeringar går förlorade.")
         print("  --keep-pages slug,..   Vid --overwrite-content: behåll dessa sidor orörda.")
-        print("  --force                Hoppa över JA-prompten (för automation/CI).
-  --resume               Hoppa över komponenter som redan lyckades i föregående körning.")
+        print("  --force                Hoppa över JA-prompten (för automation/CI).")
+        print("  --resume               Hoppa över komponenter som redan lyckades i föregående körning.")
         print("  --production           Tillåt push mot WP_ENV=production.")
         sys.exit(1)
 

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" width="320" height="64">
+  
+  <g transform="translate(8, 12)">
+    <path d="M20 0 C9 0 2 9 2 20 C2 31 9 40 18 40 C20 40 22 39 24 38 C25 41 28 42 30 41 C36 39 38 32 36 24 C34 12 30 0 20 0 Z" fill="none" stroke="#1f1f1f" stroke-width="1.6" stroke-linejoin="round"></path>
+    <circle cx="14" cy="16" r="2.2" fill="#d4889e"></circle>
+  </g>
+  
+  <g transform="translate(64, 0)">
+    <text x="0" y="28" font-family="&#39;Cormorant Garamond&#39;, &#39;Times New Roman&#39;, serif" font-size="26" font-weight="500" fill="#1f1f1f" letter-spacing="0.5">Patricia Teles</text>
+    <text x="1" y="48" font-family="&#39;Outfit&#39;, system-ui, sans-serif" font-size="9" font-weight="500" fill="#6e6e6e" letter-spacing="3.5">DDS · TANDLÄKARE · STOCKHOLM</text>
+  </g>
+</svg>

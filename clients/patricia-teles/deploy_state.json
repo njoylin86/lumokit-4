@@ -1,0 +1,221 @@
+{
+  "bundle": "bundle.json",
+  "components": {
+    "lumo/site-header": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:11"
+    },
+    "lumo/site-footer": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:11"
+    },
+    "lumo/hero-hem": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:11"
+    },
+    "lumo/intro-hem": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:11"
+    },
+    "lumo/treatments-grid-hem": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:11"
+    },
+    "lumo/content-block-1-hem": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:12"
+    },
+    "lumo/reviews-section-hem": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:12"
+    },
+    "lumo/contact-panel-hem": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:12"
+    },
+    "lumo/hero-om-oss": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:12"
+    },
+    "lumo/intro-om-oss": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:12"
+    },
+    "lumo/content-block-1-om-oss": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:12"
+    },
+    "lumo/content-block-2-om-oss": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:12"
+    },
+    "lumo/text-blocks-om-oss": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:12"
+    },
+    "lumo/map-section-om-oss": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:12"
+    },
+    "lumo/contact-panel-om-oss": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:12"
+    },
+    "lumo/hero-kontakt": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:13"
+    },
+    "lumo/contact-panel-with-form-kontakt": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:13"
+    },
+    "lumo/map-section-kontakt": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:13"
+    },
+    "lumo/hero-tandimplantat": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:13"
+    },
+    "lumo/intro-tandimplantat": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:13"
+    },
+    "lumo/content-block-1-tandimplantat": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:13"
+    },
+    "lumo/content-block-2-tandimplantat": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:13"
+    },
+    "lumo/faq-tandimplantat": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:13"
+    },
+    "lumo/contact-panel-tandimplantat": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:13"
+    },
+    "lumo/hero-invisalign": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:13"
+    },
+    "lumo/intro-invisalign": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:14"
+    },
+    "lumo/content-block-1-invisalign": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:14"
+    },
+    "lumo/content-block-2-invisalign": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:14"
+    },
+    "lumo/faq-invisalign": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:14"
+    },
+    "lumo/contact-panel-invisalign": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:14"
+    },
+    "lumo/hero-akuttandvard": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:14"
+    },
+    "lumo/intro-akuttandvard": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:14"
+    },
+    "lumo/content-block-1-akuttandvard": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:14"
+    },
+    "lumo/content-block-2-akuttandvard": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:14"
+    },
+    "lumo/faq-akuttandvard": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:14"
+    },
+    "lumo/contact-panel-akuttandvard": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:15"
+    },
+    "lumo/hero-basundersokning": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:15"
+    },
+    "lumo/intro-basundersokning": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:15"
+    },
+    "lumo/content-block-1-basundersokning": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:15"
+    },
+    "lumo/content-block-2-basundersokning": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:15"
+    },
+    "lumo/faq-basundersokning": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:15"
+    },
+    "lumo/contact-panel-basundersokning": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:15"
+    },
+    "lumo/hero-allman-tandvard": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:15"
+    },
+    "lumo/intro-allman-tandvard": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:15"
+    },
+    "lumo/content-block-1-allman-tandvard": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:15"
+    },
+    "lumo/content-block-2-allman-tandvard": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:16"
+    },
+    "lumo/faq-allman-tandvard": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:16"
+    },
+    "lumo/contact-panel-allman-tandvard": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:16"
+    },
+    "lumo/hero-tandvardsradsla": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:16"
+    },
+    "lumo/intro-tandvardsradsla": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:16"
+    },
+    "lumo/content-block-1-tandvardsradsla": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:16"
+    },
+    "lumo/content-block-2-tandvardsradsla": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:16"
+    },
+    "lumo/faq-tandvardsradsla": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:16"
+    },
+    "lumo/contact-panel-tandvardsradsla": {
+      "status": "ok",
+      "at": "2026-05-05T11:47:16"
+    }
+  }
+}

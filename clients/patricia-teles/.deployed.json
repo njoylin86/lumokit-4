@@ -1,8 +1,8 @@
 {
-  "deployed_at": "2026-04-29T02:27:14",
+  "deployed_at": "2026-05-05T11:47:18",
   "bundle": "bundle.json",
-  "wp_url": "https://aurelea.templweb.com",
-  "bridge_version": "unknown",
+  "wp_url": "https://patriciateles.se",
+  "bridge_version": "1.0.0",
   "overwrite_content": false,
   "site_name": "Patricia Teles"
 }

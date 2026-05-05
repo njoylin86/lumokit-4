@@ -49,7 +49,7 @@ def pull(block_name: str | None, save: bool, client: str | None = None) -> None:
         # Just list all registered components
         print(f"[INFO] {len(components)} component(s) registered on {WP_URL}:\n")
         for c in components:
-            print(f"  - {c['block_name']}  (id={c['id']}, title='{c['title']}')")
+            print(f"  - {c['block_name']}  (id={c.get('id', 'n/a')}, title='{c.get('title', '')}')")
         return
 
     # Find the requested component

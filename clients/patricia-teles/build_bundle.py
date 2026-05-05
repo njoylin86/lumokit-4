@@ -1032,7 +1032,7 @@ def build_contact_panel_component() -> dict:
     <div>
       <span class="eyebrow"><span class="ico">{ICON_CLOCK}</span> När vi har öppet</span>
       <h3>Öppettider</h3>
-      <div class="hours">{{{{opening_hours}}}}</div>
+      <div class="hours">{{{{site_opening_hours}}}}</div>
     </div>
   </div>
 </section>
@@ -1045,8 +1045,6 @@ def build_contact_panel_component() -> dict:
             {"name": "heading", "type": "text", "label": "Rubrik", "default": "Kontakta oss"},
             {"name": "intro_text", "type": "textarea", "label": "Introtext",
              "default": "Vi finns här för att svara på dina frågor och hjälpa dig med tidsbokning."},
-            {"name": "opening_hours", "type": "textarea", "label": "Öppettider",
-             "default": "Mån–Fre  08–18\nLördag  09–16\nSöndag  Stängt"},
         ],
     }
 
@@ -1135,7 +1133,7 @@ def build_contact_panel_with_form_component() -> dict:
       <div class="line"><span class="ico">{ICON_PHONE}</span><a href="tel:{{{{site_phone}}}}">{{{{site_phone}}}}</a></div>
       <div class="line"><span class="ico">{ICON_MAIL}</span><a href="mailto:{{{{site_email}}}}">{{{{site_email}}}}</a></div>
       <div class="line" style="margin-top:18px;"><span class="ico">{ICON_PIN}</span><a href="https://maps.google.com/?q={PATRICIA_ADDRESS_ENCODED}" target="_blank" rel="noopener">{{{{site_address}}}}</a></div>
-      <div class="line" style="margin-top:24px;"><span class="eyebrow" style="display:flex;align-items:center;gap:6px;margin-bottom:6px;"><span class="ico">{ICON_CLOCK}</span> Öppettider</span><span class="hours">{{{{opening_hours}}}}</span></div>
+      <div class="line" style="margin-top:24px;"><span class="eyebrow" style="display:flex;align-items:center;gap:6px;margin-bottom:6px;"><span class="ico">{ICON_CLOCK}</span> Öppettider</span><span class="hours">{{{{site_opening_hours}}}}</span></div>
     </div>
     <form class="cf-form" data-lumo-contact-form>
       <div class="cf-field">
@@ -1189,8 +1187,6 @@ def build_contact_panel_with_form_component() -> dict:
             {"name": "heading", "type": "text", "label": "Rubrik", "default": "Kontakta oss"},
             {"name": "intro_text", "type": "textarea", "label": "Introtext",
              "default": "Fyll i formuläret eller hör av dig direkt — vi svarar inom kort."},
-            {"name": "opening_hours", "type": "textarea", "label": "Öppettider",
-             "default": "Mån–Fre  08–18\nLördag  09–16\nSöndag  Stängt"},
         ],
     }
 
@@ -1404,7 +1400,6 @@ def contact_panel_content(page: dict) -> dict:
              .replace("<strong>", "").replace("</strong>", "")
              if s else "Vi finns här för att svara på dina frågor och hjälpa dig med tidsbokning."
         ),
-        "opening_hours": "Mån–Fre  08–18\nLördag  09–16\nSöndag  Stängt",
     }
 
 
@@ -1432,11 +1427,9 @@ def build_site(content: dict, manifest: dict, base_components: dict) -> tuple[li
         variants.append(v)
         return v["block_name"]
 
-    default_hours = "Mån–Fre  08–18\nLördag  09–16\nSöndag  Stängt"
     default_contact = {
         "heading": "Kontakta oss",
         "intro_text": "Vi finns här för att svara på dina frågor och hjälpa dig med tidsbokning.",
-        "opening_hours": default_hours,
     }
 
     # --- Hem ---
@@ -1493,7 +1486,6 @@ def build_site(content: dict, manifest: dict, base_components: dict) -> tuple[li
         add("contact-panel-with-form", "kontakt", {
             "heading": "Kontakta oss",
             "intro_text": "Fyll i formuläret eller hör av dig direkt — vi svarar inom kort.",
-            "opening_hours": "Mån–Fre  08–18\nLördag  09–16\nSöndag  Stängt",
         }, "Kontakt"),
         add("map-section", "kontakt", {
             "heading": "Vägbeskrivning till kliniken",
@@ -1526,7 +1518,6 @@ def build_site(content: dict, manifest: dict, base_components: dict) -> tuple[li
             add("contact-panel", slug, {
                 "heading": "Kontakta oss",
                 "intro_text": "Har du frågor om behandlingen? Vi hjälper dig gärna.",
-                "opening_hours": default_hours,
             }, slug),
             "lumo/site-footer",
         ]
