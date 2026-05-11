@@ -1,0 +1,23 @@
+{
+  "company_name": "",
+  "tagline": "",
+  "address": "",
+  "phone": "",
+  "email": "",
+  "opening_hours": {
+    "monday":    "",
+    "tuesday":   "",
+    "wednesday": "",
+    "thursday":  "",
+    "friday":    "",
+    "saturday":  "",
+    "sunday":    ""
+  },
+  "social": {
+    "instagram": "",
+    "facebook":  "",
+    "linkedin":  ""
+  },
+  "org_number": "",
+  "description": ""
+}
