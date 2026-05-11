@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Tandimplantat · Älvsjö Tandvård</title>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="subpage.jsx"></script>
+
+<script type="text/babel">
+
+function ImplantatStats() {
+  const stats = [
+    { k: '98 %', v: 'Lyckad integration efter 10 år — internationell statistik.' },
+    { k: '3D', v: 'CBCT-skanning för exakt placering och planering.' },
+    { k: '0 %', v: 'Räntefri delbetalning vid implantatbehandling.' },
+    { k: 'Allt', v: 'Planering, kirurgi och protetik på samma klinik.' },
+  ];
+  return (
+    <section className="section" style={{ background: 'var(--white)' }}>
+      <div className="container-wide">
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: 1, background: 'var(--border)',
+          border: '1px solid var(--border)',
+        }}>
+          {stats.map((s, i) => (
+            <div key={i} style={{ background: 'var(--white)', padding: '40px 32px' }}>
+              <div style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 300,
+                fontSize: 'clamp(40px, 4vw, 64px)', lineHeight: 1, letterSpacing: '-0.03em',
+                color: 'var(--ink-700)', marginBottom: 14,
+              }}>{s.k}</div>
+              <div style={{ fontSize: 14, color: 'var(--ink-500)', lineHeight: 1.55 }}>{s.v}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProcessSteps() {
+  const steps = [
+    { n: '01', t: 'Konsultation & 3D-planering', d: 'Vi tar en CBCT-röntgen för att bedöma bentäthet och planera implantatets exakta placering digitalt.' },
+    { n: '02', t: 'Implantatkirurgi', d: 'Under lokalbedövning placeras titanskruven i käkbenet. Enkelt ingrepp — de flesta återgår till arbetet dagen efter.' },
+    { n: '03', t: 'Läkningsperiod', d: 'Under 3–6 månader växer implantatet fast i benet (osseointegration). En tillfällig konstruktion bärs under denna period.' },
+    { n: '04', t: 'Permanent krone', d: 'När implantatet är integrerat sätts en individuellt anpassad porslinskrona — estetisk, stark och för livet.' },
+  ];
+  return (
+    <section className="section" style={{ background: 'var(--cream)' }}>
+      <div className="container-wide">
+        <div style={{ marginBottom: 64, paddingBottom: 32, borderBottom: '1px solid var(--border)' }}>
+          <div className="eyebrow" style={{ marginBottom: 16 }}>Behandlingsprocess</div>
+          <h2 style={{ maxWidth: '24ch' }}>Fyra steg till ett permanent implantat.</h2>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 48 }}>
+          {steps.map((s, i) => (
+            <article key={i} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 300,
+                fontSize: 64, lineHeight: 1, letterSpacing: '-0.03em',
+                color: 'var(--sage-600)',
+              }}>{s.n}</div>
+              <h3 style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 400,
+                fontSize: 24, lineHeight: 1.2, letterSpacing: '-0.02em',
+                color: 'var(--ink-700)', margin: 0,
+              }}>{s.t}</h3>
+              <p style={{ fontSize: 15, lineHeight: 1.7, color: 'var(--ink-500)', margin: 0 }}>{s.d}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PriceRow() {
+  const rows = [
+    { l: 'Konsultation & röntgenanalys', p: '595 kr' },
+    { l: 'Implantatkirurgi (per implantat)', p: 'Från 15 900 kr' },
+    { l: 'Porslinskrona', p: 'Från 8 900 kr' },
+    { l: 'Räntefri delbetalning', p: 'Tillgänglig' },
+  ];
+  return (
+    <section className="section" style={{ background: 'var(--white)' }}>
+      <div className="container-wide" style={{
+        display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: 80, alignItems: 'start',
+      }}>
+        <div>
+          <div className="eyebrow" style={{ marginBottom: 16 }}>Pris & ersättning</div>
+          <h2 style={{ maxWidth: '14ch' }}>Tydliga priser — utan överraskningar.</h2>
+          <p style={{ marginTop: 24, fontSize: 15, color: 'var(--ink-500)', lineHeight: 1.7, maxWidth: '36ch' }}>
+            Vi erbjuder räntefri delbetalning för att göra implantatbehandling tillgänglig för fler. Priserna varierar beroende på planering och konstruktion — kontakta oss för offert.
+          </p>
+        </div>
+        <div style={{ borderTop: '1px solid var(--border)' }}>
+          {rows.map((r, i) => (
+            <div key={i} style={{
+              display: 'grid', gridTemplateColumns: '1fr auto', gap: 24,
+              padding: '22px 0', borderBottom: '1px solid var(--border)',
+              alignItems: 'baseline',
+            }}>
+              <div style={{ fontSize: 16, color: 'var(--ink-700)' }}>{r.l}</div>
+              <div style={{
+                fontFamily: 'var(--font-serif)', fontSize: 22, fontWeight: 400,
+                letterSpacing: '-0.01em', color: 'var(--ink-700)',
+              }}>{r.p}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function App() {
+  const faq = [
+    { question: 'Hur länge håller ett tandimplantat?', answer: 'Med god munhygien och regelbundna kontroller håller ett implantat ofta hela livet. Studier visar mer än 98 % framgång efter 10 år. Kronans porslin kan behöva bytas efter 15–20 år.' },
+    { question: 'Gör det ont att sätta in ett implantat?', answer: 'Ingreppet görs under lokalbedövning och är i de flesta fall smärtfritt. Efteråt kan mild ömhet och svullnad förekomma 1–3 dagar. De flesta patienter återgår till normalt liv dagen efter.' },
+    { question: 'Hur lång är hela behandlingstiden?', answer: 'Från kirurgi till färdig krona tar det vanligtvis 3–6 månader, beroende på din läkningshastighet och om benuppbyggnad behövs. Konsultationsbesöket bokar du redan idag.' },
+    { question: 'Kan alla få tandimplantat?', answer: 'De flesta vuxna med god allmänhälsa är lämpliga kandidater. Vi kontrollerar bentäthet och käkhälsa med 3D-röntgen. Rökare och diabetiker kan ha lägre läkningshastighet — vi planerar individuellt.' },
+  ];
+
+  return (
+    <>
+      <Header />
+      <TreatmentHero
+        eyebrow="N° 02 — Tandimplantat"
+        title={<>Permanenta tänder.<br/><span className="italic" style={{ color: 'var(--sage-600)' }}>För livet.</span></>}
+        ingress="Ett tandimplantat är den mest naturliga ersättningen för en förlorad tand — det ser ut, känns och fungerar precis som din egna tand. Vi planerar och utför hela behandlingen på plats."
+        bullets={['3D-planering med CBCT', 'Specialistteam på plats', 'Räntefri delbetalning', 'Livslång hållbarhet']}
+        img="img/t-implantat.jpg"
+        stat={{ label: 'Lyckad integrering', value: '96 %', sub: 'efter 10 år — meta-analys av 18 kliniska studier (PubMed 2019).' }}
+        caption="Implantat — alvsjotandvard.se · 08 12 85 45 55"
+      />
+      <ImplantatStats />
+      <ContentBlock
+        eyebrow="Vad är ett implantat?"
+        title="En titanskruv som ersätter tandroten — permanent."
+        html={`<p>Ett tandimplantat är en liten titanskruv som placeras i käkbenet och fungerar som en artificiell tandrot. Titan är ett biokompatibelt material som kroppen accepterar och som med tiden växer ihop med benet — en process som kallas <strong>osseointegration</strong>.</p><p>Ovanpå skruven monteras en individuellt anpassad porslinskrona som ser ut precis som en naturlig tand. Implantatet belastar inte angränsande tänder (som en bro gör) och förhindrar benförlust i käken.</p><p>Med modern teknik och 3D-planering kan vi förutse resultatet digitalt redan vid konsultationsbesöket. Du vet vad du kan förvänta dig — innan behandlingen ens startar.</p>`}
+        img="img/tandmodell-med-implantat.jpg"
+      />
+      <ProcessSteps />
+      <ContentBlock
+        eyebrow="Varför Älvsjö Tandvård"
+        title="Hela processen — under ett tak."
+        html={`<ul style="padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 14px; margin: 0;"><li style="display: flex; gap: 16px; align-items: baseline;"><span style="font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; color: var(--sage-600); text-transform: uppercase; flex-shrink: 0; min-width: 32px;">01</span><span><strong>3D/CBCT-röntgen</strong> på plats — ingen remiss till röntgenklinik.</span></li><li style="display: flex; gap: 16px; align-items: baseline;"><span style="font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; color: var(--sage-600); text-transform: uppercase; flex-shrink: 0; min-width: 32px;">02</span><span><strong>Erfaret specialistteam</strong> med hundratals genomförda implantat.</span></li><li style="display: flex; gap: 16px; align-items: baseline;"><span style="font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; color: var(--sage-600); text-transform: uppercase; flex-shrink: 0; min-width: 32px;">03</span><span><strong>Räntefri delbetalning</strong> — sprider kostnaden utan extraavgift.</span></li><li style="display: flex; gap: 16px; align-items: baseline;"><span style="font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; color: var(--sage-600); text-transform: uppercase; flex-shrink: 0; min-width: 32px;">04</span><span><strong>Centralt i Älvsjö</strong> — 2 min från pendeln.</span></li></ul>`}
+        img="img/utrustning.jpg"
+        imgRight={true}
+        bg="var(--cream)"
+        ctaLabel="Boka konsultation"
+      />
+      <PriceRow />
+      <FAQ items={faq} title="Vanliga frågor om tandimplantat." />
+      <CTAStrip
+        title="Boka implantatrådgivning"
+        sub="Ring 08-12 85 45 55 eller boka online. Vi bedömer din situation kostnadsfritt vid konsultationsbesöket."
+      />
+      <Footer />
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Mina tider · Älvsjö Tandvård</title>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="subpage.jsx"></script>
+
+<script type="text/babel">
+
+// Practical info grid
+function PracticalInfo() {
+  const blocks = [
+    { k: '24 tim', l: 'Avbokning senast 24 timmar före besöket — annars debitering enligt taxa.' },
+    { k: 'SMS', l: 'Påminnelse via SMS eller e-post några dagar innan din tid.' },
+    { k: '2 min', l: 'Från Älvsjö pendeltågsstation till Prästgårdsgränd 4.' },
+    { k: 'Hiss', l: 'Tillgänglighetsanpassad klinik med hiss till våning 2.' },
+  ];
+  return (
+    <section className="section" style={{ background: 'var(--white)' }}>
+      <div className="container-wide">
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: 1, background: 'var(--border)',
+          border: '1px solid var(--border)',
+        }}>
+          {blocks.map((b, i) => (
+            <div key={i} style={{ background: 'var(--white)', padding: '40px 32px' }}>
+              <div style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 300,
+                fontSize: 48, lineHeight: 1, letterSpacing: '-0.03em',
+                color: 'var(--ink-700)', marginBottom: 14,
+              }}>{b.k}</div>
+              <div style={{ fontSize: 14, color: 'var(--ink-500)', lineHeight: 1.5 }}>{b.l}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Manage booking actions
+function ManageActions() {
+  const actions = [
+    { t: 'Avboka eller omboka', d: 'Ring 08-12 85 45 55. Senast 24 timmar före — annars debiteras du enligt taxa.', cta: 'Ring oss', href: 'tel:+46812854555' },
+    { t: 'Hitta hit', d: 'Prästgårdsgränd 4, 125 44 Älvsjö. 2 minuter från pendeltåget. Klinik på våning 2 med hiss.', cta: 'Öppna i karta', href: '#' },
+    { t: 'Inför ditt besök', d: 'Ta med legitimation. Har du frikort eller annat stöd — säg till vid ankomst så hanterar vi det korrekt.', cta: 'Läs mer', href: '#' },
+  ];
+  return (
+    <section className="section" style={{ background: 'var(--cream)' }}>
+      <div className="container-wide">
+        <div style={{ marginBottom: 56, paddingBottom: 32, borderBottom: '1px solid var(--border)' }}>
+          <div className="eyebrow" style={{ marginBottom: 16 }}>Inför ditt besök</div>
+          <h2 style={{ maxWidth: '22ch' }}>Praktiskt — så att besöket blir smidigt.</h2>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32 }}>
+          {actions.map((a, i) => (
+            <article key={i} style={{
+              background: 'var(--white)', padding: '40px 36px',
+              display: 'flex', flexDirection: 'column', gap: 14,
+              border: '1px solid var(--border)',
+            }}>
+              <div style={{
+                fontSize: 11, fontWeight: 600, letterSpacing: '0.22em', textTransform: 'uppercase',
+                color: 'var(--sage-600)',
+              }}>0{i + 1}</div>
+              <h3 style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 400,
+                fontSize: 26, lineHeight: 1.2, letterSpacing: '-0.02em',
+                color: 'var(--ink-700)', margin: 0,
+              }}>{a.t}</h3>
+              <p style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--ink-500)', margin: 0, flex: 1 }}>{a.d}</p>
+              <a href={a.href} style={{
+                fontSize: 13, fontWeight: 500, letterSpacing: '0.08em',
+                textTransform: 'uppercase', textDecoration: 'none', textDecorationColor: 'transparent',
+                color: 'var(--ink-700)',
+                borderBottom: '1px solid var(--ink-700)', paddingBottom: 2,
+                width: 'fit-content', marginTop: 8,
+              }}>{a.cta} →</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function App() {
+  const faq = [
+    { question: 'Hur avbokar jag min tid?', answer: 'Kontakta oss på 08-12 85 45 55 så snart som möjligt. För att undvika debitering måste avbokning ske minst 24 timmar före din bokade tid. Din tid kan då erbjudas till någon som behöver akuttandvård.' },
+    { question: 'Vad händer om jag missar min tid?', answer: 'Om du inte avbokar din tid senast 24 timmar i förväg debiteras du enligt klinikens taxa för uteblivet besök. Detta är för att täcka kostnaden för den reserverade stolen och personalens tid. Vi uppskattar om du meddelar oss i god tid.' },
+    { question: 'Behöver jag förbereda något inför mitt besök?', answer: 'Vänligen ta med legitimation till ditt besök. Om du har ett frikort eller är berättigad till ekonomiskt stöd för tandvård, meddela oss vid ankomst så vi kan hantera det korrekt. Förbered dig annars bara på att vi tar hand om dig.' },
+  ];
+
+  return (
+    <>
+      <Header />
+      <PageHero
+        eyebrow="N° 08 — Mina tider"
+        title={<>Allt om <span className="italic" style={{ color: 'var(--sage-600)' }}>dina besök hos oss.</span></>}
+        ingress="Här hittar du praktisk information om dina bokade tider. Vi strävar efter att göra ditt besök så smidigt och bekymmersfritt som möjligt."
+        bullets={['Påminnelser via SMS', 'Enkel ombokning', 'Hitta till oss', 'Frågor & svar']}
+      />
+      <PracticalInfo />
+      <ContentBlock
+        eyebrow="Inför och under ditt besök"
+        title="Vi gör besöket smidigt — från SMS till stol."
+        html={`<p>Vi vet att livet är fullt av åtaganden. För att ditt besök hos oss ska bli så smidigt som möjligt skickar vi dig en <strong>påminnelse via SMS eller e-post</strong> några dagar innan din bokade tid.</p><p>Skulle något oväntat inträffa och du behöver ändra din tid, ber vi dig att <strong>kontakta oss så snart som möjligt</strong> på 08-12 85 45 55. Genom att meddela oss i god tid kan vi erbjuda din tid till någon annan som behöver vård. Kom ihåg att avbokning måste ske senast 24 timmar innan din tid för att undvika debitering.</p><p>När det är dags för besöket hittar du oss centralt i Älvsjö, bara två minuter från pendeltåget, på Prästgårdsgränd 4. Vår klinik är nyrenoverad och tillgänglighetsanpassad med hiss.</p>`}
+        img="img/korridor.jpg"
+        ctaLabel="Hitta hit"
+        ctaHref="#"
+      />
+      <ManageActions />
+      <FAQ items={faq} title="Frågor om bokade tider." />
+      <CTAStrip
+        title="Behöver du flytta din tid?"
+        sub="Ring 08-12 85 45 55 så hjälper vi dig att hitta en ny tid som passar — gärna i god tid."
+      />
+      <Footer />
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

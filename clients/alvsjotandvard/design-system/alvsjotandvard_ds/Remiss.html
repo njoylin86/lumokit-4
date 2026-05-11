@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Remiss · Älvsjö Tandvård</title>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="subpage.jsx"></script>
+
+<script type="text/babel">
+
+// Two-audience split: "Är du patient" / "Är du tandläkare"
+function AudienceSplit() {
+  const cards = [
+    {
+      who: 'För dig som patient',
+      title: 'Har du fått en remiss till oss?',
+      body: 'Boka tid direkt via telefon eller webben — nämn att du har en remiss så vi kan förbereda rätt specialist. Vi går igenom remissen noggrant tillsammans med dig vid första besöket.',
+      cta: 'Boka tid', href: 'Älvsjö Tandvård.html#booking',
+    },
+    {
+      who: 'För dig som kollega',
+      title: 'Skicka remiss via Libretto.',
+      body: 'Vi tar emot remisser inom tandimplantat, Invisalign och avancerad barntandvård. För Älvsjö Pedodonti arbetar vi på uppdrag av Region Stockholm — alla remisser hanteras via Libretto.',
+      cta: 'Skicka via Libretto', href: '#',
+    },
+  ];
+  return (
+    <section className="section" style={{ background: 'var(--white)' }}>
+      <div className="container-wide">
+        <div style={{
+          display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1,
+          background: 'var(--border)', border: '1px solid var(--border)',
+        }}>
+          {cards.map((c, i) => (
+            <article key={i} style={{
+              background: 'var(--white)', padding: '64px 56px',
+              display: 'flex', flexDirection: 'column', gap: 20,
+              minHeight: 360,
+            }}>
+              <div style={{
+                fontSize: 10, fontWeight: 600, letterSpacing: '0.22em',
+                textTransform: 'uppercase', color: 'var(--sage-600)',
+              }}>{c.who}</div>
+              <h3 style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 400,
+                fontSize: 'clamp(32px, 2.6vw, 44px)', lineHeight: 1.15,
+                letterSpacing: '-0.02em', color: 'var(--ink-700)', maxWidth: '14ch', margin: 0,
+              }}>{c.title}</h3>
+              <p style={{ fontSize: 16, lineHeight: 1.7, color: 'var(--ink-500)', maxWidth: '42ch', margin: 0 }}>{c.body}</p>
+              <a href={c.href} className="btn btn-primary" style={{ marginTop: 16, width: 'fit-content' }}>{c.cta}</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Specialty areas
+function Specialties() {
+  const items = [
+    { t: 'Älvsjö Pedodonti', d: 'Specialisttandvård för barn och unga upp till 23 år.' },
+    { t: 'Implantat', d: 'Planering med 3D/CBCT — för enstaka och multipla implantat.' },
+    { t: 'Invisalign', d: 'Osynlig tandreglering — utbildade certifierade behandlare.' },
+    { t: 'Tandfasader', d: 'Estetisk tandvård med veneers och kompositteknik.' },
+  ];
+  return (
+    <section className="section" style={{ background: 'var(--cream)' }}>
+      <div className="container-wide">
+        <div style={{ marginBottom: 56, paddingBottom: 32, borderBottom: '1px solid var(--border)' }}>
+          <div className="eyebrow" style={{ marginBottom: 16 }}>Specialistområden</div>
+          <h2 style={{ maxWidth: '22ch' }}>Områden vi tar emot remisser inom.</h2>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 32 }}>
+          {items.map((it, i) => (
+            <article key={i} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              <div style={{
+                fontSize: 11, fontWeight: 600, letterSpacing: '0.22em', textTransform: 'uppercase',
+                color: 'var(--sage-600)',
+              }}>0{i + 1}</div>
+              <h3 style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 400,
+                fontSize: 24, lineHeight: 1.2, letterSpacing: '-0.02em',
+                color: 'var(--ink-700)', margin: 0,
+              }}>{it.t}</h3>
+              <p style={{ fontSize: 14, lineHeight: 1.65, color: 'var(--ink-500)', margin: 0 }}>{it.d}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function App() {
+  const faq = [
+    { question: 'Vem kan skicka remiss till Älvsjö Tandvård?', answer: 'Andra tandläkare och läkare kan remittera patienter till oss. För barntandvård via Älvsjö Pedodonti tar vi emot remisser via Libretto, på uppdrag av Region Stockholm.' },
+    { question: 'Hur vet jag om jag behöver en remiss?', answer: 'Din nuvarande vårdgivare informerar dig om en remiss behövs för specialistvård. Är du osäker? Kontakta oss direkt så bedömer vi om en remiss är relevant för ditt vårdbehov.' },
+    { question: 'Hur bokar jag tid med en remiss?', answer: 'Med din remiss i handen, kontakta oss via telefon eller webbokning. Nämn att du har en remiss när du bokar, så ser vi till att du får rätt specialist och anpassad tid för din behandling.' },
+  ];
+
+  return (
+    <>
+      <Header />
+      <PageHero
+        eyebrow="N° 06 — Remiss"
+        title={<>Smidig remiss — <span className="italic" style={{ color: 'var(--sage-600)' }}>för patienten i fokus.</span></>}
+        ingress="Skicka eller ta emot en remiss till Älvsjö Tandvård för specialistvård eller för att vi ska bli din nya vårdgivare. Enkelt och smidigt, alltid med patientens bästa i fokus."
+        bullets={['Specialistvård', 'Barn och unga', 'Trygg remisshantering', 'Enkel process']}
+      />
+      <ContentBlock
+        eyebrow="Så fungerar remisser"
+        title="Ett tryggt samarbete för din munhälsa."
+        html={`<p>På Älvsjö Tandvård värdesätter vi samarbetet med både patienter och remitterande kollegor. Har du som patient fått en remiss till oss? Då är du varmt välkommen att boka tid — vi går igenom din remiss noggrant och planerar nästa steg.</p><p>För dig som tandvårdskollega som vill remittera en patient erbjuder vi expertis inom flera områden. Vi är särskilt stolta över <strong>Älvsjö Pedodonti</strong>, vår specialistenhet för barn och unga upp till 23 år, där vi tar emot remisser via Libretto på uppdrag av Region Stockholm.</p>`}
+        img="img/remiss.jpg"
+      />
+      <AudienceSplit />
+      <Specialties />
+      <FAQ items={faq} title="Frågor om remiss." />
+      <CTAStrip
+        title="Frågor om en remiss?"
+        sub="Ring 08-12 85 45 55 eller mejla info@alvsjotandvard.se — vi återkommer inom en arbetsdag."
+      />
+      <Footer />
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

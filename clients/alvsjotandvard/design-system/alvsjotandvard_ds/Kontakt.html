@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Kontakt · Älvsjö Tandvård</title>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="subpage.jsx"></script>
+
+<script type="text/babel">
+function ContactGrid() {
+  const cards = [
+    {
+      eyebrow: 'Adress',
+      h: 'Prästgårdsgränd 4',
+      sub: '125 44 Älvsjö',
+      note: '2 min från pendeltågsstationen · Intill Vårdcentralen · Hiss',
+    },
+    {
+      eyebrow: 'Telefon',
+      h: '08-12 85 45 55',
+      sub: 'Tidsbokning · akuta besvär',
+      note: 'Vi prioriterar akuta patienter — ring tidigt för bästa tid samma dag.',
+    },
+    {
+      eyebrow: 'E-post',
+      h: 'info@alvsjotandvard.se',
+      sub: 'Svar inom 1 arbetsdag',
+      note: 'För remisser, fakturafrågor och allmänna ärenden.',
+    },
+  ];
+  return (
+    <section className="section" style={{ background: 'var(--white)' }}>
+      <div className="container-wide">
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: 1, background: 'var(--border)',
+          border: '1px solid var(--border)',
+        }}>
+          {cards.map((c, i) => (
+            <div key={i} style={{
+              background: 'var(--white)', padding: '40px 36px',
+              display: 'flex', flexDirection: 'column', gap: 14,
+            }}>
+              <div className="eyebrow">{c.eyebrow}</div>
+              <div style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 400,
+                fontSize: 28, lineHeight: 1.2, letterSpacing: '-0.02em',
+                color: 'var(--ink-700)',
+              }}>{c.h}</div>
+              <div style={{ fontSize: 14, color: 'var(--ink-600)' }}>{c.sub}</div>
+              <div style={{
+                marginTop: 'auto', paddingTop: 20,
+                borderTop: '1px solid var(--border)',
+                fontSize: 13, color: 'var(--ink-500)', lineHeight: 1.5,
+              }}>{c.note}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MapHoursBlock() {
+  const hours = [
+    ['Måndag', '07:00 – 20:00'],
+    ['Tisdag', '07:00 – 20:00'],
+    ['Onsdag', '07:00 – 20:00'],
+    ['Torsdag', '07:00 – 20:00'],
+    ['Fredag', '07:00 – 17:00'],
+    ['Lördag', '09:00 – 15:00'],
+    ['Söndag', 'Stängt'],
+  ];
+  return (
+    <section className="section" style={{ background: 'var(--cream)' }}>
+      <div className="container-wide">
+        <div style={{
+          display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 48, alignItems: 'stretch',
+        }}>
+          <div style={{
+            background: 'var(--sage-50)', minHeight: 480,
+            position: 'relative', overflow: 'hidden',
+            border: '1px solid var(--border)',
+          }}>
+            {/* Stylised map */}
+            <svg width="100%" height="100%" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" style={{ position: 'absolute', inset: 0 }}>
+              <rect width="800" height="600" fill="#e8ece5"/>
+              {/* Streets */}
+              <g stroke="#fff" strokeWidth="22" fill="none" opacity="0.9">
+                <path d="M 0 320 L 800 320"/>
+                <path d="M 420 0 L 420 600"/>
+                <path d="M 0 460 L 800 460"/>
+                <path d="M 150 0 L 150 600"/>
+              </g>
+              <g stroke="#fff" strokeWidth="8" fill="none" opacity="0.7">
+                <path d="M 0 180 L 800 180"/>
+                <path d="M 640 0 L 640 600"/>
+                <path d="M 0 540 L 800 540"/>
+                <path d="M 280 0 L 280 600"/>
+              </g>
+              {/* Park */}
+              <rect x="500" y="380" width="200" height="160" fill="#cfd8c4" opacity="0.7"/>
+              <rect x="200" y="380" width="180" height="80" fill="#cfd8c4" opacity="0.6"/>
+              {/* Train line */}
+              <path d="M 0 100 L 800 100" stroke="#b9bdb1" strokeWidth="3" strokeDasharray="8 6"/>
+              {/* Train station */}
+              <circle cx="380" cy="100" r="10" fill="#2b2b29"/>
+              <text x="400" y="92" fontFamily="ui-sans-serif" fontSize="13" fontWeight="500" fill="#2b2b29">Älvsjö pendel</text>
+              {/* Pin */}
+              <g transform="translate(420 320)">
+                <circle r="58" fill="rgba(123,142,108,0.16)"/>
+                <circle r="32" fill="rgba(123,142,108,0.28)"/>
+                <circle r="14" fill="#5a6b4c" stroke="#fff" strokeWidth="3"/>
+              </g>
+              <text x="448" y="304" fontFamily="ui-serif, Georgia" fontSize="18" fontStyle="italic" fill="#2b2b29">Älvsjö Tandvård</text>
+              <text x="448" y="324" fontFamily="ui-sans-serif" fontSize="11" letterSpacing="2" fill="#5a6b4c">PRÄSTGÅRDSGRÄND 4</text>
+            </svg>
+            <div style={{
+              position: 'absolute', left: 24, bottom: 24,
+              background: 'var(--white)', padding: '12px 16px',
+              fontSize: 12, fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase',
+              color: 'var(--ink-700)', border: '1px solid var(--border)',
+            }}>Hitta hit →</div>
+          </div>
+
+          <div style={{
+            background: 'var(--white)', padding: 40,
+            border: '1px solid var(--border)',
+            display: 'flex', flexDirection: 'column',
+          }}>
+            <div className="eyebrow" style={{ marginBottom: 20 }}>Öppettider</div>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              {hours.map(([d, h], i) => (
+                <div key={i} style={{
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'baseline',
+                  padding: '14px 0', borderBottom: i < hours.length - 1 ? '1px solid var(--border)' : 'none',
+                }}>
+                  <span style={{ fontSize: 14, color: 'var(--ink-600)' }}>{d}</span>
+                  <span style={{
+                    fontFamily: 'var(--font-serif)', fontSize: 17, fontWeight: 400,
+                    color: h === 'Stängt' ? 'var(--fg-muted)' : 'var(--ink-700)',
+                    letterSpacing: '-0.01em',
+                  }}>{h}</span>
+                </div>
+              ))}
+            </div>
+            <div style={{
+              marginTop: 28, padding: '20px 0 0',
+              borderTop: '1px solid var(--border)',
+              fontSize: 13, lineHeight: 1.6, color: 'var(--ink-500)',
+            }}>
+              <strong style={{ color: 'var(--ink-700)' }}>Akut?</strong> Ring 08-12 85 45 55 så snart som möjligt — vi gör vårt bästa för att ge dig en tid samma dag.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ContactForm() {
+  return (
+    <section className="section" style={{ background: 'var(--white)' }}>
+      <div className="container-wide">
+        <div style={{
+          display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: 80,
+        }}>
+          <div>
+            <div className="eyebrow" style={{ marginBottom: 16 }}>Skriv till oss</div>
+            <h2 style={{ maxWidth: '14ch', marginBottom: 24 }}>Inte akut? Skriv så hörs vi av.</h2>
+            <p style={{ fontSize: 15, color: 'var(--ink-500)', maxWidth: '40ch', lineHeight: 1.7 }}>
+              Vi svarar inom en arbetsdag. För akuta besvär, ring oss istället på <a href="tel:+46812854555" style={{ color: 'var(--ink-700)' }}>08-12 85 45 55</a>.
+            </p>
+          </div>
+          <form style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+            <Field label="Förnamn" />
+            <Field label="Efternamn" />
+            <Field label="E-post" type="email" full />
+            <Field label="Telefon" type="tel" full />
+            <Field label="Ärende" textarea full />
+            <button type="submit" className="btn btn-primary" style={{ gridColumn: '1 / -1', justifySelf: 'start' }}>Skicka meddelande →</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Field({ label, type = 'text', full = false, textarea = false }) {
+  return (
+    <label style={{
+      display: 'flex', flexDirection: 'column', gap: 8,
+      gridColumn: full ? '1 / -1' : 'auto',
+    }}>
+      <span className="tiny" style={{ fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase' }}>{label}</span>
+      {textarea ? (
+        <textarea rows={5} style={fieldStyle} />
+      ) : (
+        <input type={type} style={fieldStyle} />
+      )}
+    </label>
+  );
+}
+const fieldStyle = {
+  padding: '14px 16px',
+  border: '1px solid var(--border)',
+  background: 'var(--white)',
+  fontFamily: 'var(--font-sans)', fontSize: 15, color: 'var(--ink-700)',
+  resize: 'vertical',
+};
+
+function App() {
+  return (
+    <>
+      <Header />
+      <PageHero
+        eyebrow="N° 04 — Kontakt"
+        title={<>Mitt i Älvsjö, <span className="italic" style={{ color: 'var(--sage-600)' }}>2 min från pendeln.</span></>}
+        ingress="Vi finns här för dig — för rutinundersökning eller akut hjälp. Välkommen till en modern klinik där du känner dig sedd."
+        bullets={['Prästgårdsgränd 4', '2 min från pendeln', '08-12 85 45 55', 'Öppet måndag–lördag']}
+      />
+      <ContactGrid />
+      <MapHoursBlock />
+      <ContactForm />
+      <CTAStrip
+        title="Behöver du akut hjälp?"
+        sub="Ring oss direkt — vi gör vårt bästa för att ge dig en tid samma dag."
+      />
+      <Footer />
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

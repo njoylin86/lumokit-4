@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Om oss · Älvsjö Tandvård</title>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="subpage.jsx"></script>
+
+<script type="text/babel">
+
+// ─── Vi som jobbar ────────────────────────────────────────────────────────────
+const STAFF = [
+  { name: 'Adel',       role: 'VD / Tandhygienist',           img: 'img/VD_Tandhygienist_Adel.jpg' },
+  { name: 'Aslan',      role: 'Klinikchef / Tandläkare',      img: 'img/Tandla_kare_Aslan_kc.jpg' },
+  { name: 'Martin',     role: 'Ekonomi',                      img: 'img/Ekonomi_Maxim.jpg' },
+  { name: 'Sibel',      role: 'Receptionist & Tandhygienist', img: 'img/Sibel-receptionist-och-Tandhygienist.jpg' },
+  { name: 'Erika',      role: 'Tandhygienist',                img: 'img/Erika-300x300.jpg' },
+  { name: 'Mike',       role: 'Tandläkare',                   img: 'img/Tandla_kare_Mike.jpg' },
+  { name: 'Ahmad',      role: 'Tandhygienist',                img: 'img/Tandhygienist_Ahmed.jpg' },
+  { name: 'Badeel',     role: 'Tandsköterska',                img: 'img/Tandsko_terska_Badeel.jpg' },
+  { name: 'Ghiyas',     role: 'Tandläkare',                   img: 'img/Ghiyas-tandlakare-1-300x300.jpg' },
+  { name: 'Ashfa',      role: 'Tandsköterska',                img: 'img/Ashfa-ny-Alvsjo-Tandvard-300x300.jpg' },
+  { name: 'Airo',       role: 'Tandläkare',                   img: 'img/Airo-tandlakare-2-300x300.jpg' },
+  { name: 'Aleksandra', role: 'Tandsköterska',                img: 'img/Aleksandra-scaled-e1706128493587-300x300.jpg' },
+  { name: 'Evin',       role: 'Tandsköterska',                img: 'img/Evin-tandskoterska-300x300.jpg' },
+  { name: 'Bindu',      role: 'Tandläkare',                   img: 'img/Bindu-tandlakare-300x300.jpg' },
+  { name: 'Arezoo',     role: 'Tandhygienist',                img: 'img/Arezoo-2-4873-300x300.jpg' },
+  { name: 'Loren',      role: 'Receptionist',                 img: 'img/Loren-4891-300x300.jpg' },
+  { name: 'Marcel',     role: 'Tandläkare',                   img: 'img/Marcel-4900-300x300.jpg' },
+  { name: 'Sviatlana',  role: 'Tandsköterska',                img: null },
+];
+
+function StaffGrid() {
+  return (
+    <section id="vi-som-jobbar" className="section" style={{ background: 'var(--white)' }}>
+      <div className="container-wide">
+        <div style={{ marginBottom: 64, paddingBottom: 32, borderBottom: '1px solid var(--border)' }}>
+          <div className="eyebrow" style={{ marginBottom: 16 }}>Vi som jobbar</div>
+          <h2 style={{ maxWidth: '24ch' }}>Möt teamet bakom Älvsjö Tandvård.</h2>
+        </div>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+          gap: 1,
+          background: 'var(--border)',
+          border: '1px solid var(--border)',
+        }}>
+          {STAFF.map((p, i) => (
+            <div key={i} style={{
+              background: 'var(--white)',
+              display: 'flex', flexDirection: 'column',
+            }}>
+              {/* Portrait */}
+              <div style={{
+                aspectRatio: '1 / 1',
+                overflow: 'hidden',
+                background: 'var(--sage-50)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
+                {p.img ? (
+                  <img src={p.img} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', filter: 'saturate(0.9)' }} />
+                ) : (
+                  <span style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, fontSize: 48, color: 'var(--sage-400)' }}>{p.name[0]}</span>
+                )}
+              </div>
+              {/* Info */}
+              <div style={{ padding: '20px 20px 24px' }}>
+                <div style={{
+                  fontFamily: 'var(--font-serif)', fontWeight: 400,
+                  fontSize: 18, letterSpacing: '-0.01em', color: 'var(--ink-700)',
+                  marginBottom: 6,
+                }}>{p.name}</div>
+                <div style={{
+                  fontSize: 10, fontWeight: 500, letterSpacing: '0.18em',
+                  textTransform: 'uppercase', color: 'var(--sage-600)',
+                }}>{p.role}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Organisation (Företagstandvård) ─────────────────────────────────────────
+function Organisation() {
+  const { useState: useStateO } = React;
+  const [sent, setSent] = useStateO(false);
+  const benefits = [
+    'Stärk dina medarbetares hälsa utan extra kostnad',
+    'Få förmånliga priser på tandvård',
+    'Inga kötider — snabba tider för era medarbetare',
+    'Vi erbjuder tider även efter ordinarie arbetstider',
+    'Gör dig till en mer attraktiv arbetsgivare',
+  ];
+  return (
+    <section id="organisation" className="section" style={{ background: 'var(--cream)' }}>
+      <div className="container-wide">
+        <div style={{ marginBottom: 64, paddingBottom: 32, borderBottom: '1px solid var(--border)' }}>
+          <div className="eyebrow" style={{ marginBottom: 16 }}>Organisation</div>
+          <h2 style={{ maxWidth: '28ch' }}>Företagstandvård — en förmån som gör skillnad.</h2>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 80, alignItems: 'start' }}>
+          <div>
+            <p className="lead" style={{ color: 'var(--ink-500)', maxWidth: '46ch', marginBottom: 40 }}>
+              Det finns många fördelar med att erbjuda tandvård till sina medarbetare. Intresserad av att veta mer? Fyll i kontaktformuläret så återkommer vi med allt du behöver veta.
+            </p>
+            <div className="eyebrow" style={{ marginBottom: 20 }}>Ta del av företagsförmånerna ni också</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 0, marginBottom: 48 }}>
+              {benefits.map((b, i) => (
+                <div key={i} style={{
+                  display: 'flex', gap: 16, alignItems: 'baseline',
+                  padding: '14px 0', borderBottom: '1px solid var(--border)',
+                  fontSize: 15, color: 'var(--ink-600)',
+                }}>
+                  <span style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.18em', color: 'var(--sage-600)', flexShrink: 0 }}>0{i+1}</span>
+                  {b}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style={{ background: 'var(--white)', padding: '40px 36px', border: '1px solid var(--border)' }}>
+            {sent ? (
+              <div style={{ textAlign: 'center', padding: '40px 0' }}>
+                <div style={{ fontFamily: 'var(--font-serif)', fontSize: 28, color: 'var(--sage-600)', marginBottom: 12 }}>Tack!</div>
+                <p style={{ color: 'var(--ink-500)', fontSize: 15 }}>Vi återkommer med mer information om företagstandvård.</p>
+              </div>
+            ) : (
+              <form onSubmit={e => { e.preventDefault(); setSent(true); }} style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+                <div className="eyebrow" style={{ marginBottom: 8 }}>Kontakta oss</div>
+                {[
+                  ['Firmatecknare', 'text', 'För- och efternamn'],
+                  ['E-post', 'email', 'foretagets@email.se'],
+                  ['Telefon', 'tel', '08-XXX XX XX'],
+                  ['Organisationsnummer', 'text', '556XXX-XXXX'],
+                ].map(([label, type, ph], i) => (
+                  <div key={i}>
+                    <label style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--sage-600)', display: 'block', marginBottom: 6 }}>{label}</label>
+                    <input type={type} placeholder={ph} required style={{ width: '100%', padding: '11px 14px', border: '1px solid var(--border)', background: 'var(--cream)', fontSize: 14, color: 'var(--ink-700)', outline: 'none', boxSizing: 'border-box' }} />
+                  </div>
+                ))}
+                <button type="submit" className="btn btn-primary" style={{ marginTop: 8 }}>Skicka förfrågan</button>
+              </form>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Hitta till oss ───────────────────────────────────────────────────────────
+function HittaTillOss() {
+  const hours = [
+    ['Måndag – Torsdag', '07:00 – 20:00'],
+    ['Fredag', '07:00 – 17:00'],
+    ['Lördag', '09:00 – 15:00'],
+    ['Söndag', 'Stängt'],
+  ];
+  return (
+    <section id="hitta-till-oss" className="section" style={{ background: 'var(--white)' }}>
+      <div className="container-wide">
+        <div style={{ marginBottom: 64, paddingBottom: 32, borderBottom: '1px solid var(--border)' }}>
+          <div className="eyebrow" style={{ marginBottom: 16 }}>Hitta till oss</div>
+          <h2 style={{ maxWidth: '24ch' }}>Mitt i Älvsjö — 2 minuter från pendeln.</h2>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64 }}>
+          {/* Map placeholder */}
+          <div style={{
+            aspectRatio: '4/3',
+            background: 'var(--cream)',
+            border: '1px solid var(--border)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            flexDirection: 'column', gap: 16, color: 'var(--ink-500)',
+          }}>
+            <div style={{ fontSize: 40 }}>📍</div>
+            <div style={{ fontSize: 14, textAlign: 'center', lineHeight: 1.6 }}>
+              <strong style={{ color: 'var(--ink-700)', display: 'block', marginBottom: 4 }}>Prästgårdsgränd 4</strong>
+              125 44 Älvsjö<br/>
+              <a href="https://maps.google.com/?q=Prästgårdsgränd+4+Älvsjö" target="_blank" style={{ color: 'var(--sage-600)', fontSize: 12, marginTop: 8, display: 'inline-block' }}>Öppna i Google Maps →</a>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 48 }}>
+            {/* Opening hours */}
+            <div>
+              <div className="eyebrow" style={{ marginBottom: 20 }}>Öppettider</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+                {hours.map(([day, time], i) => (
+                  <div key={i} style={{
+                    display: 'flex', justifyContent: 'space-between',
+                    padding: '14px 0',
+                    borderBottom: '1px solid var(--border)',
+                    fontSize: 15,
+                  }}>
+                    <span style={{ color: 'var(--ink-600)', fontWeight: 500 }}>{day}</span>
+                    <span style={{ color: time === 'Stängt' ? 'var(--fg-muted)' : 'var(--ink-700)' }}>{time}</span>
+                  </div>
+                ))}
+              </div>
+              <p style={{ fontSize: 12, color: 'var(--fg-muted)', marginTop: 12, lineHeight: 1.6 }}>
+                Avvikande öppettider vid röda dagar uppdateras på klinikens Google-profil.
+              </p>
+            </div>
+
+            {/* Getting there */}
+            <div>
+              <div className="eyebrow" style={{ marginBottom: 20 }}>Vägbeskrivning</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                {[
+                  ['Pendeltåg', 'Älvsjö station — 2 minuters gång längs Prästgårdsgränd.'],
+                  ['Tillgänglighet', 'Kliniken är anpassad med hiss.'],
+                ].map(([mode, desc], i) => (
+                  <div key={i} style={{ display: 'flex', gap: 16, alignItems: 'baseline' }}>
+                    <span style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--sage-600)', minWidth: 88, flexShrink: 0 }}>{mode}</span>
+                    <span style={{ fontSize: 14, color: 'var(--ink-500)', lineHeight: 1.6 }}>{desc}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Arbeta med oss ───────────────────────────────────────────────────────────
+function ArtetaMedOss() {
+  const requirements = [
+    'Yrkeslegitimation från Socialstyrelsen',
+    'Erfarenhet',
+    'Flytande svenska i både tal och skrift',
+    'Älska sitt yrke',
+    'Ambition att utvecklas',
+    'God kommunikativ förmåga',
+    'Stresstålig — behålla lugnet och se lösningar under stressiga situationer',
+  ];
+  const tools = [
+    'Journalsystem: Muntra',
+    'Röntgenprogram: DentalEye',
+    'Maskinell rens: WaveOne',
+    'Implantatsystem: Implant Direct / Straumann',
+  ];
+  return (
+    <section id="arbeta-med-oss" className="section" style={{ background: 'var(--ink-700)', color: 'var(--white)' }}>
+      <div className="container-wide">
+        <div style={{ marginBottom: 64, paddingBottom: 32, borderBottom: '1px solid rgba(255,255,255,0.15)' }}>
+          <div className="eyebrow" style={{ color: 'var(--sage-300)', marginBottom: 16 }}>Arbeta med oss</div>
+          <h2 style={{ color: 'var(--white)', maxWidth: '28ch' }}>Vi söker duktiga och ambitiösa kollegor.</h2>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 80 }}>
+          <div>
+            <p style={{ fontSize: 17, lineHeight: 1.7, color: 'rgba(255,255,255,0.8)', maxWidth: '48ch', marginBottom: 40 }}>
+              Älvsjö Tandvård växer och vi söker tandläkare, tandhygienister och tandsköterskor som vill vara med på resan. Vår vision är att erbjuda all tandvård inom alla inriktningar under samma tak — i nyrenoverade, luftiga lokaler mitt i Älvsjö.
+            </p>
+            <div className="eyebrow" style={{ color: 'var(--sage-300)', marginBottom: 20 }}>Vi erbjuder bland annat</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 0, marginBottom: 48 }}>
+              {['Kirurgi och implantatbehandlingar', 'Tandreglering och Invisalign', 'Digital scanning och CBCT', 'Barnspecialisttandvård', 'Panoramaröntgen'].map((item, i) => (
+                <div key={i} style={{ padding: '12px 0', borderBottom: '1px solid rgba(255,255,255,0.1)', fontSize: 15, color: 'rgba(255,255,255,0.85)', display: 'flex', gap: 16, alignItems: 'baseline' }}>
+                  <span style={{ fontSize: 10, color: 'var(--sage-300)', fontWeight: 600, letterSpacing: '0.18em' }}>0{i+1}</span>
+                  {item}
+                </div>
+              ))}
+            </div>
+            <div style={{ display: 'flex', gap: 12 }}>
+              <a href="mailto:ansokan@alvsjotandvard.se" className="btn btn-light btn-lg">Skicka ansökan</a>
+              <a href="tel:+46812854555" className="btn btn-ghost btn-lg" style={{ color: 'var(--white)', borderColor: 'rgba(255,255,255,0.4)' }}>Ring oss</a>
+            </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+            <div>
+              <div className="eyebrow" style={{ color: 'var(--sage-300)', marginBottom: 20 }}>Vi söker dig som har</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                {requirements.map((r, i) => (
+                  <div key={i} style={{ display: 'flex', gap: 14, alignItems: 'baseline' }}>
+                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--sage-400)', flexShrink: 0, marginTop: 6 }} />
+                    <span style={{ fontSize: 14, color: 'rgba(255,255,255,0.8)', lineHeight: 1.5 }}>{r}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div className="eyebrow" style={{ color: 'var(--sage-300)', marginBottom: 20 }}>Systemen vi använder</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {tools.map((t, i) => (
+                  <div key={i} style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)', padding: '10px 16px', background: 'rgba(255,255,255,0.06)' }}>{t}</div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Hjälp oss bli bäst ───────────────────────────────────────────────────────
+function HjalpOssBliBast() {
+  const { useState: useStateF } = React;
+  const [sent, setSent] = useStateF(false);
+  return (
+    <section id="hjalp-oss-bli-bast" className="section" style={{ background: 'var(--cream)' }}>
+      <div className="container-wide">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: 80, alignItems: 'start' }}>
+          <div>
+            <div className="eyebrow" style={{ marginBottom: 16 }}>Hjälp oss bli bäst</div>
+            <h2 style={{ maxWidth: '18ch', marginBottom: 24 }}>Vi vill bli bäst — och det kräver din hjälp.</h2>
+            <p style={{ fontSize: 16, lineHeight: 1.7, color: 'var(--ink-500)', maxWidth: '40ch', marginBottom: 32 }}>
+              Dina synpunkter är ovärderliga, speciellt de som handlar om saker vi kan bli bättre på. Genom att dela med dig av din upplevelse hjälper du oss att förbättra vården för alla våra patienter.
+            </p>
+            <p style={{ fontSize: 14, color: 'var(--ink-500)', lineHeight: 1.7 }}>
+              Som tack för din feedback har du chansen att bli utvald för en <strong>kostnadsfri eltandborste</strong>.
+            </p>
+          </div>
+          <div style={{ background: 'var(--white)', padding: '48px 40px', border: '1px solid var(--border)' }}>
+            {sent ? (
+              <div style={{ textAlign: 'center', padding: '40px 0' }}>
+                <div style={{ fontFamily: 'var(--font-serif)', fontSize: 32, color: 'var(--sage-600)', marginBottom: 16 }}>Tack!</div>
+                <p style={{ color: 'var(--ink-500)', fontSize: 15 }}>Vi uppskattar din återkoppling och läser varje meddelande.</p>
+              </div>
+            ) : (
+              <form onSubmit={e => { e.preventDefault(); setSent(true); }} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+                <div>
+                  <label style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--sage-600)', display: 'block', marginBottom: 8 }}>E-post (Skicka anonymt? Använd vår mailadress)</label>
+                  <input type="email" placeholder="din@email.se" style={{ width: '100%', padding: '12px 16px', border: '1px solid var(--border)', background: 'var(--cream)', fontSize: 15, color: 'var(--ink-700)', outline: 'none', boxSizing: 'border-box' }} />
+                </div>
+                <div>
+                  <label style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--sage-600)', display: 'block', marginBottom: 8 }}>Ämne</label>
+                  <input type="text" placeholder="Vad gäller din feedback?" required style={{ width: '100%', padding: '12px 16px', border: '1px solid var(--border)', background: 'var(--cream)', fontSize: 15, color: 'var(--ink-700)', outline: 'none', boxSizing: 'border-box' }} />
+                </div>
+                <div>
+                  <label style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--sage-600)', display: 'block', marginBottom: 8 }}>Meddelande</label>
+                  <textarea rows={5} placeholder="Berätta vad du tyckte om ditt besök…" required style={{ width: '100%', padding: '12px 16px', border: '1px solid var(--border)', background: 'var(--cream)', fontSize: 15, color: 'var(--ink-700)', outline: 'none', resize: 'vertical', boxSizing: 'border-box' }} />
+                </div>
+                <button type="submit" className="btn btn-primary btn-lg" style={{ alignSelf: 'flex-start' }}>Skicka feedback</button>
+              </form>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── App ──────────────────────────────────────────────────────────────────────
+function App() {
+  const textBlocks = [
+    { h3: 'Vår filosofi och approach till tandvård', html: '<p>På Älvsjö Tandvård bygger vår filosofi på att se <strong>hela människan</strong>, inte bara tänderna. Vi tror på vikten av att skapa en förtroendefull relation där du känner dig trygg att ställa frågor och dela dina funderingar. Vår approach innebär att vi alltid börjar med att lyssna, för att sedan tillsammans med dig skapa en <strong>individuell behandlingsplan</strong> som möter dina unika behov och förväntningar.</p>' },
+    { h3: 'Teamet — bakgrund och kompetens', html: '<p>Vårt team består av <strong>erfarna och engagerade tandläkare, tandhygienister och tandsköterskor</strong> som brinner för ditt leende och din munhälsa. Vi arbetar kontinuerligt med att vidareutveckla vår kompetens och hålla oss uppdaterade med de senaste forskningsrönen och teknikerna inom tandvården.</p>' },
+    { h3: 'Kliniken — miljö och utrustning', html: '<p>Vår klinik är inte bara nyrenoverad och estetiskt tilltalande, den är också utrustad med <strong>den senaste tekniken</strong>. Vi erbjuder digital scanning för avtryck, panoramaröntgen och CBCT för detaljerade 3D-bilder av dina käkar — exakta diagnoser och noggranna behandlingsplaner.</p>' },
+    { h3: 'Trygghet vid tandvårdsrädsla', html: '<p>Vi förstår att tandvårdsrädsla är vanligt och möter dig med <strong>extra tid och förståelse</strong>. Vi börjar alltid med ett lugnt samtal där du får berätta om dina tidigare erfarenheter. Vi anpassar tempot helt efter dig, erbjuder pauser och förklarar varje steg tydligt.</p>' },
+  ];
+
+  return (
+    <>
+      <Header />
+      <PageHero
+        eyebrow="N° 02 — Om oss"
+        title={<>Modern tandvård <span className="italic" style={{ color: 'var(--sage-600)' }}>mitt i Älvsjö.</span></>}
+        ingress="Vi kombinerar specialistkompetens med en omsorgsfull miljö för hela familjen. Hos oss får du trygg, kvalitativ och tillgänglig vård med dig i fokus."
+        bullets={['Trygg & modern', 'Omsorgsfull vård', 'Hela familjen', 'Centralt i Älvsjö']}
+      />
+      <ContentBlock
+        eyebrow="Vårt uppdrag"
+        title="Din tandhälsa — vårt uppdrag, din trygghet."
+        html={`<p>På Älvsjö Tandvård är vår vision att erbjuda en tandvårdsupplevelse där du känner dig helt trygg och sedd, oavsett ditt behov. Vår <strong>nyrenoverade klinik</strong> på Prästgårdsgränd 4, bara ett stenkast från Älvsjö pendeltågsstation, är designad för att vara ljus, luftig och tillgänglig — med hiss för din bekvämlighet.</p><p>Hos oss hittar du ett brett spektrum av tandvårdstjänster, från <strong>allmäntandvård och förebyggande vård</strong> för hela familjen, till mer avancerade behandlingar som <strong>tandimplantat</strong> och <strong>osynlig tandreglering med Invisalign</strong>. Vi är anslutna till Försäkringskassan och erbjuder räntefri delbetalning.</p>`}
+        img="img/tandlakare-soder-stockholm-i-alvsjo.jpg"
+        imgRight={true}
+      />
+      <TextBlocks
+        eyebrow="Så arbetar vi"
+        title="Fyra principer som vägleder varje besök."
+        blocks={textBlocks}
+      />
+      <StaffGrid />
+      <Organisation />
+      <HittaTillOss />
+      <ArtetaMedOss />
+      <HjalpOssBliBast />
+      <CTAStrip
+        title="Välkommen till oss."
+        sub="Ring 08-12 85 45 55 eller boka online. Vi tar emot nya patienter och prioriterar akuta besvär."
+      />
+      <Footer />
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

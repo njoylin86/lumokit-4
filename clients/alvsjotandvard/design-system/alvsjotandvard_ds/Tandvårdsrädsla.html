@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Tandvårdsrädsla · Tandläkarskräck · Älvsjö Tandvård</title>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="subpage.jsx"></script>
+
+<script type="text/babel">
+
+function ApproachGrid() {
+  const items = [
+    { num: '01', title: 'Berätta om din rädsla', desc: 'Vi lyssnar utan att döma. Ju mer vi vet om din specifika rädsla — injektioner, ljud, känslan av kontrollförlust — desto bättre kan vi anpassa besöket.' },
+    { num: '02', title: 'Stop-signal', desc: 'Du väljer ett tecken (handrörelse) som vi omedelbart respekterar. Du är alltid i kontroll och vi fortsätter aldrig utan ditt samtycke.' },
+    { num: '03', title: 'Paus när du vill', desc: 'Vi har inga tidsgränser per patient. Du pausar, vi pausar. Det viktigaste är att du mår bra under hela besöket.' },
+    { num: '04', title: 'Stegvis tillvänjning', desc: 'Vi börjar alltid med det du känner dig trygg med. Successivt ökar vi komfortnivån i din takt — aldrig vår.' },
+    { num: '05', title: 'Förklaring av varje steg', desc: 'Vi berättar exakt vad vi gör, varför och vad du kan förvänta dig att känna. Inga överraskningar.' },
+    { num: '06', title: 'Eventuellt lugnande medel', desc: 'För patienter med svår tandvårdsrädsla kan vi vid behov erbjuda anxiolytika (lugnande läkemedel) — diskuteras alltid i förväg.' },
+  ];
+  return (
+    <section className="section" style={{ background: 'var(--white)' }}>
+      <div className="container-wide">
+        <div style={{ marginBottom: 56, paddingBottom: 32, borderBottom: '1px solid var(--border)' }}>
+          <div className="eyebrow" style={{ marginBottom: 16 }}>Vår metod</div>
+          <h2 style={{ maxWidth: '22ch' }}>Så skapar vi trygghet — steg för steg.</h2>
+        </div>
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: 1, background: 'var(--border)',
+          border: '1px solid var(--border)',
+        }}>
+          {items.map((it, i) => (
+            <article key={i} style={{ background: 'var(--white)', padding: '40px 32px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <div style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 300,
+                fontSize: 48, lineHeight: 1, letterSpacing: '-0.03em', color: 'var(--sage-600)',
+              }}>{it.num}</div>
+              <h3 style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 400,
+                fontSize: 22, lineHeight: 1.2, letterSpacing: '-0.02em',
+                color: 'var(--ink-700)', margin: 0,
+              }}>{it.title}</h3>
+              <p style={{ fontSize: 14, lineHeight: 1.65, color: 'var(--ink-500)', margin: 0 }}>{it.desc}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function App() {
+  const faq = [
+    { question: 'Hur vanligt är tandvårdsrädsla?', answer: 'Mycket vanligare än de flesta tror. Studier visar att 40–80 % av befolkningen har någon form av tandläkaroro, och ca 10–15 % har en klinisk fobi som hindrar dem från att söka vård. Du är inte ensam.' },
+    { question: 'Hur berättar jag att jag är rädd?', answer: 'Det räcker med att säga det när du bokar — antingen per telefon eller i bokningssystemet. Ingen frågar varför. Vi noterar det och säkerställer att rätt personal och tid är tillgängliga.' },
+    { question: 'Kan ni bedöva extra noga?', answer: 'Absolut. Vi topical-bedövar alltid injektionsstället och väntar tills bedövningen satt fullt ut. Vi kontrollerar att du är bedövad innan vi börjar. Märker du något — säg till direkt, vi ger mer.' },
+    { question: 'Vad händer om jag inte kunnat gå till tandläkaren på länge?', answer: 'Det är okej. Oavsett hur länge du väntat tar vi emot dig utan kommentarer. Vi börjar med en enkel undersökning (inga instrument) och bygger upp förtroende gradvis. Det viktigaste är att du kommit.' },
+  ];
+
+  return (
+    <>
+      <Header />
+      <TreatmentHero
+        eyebrow="N° 08 — Tandvårdsrädsla"
+        title={<>Du bestämmer<br/><span className="italic" style={{ color: 'var(--sage-600)' }}>takten.</span></>}
+        ingress="Vi möter dagligen patienter med tandvårdsrädsla — från mild oro till svår fobi. Vår erfarenhet är att alla kan komma till en punkt där tandvård känns hanterbar. Vi börjar där du är, inte där vi tycker du borde vara."
+        bullets={['Ingen dömande miljö', 'Stop-signal alltid gäller', 'Extra tid per patient', 'Eventuellt lugnande']}
+        img="img/t-tandradsla.jpg"
+        stat={{ label: 'Av befolkningen', value: '50 %+', sub: 'uppger någon grad av oro inför tandläkarbesök.' }}
+        caption="Tandvårdsrädsla — alvsjotandvard.se · 08 12 85 45 55"
+      />
+      <ApproachGrid />
+      <ContentBlock
+        eyebrow="Du är inte ensam"
+        title="Tandläkarskräck är vanligare än du tror."
+        html={`<p>Tandvårdsrädsla (odontophobia) drabbar miljontals människor i Sverige. Orsakerna varierar: negativa barndomsupplevelser, rädsla för smärta, känslan av kontrollförlust, nålfobi eller det specifika ljud borrar producerar.</p><p>Gemensamt för de flesta är att rädslan förstärks av undvikande — ju längre man väntar, desto svårare känns steget att ta sig till kliniken. Men tandproblem förvärras av väntan och kräver ofta mer ingripande behandling desto längre man dröjer.</p><p>Vår strategi är enkel: <strong>vi möter dig i det tillstånd du är i</strong>, utan tidsbegränsning, utan att värdera hur länge du väntat eller hur "illa" det ser ut. Vårt enda mål är att du lämnar kliniken med lite mer tillit än när du kom.</p>`}
+        img="img/behandlingsrum-oversikt-bla-stol.jpg"
+      />
+      <ContentBlock
+        eyebrow="Miljön"
+        title="En klinik utformad för att lugna — inte oroa."
+        html={`<p>Vi vet att miljön spelar stor roll. Vår klinik är ljus, modern och utan den typiska "tandläkarklinikslukt" som för många triggar obehag. Behandlingsrummen är luftiga med naturligt ljus och vi spelar lugn bakgrundsmusik.</p><p>Personalen är utbildad i <strong>Tell-Show-Do</strong> — en kommunikationsmetod där vi alltid förklarar, visar och sedan gör. Aldrig tvärtom.</p><p>Vi har inga tickande klockor, inga brådskande scheman. Din tid är din.</p>`}
+        img="img/clinic-room-2.jpg"
+        imgRight={true}
+        bg="var(--cream)"
+        ctaLabel="Boka ett tryggt första möte"
+      />
+      <FAQ items={faq} title="Frågor från rädda patienter." />
+      <CTAStrip
+        title="Ta det första steget — vi möter dig där du är"
+        sub="Ring 08-12 85 45 55 och berätta om din rädsla. Vi lyssnar, anpassar och skapar ett besök som fungerar för just dig."
+      />
+      <Footer />
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

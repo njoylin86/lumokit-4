@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Akuttandvård · Älvsjö Tandvård</title>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="subpage.jsx"></script>
+
+<script type="text/babel">
+
+// Custom hero — header 116px + EmergencyStrip ~56px = 172px total above
+function AkutHero() {
+  const bullets = ['Akuttider varje dag', 'Oftast samma dag', 'Erfaren expertis', 'Centralt i Älvsjö'];
+  return (
+    <section style={{
+      background: 'var(--cream)',
+      height: 600,
+      borderBottom: '1px solid var(--border)',
+      overflow: 'hidden',
+    }}>
+      <div className="container-wide" style={{ width: '100%', paddingTop: 40, paddingBottom: 40 }}>
+        <div className="eyebrow" style={{ marginBottom: 20, color: 'var(--sage-600)' }}>
+          N° 01 — Akuttandvård
+        </div>
+
+        <div style={{
+          display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 64,
+          alignItems: 'stretch',
+          height: 440,
+        }}>
+          {/* LEFT */}
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <h1 style={{
+              fontFamily: 'var(--font-serif)', fontWeight: 300,
+              fontSize: 'clamp(44px, 5.5vw, 96px)', lineHeight: 0.95,
+              letterSpacing: '-0.035em', color: 'var(--ink-700)',
+              maxWidth: '14ch', marginTop: 0,
+            }}>
+              Snabb hjälp <span className="italic" style={{ color: 'var(--sage-600)' }}>när det gör ont.</span>
+            </h1>
+
+            <div>
+              <p className="lead" style={{ maxWidth: '44ch', marginBottom: 24, color: 'var(--ink-500)', fontSize: 17 }}>
+                När olyckan är framme eller värken slår till behöver du snabb och trygg hjälp. Vi finns här för att lindra smärtan och åtgärda problemet — oftast redan samma dag.
+              </p>
+
+              <div style={{
+                display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px 24px',
+                paddingTop: 20, marginBottom: 28,
+                borderTop: '1px solid var(--border)',
+              }}>
+                {bullets.map((b, i) => (
+                  <div key={i} style={{
+                    display: 'flex', alignItems: 'baseline', gap: 10,
+                    fontSize: 13, fontWeight: 500, color: 'var(--ink-600)',
+                  }}>
+                    <span style={{ fontSize: 10, color: 'var(--sage-600)', letterSpacing: '0.14em' }}>0{i + 1}</span>
+                    {b}
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ display: 'flex', gap: 12 }}>
+                <a href="#booking" className="btn btn-primary">Boka tid</a>
+                <a href="tel:+46812854555" className="btn btn-ghost">Ring oss</a>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT */}
+          <div style={{ position: 'relative' }}>
+            <div style={{
+              position: 'absolute', inset: 0,
+              backgroundImage: 'url(img/t-akut.jpg)',
+              backgroundSize: 'cover', backgroundPosition: 'center',
+              filter: 'saturate(0.9)',
+            }} />
+            <div style={{
+              position: 'absolute', left: -28, bottom: 28,
+              background: 'var(--ink-700)', color: 'var(--white)',
+              padding: '24px 28px', maxWidth: 260,
+              boxShadow: '0 24px 60px rgba(0,0,0,0.18)',
+            }}>
+              <div style={{
+                fontSize: 10, fontWeight: 600, letterSpacing: '0.22em', textTransform: 'uppercase',
+                color: 'var(--sage-300)', marginBottom: 10,
+              }}>Genomsnittlig väntetid</div>
+              <div style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 300,
+                fontSize: 'clamp(40px, 4vw, 56px)', lineHeight: 0.95, letterSpacing: '-0.03em',
+                marginBottom: 8,
+              }}>
+                &lt; 4 <span style={{ fontSize: 24 }}>tim</span>
+              </div>
+              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.7)', lineHeight: 1.5 }}>
+                från första samtal till lindring för 9 av 10 akuta patienter.
+              </div>
+            </div>
+            <div style={{
+              position: 'absolute', top: 20, right: 0,
+              writingMode: 'vertical-rl', transform: 'rotate(180deg)',
+              fontSize: 10, fontWeight: 600, letterSpacing: '0.32em', textTransform: 'uppercase',
+              color: 'var(--white)', mixBlendMode: 'difference',
+            }}>
+              Akut — alvsjotandvard.se · 08 12 85 45 55
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+function EmergencyStrip() {
+  return (
+    <section style={{ background: 'var(--sage-600)', color: 'var(--white)', padding: '6px 0' }}>
+      <div className="container-wide" style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 32,
+        flexWrap: 'wrap',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+            width: 12, height: 12, borderRadius: '50%',
+            background: 'var(--white)', boxShadow: '0 0 0 4px rgba(255,255,255,0.25)',
+            animation: 'pulse 2s var(--ease-standard) infinite',
+          }} />
+          <span style={{
+            fontSize: 11, fontWeight: 600, letterSpacing: '0.22em', textTransform: 'uppercase',
+          }}>Akut tandvärk?</span>
+          <span style={{
+            fontFamily: 'var(--font-serif)', fontSize: 22, fontWeight: 400, letterSpacing: '-0.01em',
+          }}>Vi har ofta tider <span className="italic">redan idag.</span></span>
+        </div>
+        <a href="tel:+46812854555" style={{
+          display: 'inline-flex', alignItems: 'center', gap: 14,
+          color: 'var(--white)', textDecoration: 'none', textDecorationColor: 'transparent',
+          fontFamily: 'var(--font-serif)', fontSize: 32, fontWeight: 400, letterSpacing: '-0.02em',
+          paddingLeft: 28, borderLeft: '1px solid rgba(255,255,255,0.3)',
+        }}>
+          <span style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.22em', textTransform: 'uppercase', fontFamily: 'var(--font-sans)' }}>Ring</span>
+          08 — 12 85 45 55
+        </a>
+      </div>
+      <style>{`@keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }`}</style>
+    </section>
+  );
+}
+
+// Quick triage: "if you have X, do Y" -- a useful tool, not filler
+function TriageGrid() {
+  const cases = [
+    { t: 'Kraftig tandvärk', d: 'Ihållande, värkande smärta som inte ger med sig.', urgency: 'Ring idag', tone: 'urgent' },
+    { t: 'Sprucken eller bruten tand', d: 'Bit eller fall som skadat en tand — även utan smärta.', urgency: 'Ring idag', tone: 'urgent' },
+    { t: 'Tand som slagits loss', d: 'Lägg tanden i mjölk eller saliv och kontakta oss direkt.', urgency: 'Akut — ring nu', tone: 'critical' },
+    { t: 'Förlorad fyllning eller krona', d: 'Tanden är känslig men inte alltid smärtsam.', urgency: 'Inom 1–2 dagar', tone: 'soon' },
+    { t: 'Svullnad eller infektion', d: 'Var- eller vätskebildning, eventuellt feber.', urgency: 'Ring idag', tone: 'urgent' },
+    { t: 'Käksmärta efter trauma', d: 'Slag mot ansiktet eller plötslig orörlighet i käken.', urgency: 'Akut — ring nu', tone: 'critical' },
+  ];
+  const toneColor = (t) => t === 'critical' ? 'var(--sage-700)' : t === 'urgent' ? 'var(--sage-600)' : 'var(--ink-600)';
+  return (
+    <section className="section" style={{ background: 'var(--white)' }}>
+      <div className="container-wide">
+        <div style={{
+          display: 'grid', gridTemplateColumns: '1fr auto', alignItems: 'end',
+          gap: 32, marginBottom: 56, paddingBottom: 32,
+          borderBottom: '1px solid var(--border)',
+        }}>
+          <div>
+            <div className="eyebrow" style={{ marginBottom: 16 }}>Triage · Vad gäller dig?</div>
+            <h2 style={{ maxWidth: '22ch' }}>Vanliga akuta situationer — och hur snabbt du bör söka.</h2>
+          </div>
+          <p className="small" style={{ maxWidth: '32ch', textAlign: 'right', margin: 0 }}>
+            Är du osäker — ring oss alltid. Vi prioriterar akuta besvär och hjälper dig vidare på telefon.
+          </p>
+        </div>
+
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: 1, background: 'var(--border)',
+          border: '1px solid var(--border)',
+        }}>
+          {cases.map((c, i) => (
+            <article key={i} style={{
+              background: 'var(--white)', padding: '40px 32px 36px',
+              display: 'flex', flexDirection: 'column', gap: 14,
+              minHeight: 240,
+            }}>
+              <div style={{
+                fontSize: 10, fontWeight: 600, letterSpacing: '0.22em', textTransform: 'uppercase',
+                color: toneColor(c.tone),
+              }}>{c.urgency}</div>
+              <h3 style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 400,
+                fontSize: 26, lineHeight: 1.2, letterSpacing: '-0.02em',
+                color: 'var(--ink-700)', maxWidth: '20ch', margin: 0,
+              }}>{c.t}</h3>
+              <p style={{ fontSize: 14, lineHeight: 1.65, color: 'var(--ink-500)', margin: 0 }}>{c.d}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// "How fast" — three-step process
+function ProcessSteps() {
+  const steps = [
+    { n: '01', t: 'Ring oss', d: 'Berätta vad som hänt. Vi prioriterar akuta besvär och bedömer hur snabbt du behöver komma in.' },
+    { n: '02', t: 'Samma dag — oftast', d: 'Vi har avsatta tider för akuta patienter, även på kvällar och lördagar.' },
+    { n: '03', t: 'Lindring + plan', d: 'En noggrann undersökning, smärtlindring direkt — och en tydlig behandlingsplan framåt.' },
+  ];
+  return (
+    <section className="section" style={{ background: 'var(--cream)' }}>
+      <div className="container-wide">
+        <div style={{ marginBottom: 64, paddingBottom: 32, borderBottom: '1px solid var(--border)' }}>
+          <div className="eyebrow" style={{ marginBottom: 16 }}>Så får du snabb hjälp</div>
+          <h2 style={{ maxWidth: '24ch' }}>Tre steg — från första samtal till lindring.</h2>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 64 }}>
+          {steps.map((s, i) => (
+            <article key={i} style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+              <div style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 300,
+                fontSize: 72, lineHeight: 1, letterSpacing: '-0.03em',
+                color: 'var(--sage-600)',
+              }}>{s.n}</div>
+              <h3 style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 400,
+                fontSize: 28, lineHeight: 1.2, letterSpacing: '-0.02em',
+                color: 'var(--ink-700)', margin: 0,
+              }}>{s.t}</h3>
+              <p style={{ fontSize: 15, lineHeight: 1.7, color: 'var(--ink-500)', margin: 0 }}>{s.d}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Pricing row — small, factual
+function PriceRow() {
+  const rows = [
+    { l: 'Akut undersökning, ny patient', p: '440 kr' },
+    { l: 'Akut undersökning, befintlig patient', p: '575 kr' },
+    { l: 'Eventuell behandling', p: 'Folktandvårdens prislista' },
+    { l: 'Räntefri delbetalning', p: 'Vid större ingrepp' },
+  ];
+  return (
+    <section className="section" style={{ background: 'var(--white)' }}>
+      <div className="container-wide" style={{
+        display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: 80, alignItems: 'start',
+      }}>
+        <div>
+          <div className="eyebrow" style={{ marginBottom: 16 }}>Pris &amp; ersättning</div>
+          <h2 style={{ maxWidth: '14ch' }}>Tydliga priser — utan överraskningar.</h2>
+          <p style={{ marginTop: 24, fontSize: 15, color: 'var(--ink-500)', lineHeight: 1.7, maxWidth: '36ch' }}>
+            Vi följer Folktandvårdens prislista och är anslutna till Försäkringskassan. Din tandvårdsersättning dras direkt på fakturan.
+          </p>
+        </div>
+        <div style={{ borderTop: '1px solid var(--border)' }}>
+          {rows.map((r, i) => (
+            <div key={i} style={{
+              display: 'grid', gridTemplateColumns: '1fr auto', gap: 24,
+              padding: '22px 0', borderBottom: '1px solid var(--border)',
+              alignItems: 'baseline',
+            }}>
+              <div style={{ fontSize: 16, color: 'var(--ink-700)' }}>{r.l}</div>
+              <div style={{
+                fontFamily: 'var(--font-serif)', fontSize: 22, fontWeight: 400,
+                letterSpacing: '-0.01em', color: 'var(--ink-700)',
+              }}>{r.p}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function App() {
+  const faq = [
+    { question: 'Hur bokar jag en akuttid hos er?', answer: 'Ring oss direkt på 08-12 85 45 55. Vi har avsatta tider för akuta patienter och gör vårt bästa för att du ska få en tid redan samma dag, även på kvällar och lördagar.' },
+    { question: 'Vad kostar ett akutbesök?', answer: 'En akut undersökning kostar 575 kr (440 kr för nya patienter). Priset för eventuell behandling fastställs efter undersökningen. Vi följer Folktandvårdens prislista och är anslutna till Försäkringskassan.' },
+    { question: 'Har ni öppet för akutbesök på kvällar och helger?', answer: 'Ja, vi har generösa öppettider för att underlätta akuta besök. Vi har öppet till 20:00 måndag–torsdag och lördagar mellan 09:00–15:00. Ring oss för att boka din tid.' },
+    { question: 'Hur hanterar ni patienter med tandvårdsrädsla vid akuta besök?', answer: 'Vi möter alla patienter med förståelse och extra tålamod. Berätta för oss om din rädsla när du bokar så kan vi anpassa besöket och skapa en lugn och trygg miljö för dig.' },
+  ];
+
+  return (
+    <>
+      <Header />
+      <EmergencyStrip />
+      <AkutHero />
+      <TriageGrid />
+      <ContentBlock
+        eyebrow="Vad vi gör"
+        title="Vi lindrar din akuta smärta — och åtgärdar problemet."
+        html={`<p>Akut tandvärk, en skadad tand eller en fyllning som lossnat — situationer som kräver snabb åtgärd. Att dröja med att söka vård kan förvärra problemet och leda till mer komplexa behandlingar.</p><p>Hos Älvsjö Tandvård möter vi dagligen patienter med akuta besvär: <strong>kraftig tandvärk, sprucken eller bruten tand, en tand som slagits loss, förlorade fyllningar eller kronor, samt svullnader och infektioner</strong> i munnen.</p><p>Vårt mål är inte bara att lindra din smärta utan att direkt påbörja den behandling som behövs. Ju snabbare vi kan undersöka och diagnostisera problemet, desto bättre förutsättningar har vi för ett lyckat och hållbart resultat.</p>`}
+        img="img/tandlakare-undersoker-patient.jpg"
+      />
+      <ProcessSteps />
+      <ContentBlock
+        eyebrow="Därför Älvsjö Tandvård"
+        title="Snabbt, tryggt — och nära pendeln."
+        html={`<ul style="padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 14px; margin: 0;"><li style="display: flex; gap: 16px; align-items: baseline;"><span style="font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; color: var(--sage-600); text-transform: uppercase; flex-shrink: 0; min-width: 32px;">01</span><span><strong>Snabb hjälp</strong> — ofta tid redan samma dag.</span></li><li style="display: flex; gap: 16px; align-items: baseline;"><span style="font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; color: var(--sage-600); text-transform: uppercase; flex-shrink: 0; min-width: 32px;">02</span><span><strong>Flexibla öppettider</strong> — öppet till 20:00 mån–tors och lördagar 09–15.</span></li><li style="display: flex; gap: 16px; align-items: baseline;"><span style="font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; color: var(--sage-600); text-transform: uppercase; flex-shrink: 0; min-width: 32px;">03</span><span><strong>Centralt läge</strong> — 2 min från pendelstationen i Älvsjö.</span></li><li style="display: flex; gap: 16px; align-items: baseline;"><span style="font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; color: var(--sage-600); text-transform: uppercase; flex-shrink: 0; min-width: 32px;">04</span><span><strong>Trygg miljö</strong> — anpassad även för dig med tandvårdsrädsla.</span></li></ul>`}
+        img="img/emergency.jpg"
+        imgRight={true}
+        bg="var(--cream)"
+        ctaLabel="Boka akuttid"
+      />
+      <PriceRow />
+      <FAQ items={faq} title="Vanliga frågor om akuttandvård." />
+      <CTAStrip
+        title="Behöver du hjälp nu?"
+        sub="Ring 08-12 85 45 55 — vi prioriterar alltid akuta besvär och försöker hitta en tid samma dag."
+      />
+      <Footer />
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

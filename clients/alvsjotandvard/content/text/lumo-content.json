@@ -1,0 +1,1299 @@
+{
+  "settings": {
+    "company_name": "Älvsjö Tandvård",
+    "company_phone": "08-12 85 45 55",
+    "company_email": "boka@alvsjotandvard.se",
+    "company_address": "Prästgårdsgränd 4, 125 44 Älvsjö"
+  },
+  "menus": [
+    {
+      "name": "Huvudmeny",
+      "location": "menu-1",
+      "items": [
+        {
+          "label": "Hem",
+          "slug": "hem"
+        },
+        {
+          "label": "Om oss",
+          "slug": "om-oss"
+        },
+        {
+          "label": "Behandlingar",
+          "url": "#",
+          "children": [
+            {
+              "label": "Akuttandvård",
+              "slug": "akuttandvard"
+            },
+            {
+              "label": "Implantat",
+              "slug": "implantat"
+            },
+            {
+              "label": "Karies/Hål i tanden",
+              "slug": "karieshal-i-tanden"
+            },
+            {
+              "label": "Tandblekning",
+              "slug": "tandblekning"
+            },
+            {
+              "label": "Tandfasader veneers",
+              "slug": "tandfasader-veneers"
+            },
+            {
+              "label": "Tandreglering",
+              "slug": "tandreglering"
+            },
+            {
+              "label": "Tandsten/Tandhygienist",
+              "slug": "tandstentandhygienist"
+            },
+            {
+              "label": "Tandvårdsrädsla/Tandläkarskräck",
+              "slug": "tandvardsradslatandlakarskrack"
+            },
+            {
+              "label": "Tillhör du riskgrupp?",
+              "slug": "tillhor-du-riskgrupp"
+            }
+          ]
+        },
+        {
+          "label": "Kontakt",
+          "slug": "kontakt"
+        },
+        {
+          "label": "Boka tid",
+          "url": "#tdl-booking-widget"
+        }
+      ]
+    },
+    {
+      "name": "Footermeny",
+      "location": "menu-2",
+      "items": [
+        {
+          "label": "Integritetspolicy",
+          "url": "/policy"
+        },
+        {
+          "label": "Cookies",
+          "url": "/cookies"
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "slug": "hem",
+      "template": "template-home.php",
+      "type": "home",
+      "sections": {
+        "hero": {
+          "h1": "Hem",
+          "ingress": "Välkommen till Älvsjö Tandvård, din moderna klinik mitt i Älvsjö. Här får hela familjen trygg och kvalitativ tandvård med personligt bemötande, från undersökning till avancerade behandlingar.",
+          "bulletins": [
+            "Trygg tandvård",
+            "Mitt i Älvsjö",
+            "Hela familjen",
+            "Akut hjälp snabbt"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "hem-bg.jpg"
+        },
+        "intro": {
+          "h2": "Din moderna tandvårdsklinik i hjärtat av Älvsjö",
+          "ingress": "Hos oss på Älvsjö Tandvård möts du av en lugn och välkomnande miljö. Vi erbjuder högkvalitativ tandvård för alla åldrar, bekvämt beläget bara minuter från pendeltågsstationen."
+        },
+        "treatments_section": [
+          {
+            "title": "Akuttandvård",
+            "image_id": "akuttandvard.jpg",
+            "link": "/akuttandvard"
+          },
+          {
+            "title": "Implantat",
+            "image_id": "implantat.jpg",
+            "link": "/implantat"
+          },
+          {
+            "title": "Karies/Hål i tanden",
+            "image_id": "karieshal-i-tanden.jpg",
+            "link": "/karieshal-i-tanden"
+          },
+          {
+            "title": "Tandblekning",
+            "image_id": "tandblekning.jpg",
+            "link": "/tandblekning"
+          },
+          {
+            "title": "Tandfasader veneers",
+            "image_id": "tandfasader-veneers.jpg",
+            "link": "/tandfasader-veneers"
+          },
+          {
+            "title": "Tandreglering",
+            "image_id": "tandreglering.jpg",
+            "link": "/tandreglering"
+          },
+          {
+            "title": "Tandsten/Tandhygienist",
+            "image_id": "tandstentandhygienist.jpg",
+            "link": "/tandstentandhygienist"
+          },
+          {
+            "title": "Tandvårdsrädsla/Tandläkarskräck",
+            "image_id": "tandvardsradslatandlakarskrack.jpg",
+            "link": "/tandvardsradslatandlakarskrack"
+          },
+          {
+            "title": "Tillhör du riskgrupp?",
+            "image_id": "tillhor-du-riskgrupp.jpg",
+            "link": "/tillhor-du-riskgrupp"
+          }
+        ],
+        "content_block_1": {
+          "h2": "Trygghet och kvalitet för ditt leende",
+          "text_html": "<p>På Älvsjö Tandvård är varje besök utformat för att du ska känna dig lugn och omhändertagen. Vår <strong>nyrenoverade och luftiga klinik</strong> erbjuder en modern miljö där vi tar hand om dig och din familj med professionalism och värme. Från den allra första undersökningen till mer komplexa behandlingar som <strong>tandimplantat</strong> eller <strong>Invisalign-tandreglering</strong>, strävar vi alltid efter att erbjuda den bästa möjliga vården. Vi vet att tandvårdsrädsla är vanligt, och vårt team är särskilt tränat att möta dig med extra tid och förståelse, så att du kan känna dig trygg genom hela processen.</p><p>Vi är stolta över vårt breda utbud av tjänster som täcker allt från förebyggande vård och akuta besvär till avancerad estetisk tandvård som <strong>tandfasader</strong> och <strong>tandblekning</strong>. För de yngre familjemedlemmarna har vi även Älvsjö Pedodonti, en specialistenhet för barn och unga upp till 23 år, där de får den bästa tänkbara omvårdnaden. Vårt mål är att ditt besök ska vara smidigt, effektivt och att du lämnar oss med ett friskare och gladare leende. Vi är anslutna till Försäkringskassan och erbjuder även räntefri delbetalning för din bekvämlighet.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "image_1_id": "hem-image-1.jpg",
+          "image_2_id": "hem-image-2.jpg"
+        },
+        "content_block_2": {
+          "h2": "Lättillgänglig vård när du behöver den",
+          "text_html": "<p>Vi vet hur viktigt det är att tandvård är lättillgänglig och anpassad efter din vardag. Älvsjö Tandvård är strategiskt placerad <strong>mitt i Älvsjö, bara två minuters promenad från pendeltågsstationen</strong> och alldeles intill Vårdcentralen. Detta gör det enkelt för dig att ta dig hit, oavsett om du kommer med kollektivtrafik eller bil. Våra generösa <strong>öppettider, från tidig morgon till sen kväll på vardagar och även lördagar</strong>, gör det möjligt för dig att boka tid som passar just ditt schema.</p><p>När olyckan är framme, som vid akut tandvärk eller en skadad tand, är snabb hjälp avgörande. Därför prioriterar vi <strong>akuta patienter</strong> och strävar efter att erbjuda dig en tid samma dag. Ring oss direkt på 08-12 85 45 55 om du behöver omedelbar hjälp. Vi använder oss även av modern teknik som <strong>digital scanning och panoramaröntgen med 3D/CBCT</strong> för att säkerställa precisa diagnoser och skräddarsydda behandlingsplaner, allt för din bästa upplevelse och hälsa.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            }
+          },
+          "h3": "Viktigt att veta inför ditt besök",
+          "subtext_html": "<p>Planera ditt besök hos oss med denna praktiska information:</p><ul><li><strong>Adress:</strong> Prästgårdsgränd 4, 125 44 Älvsjö (2 min från pendeln)</li><li><strong>Öppettider:</strong> Mån-tors 07:00-20:00, Fre 07:00-17:00, Lör 09:00-15:00</li><li><strong>Akuttider:</strong> Ring 08-12 85 45 55 för snabb hjälp</li><li><strong>Betalning:</strong> Försäkringskassan anslutna, räntefri delbetalning</li><li><strong>Kliniken:</strong> Nyrenoverad, tillgänglighetsanpassad med hiss</li></ul>"
+        }
+      }
+    },
+    {
+      "slug": "om-oss",
+      "template": "template-about.php",
+      "type": "about",
+      "sections": {
+        "hero": {
+          "h1": "Om oss",
+          "ingress": "Modern tandvård mitt i Älvsjö. Vi kombinerar specialistkompetens med en omsorgsfull miljö för hela familjen. Hos oss får du trygg, kvalitativ och tillgänglig vård med dig i fokus.",
+          "bulletins": [
+            "Trygg & Modern",
+            "Omsorgsfull Vård",
+            "Hela Familjen",
+            "Centralt i Älvsjö"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "om-oss-bg.jpg"
+        },
+        "content_block_1": {
+          "h2": "Din tandhälsa – vårt uppdrag, din trygghet",
+          "text_html": "<p>På Älvsjö Tandvård är vår vision att erbjuda en tandvårdsupplevelse där du känner dig helt trygg och sedd, oavsett ditt behov. Vår <strong>nyrenoverade klinik</strong> på Prästgårdsgränd 4, bara ett stenkast från Älvsjö pendeltågsstation, är designad för att vara ljus, luftig och tillgänglig – med hiss för din bekvämlighet. Vi vet att tiden är värdefull, därför erbjuder vi generösa öppettider från morgon till kväll, samt på lördagar, för att du enkelt ska kunna boka en tid som passar just dig.</p><p>Hos oss hittar du ett brett spektrum av tandvårdstjänster, från <strong>allmäntandvård och förebyggande vård</strong> för hela familjen, till mer avancerade behandlingar som <strong>tandimplantat</strong> och <strong>osynlig tandreglering med Invisalign</strong>. Vi är anslutna till Försäkringskassan och erbjuder även räntefri delbetalning, för att din tandvård ska vara så smidig som möjligt. När du väljer Älvsjö Tandvård väljer du en modern klinik där kvalitet och omtanke står i centrum.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "image_1_id": "om-oss-image-1.jpg",
+          "image_2_id": "om-oss-image-2.jpg"
+        },
+        "text_blocks": [
+          {
+            "h3": "Vår filosofi och approach till tandvård",
+            "text_html": "<p>På Älvsjö Tandvård bygger vår filosofi på att se <strong>hela människan</strong>, inte bara tänderna. Vi tror på vikten av att skapa en förtroendefull relation där du känner dig trygg att ställa frågor och dela dina funderingar. Vår approach innebär att vi alltid börjar med att lyssna, för att sedan tillsammans med dig skapa en <strong>individuell behandlingsplan</strong> som möter dina unika behov och förväntningar. Vi prioriterar förebyggande vård för att du ska kunna behålla en god munhälsa livet ut, och använder modern teknik för att erbjuda behandlingar som är både effektiva och skonsamma. För oss handlar det om att ge dig en positiv upplevelse, varje gång du besöker oss.</p>"
+          },
+          {
+            "h3": "Teamet — bakgrund och kompetens",
+            "text_html": "<p>Vårt team på Älvsjö Tandvård består av <strong>erfarna och engagerade tandläkare, tandhygienister och tandsköterskor</strong> som brinner för ditt leende och din munhälsa. Vi arbetar kontinuerligt med att vidareutveckla vår kompetens och hålla oss uppdaterade med de senaste forskningsrönen och teknikerna inom tandvården. Varje medlem i vårt team delar en gemensam passion: att ge dig en omhändertagande och professionell vård i en lugn atmosfär. Vi samarbetar nära för att du ska få en sammanhållen och effektiv behandling, alltid med <strong>ditt välbefinnande i fokus</strong>.</p>"
+          },
+          {
+            "h3": "Kliniken — miljö och utrustning",
+            "text_html": "<p>Vår klinik i Älvsjö är inte bara nyrenoverad och estetiskt tilltalande, den är också utrustad med <strong>den senaste tekniken</strong> för att säkerställa högsta kvalitet på din vård. Vi erbjuder bland annat digital scanning för avtryck, panoramaröntgen och CBCT för detaljerade 3D-bilder av dina käkar. Detta möjliggör <strong>exakta diagnoser och noggranna behandlingsplaner</strong>, från rutinundersökningar till avancerade implantat. Med en ljus och tillgänglighetsanpassad miljö, komplett med hiss, vill vi att ditt besök ska vara så bekvämt och smidigt som möjligt – <strong>mitt i Älvsjö, intill vårdcentralen</strong>.</p>"
+          },
+          {
+            "h3": "Trygghet för patienter med tandvårdsrädsla",
+            "text_html": "<p>Vi förstår att tandvårdsrädsla är vanligt, och på Älvsjö Tandvård är vi särskilt måna om att möta dig med <strong>extra tid och förståelse</strong>. Vi börjar alltid med ett lugnt samtal där du får berätta om dina tidigare erfarenheter och vad som känns jobbigt. Vårt mål är att tillsammans med dig bygga upp en trygghet steg för steg. Vi anpassar behandlingstempot helt efter dig, erbjuder pauser och förklarar varje steg tydligt. Här får du utrymme att bestämma takten, och vi finns här för att göra din upplevelse så <strong>lugn och positiv som möjligt</strong>.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "akuttandvard",
+      "template": "template-treatment.php",
+      "type": "treatment",
+      "sections": {
+        "hero": {
+          "h1": "Akuttandvård",
+          "ingress": "När olyckan är framme eller värken slår till, behöver du snabb och trygg hjälp. Vi finns här för att lindra smärtan och åtgärda problemet med kort varsel.",
+          "bulletins": [
+            "Akuttider varje dag",
+            "Oftast samma dag",
+            "Erfaren expertis",
+            "Centralt i Älvsjö"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "akuttandvard-bg.jpg"
+        },
+        "intro": {
+          "h2": "Snabb hjälp när du behöver den som mest",
+          "ingress": "En akut situation i munnen kan vara stressande. Hos Älvsjö Tandvård prioriterar vi dig som har akuta besvär och strävar efter att du ska få träffa en tandläkare redan samma dag."
+        },
+        "content_block_1": {
+          "h2": "Vi lindrar din akuta smärta och åtgärdar problemen",
+          "text_html": "<p>Akut tandvärk, en skadad tand eller en fyllning som lossnat – situationer som kräver snabb åtgärd. Att dröja med att söka vård kan förvärra problemet och leda till mer komplexa behandlingar.</p><p>Hos Älvsjö Tandvård möter vi dagligen patienter med akuta besvär som <strong>kraftig tandvärk, en sprucken eller bruten tand, en tand som slagits loss, förlorade fyllningar eller kronor, samt svullnader och infektioner</strong> i munnen. Vi förstår att dessa tillstånd både smärtar och skapar oro.</p><p>Vårt mål är att inte bara lindra din smärta utan också att direkt påbörja behandlingen som behövs. Ju snabbare vi kan undersöka och diagnostisera problemet, desto bättre förutsättningar har vi för att uppnå ett lyckat och hållbart resultat för din munhälsa.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "image_1_id": "akuttandvard-image-1.jpg",
+          "image_2_id": "akuttandvard-image-2.jpg"
+        },
+        "content_block_2": {
+          "h2": "Så får du snabb hjälp hos oss",
+          "text_html": "<p>Om du behöver akuttandvård, är det snabbaste sättet att få hjälp att <strong>ringa oss direkt på 08-12 85 45 55</strong>. Vi har avsatta tider för akuta patienter och strävar alltid efter att kunna erbjuda dig en tid samma dag. Våra öppettider, med sena kvällar och lördagsöppet, gör det enklare för dig att få vård när du behöver det.</p><p>Vid ditt akutbesök gör vi en noggrann undersökning för att fastställa orsaken till dina besvär och lägga upp en behandlingsplan. En akut undersökning kostar 575 kr (440 kr för nya patienter). Vi följer Folktandvårdens prislista och är anslutna till Försäkringskassan, vilket innebär att du får din tandvårdsersättning direkt. Vid större ingrepp erbjuder vi även räntefri delbetalning.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            }
+          },
+          "h3": "Därför väljer du Älvsjö Tandvård vid akut behov",
+          "subtext_html": "<p>Vid en akut situation behöver du snabb hjälp i en trygg miljö. Hos oss får du:</p><ul><li><strong>Snabb hjälp:</strong> Ofta tid redan samma dag.</li><li><strong>Flexibla öppettider:</strong> Öppet till 20:00 mån–tors och lördagar.</li><li><strong>Centralt läge:</strong> Mitt i Älvsjö, 2 min från pendelstationen.</li><li><strong>Trygg miljö:</strong> Anpassad för dig med tandvårdsrädsla.</li></ul>"
+        },
+        "faq": [
+          {
+            "question": "Hur bokar jag en akuttid hos er?",
+            "answer": "Ring oss direkt på 08-12 85 45 55. Vi har avsatta tider för akuta patienter och gör vårt bästa för att du ska få en tid redan samma dag, även på kvällar och lördagar."
+          },
+          {
+            "question": "Vad kostar ett akutbesök?",
+            "answer": "En akut undersökning kostar 575 kr (440 kr för nya patienter). Priset för eventuell behandling fastställs efter undersökningen. Vi följer Folktandvårdens prislista och är anslutna till Försäkringskassan."
+          },
+          {
+            "question": "Har ni öppet för akutbesök på kvällar och helger?",
+            "answer": "Ja, vi har generösa öppettider för att underlätta akuta besök. Vi har öppet till 20:00 måndag–torsdag och lördagar mellan 09:00–15:00. Ring oss för att boka din tid."
+          },
+          {
+            "question": "Hur hanterar ni patienter med tandvårdsrädsla vid akuta besök?",
+            "answer": "Vi möter alla patienter med förståelse och extra tålamod. Berätta för oss om din rädsla när du bokar så kan vi anpassa besöket och skapa en lugn och trygg miljö för dig."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "implantat",
+      "template": "template-treatment.php",
+      "type": "treatment",
+      "sections": {
+        "hero": {
+          "h1": "Implantat",
+          "ingress": "Saknar du en eller flera tänder? Med tandimplantat får du en hållbar och naturlig ersättning som återger både funktion och leende. En trygg lösning som håller länge.",
+          "bulletins": [
+            "Naturligt resultat",
+            "Håller livet ut",
+            "Stabil tuggfunktion",
+            "Ökad livskvalitet"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "implantat-bg.jpg"
+        },
+        "intro": {
+          "h2": "Ersätt förlorade tänder med implantat",
+          "ingress": "Tandimplantat är den mest stabila och naturtrogna lösningen för att ersätta en eller flera saknade tänder. Hos Älvsjö Tandvård får du en skräddarsydd behandling som återställer ditt leende och din tuggförmåga."
+        },
+        "content_block_1": {
+          "h2": "Så fungerar en implantatbehandling hos oss",
+          "text_html": "<p>Ett tandimplantat är en liten titanskruv som fästs i käkbenet och fungerar som en konstgjord tandrot. Ovanpå denna rot placeras sedan en krona, bro eller protes som ser ut och känns precis som en naturlig tand. Processen inleds med en <strong>noggrann undersökning och planering</strong>, där vi använder <strong>digital scanning och 3D/CBCT-röntgen</strong> för att kartlägga din mun och käke. Detta säkerställer att det finns tillräckligt med käkben och att inga nerver är i vägen.</p><p>Vi på Älvsjö Tandvård är vana att möta alla patienter – även dig med tandvårdsrädsla – och vi tar oss tid att förklara varje steg. Vi ser till att du känner dig <strong>trygg och informerad</strong> genom hela behandlingen. Vårt mål är inte bara att ersätta en tand, utan att ge dig en lösning som håller livet ut med rätt skötsel, och som ger dig full funktionalitet och ett vackert leende igen.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "image_1_id": "implantat-image-1.jpg",
+          "image_2_id": "implantat-image-2.jpg"
+        },
+        "content_block_2": {
+          "h2": "Fördelarna med tandimplantat",
+          "text_html": "<p>Att välja tandimplantat innebär flera långsiktiga fördelar. Först och främst ger implantat en <strong>exceptionellt stabil och varaktig lösning</strong>. Till skillnad från löständer sitter de fast permanent, vilket förbättrar både tuggförmågan och talet avsevärt. Du kan äta, skratta och leva precis som vanligt, utan oro.</p><p>Ur ett estetiskt perspektiv smälter implantaten <strong>naturligt in bland dina egna tänder</strong>. Kronan anpassas i färg och form, så ingen kommer att märka skillnad. Dessutom bidrar implantatet till att bevara ditt käkben genom att stimulera det, vilket kan förhindra att ansiktet sjunker in. På sikt är implantat ofta ett <strong>ekonomiskt fördelaktigt val</strong> jämfört med andra alternativ som kan kräva fler justeringar och ersättningar över tid. Vår erfarenhet och moderna utrustning säkerställer ett resultat av högsta kvalitet.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            }
+          },
+          "h3": "Boka en konsultation hos oss",
+          "subtext_html": "<p>Vill du veta mer om hur tandimplantat kan förändra din vardag? Vi erbjuder en grundlig konsultation där vi:</p><ul><li>Går igenom dina förutsättningar</li><li>Besvarar dina frågor</li><li>Ger dig en tydlig behandlingsplan och prisuppskattning</li></ul><p>Just nu får du konsultationen för endast <strong>199 kr</strong> (ordinarie pris 2 480 kr). Boka din tid direkt online eller ring oss på 08-12 85 45 55.</p>"
+        },
+        "faq": [
+          {
+            "question": "Vad är ett tandimplantat?",
+            "answer": "Ett tandimplantat är en liten skruv av titan som kirurgiskt fästs i käkbenet för att ersätta roten till en saknad tand. På implantatet fästs sedan en konstgjord krona som ser ut och fungerar som en naturlig tand."
+          },
+          {
+            "question": "Hur länge håller ett tandimplantat?",
+            "answer": "Med god munhygien och regelbundna kontroller kan ett tandimplantat hålla livet ut. Titanet är biokompatibelt och växer ihop med käkbenet, vilket ger en mycket stabil och hållbar lösning."
+          },
+          {
+            "question": "Gör det ont att få ett tandimplantat?",
+            "answer": "Själva ingreppet utförs under lokalbedövning, så du känner ingen smärta under behandlingen. Efteråt kan du uppleva viss ömhet, men detta hanteras enkelt med smärtstillande. Vi anpassar oss efter din bekvämlighet."
+          },
+          {
+            "question": "Vem kan få tandimplantat?",
+            "answer": "De flesta vuxna med god allmänhälsa och tillräckligt käkben kan vara lämpliga för implantat. En grundlig undersökning med röntgen och 3D-scanning avgör om behandlingen är rätt för dig."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "karieshal-i-tanden",
+      "template": "template-treatment.php",
+      "type": "treatment",
+      "sections": {
+        "hero": {
+          "h1": "Karies/Hål i tanden",
+          "ingress": "Karies, eller hål i tanden, är vanligt men behöver inte leda till problem. Hos Älvsjö Tandvård upptäcker vi karies tidigt och behandlar det skonsamt för att bevara din tandhälsa.",
+          "bulletins": [
+            "Tidig upptäckt",
+            "Skonsam behandling",
+            "Minska smärta",
+            "Friska tänder"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "karieshal-i-tanden-bg.jpg"
+        },
+        "intro": {
+          "h2": "Vad är karies och varför får man hål i tänderna?",
+          "ingress": "Karies är en av de vanligaste tandsjukdomarna. Det uppstår när bakterier i munnen bryter ner tandemaljen. Vi hjälper dig att förstå, förebygga och behandla karies effektivt."
+        },
+        "content_block_1": {
+          "h2": "Därför är regelbundna kontroller så viktiga",
+          "text_html": "<p>Karies börjar ofta diskret, utan att du märker det. Bakterier bildar syra när de kommer i kontakt med socker, och den syran angriper emaljen. I tidiga skeden märker du kanske ingenting alls, vilket är anledningen till att många inte söker hjälp förrän tanden börjar värka – då är problemet ofta större.</p><p>På Älvsjö Tandvård använder vi oss av modern <strong>digital scanning och röntgen</strong> för att upptäcka karies i tid, även på svåråtkomliga platser mellan tänderna. Genom regelbundna undersökningar hos våra tandläkare och tandhygienister kan vi agera snabbt, förebygga större skador och minimera obehag för dig. Detta sparar dig både tid och pengar i längden.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "image_1_id": "karieshal-i-tanden-image-1.jpg",
+          "image_2_id": "karieshal-i-tanden-image-2.jpg"
+        },
+        "content_block_2": {
+          "h2": "Så behandlar vi karies hos oss",
+          "text_html": "<p>Behandlingen av karies anpassas alltid efter hur långt angreppet har gått. Om karies upptäcks i ett mycket tidigt stadium kan det ibland bromsas med fluorbehandling och förbättrad munhygien. Har ett hål väl bildats, behöver det åtgärdas med en fyllning.</p><p>Hos Älvsjö Tandvård använder vi <strong>moderna och estetiska fyllningsmaterial</strong> som komposit. Dessa material är inte bara hållbara utan smälter också in naturligt med dina egna tänder. Om kariesangreppet har nått tandnerven kan en rotbehandling bli nödvändig för att rädda tanden. Vi arbetar med stor noggrannhet och ser till att du känner dig trygg genom hela processen.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            }
+          },
+          "h3": "Hur kan du förebygga karies?",
+          "subtext_html": "<p>En god munhygien är grunden för att undvika karies. Här är några enkla steg du kan följa:</p><ul><li>Borsta tänderna två gånger om dagen med fluortandkräm.</li><li>Använd tandtråd eller mellanrumsborstar dagligen.</li><li>Begränsa intaget av socker och söta drycker.</li><li>Gör regelbundna besök hos tandläkare eller tandhygienist för undersökning och professionell rengöring.</li></ul>"
+        },
+        "faq": [
+          {
+            "question": "Hur upptäcker man karies om det inte syns?",
+            "answer": "Utan synliga symtom upptäcks karies ofta med hjälp av röntgenbilder under din årliga tandläkarundersökning. På Älvsjö Tandvård använder vi digitala röntgen för att se angrepp tidigt, även mellan tänderna."
+          },
+          {
+            "question": "Gör det ont att laga ett hål?",
+            "answer": "Målet är att du inte ska känna någon smärta alls. Vi bedövar området innan behandlingen påbörjas, så att du kan känna dig bekväm och lugn under hela ingreppet. Berätta för oss om du känner dig orolig."
+          },
+          {
+            "question": "Vad händer om jag inte behandlar ett hål?",
+            "answer": "Om karies inte behandlas kommer angreppet att fortsätta djupare in i tanden. Detta kan leda till svår smärta, infektioner, rotfyllning eller i värsta fall att tanden måste tas bort. Tidig behandling förhindrar större problem."
+          },
+          {
+            "question": "Är fyllningarna synliga?",
+            "answer": "På Älvsjö Tandvård använder vi moderna, tandfärgade kompositfyllningar. Dessa material smälter in estetiskt med dina naturliga tänder, vilket gör att fyllningen knappt syns. Vi strävar alltid efter ett naturligt och fint resultat."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "tandblekning",
+      "template": "template-treatment.php",
+      "type": "treatment",
+      "sections": {
+        "hero": {
+          "h1": "Tandblekning",
+          "ingress": "Drömmer du om ett vitare leende? På Älvsjö Tandvård erbjuder vi professionell tandblekning för ett strålande och naturligt resultat, anpassat efter dig och din munhälsa.",
+          "bulletins": [
+            "Vitare leende",
+            "Trygg behandling",
+            "Naturligt resultat",
+            "Ökad utstrålning"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "tandblekning-bg.jpg"
+        },
+        "intro": {
+          "h2": "Ett vitare leende – med trygghet och kvalitet",
+          "ingress": "På Älvsjö Tandvård skräddarsyr vi din tandblekning för ett effektivt och skonsamt resultat. Vi tar hand om dig från start till mål, så att du kan känna dig trygg och nöjd med ditt nya, ljusare leende."
+        },
+        "content_block_1": {
+          "h2": "Grunden till ett strålande resultat: din muns hälsa",
+          "text_html": "<p>För att din tandblekning ska bli både säker och effektiv, börjar vi alltid med en noggrann undersökning av dina tänder och din munhälsa. Det är avgörande att eventuella hål är lagade och att känsliga tandhalsar skyddas innan blekningsprocessen påbörjas. Tandsten måste också avlägsnas för att undvika ojämnheter och garantera att blekningsmedlet kan verka överallt. Vårt team på Älvsjö Tandvård säkerställer att alla förutsättningar är optimala.</p><p>Vi använder oss av skonsamma och beprövade metoder för att du ska få ett jämnt och hållbart resultat, anpassat efter just dina tänder och önskemål. En professionell bedömning garanterar att blekningen utförs på ett säkert sätt och ger dig det bästa möjliga slutresultatet.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "image_1_id": "tandblekning-image-1.jpg",
+          "image_2_id": "tandblekning-image-2.jpg"
+        },
+        "content_block_2": {
+          "h2": "Välj den blekning som passar dig",
+          "text_html": "<p>Hos oss på Älvsjö Tandvård erbjuder vi två flexibla alternativ för din tandblekning, båda med professionell handledning. Vill du ha kontroll över processen och själv bestämma intensiteten? Då är vår <strong>hemblekning</strong> perfekt. Vi skapar individuellt anpassade blekskenor efter dina tänder, som du sedan använder tillsammans med det skonsamma blekmedlet hemma. Du får alltid detaljerade instruktioner för att säkerställa ett tryggt och effektivt resultat.</p><p>Föredrar du en snabbare lösning med allt på ett ställe? Vår <strong>klinikblekning</strong> utförs under ett enda besök här hos oss, ofta på bara ett par timmar. Oavsett vilken metod du väljer, får du ett märkbart vitare leende, anpassat efter dina önskemål. Vi arbetar med marknadens bästa blekningsmaterial för bästa effekt.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            }
+          },
+          "h3": "Så bibehåller du ditt nya, ljusa leende",
+          "subtext_html": "<p>För att resultatet av din tandblekning ska hålla så länge som möjligt är det viktigt med goda vanor, särskilt under den första tiden efter behandlingen. Vi rekommenderar att du under de första dagarna undviker livsmedel och drycker med starka färgämnen. Tänk på saker som kaffe, te, rödvin, mörka bär och tobak, som alla kan påverka dina nyblekta tänder. Genom att vara lite extra försiktig i början, lägger du grunden för ett långvarigt och strålande leende. Vi ger dig självklart mer specifika råd anpassade för dig under ditt besök.</p>"
+        },
+        "faq": [
+          {
+            "question": "Är tandblekning säkert?",
+            "answer": "Ja, när den utförs professionellt hos oss på Älvsjö Tandvård. Vi genomför alltid en noggrann kontroll av din munhälsa innan behandlingen för att säkerställa bästa möjliga och säkraste resultat för just dig."
+          },
+          {
+            "question": "Hur länge håller resultatet?",
+            "answer": "Resultatet varierar beroende på dina vanor, men håller typiskt 1–2 år. Regelbunden munhygien och försiktighet med färgstarka livsmedel som kaffe och rödvin bidrar till att förlänga effekten av din blekning."
+          },
+          {
+            "question": "Vad orsakar missfärgade tänder?",
+            "answer": "Vanliga orsaker är konsumtion av kaffe, te, rödvin, mörka bär och tobak. Även ålder spelar roll, då emaljen blir tunnare och dentinet mörknar med tiden. Vissa mediciner kan också påverka tandfärgen."
+          },
+          {
+            "question": "Kan alla bleka tänderna?",
+            "answer": "De flesta kan bleka tänderna, men det är viktigt med en förundersökning för att säkerställa att du är en lämplig kandidat. Gravida, ammande och personer med vissa tandsjukdomar rekommenderas inte alltid blekning. Vi bedömer vad som är bäst för dig."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "tandfasader-veneers",
+      "template": "template-treatment.php",
+      "type": "treatment",
+      "sections": {
+        "hero": {
+          "h1": "Tandfasader veneers",
+          "ingress": "Ge ditt leende en ny lyster. Tandfasader korrigerar skonsamt ojämnheter, missfärgningar och glapp för ett vackert och naturligt resultat som håller länge.",
+          "bulletins": [
+            "Vackert resultat",
+            "Långvarig lösning",
+            "Skonsam metod",
+            "Anpassad design"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "tandfasader-veneers-bg.jpg"
+        },
+        "intro": {
+          "h2": "Skapa ditt drömleende med tandfasader",
+          "ingress": "Hos Älvsjö Tandvård kan tunna fasader av porslin eller komposit förvandla ditt leende. Korrigera snabbt och effektivt färg, form och mellanrum för ett harmoniskt utseende."
+        },
+        "content_block_1": {
+          "h2": "Vad är tandfasader och när kan de hjälpa?",
+          "text_html": "<p>Tandfasader, även kallade veneers, är tunna, skräddarsydda skal som fästs på framsidan av dina tänder. De är en estetisk lösning för att förbättra tändernas utseende och kan åtgärda en rad olika kosmetiska problem. Kanske drömmer du om att dölja permanenta missfärgningar som inte går att bleka, jämna ut små glapp, dölja sprickor eller korrigera tänder med ojämn form? Fasader ger dig ett enhetligt och vackert leende.</p><p>Våra tandläkare på Älvsjö Tandvård använder moderna material och tekniker för att skapa ett så naturligt resultat som möjligt. Behandlingen är minimalt invasiv, vilket innebär att frisk tandsubstans bevaras i största möjliga mån. Med vår digitala scanning och 3D-teknik kan vi visualisera ditt nya leende redan vid första konsultationen, så du ser hur resultatet kan bli.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "image_1_id": "tandfasader-veneers-image-1.jpg",
+          "image_2_id": "tandfasader-veneers-image-2.jpg"
+        },
+        "content_block_2": {
+          "h2": "Din resa mot ett strålande leende",
+          "text_html": "<p>På Älvsjö Tandvård börjar din resa mot ett nytt leende med en <strong>personlig konsultation</strong>. Vi lyssnar på dina önskemål och utför en noggrann undersökning med digital scanning för att se om fasader är rätt väg. Vi skapar en tydlig plan och ger dig en uppfattning om hur ditt leende kan se ut.</p><p>När du känner dig trygg påbörjar vi arbetet. Oftast krävs en mycket försiktig förberedelse av tandytan, följt av ett exakt avtryck (eller digital scanning). Detta skickas till vår tandtekniker som skräddarsyr dina unika fasader i porslin eller komposit. Under tiden kan du få temporära fasader. Vid nästa besök limmar vi fast de permanenta fasaderna och ser till att form och färg matchar perfekt för ett <strong>naturligt och långvarigt resultat</strong> som du kommer att älska.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            }
+          },
+          "h3": "Porslin eller komposit – vad passar dig?",
+          "subtext_html": "<p>Valet av material för dina fasader beror på önskemål och förutsättningar. Båda ger vackra resultat:</p><ul><li><strong>Porslinsfasader:</strong> Ger överlägsen estetik, är mycket hållbara och motståndskraftiga mot missfärgningar. Livslängd 10–15 år.</li><li><strong>Kompositfasader:</strong> Mer kostnadseffektiva, enklare att reparera och tillverkas oftast snabbare. Kan vara något mindre hållbara och mottagliga för missfärgningar.</li></ul>"
+        },
+        "faq": [
+          {
+            "question": "Hur länge håller tandfasader?",
+            "answer": "Porslinsfasader är mycket hållbara och kan med god munhygien hålla i 10–15 år, ibland längre. Kompositfasader har generellt en kortare livslängd men är enklare att reparera vid behov. Regelbundna kontroller hjälper till att förlänga hållbarheten."
+          },
+          {
+            "question": "Gör behandlingen med tandfasader ont?",
+            "answer": "Behandlingen är i regel smärtfri. Eventuell slipning av tänderna är minimal och utförs under lokalbedövning om det behövs, så du känner inget obehag. Målet är alltid att du ska känna dig trygg och bekväm under hela processen."
+          },
+          {
+            "question": "Passar tandfasader för alla?",
+            "answer": "Tandfasader är en utmärkt lösning för många, men det krävs god munhälsa. Vid aktiva infektioner eller kraftig tandgnissling kan andra lösningar vara bättre. Våra tandläkare bedömer alltid dina förutsättningar under en konsultation."
+          },
+          {
+            "question": "Hur tar jag hand om mina fasader?",
+            "answer": "Skötseln av fasader är densamma som för dina naturliga tänder. Noggrann borstning med fluortandkräm två gånger om dagen och daglig rengöring mellan tänderna är avgörande. Regelbundna besök hos tandhygienist är också viktigt för att bibehålla resultatet."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "tandreglering",
+      "template": "template-treatment.php",
+      "type": "treatment",
+      "sections": {
+        "hero": {
+          "h1": "Tandreglering",
+          "ingress": "Räta ut dina tänder diskret och effektivt med modern tandreglering hos Älvsjö Tandvård. Vi erbjuder skräddarsydda lösningar för ett jämnare och mer harmoniskt leende.",
+          "bulletins": [
+            "Nästan osynlig",
+            "Skräddarsydda skenor",
+            "Bekväm behandling",
+            "Synliga resultat"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "tandreglering-bg.jpg"
+        },
+        "intro": {
+          "h2": "Ett jämnt leende som känns rätt för dig",
+          "ingress": "Med modern tandreglering får du inte bara ett vackrare leende, utan också bättre funktion och enklare munhygien. Vi anpassar behandlingen efter dina behov och önskemål."
+        },
+        "content_block_1": {
+          "h2": "Så fungerar modern tandreglering med osynliga skenor",
+          "text_html": "<p>Hos Älvsjö Tandvård erbjuder vi <strong>den senaste tekniken inom tandreglering</strong>, ofta med nästan osynliga skenor som effektivt korrigerar sneda tänder, bettfel och trångställningar. Processen börjar alltid med en noggrann konsultation där vi lyssnar på dina önskemål och gör en grundlig undersökning av dina tänder och käkar. Vi använder oss av <strong>digital scanning och panoramaröntgen</strong> för att skapa en exakt 3D-modell av din mun. Utifrån denna modell designar vi en serie individuellt anpassade, transparenta skenor som gradvis flyttar dina tänder till önskad position. Skenorna är avtagbara, vilket underlättar både måltider och den dagliga munhygienen, och bidrar till en bekvämare behandlingsupplevelse. Vi följer upp din framgång regelbundet.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "image_1_id": "tandreglering-image-1.jpg",
+          "image_2_id": "tandreglering-image-2.jpg"
+        },
+        "content_block_2": {
+          "h2": "Vad kan du förvänta dig av din tandreglering?",
+          "text_html": "<p>Att välja tandreglering hos Älvsjö Tandvård innebär en investering i både ditt leendes utseende och din munhälsa. Du kan förvänta dig ett <strong>jämnare och mer harmoniskt leende</strong>, men också förbättrad tuggfunktion och enklare rengöring av tänderna. Detta minskar risken för framtida problem som karies och tandköttsinflammation. Behandlingstiden varierar beroende på ditt utgångsläge och dina mål, men ligger ofta mellan 6 och 18 månader. Våra diskreta skenor är ett populärt val för både unga och vuxna som vill rätta till estetiska ojämnheter eller mer komplexa bettfel utan traditionella rälsar. Efter avslutad behandling säkerställer vi att resultatet blir bestående genom att rekommendera en retention, ofta med en tunn tråd på insidan av tänderna.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            }
+          },
+          "h3": "Fördelar med modern tandreglering",
+          "subtext_html": "<p>Vår moderna metod är designad för att passa din livsstil. Fördelarna är många:</p><ul><li><strong>Diskret</strong>: Nästan osynliga skenor.</li><li><strong>Flexibel</strong>: Avtagbar vid måltider och tandborstning.</li><li><strong>Effektiv</strong>: Korrigerar sneda tänder och bettfel.</li><li><strong>Bekväm</strong>: Inga vassa metallfästen.</li><li><strong>God hygien</strong>: Enklare att hålla rent i munnen.</li><li><strong>Snabbare resultat</strong>: Ofta kortare behandlingstid.</li></ul>"
+        },
+        "faq": [
+          {
+            "question": "Hur länge tar en tandregleringsbehandling?",
+            "answer": "Behandlingstiden varierar beroende på komplexitet. För enklare fall kan det ta 6 månader, medan mer omfattande korrigeringar kan sträcka sig upp till 18 månader. En konsultation ger dig en tydlig tidsplan."
+          },
+          {
+            "question": "Gör tandreglering ont?",
+            "answer": "Initialt kan du uppleva ett lätt tryck eller obehag när du byter till nya skenor, men detta går oftast över snabbt. De moderna skenorna är designade för att vara så bekväma som möjligt."
+          },
+          {
+            "question": "Hur ofta behöver jag besöka kliniken under behandlingen?",
+            "answer": "Du kommer att byta skenor själv hemma. Vi ses med jämna mellanrum, ofta var 6-8:e vecka, för att kontrollera framstegen och säkerställa att behandlingen går som planerat."
+          },
+          {
+            "question": "Vad kostar tandreglering hos Älvsjö Tandvård?",
+            "answer": "Kostnaden beror på behandlingens omfattning. Efter din inledande konsultation får du en detaljerad behandlingsplan med ett tydligt pris. Vi erbjuder även räntefri delbetalning."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "tandstentandhygienist",
+      "template": "template-treatment.php",
+      "type": "treatment",
+      "sections": {
+        "hero": {
+          "h1": "Tandsten/Tandhygienist",
+          "ingress": "Regelbunden rengöring hos en tandhygienist är grunden för en frisk mun. Vi hjälper dig att effektivt avlägsna tandsten och plack, och förebygga problem som tandköttsinflammation och tandlossning.",
+          "bulletins": [
+            "Friskare tandkött",
+            "Förebygger tandlossning",
+            "Minskar dålig andedräkt",
+            "Personlig rådgivning"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "tandstentandhygienist-bg.jpg"
+        },
+        "intro": {
+          "h2": "En frisk mun börjar med god hygien",
+          "ingress": "Tandsten är en vanlig orsak till många munproblem. Våra erfarna tandhygienister på Älvsjö Tandvård ser till att dina tänder och tandkött får den bästa vården, i en trygg och modern miljö mitt i Älvsjö."
+        },
+        "content_block_1": {
+          "h2": "Vad är tandsten och varför bildas den?",
+          "text_html": "<p>Tandsten är en hård beläggning som bildas när plack (bakterieavlagringar) inte borstas bort ordentligt och sedan förkalkas av mineraler i saliven. Processen kan variera från person till person och påverkas av bland annat salivsammansättning och genetik. Till skillnad från plack går tandsten <strong>inte att borsta bort hemma</strong> – den kräver professionell hjälp.</p><p>Om tandsten får sitta kvar kan den irritera tandköttet och leda till inflammation, så kallad <strong>gingivit</strong>. Utan behandling kan detta utvecklas till <strong>parodontit</strong> (tandlossning), en allvarlig sjukdom som i längden kan resultera i att du förlorar tänder. Hos Älvsjö Tandvård använder vi skonsamma och effektiva metoder för att avlägsna tandsten, så att din mun förblir frisk och stark.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "image_1_id": "tandstentandhygienist-image-1.jpg",
+          "image_2_id": "tandstentandhygienist-image-2.jpg"
+        },
+        "content_block_2": {
+          "h2": "Ditt besök hos tandhygienisten",
+          "text_html": "<p>När du besöker oss för tandstensborttagning får du en grundlig rengöring av tänder och tandkött. Våra tandhygienister är experter på att upptäcka och åtgärda problem i ett tidigt skede, och vi anpassar alltid behandlingen efter dina specifika behov. Vi vet att vissa kan uppleva obehag vid tandstensborttagning, särskilt om tandköttet är inflammerat. Därför erbjuder vi <strong>lokalbedövning</strong> – både i form av salva eller spray och vid behov injektion – för att du ska känna dig så bekväm som möjligt under hela behandlingen.</p><p>En avslappnad patient gör det enklare för oss att utföra ett noggrant arbete, och vi tar oss alltid tid att lyssna på dina funderingar. Vårt mål är att ditt besök ska vara en positiv upplevelse, så att du känner dig trygg att återkomma för regelbunden uppföljning och bevara din munhälsa livet ut.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            }
+          },
+          "h3": "Vad ingår i ett tandhygienistbesök?",
+          "subtext_html": "<p>Under ditt besök hos en av våra tandhygienister ingår vanligtvis:</p><ul><li>En noggrann undersökning av tänder och tandkött.</li><li>Effektiv borttagning av tandsten och plack.</li><li>Puts och polering av tänderna för en slät yta.</li><li>Fluorbehandling för att stärka emaljen.</li><li>Personlig rådgivning om din munhygien och kostvanor.</li><li>Upprättande av en individuell plan för framtida kontroller.</li></ul>"
+        },
+        "faq": [
+          {
+            "question": "Hur ofta bör jag besöka en tandhygienist?",
+            "answer": "Intervallet är individuellt och beror på din munhälsa. Generellt rekommenderar vi ett besök var sjätte till tolfte månad för att förebygga problem och bibehålla en god munhygien. Din tandhygienist ger dig en personlig rekommendation."
+          },
+          {
+            "question": "Gör det ont att ta bort tandsten?",
+            "answer": "Det kan upplevas som obehagligt, särskilt om du har mycket tandsten eller inflammerat tandkött. Vi erbjuder lokalbedövning, både ytlig bedövning med salva/spray och vid behov injektion, för att göra behandlingen så smärtfri som möjligt."
+          },
+          {
+            "question": "Kan jag borsta bort tandsten själv?",
+            "answer": "Nej, tandsten är för hård för att kunna borstas bort med en vanlig tandborste. Det kräver speciella instrument och tekniker som endast en tandhygienist eller tandläkare kan använda på ett säkert och effektivt sätt."
+          },
+          {
+            "question": "Varför får jag mer tandsten än andra?",
+            "answer": "Mängden tandsten du får beror ofta på din salivsammansättning, genetik och hur noggrann du är med din dagliga munhygien. Vissa har en naturlig benägenhet att bilda mer tandsten, oavsett hur väl de borstar."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "tandvardsradslatandlakarskrack",
+      "template": "template-treatment.php",
+      "type": "treatment",
+      "sections": {
+        "hero": {
+          "h1": "Tandvårdsrädsla/Tandläkarskräck",
+          "ingress": "Känner du oro inför tandläkarbesöket? Du är inte ensam. Hos Älvsjö Tandvård möter vi dig med extra tid och förståelse, så att du kan känna dig trygg och omhändertagen.",
+          "bulletins": [
+            "Trygg miljö",
+            "Anpassad takt",
+            "Lugnande metoder",
+            "Förstående team"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "tandvardsradslatandlakarskrack-bg.jpg"
+        },
+        "intro": {
+          "h2": "Vi möter din oro med förståelse och tålamod",
+          "ingress": "Tandvårdsrädsla är vanligt, men det ska inte hindra dig från att få den vård du behöver. Hos oss på Älvsjö Tandvård sätter vi din trygghet först och skräddarsyr besöket efter dina behov."
+        },
+        "content_block_1": {
+          "h2": "Du är långt ifrån ensam om din rädsla",
+          "text_html": "<p>Många känner en viss oro inför att besöka tandläkaren, och en betydande del upplever en djupare tandvårdsrädsla. Detta är inget du behöver skämmas för, och det är en känsla vi tar på största allvar här på Älvsjö Tandvård. Att skjuta upp nödvändiga tandvårdsbesök på grund av rädsla kan leda till att små problem växer sig större, vilket i sin tur kan förstärka oron. Vårt viktigaste mål är att bryta den cirkeln.</p><p>I våra nyrenoverade, luftiga lokaler mitt i Älvsjö skapar vi en <strong>lugn och trygg miljö</strong> där du får styra tempot. Vi vet att nyckeln till att övervinna rädslan ligger i att bygga förtroende. Därför får du alltid extra tid hos oss, och vi börjar alltid med ett samtal för att förstå vad just du är orolig för. Inget steg tas utan ditt medgivande, och du kan när som helst be om en paus.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "image_1_id": "tandvardsradslatandlakarskrack-image-1.jpg",
+          "image_2_id": "tandvardsradslatandlakarskrack-image-2.jpg"
+        },
+        "content_block_2": {
+          "h2": "Anpassad vård för en trygg upplevelse",
+          "text_html": "<p>För oss handlar det om att du ska känna dig trygg och sedd genom hela ditt besök. Vi inleder alltid med att <strong>lyssna på dina tankar och rädslor</strong>, utan krav på att något ska ske direkt. Du bestämmer hur fort vi går fram, om du vill veta exakt vad som händer i varje steg, eller om du föredrar att bli distraherad. Att du har kontroll är avgörande.</p><p>Vi erbjuder flera metoder för att underlätta ditt besök. Det kan vara allt från avslappningstekniker och att helt enkelt få ta pauser vid behov, till att använda lustgas för att dämpa oro. Vårt dedikerade team av tandläkare, tandhygienister och tandsköterskor är erfarna i att möta patienter med tandvårdsrädsla och är här för att stötta dig. Målet är att varje besök ska kännas hanterbart, och att du successivt ska känna dig tryggare att komma tillbaka till oss på Prästgårdsgränd 4.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            }
+          },
+          "h3": "Ta första steget idag",
+          "subtext_html": "<p>Att bara prata om din rädsla är ett stort steg. Kontakta oss för en första, förutsättningslös konsultation där vi bara pratar och lyssnar. Du kan ringa oss på 08-12 85 45 55 eller boka tid online.</p><ul><li>Vi pratar igenom dina funderingar</li><li>Vi planerar ett lugnt första besök</li><li>Inga ingrepp görs utan din fulla acceptans</li></ul>"
+        },
+        "faq": [
+          {
+            "question": "Kan jag få lugnande medel?",
+            "answer": "Ja, om det bedöms lämpligt kan vi erbjuda lugnande medicin som hjälper dig att slappna av under behandlingen. Berätta för oss redan vid bokningen så vi kan planera för det."
+          },
+          {
+            "question": "Vad händer under det första besöket om jag är rädd?",
+            "answer": "Ditt första besök fokuserar på att bygga förtroende. Vi pratar i lugn och ro om dina farhågor och går igenom vad som ska ske. Inga ingrepp görs utan att du känner dig helt redo."
+          },
+          {
+            "question": "Hur lång tid tar det att övervinna tandvårdsrädsla?",
+            "answer": "Det är väldigt individuellt och kan ta olika lång tid. Vårt mål är att du gradvis ska känna dig tryggare för varje besök, med vår förståelse och anpassade vård."
+          },
+          {
+            "question": "Vad är skillnaden mellan oro och tandvårdsrädsla?",
+            "answer": "Oro är en mildare form, medan tandvårdsrädsla (fobi) innebär en stark ångest som kan leda till att man helt undviker vård. Vi hjälper dig oavsett var på skalan du befinner dig."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "tillhor-du-riskgrupp",
+      "template": "template-treatment.php",
+      "type": "treatment",
+      "sections": {
+        "hero": {
+          "h1": "Tillhör du riskgrupp?",
+          "ingress": "Vi ser till att ditt tandvårdsbesök blir tryggt och anpassat, även om du tillhör en riskgrupp. Hos Älvsjö Tandvård får du en lugn och säker upplevelse, med extra hänsyn till dina behov.",
+          "bulletins": [
+            "Anpassat omhändertagande",
+            "Trygg miljö",
+            "Utan väntrum",
+            "Personlig service"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "tillhor-du-riskgrupp-bg.jpg"
+        },
+        "intro": {
+          "h2": "Anpassad tandvård för din trygghet",
+          "ingress": "Att besöka tandläkaren ska kännas tryggt för alla. Hos Älvsjö Tandvård har vi speciella rutiner för att du som tillhör en riskgrupp ska känna dig extra omhändertagen och säker under hela ditt besök."
+        },
+        "content_block_1": {
+          "h2": "Ditt besök, steg för steg – fokus på säkerhet",
+          "text_html": "<p>Hos Älvsjö Tandvård vill vi att ditt besök ska vara så smidigt och tryggt som möjligt. Därför har vi utarbetat tydliga rutiner för dig som tillhör en riskgrupp, så att du kan känna dig helt säker under hela din vistelse hos oss. Vi undviker situationer med väntrum och folksamlingar, helt i linje med Folkhälsomyndighetens rekommendationer.</p><p>När du anländer till kliniken på Prästgårdsgränd 4 ber vi dig att <strong>ringa oss innan du kommer in</strong>. Vi förbereder då ditt rum och ser till att allt är redo. När det är dags ringer vi tillbaka och möter dig vid dörren. Du eskorteras direkt till ett av våra noggrant desinficerade behandlingsrum, utrustat med sterila instrument. Hela upplevelsen är utformad för att minimera onödiga kontakter och ge dig fullt fokus på din behandling.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "image_1_id": "tillhor-du-riskgrupp-image-1.jpg",
+          "image_2_id": "tillhor-du-riskgrupp-image-2.jpg"
+        },
+        "content_block_2": {
+          "h2": "Vem omfattas av våra anpassade rutiner?",
+          "text_html": "<p>Våra speciella rutiner är till för att skydda de mest sårbara i samhället. Du omfattas om du är äldre, har ett nedsatt immunförsvar, diabetes, hjärt-kärlsjukdomar, andra kroniska sjukdomar, eller om du bor tillsammans med någon i en riskgrupp. Vi ber dig också att meddela oss om du arbetar inom vårdsektorn. Att informera oss i förväg är avgörande för att vi ska kunna förbereda ditt besök på bästa sätt.</p><p>När du bokar din tid hos oss, är det viktigt att du <strong>informerar oss om att du tillhör en riskgrupp</strong>. Vi noterar detta i din bokning så att vi kan planera för ditt trygga besök. Dessutom får alla våra patienter ett sms 24 timmar innan sin tid med en påminnelse om att stanna hemma vid förkylningssymptom – utan kostnad för sen avbokning. Detta bidrar till en säkrare miljö för alla.</p>",
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            }
+          },
+          "h3": "Enkel och trygg betalning",
+          "subtext_html": "Vi erbjuder flera trygga betalningsalternativ:\n<ul>\n  <li><strong>Swish:</strong> Betala enkelt och direkt i behandlingsrummet.</li>\n  <li><strong>Kort:</strong> Om du betalar med kort följer vi dig till receptionen, och desinfektionsmedel finns tillgängligt för dina händer.</li>\n</ul>\nVårt mål är att din upplevelse ska vara trygg från ankomst till avfärd."
+        },
+        "faq": [
+          {
+            "question": "Hur meddelar jag att jag tillhör en riskgrupp?",
+            "answer": "Berätta för oss när du bokar din tid, antingen via telefon eller när du fyller i vår onlinebokning. Vi noterar det då i din journal för att kunna förbereda besöket på bästa sätt."
+          },
+          {
+            "question": "Kan jag ta med en anhörig om jag tillhör en riskgrupp?",
+            "answer": "Ja, du kan absolut ta med en anhörig. Vi ber er då båda att följa samma rutiner vid ankomst och under besöket för att säkerställa allas trygghet."
+          },
+          {
+            "question": "Vad händer om jag får symptom innan mitt besök?",
+            "answer": "Om du får förkylningssymptom ber vi dig att boka om din tid. Du kan avboka via sms-länken du får 24 timmar innan, utan att debiteras en avbokningsavgift."
+          },
+          {
+            "question": "Är kliniken allmänt anpassad för smittskydd?",
+            "answer": "Ja, hela kliniken är nyrenoverad och har moderna ventilationssystem. Vi följer strikta hygienrutiner och desinficerar behandlingsrummen noggrant efter varje patient, utöver de anpassade rutinerna för riskgrupper."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "rantefritt",
+      "template": "template-info.php",
+      "type": "info",
+      "sections": {
+        "hero": {
+          "h1": "Räntefritt",
+          "ingress": "För en smidigare ekonomisk planering av din tandvård – vi hjälper dig att dela upp betalningen räntefritt, så du kan fokusera på ditt välmående och ditt leende.",
+          "bulletins": [
+            "Dela upp kostnaden",
+            "Räntefri delbetalning",
+            "Upp till 12 månader",
+            "Hjälp med ansökan"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "rantefritt-bg.jpg"
+        },
+        "intro": {
+          "h2": "Gör tandvården tillgänglig för dig",
+          "ingress": "Vi vill att du ska kunna prioritera din tandhälsa utan ekonomisk oro. Därför erbjuder Älvsjö Tandvård flexibla delbetalningslösningar, så du kan få den vård du behöver när du behöver den."
+        },
+        "content_block": {
+          "h2": "Så fungerar räntefri delbetalning hos oss",
+          "text_html": "<p>På Älvsjö Tandvård vill vi att du ska kunna prioritera din tandhälsa utan ekonomisk stress. Därför erbjuder vi <strong>räntefri delbetalning</strong> i upp till 12 månader via våra samarbetspartners. Detta ger dig flexibilitet att sprida kostnaden över tid och få den vård du behöver när du behöver den. Vår reception hjälper dig med ansökan och att hitta det bästa upplägget för dig, förutsatt en godkänd kreditprövning. Vi finns här för att svara på dina frågor och göra processen enkel.</p><p>Det är viktigt att vara medveten om att delbetalning är ett ekonomiskt åtagande. Om du inte kan betala tillbaka skulden i tid riskerar du en betalningsanmärkning. För rådgivning kan du vända dig till budget- och skuldrådgivningen i din kommun.</p>",
+          "image_1_id": "rantefritt-image-1.jpg"
+        },
+        "faq": [
+          {
+            "question": "Vad innebär räntefri delbetalning?",
+            "answer": "Det betyder att du kan fördela kostnaden för din tandvård över tid, upp till 12 månader, utan att betala extra ränta. Du betalar en fast summa varje månad."
+          },
+          {
+            "question": "Hur ansöker jag om delbetalning?",
+            "answer": "Prata med vår personal i receptionen vid ditt besök. De guidar dig genom ansökningsprocessen och hjälper dig att hitta en lösning som passar dig, efter en godkänd kreditprövning."
+          },
+          {
+            "question": "Finns det några risker med delbetalning?",
+            "answer": "Ja, det är ett ekonomiskt åtagande. Om du inte kan betala i tid kan det leda till en betalningsanmärkning. Vi rekommenderar att du noga överväger din betalningsförmåga."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "barnspecialist",
+      "template": "template-info.php",
+      "type": "info",
+      "sections": {
+        "hero": {
+          "h1": "Barnspecialist",
+          "ingress": "På Älvsjö Pedodonti möter vi barn och unga upp till 23 år med specialistkompetens. Vi skapar trygga och positiva tandvårdsupplevelser, anpassade efter varje individs behov och känslor.",
+          "bulletins": [
+            "Specialist för barn",
+            "Trygga upplevelser",
+            "Korta väntetider",
+            "Region Stockholm"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "barnspecialist-bg.jpg"
+        },
+        "intro": {
+          "h2": "Älvsjö Pedodonti: Specialisttandvård för barn och unga",
+          "ingress": "Vårt team fokuserar på att bygga en positiv relation till tandvården redan från ung ålder. Vi möter varje barn med anpassad omsorg, skapar trygghet och behandlar på ett sätt som stärker deras välmående."
+        },
+        "content_block": {
+          "h2": "Anpassad specialistvård med omtanke",
+          "text_html": "<p>Älvsjö Pedodonti är vår specialistklinik för <strong>barn och unga upp till 23 års ålder</strong>. Vi arbetar på uppdrag av Region Stockholm och tar emot remisser via Libretto för att säkerställa expertis och trygg vård för ditt barn.</p>\n<p>Vårt specialistteam fokuserar på att stärka barns positiva upplevelse av tandvård genom avancerad psykologisk omvårdnad. Vi anpassar behandlingen efter varje barns unika behov. För en trygg upplevelse erbjuder vi <strong>lustgas, lugnande medel (Midazolam) och i särskilda fall narkosbehandling</strong>. Tandvård är alltid <strong>gratis för barn och ungdomar upp till 19 år</strong>, för att alla ska få tillgång till bästa munhälsa.</p>",
+          "image_1_id": "barnspecialist-image-1.jpg"
+        },
+        "faq": [
+          {
+            "question": "Vilka kan få specialisttandvård hos Älvsjö Pedodonti?",
+            "answer": "Älvsjö Pedodonti är en specialistklinik för barn och unga upp till 23 år. Vi tar emot remisser via Libretto och arbetar på uppdrag av Region Stockholm för att erbjuda specialistvård."
+          },
+          {
+            "question": "Vad gör ni om mitt barn är rädd för tandläkaren?",
+            "answer": "Vi möter rädda barn med extra tålamod och anpassad omsorg. Vårt team är specialiserat på psykologisk omvårdnad och erbjuder vid behov lustgas, lugnande medel eller narkos för en trygg upplevelse."
+          },
+          {
+            "question": "Kostar tandvården något för barn?",
+            "answer": "Nej, hos Älvsjö Tandvård är all tandvård alltid gratis för barn och ungdomar upp till 19 år. Det gäller både allmäntandvård och specialisttandvård på remiss."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "lista-dig",
+      "template": "template-info.php",
+      "type": "info",
+      "sections": {
+        "hero": {
+          "h1": "Lista dig",
+          "ingress": "Söker du en trygg och modern tandvårdsklinik mitt i Älvsjö? Välkommen att lista dig hos oss. Vi tar hand om hela familjen med omtanke och hög kvalitet – för ett friskt och strålande leende.",
+          "bulletins": [
+            "Hela familjen",
+            "Modern klinik",
+            "Akuttider snabbt",
+            "Mitt i Älvsjö"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "lista-dig-bg.jpg"
+        },
+        "intro": {
+          "h2": "Enkel tandvård för hela familjen i Älvsjö",
+          "ingress": "Att få en tid hos tandläkaren ska vara enkelt och smidigt. Hos Älvsjö Tandvård får du en trygg och professionell upplevelse, med fokus på kvalitet och snabb service för både stora och små."
+        },
+        "content_block": {
+          "h2": "Bli en del av Älvsjö Tandvård – din nya tandvårdsklinik",
+          "text_html": "<p>Att känna sig trygg hos tandläkaren är avgörande. Hos Älvsjö Tandvård möts du av erfarna behandlare som lyssnar på dina behov och anpassar vården. Vår nyrenoverade klinik, <strong>bara två minuter från Älvsjö pendeltågsstation</strong>, är designad för att du ska känna dig välkommen och bekväm. Vi erbjuder ett brett utbud av tjänster för hela familjen, från förebyggande vård och allmäntandvård till specialbehandlingar som implantat och Invisalign.</p><p>För barn och unga upp till 19 år är all tandvård <strong>kostnadsfri</strong>, och vi har även en specialistenhet för barntandvård, Älvsjö Pedodonti. Vi vet att tiden är viktig, därför strävar vi efter att erbjuda snabba tider och har god tillgänglighet för akuta besvär. Fyll i dina uppgifter nedan så sköter vi resten och ser till att du får den tandvård du behöver, när du behöver den.</p>",
+          "image_1_id": "lista-dig-image-1.jpg"
+        },
+        "faq": [
+          {
+            "question": "Hur listar jag mig hos er?",
+            "answer": "Att lista dig hos Älvsjö Tandvård är enkelt. Fyll bara i formuläret på den här sidan med dina uppgifter. Vi ser sedan till att du får relevanta kallelser och information, och att din patientdata hanteras tryggt och korrekt i enlighet med vår dataskyddspolicy."
+          },
+          {
+            "question": "Är det gratis för barn och unga?",
+            "answer": "Ja, allmän tandvård är helt kostnadsfri för barn och ungdomar upp till 19 år. Vi erbjuder även specialisttandvård för barn via Älvsjö Pedodonti, dit vi tar emot remisser från Region Stockholm. Ett tryggt val för hela familjen."
+          },
+          {
+            "question": "Kan jag få akut tid om jag listar mig?",
+            "answer": "Absolut. Även om du listar dig för regelbunden tandvård kan du alltid kontakta oss för akuta besvär. Ring oss direkt på 08-12 85 45 55 så gör vi vårt bästa för att erbjuda dig en tid samma dag, oavsett om du är listad eller inte."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "remiss",
+      "template": "template-info.php",
+      "type": "info",
+      "sections": {
+        "hero": {
+          "h1": "Remiss",
+          "ingress": "Skicka eller ta emot en remiss till Älvsjö Tandvård för specialistvård eller för att vi ska bli din nya vårdgivare. Enkelt och smidigt, alltid med patientens bästa i fokus.",
+          "bulletins": [
+            "Specialistvård",
+            "Barn och unga",
+            "Trygg remisshantering",
+            "Enkel process"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "remiss-bg.jpg"
+        },
+        "intro": {
+          "h2": "Välkommen att skicka eller ta emot remiss hos oss",
+          "ingress": "Oavsett om du är remitterande kollega eller patient som söker specialistvård, kan du lita på att vi erbjuder trygg och modern tandvård. Vi samarbetar för din munhälsa."
+        },
+        "content_block": {
+          "h2": "Så fungerar remisser till Älvsjö Tandvård",
+          "text_html": "<p>På Älvsjö Tandvård värdesätter vi samarbetet med både patienter och remitterande kollegor. Har du som patient fått en remiss till oss? Då är du varmt välkommen att boka tid – vi går igenom din remiss noggrant och planerar nästa steg. Tack vare vårt breda utbud av tjänster, från tandimplantat och Invisalign till avancerad barntandvård, hittar du ofta den specialistkompetens du behöver direkt hos oss i våra moderna och ljusa lokaler.</p><p>För dig som tandvårdskollegor som vill remittera en patient, erbjuder vi expertis inom flera områden. Vi är särskilt stolta över <strong>Älvsjö Pedodonti</strong>, vår specialistenhet för barn och unga upp till 23 år, där vi tar emot remisser via Libretto på uppdrag av Region Stockholm. Vi säkerställer att alla remitterade patienter får ett professionellt och omhändertagande bemötande. Målet är alltid en smidig process och ett tryggt samarbete, med patientens välbefinnande i fokus.</p>",
+          "image_1_id": "remiss-image-1.jpg"
+        },
+        "faq": [
+          {
+            "question": "Vem kan skicka remiss till Älvsjö Tandvård?",
+            "answer": "Andra tandläkare och läkare kan remittera patienter till oss. För barntandvård via Älvsjö Pedodonti tar vi emot remisser via Libretto, på uppdrag av Region Stockholm."
+          },
+          {
+            "question": "Hur vet jag om jag behöver en remiss?",
+            "answer": "Din nuvarande vårdgivare informerar dig om en remiss behövs för specialistvård. Är du osäker? Kontakta oss direkt så bedömer vi om en remiss är relevant för ditt vårdbehov."
+          },
+          {
+            "question": "Hur bokar jag tid med en remiss?",
+            "answer": "Med din remiss i handen, kontakta oss via telefon eller webbokning. Nämn att du har en remiss när du bokar, så ser vi till att du får rätt specialist och anpassad tid för din behandling."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "kampanjer",
+      "template": "template-info.php",
+      "type": "info",
+      "sections": {
+        "hero": {
+          "h1": "Kampanjer",
+          "ingress": "Upptäck våra aktuella erbjudanden och påbörja din resa mot en friskare mun. Som ny patient hos Älvsjö Tandvård får du en trygg start med förmånliga priser på undersökning och konsultationer.",
+          "bulletins": [
+            "Förmånliga priser",
+            "Nya patienter",
+            "Modern tandvård",
+            "Enkel bokning"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "kampanjer-bg.jpg"
+        },
+        "intro": {
+          "h2": "Starta din tandvårdsresa hos oss",
+          "ingress": "Vi vill att det ska vara enkelt att ta hand om din munhälsa. Som ny patient kan du just nu ta del av flera förmånliga erbjudanden för att lära känna vår moderna klinik mitt i Älvsjö."
+        },
+        "content_block": {
+          "h2": "Aktuella kampanjer för nya patienter",
+          "text_html": "Hos Älvsjö Tandvård välkomnar vi dig som ny patient med attraktiva erbjudanden för en enklare start.<p><strong>Undersökning 690 kr + 500 kr bonuscheck:</strong>Få en komplett undersökning för 690 kr (ord. pris 1100 kr). Nya patienter (30-65 år) får en <strong>bonuscheck på 500 kr</strong> till nästa behandling. Gäller 3 månader, ej med andra rabatter.</p><p><strong>Invisalign-konsultation 199 kr + 2500 kr värdecheck:</strong>Överväg osynlig tandreglering med en konsultation för 199 kr. En <strong>värdecheck på 2500 kr</strong> dras av från behandlingen. Professionell tandblekning ingår efter avslutad behandling.</p>",
+          "image_1_id": "kampanjer-image-1.jpg"
+        },
+        "faq": [
+          {
+            "question": "Vilka krav finns för bonuschecken på 500 kr?",
+            "answer": "Bonuschecken gäller dig som är ny patient hos oss, mellan 30-65 år. Den är giltig i 3 månader från undersökningsdatumet och kan användas vid ditt nästa besök. Den är personlig och kan inte kombineras med andra rabatter."
+          },
+          {
+            "question": "Vad ingår i erbjudandet för osynlig tandreglering?",
+            "answer": "Du får en konsultation för 199 kr, en värdecheck på 2500 kr som dras av från den totala kostnaden för behandlingen. Dessutom ingår professionell tandblekning efter att din tandreglering är avslutad."
+          },
+          {
+            "question": "Hur bokar jag tid för en kampanj?",
+            "answer": "Du bokar enkelt din tid direkt via vår onlinebokning på alvsjotandvard.se eller genom att ringa oss på 08-12 85 45 55. Berätta gärna att du vill ta del av en kampanj när du bokar."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "mina-tider",
+      "template": "template-info.php",
+      "type": "info",
+      "sections": {
+        "hero": {
+          "h1": "Mina tider",
+          "ingress": "Här hittar du praktisk information om dina bokade tider hos Älvsjö Tandvård. Vi strävar efter att göra ditt besök så smidigt och bekymmersfritt som möjligt.",
+          "bulletins": [
+            "Påminnelser via SMS",
+            "Enkel ombokning",
+            "Hitta till oss",
+            "Frågor & svar"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "mina-tider-bg.jpg"
+        },
+        "intro": {
+          "h2": "Allt om dina besök hos oss",
+          "ingress": "Att ha koll på dina tandvårdsbesök ska vara enkelt. Vi ger dig all information du behöver i god tid, så du kan känna dig trygg och förberedd inför din nästa tid hos oss i Älvsjö."
+        },
+        "content_block": {
+          "h2": "Inför och under ditt besök",
+          "text_html": "<p>Vi vet att livet är fullt av åtaganden. För att ditt besök hos oss ska bli så smidigt som möjligt skickar vi dig en <strong>påminnelse via SMS eller e-post</strong> några dagar innan din bokade tid. Det är en extra service så du enkelt ska komma ihåg ditt besök.</p><p>Skulle något oväntat inträffa och du behöver ändra din tid, ber vi dig att <strong>kontakta oss så snart som möjligt</strong> på 08-12 85 45 55. Genom att meddela oss i god tid kan vi erbjuda din tid till någon annan som behöver vård. Kom ihåg att avbokning måste ske senast 24 timmar innan din tid för att undvika debitering.</p><p>När det är dags för besöket hittar du oss centralt i Älvsjö, bara två minuter från pendeltåget, på Prästgårdsgränd 4. Vår klinik är nyrenoverad och tillgänglighetsanpassad med hiss. Vi ser fram emot att ta hand om din munhälsa.</p>",
+          "image_1_id": "mina-tider-image-1.jpg"
+        },
+        "faq": [
+          {
+            "question": "Hur avbokar jag min tid?",
+            "answer": "Kontakta oss på 08-12 85 45 55 så snart som möjligt. För att undvika debitering måste avbokning ske minst 24 timmar före din bokade tid. Din tid kan då erbjudas till någon som behöver akuttandvård."
+          },
+          {
+            "question": "Vad händer om jag missar min tid?",
+            "answer": "Om du inte avbokar din tid senast 24 timmar i förväg debiteras du enligt klinikens taxa för uteblivet besök. Detta är för att täcka kostnaden för den reserverade stolen och personalens tid. Vi uppskattar om du meddelar oss i god tid."
+          },
+          {
+            "question": "Behöver jag förbereda något inför mitt besök?",
+            "answer": "Vänligen ta med legitimation till ditt besök. Om du har ett frikort eller är berättigad till ekonomiskt stöd för tandvård, meddela oss vid ankomst så vi kan hantera det korrekt. Förbered dig annars bara på att vi tar hand om dig."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "kontakt",
+      "template": "template-contact.php",
+      "type": "contact",
+      "sections": {
+        "hero": {
+          "h1": "Kontakt",
+          "ingress": "Vi finns här för dig – centralt i Älvsjö, bara två minuter från pendeltåget. Oavsett om du behöver en rutinundersökning eller akut hjälp, är du välkommen till en modern klinik där du känner dig sedd.",
+          "bulletins": [
+            "Prästgårdsgränd 4",
+            "2 min från pendeln",
+            "08-12 85 45 55",
+            "Öppet måndag–lördag"
+          ],
+          "buttons": {
+            "boka": {
+              "title": "Boka tid",
+              "url": "#tdl-booking-widget"
+            },
+            "ring": {
+              "title": "Ring oss",
+              "url": "tel:{{company_phone}}"
+            }
+          },
+          "bg_image_id": "kontakt-bg.jpg"
+        },
+        "contact_block": {
+          "h2": "Hitta till oss i Älvsjö",
+          "text_html": "<p>Älvsjö Tandvård finns på Prästgårdsgränd 4, mitt i Älvsjö. Endast två minuter från pendeltåget och intill Vårdcentralen. Kliniken är tillgänglighetsanpassad med hiss. Kontakta oss på 08-12 85 45 55 för tidsbokning, eller boka smidigt online via alvsjotandvard.se.</p>"
+        }
+      }
+    }
+  ]
+}

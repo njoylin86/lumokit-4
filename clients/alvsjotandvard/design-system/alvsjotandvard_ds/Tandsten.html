@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Tandsten · Tandhygienist · Älvsjö Tandvård</title>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="subpage.jsx"></script>
+
+<script type="text/babel">
+
+function BenefitsGrid() {
+  const items = [
+    { title: 'Förebygger tandlossning', desc: 'Tandsten under tandköttet (subgingival) orsakar parodontit — den vanligaste orsaken till tandförlust hos vuxna. Regelbunden rengöring stoppar processen.' },
+    { title: 'Fräschare andedräkt', desc: 'Plack och bakterieanhopning är den primära orsaken till dålig andedräkt. Professionell rengöring ger märkbart resultat direkt.' },
+    { title: 'Ljusare tänder', desc: 'Ytliga missfärgningar från kaffe, te och tobak poleras bort. Du lämnar kliniken med synligt renare och fräschare tänder.' },
+    { title: 'Hjärthälsa', desc: 'Forskning visar koppling mellan parodontit och hjärt-kärlsjukdom. Frisk munhygien är en investering i hela kroppens hälsa.' },
+    { title: 'Tidig diagnostik', desc: 'Vid varje hygienistbesök kontrolleras tänder, tandkött och slemhinnor — tidiga tecken på karies och parodontit identifieras.' },
+    { title: 'Individuella råd', desc: 'Du får personliga råd om borsningsteknik, tandtråd, skölj och hjälpmedel som passar just din munhälsoprofil.' },
+  ];
+  return (
+    <section className="section" style={{ background: 'var(--white)' }}>
+      <div className="container-wide">
+        <div style={{ marginBottom: 56, paddingBottom: 32, borderBottom: '1px solid var(--border)' }}>
+          <div className="eyebrow" style={{ marginBottom: 16 }}>Varför tandhygienist</div>
+          <h2 style={{ maxWidth: '22ch' }}>Sex anledningar att prioritera din tandhygienist.</h2>
+        </div>
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: 1, background: 'var(--border)',
+          border: '1px solid var(--border)',
+        }}>
+          {items.map((it, i) => (
+            <article key={i} style={{ background: 'var(--white)', padding: '40px 32px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <h3 style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 400,
+                fontSize: 24, lineHeight: 1.2, letterSpacing: '-0.02em',
+                color: 'var(--ink-700)', margin: 0,
+              }}>{it.title}</h3>
+              <p style={{ fontSize: 14, lineHeight: 1.65, color: 'var(--ink-500)', margin: 0 }}>{it.desc}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function App() {
+  const faq = [
+    { question: 'Hur ofta bör jag besöka en tandhygienist?', answer: 'Det varierar beroende på din riskprofil. Lågriskvuxna kan klara sig med ett besök per år, medan patienter med hög kariesrisk, parodontit eller rökning bör komma var 3–6 månad. Vi rekommenderar rätt intervall baserat på din munhälsa.' },
+    { question: 'Gör det ont att ta bort tandsten?', answer: 'Vanligtvis inte. Ultraljudsrengöring och handinstrument är skonsamma. Vid känsligt tandkött eller djupt sittande tandsten under gingivan kan vi bedöva lokalt för din komfort.' },
+    { question: 'Vad är skillnaden mellan tandsten och plack?', answer: 'Plack är en mjuk, färglös bakteriefilm som dagligen bildas på tänderna och kan tas bort med tandborstning. Tandsten är mineraliserat plack — hårt som cement — som inte går att borsta bort utan professionell instrumentering.' },
+    { question: 'Kan jag gå till tandhygienist utan remiss?', answer: 'Ja — du bokar direkt hos oss utan remiss. Vi kontrollerar alltid tandstatus och informerar din tandläkare om eventuella fynd som kräver behandling.' },
+  ];
+
+  return (
+    <>
+      <Header />
+      <TreatmentHero
+        eyebrow="N° 07 — Tandsten · Tandhygienist"
+        title={<>Professionell rengöring —<br/><span className="italic" style={{ color: 'var(--sage-600)' }}>grunden för allt.</span></>}
+        ingress="Regelbunden tandhygienistbehandling är det mest effektiva sättet att förebygga karies, tandlossning och dålig andedräkt. Våra erfarna tandhygienister rengör noggrant och ger dig verktygen för hemvård."
+        bullets={['Ultraljudsrengöring', 'Individuell riskbedömning', 'Kostnadsfri för barn', 'Ingen remiss krävs']}
+        img="img/t-tandsten.jpg"
+        stat={{ label: 'Rekommenderat intervall', value: '6–12', sub: 'månader för de flesta vuxna.' }}
+        caption="Tandhygienist — alvsjotandvard.se · 08 12 85 45 55"
+      />
+      <BenefitsGrid />
+      <ContentBlock
+        eyebrow="Behandlingen"
+        title="Vad händer vid ett tandhygienistbesök?"
+        html={`<p>Besöket börjar med en <strong>parodontal undersökning</strong> — vi mäter fickan runt varje tand för att bedöma tandköttsläget och identifiera eventuell inflammation eller tandlossning.</p><p>Sedan rengör vi tänderna systematiskt med <strong>ultraljud</strong> (för att lösa upp och ta bort tandsten) och <strong>handinstrument</strong> (för noggrann rengöring av tandytor och fickor). Avslutningsvis poleras tänderna med slippasta.</p><p>Vid varje besök screenar vi även för karies, slemhinneförändringar och tecken på tandgnissling. Fynd dokumenteras och kommuniceras till din ansvarige tandläkare.</p>`}
+        img="img/munhygienartiklar-tandmodell-tandborste.jpg"
+      />
+      <ContentBlock
+        eyebrow="Hemvård"
+        title="Det du gör hemma spelar störst roll."
+        html={`<p>Professionell rengöring var 6–12 månad kan aldrig ersätta daglig hemvård — men det kan optimera den. Vi analyserar din borsningsteknik och ger konkreta råd:</p><ul style="padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 16px 0;"><li style="display: flex; gap: 12px; align-items: baseline; font-size: 15px; color: var(--ink-500)"><span style="color: var(--sage-600); font-weight: 600; font-size: 11px; letter-spacing: 0.14em; min-width: 24px; font-family: var(--font-sans);">→</span> Rätt borsningsteknik (Bassborstningsteknik i 45°)</li><li style="display: flex; gap: 12px; align-items: baseline; font-size: 15px; color: var(--ink-500)"><span style="color: var(--sage-600); font-weight: 600; font-size: 11px; letter-spacing: 0.14em; min-width: 24px; font-family: var(--font-sans);">→</span> Mellantandsrengöring — tandtråd eller mellanrumsborste</li><li style="display: flex; gap: 12px; align-items: baseline; font-size: 15px; color: var(--ink-500)"><span style="color: var(--sage-600); font-weight: 600; font-size: 11px; letter-spacing: 0.14em; min-width: 24px; font-family: var(--font-sans);">→</span> Fluoranvändning och sköljmedel anpassat din riskprofil</li><li style="display: flex; gap: 12px; align-items: baseline; font-size: 15px; color: var(--ink-500)"><span style="color: var(--sage-600); font-weight: 600; font-size: 11px; letter-spacing: 0.14em; min-width: 24px; font-family: var(--font-sans);">→</span> Elaktig tandborste kontra manuell — när det spelar roll</li></ul>`}
+        img="img/clinic-detail-1.jpg"
+        imgRight={true}
+        bg="var(--cream)"
+        ctaLabel="Boka tandhygienistbesök"
+      />
+      <FAQ items={faq} title="Vanliga frågor om tandhygien." />
+      <CTAStrip
+        title="Boka tandhygienistbesök"
+        sub="Förebyggande vård är alltid billigare än behandling. Boka online eller ring 08-12 85 45 55."
+      />
+      <Footer />
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

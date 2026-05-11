@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Kampanjer · Älvsjö Tandvård</title>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="subpage.jsx"></script>
+
+<script type="text/babel">
+
+// Big offer cards
+function OfferCards() {
+  const offers = [
+    {
+      tag: 'Ny patient · 30–65 år',
+      title: 'Undersökning 690 kr',
+      sub: 'ordinarie pris 1 100 kr',
+      bonus: '+ 500 kr',
+      bonusLabel: 'bonuscheck till nästa behandling',
+      fine: 'Bonuschecken gäller i 3 månader från undersökningsdatumet. Personlig och ej kombinerbar med andra rabatter.',
+      cta: 'Boka undersökning',
+      img: 'img/undersok.jpg',
+    },
+    {
+      tag: 'Osynlig tandreglering',
+      title: 'Invisalign-konsultation 199 kr',
+      sub: 'ordinarie pris 2 480 kr',
+      bonus: '+ 2 500 kr',
+      bonusLabel: 'värdecheck på behandlingen',
+      fine: 'Professionell tandblekning ingår efter avslutad Invisalign-behandling. Förutsätter påbörjad behandling.',
+      cta: 'Boka konsultation',
+      img: 'img/t-tandreglering.jpg',
+    },
+  ];
+
+  return (
+    <section className="section" style={{ background: 'var(--white)' }}>
+      <div className="container-wide">
+        <div style={{
+          display: 'grid', gridTemplateColumns: '1fr auto', alignItems: 'end',
+          gap: 32, marginBottom: 56, paddingBottom: 32,
+          borderBottom: '1px solid var(--border)',
+        }}>
+          <div>
+            <div className="eyebrow" style={{ marginBottom: 16 }}>Aktuellt — Vår 2026</div>
+            <h2 style={{ maxWidth: '20ch' }}>Förmånliga priser för dig som ny patient.</h2>
+          </div>
+          <p className="small" style={{ maxWidth: '32ch', textAlign: 'right', margin: 0 }}>
+            Gäller t.o.m. 30 juni 2026. Begränsat antal tider per vecka.
+          </p>
+        </div>
+
+        <div style={{
+          display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32,
+        }}>
+          {offers.map((o, i) => (
+            <article key={i} style={{
+              background: 'var(--cream)', display: 'grid',
+              gridTemplateRows: 'auto 1fr',
+            }}>
+              <div style={{
+                aspectRatio: '16 / 10',
+                backgroundImage: `url(${o.img})`,
+                backgroundSize: 'cover', backgroundPosition: 'center',
+                filter: 'saturate(0.9)',
+              }} />
+              <div style={{ padding: '40px 40px 44px', display: 'flex', flexDirection: 'column', gap: 18 }}>
+                <div style={{
+                  fontSize: 11, fontWeight: 600, letterSpacing: '0.22em', textTransform: 'uppercase',
+                  color: 'var(--sage-600)',
+                }}>{o.tag}</div>
+                <h3 style={{
+                  fontFamily: 'var(--font-serif)', fontWeight: 400,
+                  fontSize: 'clamp(36px, 3vw, 52px)', lineHeight: 1.1, letterSpacing: '-0.025em',
+                  color: 'var(--ink-700)', margin: 0,
+                }}>{o.title}</h3>
+                <div style={{ fontSize: 14, color: 'var(--ink-500)', textDecoration: 'line-through' }}>{o.sub}</div>
+
+                <div style={{
+                  marginTop: 8, padding: '20px 24px',
+                  background: 'var(--white)', border: '1px solid var(--border)',
+                  display: 'flex', alignItems: 'baseline', gap: 16,
+                }}>
+                  <span style={{
+                    fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: 32,
+                    color: 'var(--sage-700)', letterSpacing: '-0.02em',
+                  }}>{o.bonus}</span>
+                  <span style={{ fontSize: 13, color: 'var(--ink-500)' }}>{o.bonusLabel}</span>
+                </div>
+
+                <p style={{ fontSize: 13, color: 'var(--ink-500)', lineHeight: 1.6, margin: 0 }}>{o.fine}</p>
+
+                <a href="Älvsjö Tandvård.html#booking" className="btn btn-primary" style={{ marginTop: 8, width: 'fit-content' }}>{o.cta}</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function App() {
+  const faq = [
+    { question: 'Vilka krav finns för bonuschecken på 500 kr?', answer: 'Bonuschecken gäller dig som är ny patient hos oss, mellan 30-65 år. Den är giltig i 3 månader från undersökningsdatumet och kan användas vid ditt nästa besök. Den är personlig och kan inte kombineras med andra rabatter.' },
+    { question: 'Vad ingår i erbjudandet för osynlig tandreglering?', answer: 'Du får en konsultation för 199 kr, en värdecheck på 2500 kr som dras av från den totala kostnaden för behandlingen. Dessutom ingår professionell tandblekning efter att din tandreglering är avslutad.' },
+    { question: 'Hur bokar jag tid för en kampanj?', answer: 'Du bokar enkelt din tid direkt via vår onlinebokning på alvsjotandvard.se eller genom att ringa oss på 08-12 85 45 55. Berätta gärna att du vill ta del av en kampanj när du bokar.' },
+  ];
+
+  return (
+    <>
+      <Header />
+      <PageHero
+        eyebrow="N° 07 — Kampanjer"
+        title={<>Starta din tandvårdsresa <span className="italic" style={{ color: 'var(--sage-600)' }}>med en trygg start.</span></>}
+        ingress="Upptäck våra aktuella erbjudanden och påbörja din resa mot en friskare mun. Som ny patient hos Älvsjö Tandvård får du förmånliga priser på undersökning och konsultationer."
+        bullets={['Förmånliga priser', 'Nya patienter', 'Modern tandvård', 'Enkel bokning']}
+      />
+      <OfferCards />
+      <FAQ items={faq} title="Frågor om våra erbjudanden." />
+      <CTAStrip
+        title="Boka din kampanjtid."
+        sub="Ring 08-12 85 45 55 eller boka online — säg till att du vill ta del av en kampanj."
+      />
+      <Footer />
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Räntefritt · Älvsjö Tandvård</title>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="subpage.jsx"></script>
+
+<script type="text/babel">
+
+// Simple monthly-payment slider
+function PaymentExample() {
+  const [amount, setAmount] = React.useState(15000);
+  const [months, setMonths] = React.useState(12);
+  const monthly = Math.round(amount / months);
+
+  return (
+    <section className="section" style={{ background: 'var(--white)' }}>
+      <div className="container-wide">
+        <div style={{
+          display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 80,
+          alignItems: 'start',
+        }}>
+          <div>
+            <div className="eyebrow" style={{ marginBottom: 16 }}>Räkneexempel</div>
+            <h2 style={{ maxWidth: '14ch' }}>Räkna på din månadskostnad.</h2>
+            <p style={{ marginTop: 24, fontSize: 15, color: 'var(--ink-500)', lineHeight: 1.7, maxWidth: '36ch' }}>
+              Ett enkelt sätt att se hur en behandling kan delas upp. Den exakta lösningen tas fram tillsammans med vår reception och godkänns av vår kreditpartner.
+            </p>
+          </div>
+
+          <div style={{
+            background: 'var(--cream)', padding: '48px 48px 56px',
+            border: '1px solid var(--border)',
+          }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 12 }}>
+                  <span className="tiny" style={{ fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase' }}>Behandlingens belopp</span>
+                  <span style={{ fontFamily: 'var(--font-serif)', fontSize: 22, fontWeight: 400, color: 'var(--ink-700)' }}>{amount.toLocaleString('sv-SE')} kr</span>
+                </div>
+                <input type="range" min={3000} max={60000} step={500} value={amount}
+                  onChange={(e) => setAmount(+e.target.value)}
+                  style={{ width: '100%', accentColor: 'var(--sage-600)' }} />
+              </div>
+
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 12 }}>
+                  <span className="tiny" style={{ fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase' }}>Antal månader</span>
+                  <span style={{ fontFamily: 'var(--font-serif)', fontSize: 22, fontWeight: 400, color: 'var(--ink-700)' }}>{months} månader</span>
+                </div>
+                <input type="range" min={3} max={12} step={1} value={months}
+                  onChange={(e) => setMonths(+e.target.value)}
+                  style={{ width: '100%', accentColor: 'var(--sage-600)' }} />
+              </div>
+
+              <div style={{
+                paddingTop: 28, borderTop: '1px solid var(--border)',
+                display: 'flex', alignItems: 'baseline', justifyContent: 'space-between',
+              }}>
+                <div>
+                  <div className="tiny" style={{ fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 6 }}>Din månadskostnad</div>
+                  <div style={{ fontSize: 12, color: 'var(--ink-500)' }}>räntefritt — ingen uppläggningsavgift</div>
+                </div>
+                <div style={{
+                  fontFamily: 'var(--font-serif)', fontWeight: 300,
+                  fontSize: 64, lineHeight: 1, letterSpacing: '-0.03em', color: 'var(--ink-700)',
+                }}>{monthly.toLocaleString('sv-SE')}<span style={{ fontSize: 22, color: 'var(--ink-500)' }}> kr/mån</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function App() {
+  const faq = [
+    { question: 'Vad innebär räntefri delbetalning?', answer: 'Det betyder att du kan fördela kostnaden för din tandvård över tid, upp till 12 månader, utan att betala extra ränta. Du betalar en fast summa varje månad.' },
+    { question: 'Hur ansöker jag om delbetalning?', answer: 'Prata med vår personal i receptionen vid ditt besök. De guidar dig genom ansökningsprocessen och hjälper dig att hitta en lösning som passar dig, efter en godkänd kreditprövning.' },
+    { question: 'Finns det några risker med delbetalning?', answer: 'Ja, det är ett ekonomiskt åtagande. Om du inte kan betala i tid kan det leda till en betalningsanmärkning. Vi rekommenderar att du noga överväger din betalningsförmåga.' },
+  ];
+
+  return (
+    <>
+      <Header />
+      <PageHero
+        eyebrow="N° 04 — Räntefri delbetalning"
+        title={<>Tandvård <span className="italic" style={{ color: 'var(--sage-600)' }}>utan ekonomisk oro.</span></>}
+        ingress="För en smidigare ekonomisk planering av din tandvård — vi hjälper dig att dela upp betalningen räntefritt, så du kan fokusera på ditt välmående och ditt leende."
+        bullets={['Dela upp kostnaden', 'Räntefri delbetalning', 'Upp till 12 månader', 'Hjälp med ansökan']}
+      />
+      <ContentBlock
+        eyebrow="Så fungerar det"
+        title="Räntefri delbetalning hos oss."
+        html={`<p>På Älvsjö Tandvård vill vi att du ska kunna prioritera din tandhälsa utan ekonomisk stress. Därför erbjuder vi <strong>räntefri delbetalning</strong> i upp till 12 månader via våra samarbetspartners. Detta ger dig flexibilitet att sprida kostnaden över tid och få den vård du behöver när du behöver den.</p><p>Vår reception hjälper dig med ansökan och att hitta det bästa upplägget för dig, förutsatt en godkänd kreditprövning. Vi finns här för att svara på dina frågor och göra processen enkel.</p><p>Det är viktigt att vara medveten om att delbetalning är ett ekonomiskt åtagande. Om du inte kan betala tillbaka skulden i tid riskerar du en betalningsanmärkning. För rådgivning kan du vända dig till budget- och skuldrådgivningen i din kommun.</p>`}
+        img="img/tandmodell.jpg"
+      />
+      <PaymentExample />
+      <FAQ items={faq} title="Frågor om delbetalning." />
+      <CTAStrip
+        title="Boka en konsultation."
+        sub="Vi går igenom kostnaden och en plan för delbetalning tillsammans — innan du tar beslut."
+      />
+      <Footer />
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

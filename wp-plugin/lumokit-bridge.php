@@ -153,6 +153,11 @@ function lumokit_register_routes() {
 			'callback'            => 'lumokit_save_component',
 			'permission_callback' => 'lumokit_auth_check',
 		],
+		[
+			'methods'             => WP_REST_Server::DELETABLE,
+			'callback'            => 'lumokit_clear_components',
+			'permission_callback' => 'lumokit_auth_check',
+		],
 	] );
 
 	// ---------------------------------------------------------------------------
@@ -731,6 +736,11 @@ function lumokit_save_component( WP_REST_Request $request ) {
 	] );
 }
 
+
+function lumokit_clear_components( WP_REST_Request $request ) {
+	update_option( LUMOKIT_OPTION_KEY, [], false );
+	return rest_ensure_response( [ 'success' => true, 'message' => 'All components cleared.' ] );
+}
 
 // ---------------------------------------------------------------------------
 // 1b. WP Code Snippet Management

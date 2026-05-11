@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Tandreglering · Invisalign · Älvsjö Tandvård</title>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="subpage.jsx"></script>
+
+<script type="text/babel">
+
+function StatsStrip() {
+  const stats = [
+    { k: 'Osynlig', v: 'Klara skenor syns knappt vid normal samtalsdistans.' },
+    { k: '6–24 mån', v: 'Behandlingstid beroende på graden av felställning.' },
+    { k: 'Avtagbar', v: 'Ta ut skenorna vid måltider och tandborstning.' },
+    { k: '98 %', v: 'Patientnöjdhet internationellt för Invisalign-behandling.' },
+  ];
+  return (
+    <section className="section" style={{ background: 'var(--white)' }}>
+      <div className="container-wide">
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: 1, background: 'var(--border)',
+          border: '1px solid var(--border)',
+        }}>
+          {stats.map((s, i) => (
+            <div key={i} style={{ background: 'var(--white)', padding: '40px 32px' }}>
+              <div style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 300,
+                fontSize: 'clamp(36px, 3.5vw, 56px)', lineHeight: 1, letterSpacing: '-0.03em',
+                color: 'var(--ink-700)', marginBottom: 14,
+              }}>{s.k}</div>
+              <div style={{ fontSize: 14, color: 'var(--ink-500)', lineHeight: 1.55 }}>{s.v}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProcessSteps() {
+  const steps = [
+    { n: '01', t: 'Digital scanning', d: 'Vi tar ett digitalt 3D-avtryck av dina tänder — inga klibbiga alginat-avtryck. ClinCheck-programvaran simulerar hela rörelsesekvensen.' },
+    { n: '02', t: 'Individuella skenor', d: 'Tillverkade i USA av medicinskt godkänd klar plast (SmartTrack). Du bär varje skenor 1–2 veckor och byter till nästa set.' },
+    { n: '03', t: 'Kontroller', d: 'Besök var 6–8 vecka för att följa upp rörelserna och vid behov göra justeringar. Behandlingen justeras löpande utifrån ditt svar.' },
+    { n: '04', t: 'Retention', d: 'Efter avslutad behandling bär du en tunn retainer nattetid för att hålla resultatet. Tänder rör sig — retention är livslång men diskret.' },
+  ];
+  return (
+    <section className="section" style={{ background: 'var(--cream)' }}>
+      <div className="container-wide">
+        <div style={{ marginBottom: 64, paddingBottom: 32, borderBottom: '1px solid var(--border)' }}>
+          <div className="eyebrow" style={{ marginBottom: 16 }}>Behandlingsprocess</div>
+          <h2 style={{ maxWidth: '24ch' }}>Från scanning till rakt leende — fyra steg.</h2>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 48 }}>
+          {steps.map((s, i) => (
+            <article key={i} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 300,
+                fontSize: 64, lineHeight: 1, letterSpacing: '-0.03em', color: 'var(--sage-600)',
+              }}>{s.n}</div>
+              <h3 style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 400,
+                fontSize: 24, lineHeight: 1.2, letterSpacing: '-0.02em',
+                color: 'var(--ink-700)', margin: 0,
+              }}>{s.t}</h3>
+              <p style={{ fontSize: 15, lineHeight: 1.7, color: 'var(--ink-500)', margin: 0 }}>{s.d}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function App() {
+  const faq = [
+    { question: 'Är Invisalign lika effektivt som traditionella byglar?', answer: 'Ja — för de flesta felställningar är Invisalign lika effektivt som fast apparatur. Komplexa bettutvecklingsfall hos barn och unga kan fortfarande kräva traditionella byglar, men vi utvärderar alltid ditt specifika fall.' },
+    { question: 'Hur länge måste man bära skenorna per dag?', answer: '20–22 timmar per dag är riktmärket. Skenorna tas ut enbart vid måltider och tandborstning. Bär du dem kortare tid förlängs behandlingstiden proportionellt.' },
+    { question: 'Syns Invisalign-skenorna?', answer: 'Nästan inte alls. De klara skenorna är i stort sett osynliga vid normal samtalsdistans. De flesta patienter upplever att ingen lägger märke till dem utan att de berätta om behandlingen.' },
+    { question: 'Vad kostar Invisalign-behandling?', answer: 'Priset varierar från ca 25 000 kr (lindrig felställning, Invisalign Lite) till 60 000 kr (komplex fullbehandling). Räntefri delbetalning är tillgänglig. Vi ger exakt prisuppgift efter konsultationen.' },
+  ];
+
+  return (
+    <>
+      <Header />
+      <TreatmentHero
+        eyebrow="N° 06 — Tandreglering · Invisalign"
+        title={<>Raka tänder.<br/><span className="italic" style={{ color: 'var(--sage-600)' }}>Utan byglar.</span></>}
+        ingress="Vi är certifierade Invisalign-leverantörer. Med klara, avtagbara skenor rätar vi ut dina tänder diskret och effektivt — anpassat till ditt vardagliga liv."
+        bullets={['Certifierat Invisalign-team', 'Digital 3D-planering', 'Avtagbar — äter som vanligt', 'Räntefri delbetalning']}
+        img="img/t-tandreglering.jpg"
+        stat={{ label: 'Behandlingstid', value: '6–24', sub: 'månader med Invisalign.' }}
+        caption="Tandreglering — alvsjotandvard.se · 08 12 85 45 55"
+      />
+      <StatsStrip />
+      <ContentBlock
+        eyebrow="Invisalign"
+        title="Världens mest populära klara tandreglering."
+        html={`<p>Invisalign är ett system av anpassade, klara plastskynor som stegvis flyttar tänderna till önskad position. Varje skenset bärs ca 1–2 veckor innan du byter till nästa.</p><p>Vi använder en digital intraoral scanner (iTero) för att ta ett exakt 3D-avtryck av dina tänder — utan klibbiga avtrycksmassor. Den digitala modellen används sedan i Invisaligns ClinCheck-mjukvara, som simulerar hela rörelsesekvensen från start till mål. <strong>Du ser resultatet innan vi beställer första skenorna.</strong></p><p>Behandlingstiden är 6–24 månader beroende på grad av felställning. Kontrollbesök var 6–8 vecka räcker — färre besök än traditionell tandreglering.</p>`}
+        img="img/tandinstrument-narbild.jpg"
+      />
+      <ProcessSteps />
+      <ContentBlock
+        eyebrow="Varför väljer vuxna Invisalign?"
+        title="Diskretion, komfort och flexibilitet."
+        html={`<ul style="padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 14px; margin: 0;"><li style="display: flex; gap: 16px; align-items: baseline;"><span style="font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; color: var(--sage-600); text-transform: uppercase; flex-shrink: 0; min-width: 32px;">01</span><span><strong>Osynliga</strong> — syns knappt vid normal samtalsdistans.</span></li><li style="display: flex; gap: 16px; align-items: baseline;"><span style="font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; color: var(--sage-600); text-transform: uppercase; flex-shrink: 0; min-width: 32px;">02</span><span><strong>Avtagbara</strong> — äter, dricker och borstar som vanligt.</span></li><li style="display: flex; gap: 16px; align-items: baseline;"><span style="font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; color: var(--sage-600); text-transform: uppercase; flex-shrink: 0; min-width: 32px;">03</span><span><strong>Bekväma</strong> — inga skarpa metallkanter mot slemhinnan.</span></li><li style="display: flex; gap: 16px; align-items: baseline;"><span style="font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; color: var(--sage-600); text-transform: uppercase; flex-shrink: 0; min-width: 32px;">04</span><span><strong>Förutsägbart</strong> — digital simulering visar resultatet i förväg.</span></li></ul>`}
+        img="img/clinic-room-1.jpg"
+        imgRight={true}
+        bg="var(--cream)"
+        ctaLabel="Boka Invisalign-konsultation"
+      />
+      <FAQ items={faq} title="Vanliga frågor om tandreglering." />
+      <CTAStrip
+        title="Boka en gratis Invisalign-konsultation"
+        sub="Vi tar ett digitalt avtryck och visar dig ditt potentiella slutresultat — utan kostnad. Ring 08-12 85 45 55."
+      />
+      <Footer />
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

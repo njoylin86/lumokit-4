@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Tillhör du riskgrupp? · Älvsjö Tandvård</title>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="subpage.jsx"></script>
+
+<script type="text/babel">
+
+function RiskGroupsGrid() {
+  const groups = [
+    { title: 'Diabetes', desc: 'Diabetes ökar risken för parodontit och försvårar läkning. Omvänt kan okontrollerad tandköttsinflammation försämra blodsockerkontroll. Tätare kontroller rekommenderas.' },
+    { title: 'Hjärt-kärlsjukdom', desc: 'Parodontit är en oberoende riskfaktor för hjärtinfarkt och stroke. God munhygien är en viktig del av hjärt-kärlbehandlingen.' },
+    { title: 'Cancer & strålbehandling', desc: 'Strålning mot huvud och hals påverkar spottkörtlar och tandben. Vi samarbetar med din onkolog och planerar tandvården i relation till behandlingen.' },
+    { title: 'Osteoporos & medicinering', desc: 'Bisfosfonater (mot osteoporos) kan påverka käkbenet och behöver identifieras innan kirurgiska ingrepp. Informera alltid om din medicinering.' },
+    { title: 'Graviditet', desc: 'Hormonförändringar ökar känsligheten för tandköttsinflamation (graviditetsparodontit). Tandvård är säker under hela graviditeten och viktigt för barnets hälsa.' },
+    { title: 'Muntorrhet (Xerostomia)', desc: 'Medicinering, sjukdom eller strålbehandling kan minska spottkörtlarnas produktion — drastiskt ökad kariesrisk. Vi anpassar fluorprotokoll och kontrollintervall.' },
+    { title: 'Psykisk ohälsa & ätstörningar', desc: 'Antidepressiva mediciner orsakar ofta muntorrhet. Bulimi skadar emaljen kemiskt. Vi behandlar utan att värdera och anpassar vårdens intensitet.' },
+    { title: 'Äldre patienter', desc: 'Funktionsnedsättningar, polyfarma och minskad handmotorik påverkar munhygienen. Vi erbjuder hembesök och samverkan med hemtjänst och boende.' },
+  ];
+  return (
+    <section className="section" style={{ background: 'var(--white)' }}>
+      <div className="container-wide">
+        <div style={{ marginBottom: 56, paddingBottom: 32, borderBottom: '1px solid var(--border)' }}>
+          <div className="eyebrow" style={{ marginBottom: 16 }}>Riskgrupper</div>
+          <h2 style={{ maxWidth: '22ch' }}>Vanliga tillstånd som kräver extra tandvårdsuppmärksamhet.</h2>
+        </div>
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: 1, background: 'var(--border)',
+          border: '1px solid var(--border)',
+        }}>
+          {groups.map((g, i) => (
+            <article key={i} style={{ background: 'var(--white)', padding: '36px 28px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <h3 style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 400,
+                fontSize: 22, lineHeight: 1.2, letterSpacing: '-0.02em',
+                color: 'var(--ink-700)', margin: 0,
+              }}>{g.title}</h3>
+              <p style={{ fontSize: 13, lineHeight: 1.65, color: 'var(--ink-500)', margin: 0 }}>{g.desc}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function App() {
+  const faq = [
+    { question: 'Hur vet jag om jag tillhör en riskgrupp?', answer: 'Berätta om dina sjukdomar och mediciner när du bokar. Vi bedömer din riskprofil vid undersökningen och anpassar kontrollintervall och fluorprotokoll individuellt.' },
+    { question: 'Kostar det extra att gå oftare?', answer: 'Patienter som tillhör riskgrupp kan ha rätt till förstärkt tandvårdsersättning (F-tandvård) — ett statligt stöd för fler tandvårdsbesök till lägre patientavgift. Vi hjälper dig ansöka.' },
+    { question: 'Kan jag berätta om min sjukdom konfidentiellt?', answer: 'All information du lämnar är skyddad av hälso- och sjukvårdens sekretessregler. Vi delar aldrig information utanför kliniken utan ditt samtycke.' },
+    { question: 'Kan tandvård hjälpa min allmänna hälsa?', answer: 'Ja. Forskning visar att god munhälsa påverkar blodsockerkontroll vid diabetes, minskar infektionsrisk vid hjärtsjukdom och kan ha positiv effekt vid reumatiska sjukdomar. Munnen är en del av hela kroppen.' },
+  ];
+
+  return (
+    <>
+      <Header />
+      <TreatmentHero
+        eyebrow="N° 09 — Riskgrupp & Medicinsk tandvård"
+        title={<>Tandvård anpassad<br/><span className="italic" style={{ color: 'var(--sage-600)' }}>efter dig.</span></>}
+        ingress="Patienter med vissa sjukdomar eller medicineringar behöver tätare kontakter med tandvården. Vi identifierar din riskprofil och lägger upp ett individuellt program — och hjälper dig ansöka om förstärkt tandvårdsersättning."
+        bullets={['Individuell riskbedömning', 'F-tandvård tillgänglig', 'Samverkan med vården', 'Inga fördomar']}
+        img="img/clinic-1.jpg"
+        stat={{ label: 'Statligt tandvårdsstöd', value: 'F-tandvård', sub: 'Betala öppenvårdsavgift istället för tandvårdstaxa — med högkostnadsskydd.' }}
+        caption="Riskgrupp — alvsjotandvard.se · 08 12 85 45 55"
+      />
+      <RiskGroupsGrid />
+      <ContentBlock
+        eyebrow="Förstärkt tandvårdsstöd"
+        title="F-tandvård — mer tandvård för lägre kostnad."
+        html={`<p>Patienter med vissa sjukdomstillstånd har rätt till <strong>Förstärkt Tandvårdsstöd (F-tandvård)</strong> — ett statligt bidrag som ger rätt till fler tandvårdsbesök till sjukvårdsavgiftens nivå (vanligtvis 50–400 kr per besök istället för full tandvårdsavgift).</p><p>Tillstånd som kan ge rätt till F-tandvård inkluderar bl.a.: kronisk njursvikt, MS, Parkinsons sjukdom, epilepsi, HIV, Sjögrens syndrom, tarmsjukdom med malabsorption, svår psykisk störning, organtransplantation och flertalet cancerformer.</p><p>Vi hjälper dig bedöma om du har rätt till stödet och hanterar kontakten med Region Stockholm. Inget extraarbete för dig.</p>`}
+        img="img/undersok.jpg"
+      />
+      <ContentBlock
+        eyebrow="Medicinlista"
+        title="Informera alltid om din medicinering."
+        html={`<p>Många vanliga läkemedel påverkar tandvård och munhälsa på sätt som inte alltid är kända för patienten:</p><ul style="padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 16px 0;"><li style="display: flex; gap: 12px; align-items: baseline; font-size: 15px; color: var(--ink-500)"><span style="color: var(--sage-600); font-weight: 600; font-size: 11px; letter-spacing: 0.14em; min-width: 24px; font-family: var(--font-sans);">→</span><span><strong style="color: var(--ink-700)">Blodförtunnande</strong> — påverkar blödningsrisk vid kirurgiska ingrepp.</span></li><li style="display: flex; gap: 12px; align-items: baseline; font-size: 15px; color: var(--ink-500)"><span style="color: var(--sage-600); font-weight: 600; font-size: 11px; letter-spacing: 0.14em; min-width: 24px; font-family: var(--font-sans);">→</span><span><strong style="color: var(--ink-700)">Bisfosfonater</strong> — kräver speciellt protokoll vid tanduttag och implantat.</span></li><li style="display: flex; gap: 12px; align-items: baseline; font-size: 15px; color: var(--ink-500)"><span style="color: var(--sage-600); font-weight: 600; font-size: 11px; letter-spacing: 0.14em; min-width: 24px; font-family: var(--font-sans);">→</span><span><strong style="color: var(--ink-700)">Antidepressiva</strong> — orsakar ofta muntorrhet och ökar kariesrisk.</span></li><li style="display: flex; gap: 12px; align-items: baseline; font-size: 15px; color: var(--ink-500)"><span style="color: var(--sage-600); font-weight: 600; font-size: 11px; letter-spacing: 0.14em; min-width: 24px; font-family: var(--font-sans);">→</span><span><strong style="color: var(--ink-700)">Immunosuppressiva</strong> — ökar infektionsrisk och försvårar läkning.</span></li></ul><p>Ta gärna med en aktuell medicinlista till ditt första besök.</p>`}
+        img="img/korridor.jpg"
+        imgRight={true}
+        bg="var(--cream)"
+        ctaLabel="Boka medicinsk konsultation"
+      />
+      <FAQ items={faq} title="Vanliga frågor om tandvård för riskgrupper." />
+      <CTAStrip
+        title="Tillhör du en riskgrupp?"
+        sub="Kontakta oss — vi bedömer din situation, rekommenderar rätt kontrollintervall och hjälper dig ansöka om eventuellt F-tandvårdsstöd."
+      />
+      <Footer />
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

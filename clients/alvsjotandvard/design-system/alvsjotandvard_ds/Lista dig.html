@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Lista dig · Älvsjö Tandvård</title>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="subpage.jsx"></script>
+
+<script type="text/babel">
+
+// Simple listing form
+function ListingForm() {
+  return (
+    <section className="section" style={{ background: 'var(--cream)' }}>
+      <div className="container-wide">
+        <div style={{
+          display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: 80,
+          alignItems: 'start',
+        }}>
+          <div>
+            <div className="eyebrow" style={{ marginBottom: 16 }}>Lista dig hos oss</div>
+            <h2 style={{ maxWidth: '14ch', marginBottom: 24 }}>Fyll i dina uppgifter — vi tar hand om resten.</h2>
+            <p style={{ fontSize: 15, color: 'var(--ink-500)', lineHeight: 1.7, maxWidth: '36ch' }}>
+              Vi hanterar dina uppgifter enligt vår dataskyddspolicy och bekräftar din anmälan inom 1–2 arbetsdagar.
+            </p>
+          </div>
+
+          <form onSubmit={(e) => { e.preventDefault(); alert('Tack! Vi hör av oss inom kort.'); }}
+            style={{ background: 'var(--white)', padding: '48px', border: '1px solid var(--border)' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 24 }}>
+              <Field label="Förnamn" />
+              <Field label="Efternamn" />
+              <Field label="Personnummer" placeholder="ÅÅÅÅMMDD-XXXX" />
+              <Field label="Telefon" type="tel" />
+              <div style={{ gridColumn: '1 / -1' }}><Field label="E-post" type="email" /></div>
+              <div style={{ gridColumn: '1 / -1' }}><Field label="Adress" /></div>
+              <Field label="Postnummer" />
+              <Field label="Ort" />
+            </div>
+            <label style={{
+              display: 'flex', alignItems: 'flex-start', gap: 12, marginBottom: 32,
+              fontSize: 13, color: 'var(--ink-500)', lineHeight: 1.6, cursor: 'pointer',
+            }}>
+              <input type="checkbox" style={{ marginTop: 4, accentColor: 'var(--sage-600)' }} required />
+              <span>Jag godkänner Älvsjö Tandvårds <a href="#" style={{ color: 'var(--ink-700)' }}>dataskyddspolicy</a> och samtycker till att mina uppgifter används för att lista mig som patient.</span>
+            </label>
+            <button type="submit" className="btn btn-primary btn-lg">Skicka anmälan</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Field({ label, type = 'text', placeholder }) {
+  return (
+    <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <span className="tiny" style={{ fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase' }}>{label}</span>
+      <input type={type} placeholder={placeholder} required style={{
+        padding: '12px 0', background: 'transparent',
+        border: 'none', borderBottom: '1px solid var(--border)',
+        fontFamily: 'var(--font-sans)', fontSize: 16, color: 'var(--ink-700)',
+        outline: 'none',
+      }}
+      onFocus={(e) => e.target.style.borderBottomColor = 'var(--sage-600)'}
+      onBlur={(e) => e.target.style.borderBottomColor = 'var(--border)'} />
+    </label>
+  );
+}
+
+function App() {
+  const faq = [
+    { question: 'Hur listar jag mig hos er?', answer: 'Att lista dig hos Älvsjö Tandvård är enkelt. Fyll bara i formuläret på den här sidan med dina uppgifter. Vi ser sedan till att du får relevanta kallelser och information, och att din patientdata hanteras tryggt och korrekt i enlighet med vår dataskyddspolicy.' },
+    { question: 'Är det gratis för barn och unga?', answer: 'Ja, allmän tandvård är helt kostnadsfri för barn och ungdomar upp till 19 år. Vi erbjuder även specialisttandvård för barn via Älvsjö Pedodonti, dit vi tar emot remisser från Region Stockholm. Ett tryggt val för hela familjen.' },
+    { question: 'Kan jag få akut tid om jag listar mig?', answer: 'Absolut. Även om du listar dig för regelbunden tandvård kan du alltid kontakta oss för akuta besvär. Ring oss direkt på 08-12 85 45 55 så gör vi vårt bästa för att erbjuda dig en tid samma dag, oavsett om du är listad eller inte.' },
+  ];
+
+  return (
+    <>
+      <Header />
+      <PageHero
+        eyebrow="N° 05 — Lista dig"
+        title={<>En ny tandläkare <span className="italic" style={{ color: 'var(--sage-600)' }}>för hela familjen.</span></>}
+        ingress="Söker du en trygg och modern tandvårdsklinik mitt i Älvsjö? Välkommen att lista dig hos oss. Vi tar hand om hela familjen med omtanke och hög kvalitet."
+        bullets={['Hela familjen', 'Modern klinik', 'Akuttider snabbt', 'Mitt i Älvsjö']}
+      />
+      <ContentBlock
+        eyebrow="En del av Älvsjö Tandvård"
+        title="Din nya tandvårdsklinik — mitt i Älvsjö."
+        html={`<p>Att känna sig trygg hos tandläkaren är avgörande. Hos Älvsjö Tandvård möts du av erfarna behandlare som lyssnar på dina behov och anpassar vården. Vår nyrenoverade klinik, <strong>bara två minuter från Älvsjö pendeltågsstation</strong>, är designad för att du ska känna dig välkommen och bekväm.</p><p>Vi erbjuder ett brett utbud av tjänster för hela familjen — från förebyggande vård och allmäntandvård till specialbehandlingar som implantat och Invisalign. För barn och unga upp till 19 år är all tandvård <strong>kostnadsfri</strong>, och vi har även en specialistenhet för barntandvård, Älvsjö Pedodonti.</p>`}
+        img="img/reception.jpg"
+      />
+      <ListingForm />
+      <FAQ items={faq} title="Frågor om att lista sig." />
+      <CTAStrip
+        title="Hellre prata med oss?"
+        sub="Ring 08-12 85 45 55 så hjälper vi dig vidare — ingen anmälan krävs i förväg."
+      />
+      <Footer />
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

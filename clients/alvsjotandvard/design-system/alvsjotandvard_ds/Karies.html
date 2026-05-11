@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Karies · Hål i tanden · Älvsjö Tandvård</title>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="subpage.jsx"></script>
+
+<script type="text/babel">
+
+function StagesGrid() {
+  const stages = [
+    { stage: 'Stadium 1', title: 'Initial karies', desc: 'Mineralförlust i yttersta emaljet. Kan ofta stoppas utan borr — med fluorbehandling och förbättrad munhygien.', color: 'var(--sage-300)' },
+    { stage: 'Stadium 2', title: 'Emaljkaries', desc: 'Hålet når igenom emaljen men inte dentinet. Liten kompositfyllning — snabbt ingrepp utan märkbar smärta.', color: 'var(--sage-500)' },
+    { stage: 'Stadium 3', title: 'Dentinkaries', desc: 'Karies nått dentinlagret. Mer omfattande fyllning krävs. Behandling direkt förhindrar pulpaengagemang.', color: 'var(--sage-600)' },
+    { stage: 'Stadium 4', title: 'Pulpapåverkan', desc: 'Bakterierna har nått tandnerven. Rotbehandling eller extraktion kan vara nödvändig. Vänta inte.', color: 'var(--ink-700)' },
+  ];
+  return (
+    <section className="section" style={{ background: 'var(--white)' }}>
+      <div className="container-wide">
+        <div style={{ marginBottom: 56, paddingBottom: 32, borderBottom: '1px solid var(--border)' }}>
+          <div className="eyebrow" style={{ marginBottom: 16 }}>Kariesstadier</div>
+          <h2 style={{ maxWidth: '24ch' }}>Ju tidigare vi behandlar — desto enklare ingreppet.</h2>
+        </div>
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: 1, background: 'var(--border)',
+          border: '1px solid var(--border)',
+        }}>
+          {stages.map((s, i) => (
+            <article key={i} style={{ background: 'var(--white)', padding: '40px 32px', display: 'flex', flexDirection: 'column', gap: 14 }}>
+              <div style={{
+                width: 10, height: 10, borderRadius: '50%', background: s.color, marginBottom: 6,
+              }} />
+              <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--fg-muted)' }}>{s.stage}</div>
+              <h3 style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 400,
+                fontSize: 24, lineHeight: 1.2, letterSpacing: '-0.02em',
+                color: 'var(--ink-700)', margin: 0,
+              }}>{s.title}</h3>
+              <p style={{ fontSize: 14, lineHeight: 1.65, color: 'var(--ink-500)', margin: 0 }}>{s.desc}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function App() {
+  const faq = [
+    { question: 'Gör det ont att laga ett hål i tanden?', answer: 'Nej — vi bedövar alltid det behandlade området med lokalbedövning. Du kan känna tryck och vibrationer men ingen smärta. Ingreppet tar vanligtvis 20–45 minuter.' },
+    { question: 'Hur länge håller en kompositfyllning?', answer: 'En modern kompositfyllning håller typiskt 7–15 år beroende på storlek, läge och din munhygien. Vi kontrollerar dina fyllningar vid varje undersökning.' },
+    { question: 'Varför får jag karies trots att jag borstar tänderna?', answer: 'Karies orsakas av en kombination av bakterier, socker och tid. Sköljning med fluorskölj, mellantandsrengöring och kostvanor spelar lika stor roll som borstning. Vi hjälper dig identifiera din riskprofil.' },
+    { question: 'Kan karies läka av sig självt?', answer: 'Tidiga initialskador (stadium 1) kan mineraliseras tillbaka med fluorbehandling. Men ett hål som brutit igenom emaljen kan inte läka utan behandling — det förvärras med tiden.' },
+  ];
+
+  return (
+    <>
+      <Header />
+      <TreatmentHero
+        eyebrow="N° 03 — Karies · Hål i tanden"
+        title={<>Snabb lagning —<br/><span className="italic" style={{ color: 'var(--sage-600)' }}>utan obehag.</span></>}
+        ingress="Karies är världens vanligaste sjukdom och kan drabba alla. Med modern kompositteknik lagar vi hål skonsamt, estetiskt och hållbart — och vi ser alltid till att du är bekväm under hela behandlingen."
+        bullets={['Skonsamteknik', 'Estetisk komposit', 'Ingen smärta', 'Snabb behandling']}
+        img="img/t-karies.jpg"
+        stat={{ label: 'Behandlingstid', value: '20–45', sub: 'minuter för en standardfyllning.' }}
+        caption="Karies — alvsjotandvard.se · 08 12 85 45 55"
+      />
+      <StagesGrid />
+      <ContentBlock
+        eyebrow="Behandling"
+        title="Modern fyllningsteknik som matchar din tand."
+        html={`<p>Karies uppstår när syraproducerande bakterier bryter ner tandens hårdvävnad. Vi diagnostiserar karies tidigt med digitala röntgenbilder och visuell inspektion — ofta innan du ens känner av det.</p><p>Vår standardbehandling är en <strong>direkt kompositfyllning</strong>: ett tandkulörigt material som härdas med blåsljus och sedan poleras till en slät, naturlig yta. Kompositens färg matchas noggrant mot din tand — ingen silverglint.</p><p>Vid större håligheter eller tänder med svag struktur kan en <strong>keramisk inlay eller overlay</strong> vara ett bättre alternativ — starkare och mer hållbart än direktfyllning.</p>`}
+        img="img/skoljmedel-munhygienprodukter.jpg"
+      />
+      <ContentBlock
+        eyebrow="Förebyggande"
+        title="Förhindra nästa hål — inte bara laga det gamla."
+        html={`<p>En lagad tand är inte en immun tand. Vi analyserar din kariesrisk och ger individuella råd om borstvanor, fluortillförsel, kostbeteende och användning av tandtråd eller tandpetare.</p><p>Regelbundna undersökningar var 6–18 månader (beroende på din riskprofil) är det effektivaste sättet att fånga karies i ett tidigt, billigare behandlingsbart stadium.</p>`}
+        img="img/undersok.jpg"
+        imgRight={true}
+        bg="var(--cream)"
+        ctaLabel="Boka undersökning"
+      />
+      <FAQ items={faq} title="Vanliga frågor om karies." />
+      <CTAStrip
+        title="Har du ont eller misstänker hål?"
+        sub="Boka en tid idag — ju tidigare vi behandlar, desto enklare och billigare ingreppet. Ring 08-12 85 45 55."
+      />
+      <Footer />
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
