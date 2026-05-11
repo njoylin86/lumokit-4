@@ -71,6 +71,7 @@ def extract_templates(bundle_path: Path | None = None) -> tuple[str, Path]:
         print(f"       Pass a specific bundle to avoid CSS from unrelated clients.")
 
     html_parts = []
+    design_system_css = ""
     for path in payload_files:
         try:
             with open(path, "r", encoding="utf-8") as f:
@@ -83,11 +84,15 @@ def extract_templates(bundle_path: Path | None = None) -> tuple[str, Path]:
                 for component in data["components"]:
                     if "html_template" in component:
                         html_parts.append(component["html_template"])
+                # Extract design system CSS from snippets (type=css)
+                for snippet in data.get("snippets", []):
+                    if snippet.get("type") == "css" and snippet.get("code"):
+                        design_system_css = snippet["code"]
         except Exception as e:
             print(f"[WARN]  Skipping {path.name}: {e}")
 
     print(f"[INFO] Extracted templates from {len(html_parts)} component(s).")
-    return "\n".join(html_parts), scratch
+    return "\n".join(html_parts), scratch, design_system_css
 
 
 def compile_css(html: str, scratch: Path = TMP_DIR) -> str:
@@ -141,6 +146,21 @@ def compile_css(html: str, scratch: Path = TMP_DIR) -> str:
     return css
 
 
+def prepend_design_system(css: str, design_system_css: str) -> str:
+    """Prepend design system CSS variables so they're available without WP Code plugin."""
+    if not design_system_css:
+        return css
+    # Insert after any @import rules (must stay at top)
+    lines = css.split("\n")
+    insert_at = 0
+    for i, line in enumerate(lines):
+        if line.strip().startswith("@import"):
+            insert_at = i + 1
+    lines.insert(insert_at, design_system_css)
+    print("[INFO] Design system CSS variables prepended.")
+    return "\n".join(lines)
+
+
 def push_css(css: str) -> None:
     """Push compiled CSS to WordPress via the LumoKit REST API."""
     print(f"[INFO] Pushing stylesheet to {STYLES_ENDPOINT} ...")
@@ -174,6 +194,7 @@ if __name__ == "__main__":
             sys.exit(1)
         bundle_path = p
 
-    html, scratch = extract_templates(bundle_path)
-    css  = compile_css(html, scratch)
+    html, scratch, design_system_css = extract_templates(bundle_path)
+    css = compile_css(html, scratch)
+    css = prepend_design_system(css, design_system_css)
     push_css(css)

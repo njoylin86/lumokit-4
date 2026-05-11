@@ -25,6 +25,57 @@ define( 'LUMOKIT_CSS_OPTION_KEY', 'lumokit_compiled_css' );
 //    POST – creates or updates a component from a JSON payload
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// Admin: visual separators between menu items in the block sidebar.
+// ACF renders each field as .acf-field[data-name="…"] — we target item_N_name
+// fields to draw a bold rule above them, clearly grouping the 4 sub-fields.
+// ---------------------------------------------------------------------------
+add_action( 'admin_footer', 'lumokit_admin_menu_separators' );
+function lumokit_admin_menu_separators() {
+	?>
+	<script>
+	(function(){
+		function applyLumoMenuStyles(){
+			document.querySelectorAll('.acf-field[data-name]').forEach(function(el){
+				var name = el.getAttribute('data-name');
+				// Separator + clear before each item's name field (e.g. item_1_name)
+				if( /^item_\d+_name$/.test(name) ){
+					el.style.clear      = 'both';
+					el.style.borderTop  = '3px solid #1e1e1e';
+					el.style.marginTop  = '20px';
+					el.style.paddingTop = '16px';
+				}
+				// Ord price: float left 50%
+				if( /^item_\d+_price_ord$/.test(name) ){
+					el.style.float        = 'left';
+					el.style.width        = '50%';
+					el.style.boxSizing    = 'border-box';
+					el.style.paddingRight = '8px';
+				}
+				// Stu price: float left 50%
+				if( /^item_\d+_price_stu$/.test(name) ){
+					el.style.float       = 'left';
+					el.style.width       = '50%';
+					el.style.boxSizing   = 'border-box';
+					el.style.paddingLeft = '8px';
+				}
+			});
+		}
+
+		// Initial run after Gutenberg has mounted
+		setTimeout(applyLumoMenuStyles, 800);
+
+		// Re-run whenever Gutenberg re-renders (debounced)
+		var t;
+		new MutationObserver(function(){
+			clearTimeout(t);
+			t = setTimeout(applyLumoMenuStyles, 300);
+		}).observe(document.body, {childList:true, subtree:true});
+	})();
+	</script>
+	<?php
+}
+
 add_action( 'rest_api_init', 'lumokit_register_routes' );
 
 function lumokit_register_routes() {
@@ -1217,26 +1268,34 @@ function lumokit_schema_to_acf_fields( array $schema, $block_name ) {
 	$slug_prefix = sanitize_title( str_replace( '/', '_', $block_name ) );
 
 	foreach ( $schema as $field_def ) {
-		$name  = sanitize_key( $field_def['name'] );
 		$type  = $field_def['type'] ?? 'text';
-		$label = sanitize_text_field( $field_def['label'] ?? $name );
+		$label = sanitize_text_field( $field_def['label'] ?? '' );
+
+		// message fields are display-only — skip, separators handled via admin CSS instead
+		if ( $type === 'message' ) {
+			continue;
+		}
+
+		$name = sanitize_key( $field_def['name'] );
 
 		$allowed_types = [ 'text', 'textarea', 'image', 'url' ];
 		if ( ! in_array( $type, $allowed_types, true ) ) {
 			$type = 'text';
 		}
 
-		// Don't register default_value with ACF — it would silently re-inject the
-		// default when a field is cleared, defeating "clear → disappears" behavior.
-		// Defaults are baked directly into the block's data attribute by
-		// lumokit_build_page() instead (single source of truth).
-		$fields[] = [
+		$field = [
 			'key'           => 'field_' . $slug_prefix . '_' . $name,
 			'name'          => $name,
 			'label'         => $label,
 			'type'          => $type,
 			'default_value' => '',
 		];
+
+		// Don't register default_value with ACF — it would silently re-inject the
+		// default when a field is cleared, defeating "clear → disappears" behavior.
+		// Defaults are baked directly into the block's data attribute by
+		// lumokit_build_page() instead (single source of truth).
+		$fields[] = $field;
 	}
 
 	return $fields;
