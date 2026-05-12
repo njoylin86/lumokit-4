@@ -731,6 +731,69 @@ html, body { overflow-x: clip; max-width: 100vw; }
   .map-hours .mh-hours { padding:24px 20px; }
 }
 
+/* ── Om oss — TextBlocks ────────────────────────────────────────── */
+.tb-section { background:var(--cream); padding:var(--space-10) 0; }
+.tb-hdr { margin-bottom:64px; padding-bottom:32px; border-bottom:1px solid var(--border); }
+.tb-hdr .eyebrow { margin-bottom:16px; }
+.tb-hdr h2 { max-width:24ch; margin:0; }
+.tb-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:64px 80px; }
+.tb-block { display:flex; flex-direction:column; gap:16px; }
+.tb-num { font-size:11px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:var(--sage-600); }
+.tb-block h3 { font-family:var(--font-serif); font-weight:400; font-size:clamp(20px,1.8vw,28px); line-height:1.2; letter-spacing:-0.02em; color:var(--ink-700); max-width:22ch; margin:0; }
+.tb-block p { font-size:15px; line-height:1.7; color:var(--ink-500); margin:0; }
+
+/* ── Om oss — Organisation ──────────────────────────────────────── */
+.org-section { background:var(--cream); padding:var(--space-10) 0; }
+.org-hdr { margin-bottom:64px; padding-bottom:32px; border-bottom:1px solid var(--border); }
+.org-hdr .eyebrow { margin-bottom:16px; }
+.org-hdr h2 { max-width:28ch; margin:0; }
+.org-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:80px; align-items:start; }
+.org-lead { font-size:17px; line-height:1.7; color:var(--ink-500); max-width:46ch; margin:0 0 40px; }
+.org-benefits { display:flex; flex-direction:column; margin-bottom:0; }
+.org-benefit { display:flex; gap:16px; align-items:baseline; padding:14px 0; border-bottom:1px solid var(--border); font-size:15px; color:var(--ink-600); }
+.org-benefit-num { font-size:10px; font-weight:600; letter-spacing:0.18em; color:var(--sage-600); flex-shrink:0; }
+.org-form-wrap { background:var(--white); padding:40px 36px; border:1px solid var(--border); }
+.org-form-wrap .eyebrow { margin-bottom:20px; }
+
+/* ── Om oss — Arbeta med oss ────────────────────────────────────── */
+.arbeta-section { background:var(--ink-700); color:var(--white); padding:var(--space-10) 0; }
+.arbeta-hdr { margin-bottom:64px; padding-bottom:32px; border-bottom:1px solid rgba(255,255,255,0.15); }
+.arbeta-hdr .eyebrow { color:var(--sage-300); margin-bottom:16px; }
+.arbeta-hdr h2 { color:var(--white); max-width:28ch; margin:0; }
+.arbeta-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:80px; }
+.arbeta-lead { font-size:17px; line-height:1.7; color:rgba(255,255,255,0.8); max-width:48ch; margin:0 0 40px; }
+.arbeta-list-hdr { font-size:11px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:var(--sage-300); margin-bottom:20px; }
+.arbeta-items { display:flex; flex-direction:column; margin-bottom:48px; }
+.arbeta-item { display:flex; gap:16px; align-items:baseline; padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.1); font-size:15px; color:rgba(255,255,255,0.85); }
+.arbeta-item-num { font-size:10px; font-weight:600; letter-spacing:0.18em; color:var(--sage-300); flex-shrink:0; }
+.arbeta-actions { display:flex; gap:12px; flex-wrap:wrap; }
+.arbeta-reqs { display:flex; flex-direction:column; gap:12px; margin-bottom:40px; }
+.arbeta-req { display:flex; gap:14px; align-items:baseline; font-size:14px; color:rgba(255,255,255,0.8); line-height:1.5; }
+.arbeta-req-dot { width:6px; height:6px; border-radius:50%; background:var(--sage-400); flex-shrink:0; margin-top:6px; }
+.arbeta-tools { display:flex; flex-direction:column; gap:8px; }
+.arbeta-tool { font-size:13px; color:rgba(255,255,255,0.6); padding:10px 16px; background:rgba(255,255,255,0.06); }
+
+/* ── Om oss — Feedback ──────────────────────────────────────────── */
+.feedback-section { background:var(--cream); padding:var(--space-10) 0; }
+.feedback-grid { display:grid; grid-template-columns:1fr 1.4fr; gap:80px; align-items:start; }
+.feedback-eyebrow { margin-bottom:16px; }
+.feedback-grid h2 { max-width:18ch; margin-bottom:24px; }
+.feedback-lead { font-size:16px; line-height:1.7; color:var(--ink-500); max-width:40ch; margin:0 0 32px; }
+.feedback-prize { font-size:14px; color:var(--ink-500); line-height:1.7; margin:0; }
+.feedback-form-wrap { background:var(--white); padding:48px 40px; border:1px solid var(--border); }
+
+@media (max-width: 900px) {
+  .tb-grid { grid-template-columns:1fr; gap:48px; }
+  .org-grid { grid-template-columns:1fr; gap:48px; }
+  .arbeta-grid { grid-template-columns:1fr; gap:48px; }
+  .feedback-grid { grid-template-columns:1fr; gap:48px; }
+  .feedback-form-wrap { padding:32px 24px; }
+}
+@media (max-width: 600px) {
+  .arbeta-actions { flex-direction:column; }
+  .arbeta-actions .btn { width:100%; justify-content:center; }
+}
+
 /* ── Partners strip (i footern) ─────────────────────────────────── */
 .footer-partners .ps-eyebrow {
   text-align: center;
@@ -791,14 +854,14 @@ html, body { overflow-x: clip; max-width: 100vw; }
 # Behandlingar som är aktiva (publika). Övriga sätts till draft i WP.
 # ---------------------------------------------------------------------------
 ACTIVE_TREATMENTS: set[str] = {
-    "akuttandvard",
+    "akut-tandvard",
 }
 
 # ---------------------------------------------------------------------------
 # Per-page hero data (from approved mockups in design-system/)
 # ---------------------------------------------------------------------------
 TREATMENT_HERO_DATA: dict[str, dict] = {
-    "akuttandvard": {
+    "akut-tandvard": {
         "eyebrow":      "N° 01 — Akuttandvård",
         "title":        "Snabb hjälp",
         "title_italic": "när det gör ont.",
@@ -822,7 +885,7 @@ TREATMENT_HERO_DATA: dict[str, dict] = {
         "cta_title":    "Boka implantatrådgivning",
         "cta_sub":      "Ring 08-12 85 45 55 eller boka online. Vi bedömer din situation kostnadsfritt vid konsultationsbesöket.",
     },
-    "karies": {
+    "karies-hal-i-tanden": {
         "eyebrow":      "N° 03 — Karies · Hål i tanden",
         "title":        "Snabb lagning —",
         "title_italic": "utan obehag.",
@@ -846,7 +909,7 @@ TREATMENT_HERO_DATA: dict[str, dict] = {
         "cta_title":    "Boka en blekningskonsultation",
         "cta_sub":      "Vi bedömer dina tänder och rekommenderar rätt metod för dig. Ring 08-12 85 45 55 eller boka online.",
     },
-    "tandfasader": {
+    "tandfasader-veneers": {
         "eyebrow":      "N° 05 — Tandfasader · Veneers",
         "title":        "Ditt drömleende —",
         "title_italic": "skräddarsytt.",
@@ -858,7 +921,7 @@ TREATMENT_HERO_DATA: dict[str, dict] = {
         "cta_title":    "Boka en konsultation om tandfasader",
         "cta_sub":      "Vi skapar en digital preview av ditt leende — utan kostnad vid konsultationsbesöket. Ring 08-12 85 45 55.",
     },
-    "tandreglering": {
+    "tandreglering-stockholm": {
         "eyebrow":      "N° 06 — Tandreglering · Invisalign",
         "title":        "Raka tänder.",
         "title_italic": "Utan byglar.",
@@ -870,7 +933,7 @@ TREATMENT_HERO_DATA: dict[str, dict] = {
         "cta_title":    "Boka en gratis Invisalign-konsultation",
         "cta_sub":      "Vi tar ett digitalt avtryck och visar dig ditt potentiella slutresultat — utan kostnad. Ring 08-12 85 45 55.",
     },
-    "tandsten": {
+    "tandsten-tandhygienist": {
         "eyebrow":      "N° 07 — Tandsten · Tandhygienist",
         "title":        "Professionell rengöring —",
         "title_italic": "grunden för allt.",
@@ -1035,7 +1098,7 @@ document.addEventListener('submit',function(e){
       <span class="ts-sep">·</span>
       <button id="header-style-toggle" onclick="(function(){{var h=document.documentElement;var isLight=h.classList.toggle('header-light');localStorage.setItem('hdr',isLight?'0':'1');document.getElementById('header-style-toggle').textContent=isLight?'○ White':'● Black';document.querySelectorAll('.hdr-toggle-label').forEach(function(b){{b.textContent=isLight?'○ White':'● Black';}});}})()" style="background:none;border:none;color:rgba(255,255,255,0.85);font-size:12px;cursor:pointer;padding:0;letter-spacing:0.04em;font-family:inherit;">● Black</button>
       <span class="ts-sep">·</span>
-      <a href="/remiss">Remiss</a>
+      <a href="/remiss-2">Remiss</a>
       <span class="ts-sep">·</span>
       <a href="tel:{{{{site_phone}}}}" style="display:flex;align-items:center;gap:6px;">{ICO_PHONE} {{{{site_phone}}}}</a>
     </div>
@@ -1099,7 +1162,7 @@ def build_hero() -> dict:
         <div><span class="hb-stat-val">{{stat_4_val}}</span><span class="hb-stat-lbl">{{stat_4_lbl}}</span></div>
       </div>
       <a href="#tdl-booking-widget" class="btn btn-light btn-lg" style="width:100%;">Boka tid online</a>
-      <a href="/akuttandvard" class="hb-link">Akuttandvård samma dag →</a>
+      <a href="/akut-tandvard" class="hb-link">Akuttandvård samma dag →</a>
       <div class="hb-review-widget">[trustindex data-widget-id=0771e9d71a88743f97661278b10]</div>
       <div class="hb-medals hb-medals-mobile">
         <a href="https://www.tandlakare.se/klinik/stockholm/alvsjo-tandvard/" target="_blank" rel="noopener" class="hb-medal-link">
@@ -1144,14 +1207,14 @@ BASE_IMG = "https://swordfish.templweb.com/wp-content/uploads/2026/05/"
 
 def build_treatments_grid() -> dict:
     TREATMENTS = [
-        ("Akuttandvård",            "Tider samma dag",    True,  "/akuttandvard",      "t-akut.jpg"),
-        ("Implantat",               "Specialistteam",     False, "/implantat",          "t-implantat.jpg"),
-        ("Karies / Hål i tanden",   "Allmäntandvård",     False, "/karies",             "t-karies.jpg"),
-        ("Tandblekning",            "Klinik & hemma",     False, "/tandblekning",       "t-tandblekning.jpg"),
-        ("Tandfasader / Veneers",   "Estetisk tandvård",  False, "/tandfasader",        "t-tandfasader.jpg"),
-        ("Tandreglering",           "Invisalign",         False, "/tandreglering",      "t-tandreglering.jpg"),
-        ("Tandsten / Tandhygienist","Förebyggande vård",  False, "/tandsten",           "t-tandsten.jpg"),
-        ("Tandvårdsrädsla",         "Lugnande vård",      False, "/tandvardsradsla",    "t-tandradsla.jpg"),
+        ("Akuttandvård",            "Tider samma dag",    True,  "/akut-tandvard",           "t-akut.jpg"),
+        ("Implantat",               "Specialistteam",     False, "/implantat",               "t-implantat.jpg"),
+        ("Karies / Hål i tanden",   "Allmäntandvård",     False, "/karies-hal-i-tanden",     "t-karies.jpg"),
+        ("Tandblekning",            "Klinik & hemma",     False, "/tandblekning",             "t-tandblekning.jpg"),
+        ("Tandfasader / Veneers",   "Estetisk tandvård",  False, "/tandfasader-veneers",      "t-tandfasader.jpg"),
+        ("Tandreglering",           "Invisalign",         False, "/tandreglering-stockholm",  "t-tandreglering.jpg"),
+        ("Tandsten / Tandhygienist","Förebyggande vård",  False, "/tandsten-tandhygienist",   "t-tandsten.jpg"),
+        ("Tandvårdsrädsla",         "Lugnande vård",      False, "/tandvardsradsla",          "t-tandradsla.jpg"),
     ]
 
     cards_html = ""
@@ -1450,13 +1513,13 @@ def build_site_footer() -> dict:
       <div class="footer-col">
         <div class="footer-col-title">Behandlingar</div>
         <ul>
-          <li><a href="/akuttandvard">Akuttandvård</a></li>
+          <li><a href="/akut-tandvard">Akuttandvård</a></li>
           <li><a href="/implantat">Implantat</a></li>
-          <li><a href="/karies">Karies / Hål</a></li>
+          <li><a href="/karies-hal-i-tanden">Karies / Hål</a></li>
           <li><a href="/tandblekning">Tandblekning</a></li>
-          <li><a href="/tandfasader">Tandfasader</a></li>
-          <li><a href="/tandreglering">Tandreglering</a></li>
-          <li><a href="/tandsten">Tandsten</a></li>
+          <li><a href="/tandfasader-veneers">Tandfasader</a></li>
+          <li><a href="/tandreglering-stockholm">Tandreglering</a></li>
+          <li><a href="/tandsten-tandhygienist">Tandsten</a></li>
           <li><a href="/tandvardsradsla">Tandvårdsrädsla</a></li>
         </ul>
       </div>
@@ -1464,9 +1527,9 @@ def build_site_footer() -> dict:
         <div class="footer-col-title">Kliniken</div>
         <ul>
           <li><a href="/om-oss">Om oss</a></li>
-          <li><a href="/barnspecialist">Barnspecialist</a></li>
+          <li><a href="/pedodonti">Barnspecialist</a></li>
           <li><a href="/lista-dig">Lista dig</a></li>
-          <li><a href="/remiss">Remiss</a></li>
+          <li><a href="/remiss-2">Remiss</a></li>
           <li><a href="/kampanjer">Kampanjer</a></li>
           <li><a href="/rantefritt">Räntefri delbetalning</a></li>
         </ul>
@@ -1844,7 +1907,7 @@ def build_map_hours_kontakt() -> dict:
         for d, h in hours
     )
     html = f"""
-<section class="map-hours">
+<section class="map-hours" id="hitta-till-oss">
   <div class="container-wide">
     <div class="eyebrow" style="margin-bottom:16px;">Hitta till oss</div>
     <h2 style="margin-bottom:40px;">{{{{heading}}}}</h2>
@@ -1905,6 +1968,238 @@ def build_contact_form() -> dict:
         "schema": [
             {"name": "heading", "type": "text",     "label": "Rubrik",   "default": "Inte akut? Skriv så hörs vi av."},
             {"name": "intro",   "type": "textarea", "label": "Brödtext", "default": "Vi svarar inom en arbetsdag. För akuta besvär, ring oss istället på 08-12 85 45 55."},
+        ],
+    }
+
+
+def build_text_blocks_om_oss() -> dict:
+    html = """
+<section class="tb-section">
+  <div class="container-wide">
+    <div class="tb-hdr">
+      <div class="eyebrow">{{eyebrow}}</div>
+      <h2>{{heading}}</h2>
+    </div>
+    <div class="tb-grid">
+      <article class="tb-block">
+        <div class="tb-num">01</div>
+        <h3>{{block_1_h3}}</h3>
+        <p>{{block_1_body}}</p>
+      </article>
+      <article class="tb-block">
+        <div class="tb-num">02</div>
+        <h3>{{block_2_h3}}</h3>
+        <p>{{block_2_body}}</p>
+      </article>
+      <article class="tb-block">
+        <div class="tb-num">03</div>
+        <h3>{{block_3_h3}}</h3>
+        <p>{{block_3_body}}</p>
+      </article>
+      <article class="tb-block">
+        <div class="tb-num">04</div>
+        <h3>{{block_4_h3}}</h3>
+        <p>{{block_4_body}}</p>
+      </article>
+    </div>
+  </div>
+</section>
+"""
+    return {
+        "block_name": "lumo/text-blocks-om-oss",
+        "title": "Textblock – Om oss",
+        "html_template": collapse(html),
+        "schema": [
+            {"name": "eyebrow",    "type": "text",     "label": "Etikett",       "default": "Så arbetar vi"},
+            {"name": "heading",    "type": "text",     "label": "Rubrik",        "default": "Fyra principer som vägleder varje besök."},
+            {"name": "block_1_h3", "type": "text",     "label": "Block 1 – rubrik",    "default": "Vår filosofi och approach till tandvård"},
+            {"name": "block_1_body","type":"textarea", "label": "Block 1 – text",      "default": "På Älvsjö Tandvård bygger vår filosofi på att se hela människan, inte bara tänderna. Vi tror på vikten av att skapa en förtroendefull relation där du känner dig trygg att ställa frågor och dela dina funderingar. Vår approach innebär att vi alltid börjar med att lyssna, för att sedan tillsammans med dig skapa en individuell behandlingsplan som möter dina unika behov och förväntningar."},
+            {"name": "block_2_h3", "type": "text",     "label": "Block 2 – rubrik",    "default": "Teamet — bakgrund och kompetens"},
+            {"name": "block_2_body","type":"textarea", "label": "Block 2 – text",      "default": "Vårt team består av erfarna och engagerade tandläkare, tandhygienister och tandsköterskor som brinner för ditt leende och din munhälsa. Vi arbetar kontinuerligt med att vidareutveckla vår kompetens och hålla oss uppdaterade med de senaste forskningsrönen och teknikerna inom tandvården."},
+            {"name": "block_3_h3", "type": "text",     "label": "Block 3 – rubrik",    "default": "Kliniken — miljö och utrustning"},
+            {"name": "block_3_body","type":"textarea", "label": "Block 3 – text",      "default": "Vår klinik är inte bara nyrenoverad och estetiskt tilltalande, den är också utrustad med den senaste tekniken. Vi erbjuder digital scanning för avtryck, panoramaröntgen och CBCT för detaljerade 3D-bilder av dina käkar — exakta diagnoser och noggranna behandlingsplaner."},
+            {"name": "block_4_h3", "type": "text",     "label": "Block 4 – rubrik",    "default": "Trygghet vid tandvårdsrädsla"},
+            {"name": "block_4_body","type":"textarea", "label": "Block 4 – text",      "default": "Vi förstår att tandvårdsrädsla är vanligt och möter dig med extra tid och förståelse. Vi börjar alltid med ett lugnt samtal där du får berätta om dina tidigare erfarenheter. Vi anpassar tempot helt efter dig, erbjuder pauser och förklarar varje steg tydligt."},
+        ],
+    }
+
+
+def build_organisation_om_oss() -> dict:
+    benefits = "".join(
+        f'<div class="org-benefit"><span class="org-benefit-num">0{i}</span>{{{{benefit_{i}}}}}</div>'
+        for i in range(1, 6)
+    )
+    html = f"""
+<section class="org-section" id="organisation">
+  <div class="container-wide">
+    <div class="org-hdr">
+      <div class="eyebrow">Organisation</div>
+      <h2>{{{{heading}}}}</h2>
+    </div>
+    <div class="org-grid">
+      <div>
+        <p class="org-lead">{{{{lead}}}}</p>
+        <div class="eyebrow" style="margin-bottom:20px;">Ta del av företagsförmånerna ni också</div>
+        <div class="org-benefits">{benefits}</div>
+      </div>
+      <div class="org-form-wrap">
+        <div class="eyebrow">Kontakta oss</div>
+        <form class="lumo-contact-form" novalidate style="margin-top:20px;">
+          <input type="text" name="website" style="display:none;" tabindex="-1" autocomplete="off">
+          <label class="full"><span class="lbl">Firmatecknare</span><input type="text" name="fornamn" required placeholder="För- och efternamn"></label>
+          <label class="full"><span class="lbl">E-post</span><input type="email" name="email" required placeholder="foretagets@email.se"></label>
+          <label class="full"><span class="lbl">Telefon</span><input type="tel" name="phone" required placeholder="08-XXX XX XX"></label>
+          <label class="full"><span class="lbl">Organisationsnummer</span><input type="text" name="arende" required placeholder="556XXX-XXXX"></label>
+          <p class="lumo-form-msg"></p>
+          <div class="cf-submit"><button type="submit" class="btn btn-primary">Skicka förfrågan</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+"""
+    return {
+        "block_name": "lumo/organisation-om-oss",
+        "title": "Organisation – Företagstandvård",
+        "html_template": collapse(html),
+        "schema": [
+            {"name": "heading",    "type": "text",     "label": "Rubrik",      "default": "Företagstandvård — en förmån som gör skillnad."},
+            {"name": "lead",       "type": "textarea", "label": "Ingress",     "default": "Det finns många fördelar med att erbjuda tandvård till sina medarbetare. Intresserad av att veta mer? Fyll i kontaktformuläret så återkommer vi med allt du behöver veta."},
+            {"name": "benefit_1",  "type": "text",     "label": "Förmån 1",   "default": "Stärk dina medarbetares hälsa utan extra kostnad"},
+            {"name": "benefit_2",  "type": "text",     "label": "Förmån 2",   "default": "Få förmånliga priser på tandvård"},
+            {"name": "benefit_3",  "type": "text",     "label": "Förmån 3",   "default": "Inga kötider — snabba tider för era medarbetare"},
+            {"name": "benefit_4",  "type": "text",     "label": "Förmån 4",   "default": "Vi erbjuder tider även efter ordinarie arbetstider"},
+            {"name": "benefit_5",  "type": "text",     "label": "Förmån 5",   "default": "Gör dig till en mer attraktiv arbetsgivare"},
+        ],
+    }
+
+
+def build_arbeta_med_oss() -> dict:
+    offers = "".join(
+        f'<div class="arbeta-item"><span class="arbeta-item-num">0{i}</span>{{{{offer_{i}}}}}</div>'
+        for i in range(1, 6)
+    )
+    reqs = "".join(
+        f'<div class="arbeta-req"><span class="arbeta-req-dot"></span>{{{{req_{i}}}}}</div>'
+        for i in range(1, 8)
+    )
+    tools = "".join(
+        f'<div class="arbeta-tool">{{{{tool_{i}}}}}</div>'
+        for i in range(1, 5)
+    )
+    html = f"""
+<section class="arbeta-section" id="arbeta-med-oss">
+  <div class="container-wide">
+    <div class="arbeta-hdr">
+      <div class="eyebrow">Arbeta med oss</div>
+      <h2>{{{{heading}}}}</h2>
+    </div>
+    <div class="arbeta-grid">
+      <div>
+        <p class="arbeta-lead">{{{{lead}}}}</p>
+        <div class="arbeta-list-hdr">Vi erbjuder bland annat</div>
+        <div class="arbeta-items">{offers}</div>
+        <div class="arbeta-actions">
+          <a href="mailto:{{{{site_email}}}}" class="btn btn-light btn-lg">Skicka ansökan</a>
+          <a href="tel:{{{{site_phone}}}}" class="btn btn-white-ghost btn-lg">Ring oss</a>
+        </div>
+      </div>
+      <div>
+        <div class="arbeta-list-hdr">Vi söker dig som har</div>
+        <div class="arbeta-reqs">{reqs}</div>
+        <div class="arbeta-list-hdr">Systemen vi använder</div>
+        <div class="arbeta-tools">{tools}</div>
+      </div>
+    </div>
+  </div>
+</section>
+"""
+    return {
+        "block_name": "lumo/arbeta-med-oss",
+        "title": "Arbeta med oss",
+        "html_template": collapse(html),
+        "schema": [
+            {"name": "heading", "type": "text",     "label": "Rubrik",   "default": "Vi söker duktiga och ambitiösa kollegor."},
+            {"name": "lead",    "type": "textarea", "label": "Ingress",  "default": "Älvsjö Tandvård växer och vi söker tandläkare, tandhygienister och tandsköterskor som vill vara med på resan. Vår vision är att erbjuda all tandvård inom alla inriktningar under samma tak — i nyrenoverade, luftiga lokaler mitt i Älvsjö."},
+            {"name": "offer_1", "type": "text", "label": "Erbjudande 1", "default": "Kirurgi och implantatbehandlingar"},
+            {"name": "offer_2", "type": "text", "label": "Erbjudande 2", "default": "Tandreglering och Invisalign"},
+            {"name": "offer_3", "type": "text", "label": "Erbjudande 3", "default": "Digital scanning och CBCT"},
+            {"name": "offer_4", "type": "text", "label": "Erbjudande 4", "default": "Barnspecialisttandvård"},
+            {"name": "offer_5", "type": "text", "label": "Erbjudande 5", "default": "Panoramaröntgen"},
+            {"name": "req_1",   "type": "text", "label": "Krav 1",       "default": "Yrkeslegitimation från Socialstyrelsen"},
+            {"name": "req_2",   "type": "text", "label": "Krav 2",       "default": "Erfarenhet"},
+            {"name": "req_3",   "type": "text", "label": "Krav 3",       "default": "Flytande svenska i både tal och skrift"},
+            {"name": "req_4",   "type": "text", "label": "Krav 4",       "default": "Passion för yrket"},
+            {"name": "req_5",   "type": "text", "label": "Krav 5",       "default": "Ambition att utvecklas"},
+            {"name": "req_6",   "type": "text", "label": "Krav 6",       "default": "God kommunikativ förmåga"},
+            {"name": "req_7",   "type": "text", "label": "Krav 7",       "default": "Stresstålig — behålla lugnet under stressiga situationer"},
+            {"name": "tool_1",  "type": "text", "label": "Verktyg 1",    "default": "Journalsystem: Muntra"},
+            {"name": "tool_2",  "type": "text", "label": "Verktyg 2",    "default": "Röntgenprogram: DentalEye"},
+            {"name": "tool_3",  "type": "text", "label": "Verktyg 3",    "default": "Maskinell rens: WaveOne"},
+            {"name": "tool_4",  "type": "text", "label": "Verktyg 4",    "default": "Implantatsystem: Implant Direct / Straumann"},
+        ],
+    }
+
+
+def build_feedback_form_om_oss() -> dict:
+    html = """
+<section class="feedback-section" id="hjalp-oss-bli-bast">
+  <div class="container-wide">
+    <div class="feedback-grid">
+      <div>
+        <div class="eyebrow feedback-eyebrow">Hjälp oss bli bäst</div>
+        <h2>{{heading}}</h2>
+        <p class="feedback-lead">{{body}}</p>
+        <p class="feedback-prize">{{prize_note}}</p>
+      </div>
+      <div class="feedback-form-wrap">
+        <form class="lumo-contact-form" novalidate>
+          <input type="text" name="website" style="display:none;" tabindex="-1" autocomplete="off">
+          <label class="full"><span class="lbl">E-post <span style="font-weight:400;opacity:0.6;">(valfritt)</span></span><input type="email" name="email" placeholder="din@email.se"></label>
+          <label class="full"><span class="lbl">Ämne</span><input type="text" name="fornamn" required placeholder="Vad gäller din feedback?"></label>
+          <label class="full"><span class="lbl">Meddelande</span><textarea name="arende" rows="5" required placeholder="Berätta vad du tyckte om ditt besök…"></textarea></label>
+          <p class="lumo-form-msg"></p>
+          <div class="cf-submit"><button type="submit" class="btn btn-primary btn-lg">Skicka feedback</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+"""
+    return {
+        "block_name": "lumo/feedback-form-om-oss",
+        "title": "Feedbackformulär – Om oss",
+        "html_template": collapse(html),
+        "schema": [
+            {"name": "heading",    "type": "text",     "label": "Rubrik",      "default": "Vi vill bli bäst — och det kräver din hjälp."},
+            {"name": "body",       "type": "textarea", "label": "Brödtext",    "default": "Dina synpunkter är ovärderliga, speciellt de som handlar om saker vi kan bli bättre på. Genom att dela med dig av din upplevelse hjälper du oss att förbättra vården för alla våra patienter."},
+            {"name": "prize_note", "type": "text",     "label": "Pristext",    "default": "Som tack för din feedback har du chansen att bli utvald för en kostnadsfri eltandborste."},
+        ],
+    }
+
+
+def build_cta_strip_om_oss() -> dict:
+    html = """
+<section class="cta-strip">
+  <div class="container-wide cs-grid">
+    <div>
+      <h2>{{heading}}</h2>
+      <p class="cs-sub">{{sub}}</p>
+    </div>
+    <div class="cs-actions">
+      <a href="#tdl-booking-widget" class="btn btn-light btn-lg">Boka tid</a>
+      <a href="tel:+46812854555" class="btn btn-white-ghost btn-lg">08 — 12 85 45 55</a>
+    </div>
+  </div>
+</section>
+"""
+    return {
+        "block_name": "lumo/cta-strip-om-oss",
+        "title": "CTA-strip – Om oss",
+        "html_template": collapse(html),
+        "schema": [
+            {"name": "heading", "type": "text",     "label": "Rubrik",  "default": "Välkommen till oss."},
+            {"name": "sub",     "type": "textarea", "label": "Undertext","default": "Ring 08-12 85 45 55 eller boka online. Vi tar emot nya patienter och prioriterar akuta besvär."},
         ],
     }
 
@@ -2001,7 +2296,7 @@ def build_content_block(block_name: str, title: str, mirror: bool) -> dict:
 
 def build_map_section() -> dict:
     html = f"""
-<section style="padding:96px 0;background:var(--white);">
+<section id="hitta-till-oss" style="padding:96px 0;background:var(--white);">
   <div class="container-wide" style="text-align:center;">
     <div class="eyebrow" style="display:inline-block;margin-bottom:16px;">Hitta hit</div>
     <h2 style="font-family:var(--font-serif);font-weight:500;font-size:clamp(28px,2.6vw,40px);line-height:1.15;letter-spacing:-0.02em;color:var(--ink-700);margin:0 0 14px;">{{{{heading}}}}</h2>
@@ -2069,13 +2364,19 @@ def build_site(bases: dict) -> tuple[list, list]:
         "lumo/site-header",
         "lumo/page-hero-info",
         add("content-block-1", "om-oss", {
-            "eyebrow": "Vår historia",
-            "h2": "En klinik för hela familjen",
-            "body": "<p>Sedan starten i Älvsjö har vi vuxit till en av söderorts ledande tandvårdskliniker. Vi tar emot patienter i alla åldrar och erbjuder ett brett utbud av behandlingar.</p><p>Vår filosofi är enkel: <strong>trygg, modern och tillgänglig tandvård</strong> för alla.</p>",
+            "eyebrow": "Vårt uppdrag",
+            "h2": "Din tandhälsa — vårt uppdrag, din trygghet.",
+            "body": "<p>På Älvsjö Tandvård är vår vision att erbjuda en tandvårdsupplevelse där du känner dig helt trygg och sedd, oavsett ditt behov. Vår <strong>nyrenoverade klinik</strong> på Prästgårdsgränd 4, bara ett stenkast från Älvsjö pendeltågsstation, är designad för att vara ljus, luftig och tillgänglig — med hiss för din bekvämlighet.</p><p>Hos oss hittar du ett brett spektrum av tandvårdstjänster, från <strong>allmäntandvård och förebyggande vård</strong> för hela familjen, till mer avancerade behandlingar som <strong>tandimplantat</strong> och <strong>osynlig tandreglering med Invisalign</strong>. Vi är anslutna till Försäkringskassan och erbjuder räntefri delbetalning.</p>",
+            "cta_text": "Boka tid",
+            "cta_link": "#tdl-booking-widget",
         }, "Om oss"),
+        "lumo/text-blocks-om-oss",
         "lumo/team",
+        "lumo/organisation-om-oss",
         add("map-section", "om-oss", {"heading": "Hitta till kliniken"}, "Om oss"),
-        add("contact-panel", "om-oss", {}, "Om oss"),
+        "lumo/arbeta-med-oss",
+        "lumo/feedback-form-om-oss",
+        "lumo/cta-strip-om-oss",
         "lumo/site-footer",
     ]
     pages.append({"title": "Om oss", "slug": "om-oss", "menu_label": "Om oss", "blocks": blocks})
@@ -2094,18 +2395,18 @@ def build_site(bases: dict) -> tuple[list, list]:
 
     # ── Remiss ─────────────────────────────────────────────────────────────
     blocks = ["lumo/site-header", "lumo/remiss-widget", "lumo/site-footer"]
-    pages.append({"title": "Remiss", "slug": "remiss", "menu_label": None, "blocks": blocks})
+    pages.append({"title": "Remiss", "slug": "remiss-2", "menu_label": None, "blocks": blocks})
 
     # ── Behandlingssidor ────────────────────────────────────────────────────
     treatment_pages = [
-        ("akuttandvard",    "Akuttandvård",             "Behandlingar", "Akuttandvård i Älvsjö — tid samma dag"),
-        ("implantat",       "Implantat",                "Behandlingar", "Tandimplantat i Älvsjö"),
-        ("karies",          "Karies / Hål i tanden",    "Behandlingar", "Karies och hål i tanden"),
-        ("tandblekning",    "Tandblekning",             "Behandlingar", "Tandblekning i Älvsjö"),
-        ("tandfasader",     "Tandfasader / Veneers",    "Behandlingar", "Tandfasader och veneers i Älvsjö"),
-        ("tandreglering",   "Tandreglering",            "Behandlingar", "Tandreglering och Invisalign"),
-        ("tandsten",        "Tandsten / Tandhygienist", "Behandlingar", "Tandstensbehandling och tandhygienist"),
-        ("tandvardsradsla", "Tandvårdsrädsla",          "Behandlingar", "Tandvård för rädda patienter"),
+        ("akut-tandvard",           "Akuttandvård",             "Behandlingar", "Akuttandvård i Älvsjö — tid samma dag"),
+        ("implantat",               "Implantat",                "Behandlingar", "Tandimplantat i Älvsjö"),
+        ("karies-hal-i-tanden",     "Karies / Hål i tanden",    "Behandlingar", "Karies och hål i tanden"),
+        ("tandblekning",            "Tandblekning",             "Behandlingar", "Tandblekning i Älvsjö"),
+        ("tandfasader-veneers",     "Tandfasader / Veneers",    "Behandlingar", "Tandfasader och veneers i Älvsjö"),
+        ("tandreglering-stockholm", "Tandreglering",            "Behandlingar", "Tandreglering och Invisalign"),
+        ("tandsten-tandhygienist",  "Tandsten / Tandhygienist", "Behandlingar", "Tandstensbehandling och tandhygienist"),
+        ("tandvardsradsla",         "Tandvårdsrädsla",          "Behandlingar", "Tandvård för rädda patienter"),
     ]
 
     for slug, menu_label, parent, h1 in treatment_pages:
@@ -2145,7 +2446,7 @@ def build_site(bases: dict) -> tuple[list, list]:
             "h2":      "Anpassad specialistvård med omtanke.",
             "body":    "<p>Älvsjö Pedodonti är vår specialistklinik för <strong>barn och unga upp till 23 års ålder</strong>. Vi arbetar på uppdrag av Region Stockholm och tar emot remisser via Muntra för att säkerställa expertis och trygg vård för ditt barn.</p><p>För en trygg upplevelse erbjuder vi <strong>lustgas, lugnande medel (Midazolam) och i särskilda fall narkosbehandling</strong>. Tandvård är alltid <strong>gratis för barn och ungdomar upp till 19 år</strong>.</p>",
             "cta_text": "Skicka remiss",
-            "cta_link": "/remiss",
+            "cta_link": "/remiss-2",
         }, "Barnspecialist"),
         add("faq", "barnspecialist", {
             "heading": "Frågor från föräldrar.",
@@ -2163,7 +2464,7 @@ def build_site(bases: dict) -> tuple[list, list]:
         }, "Barnspecialist"),
         "lumo/site-footer",
     ]
-    pages.append({"title": "Barnspecialist (Pedodonti) i Älvsjö", "slug": "barnspecialist",
+    pages.append({"title": "Barnspecialist (Pedodonti) i Älvsjö", "slug": "pedodonti",
                   "menu_label": "Barnspecialist", "blocks": blocks})
 
     return variants, pages
@@ -2202,6 +2503,13 @@ def main() -> None:
     barnspecialist_comps = [build_page_hero_barnspecialist(), build_fact_strip_barnspecialist()]
     kontakt_comps = [build_page_hero_kontakt(), build_contact_grid(), build_map_hours_kontakt(), build_contact_form()]
     remiss_comp   = build_remiss_widget()
+    om_oss_comps  = [
+        build_text_blocks_om_oss(),
+        build_organisation_om_oss(),
+        build_arbeta_med_oss(),
+        build_feedback_form_om_oss(),
+        build_cta_strip_om_oss(),
+    ]
 
     variants, pages = build_site(bases)
 
@@ -2210,7 +2518,7 @@ def main() -> None:
         site_header, site_footer,
         hero, treatments, reviews, about, emergency, team, photo_tour,
         page_hero_info,
-        *treatment_heroes, *cta_strips, *barnspecialist_comps, *kontakt_comps, remiss_comp,
+        *treatment_heroes, *cta_strips, *barnspecialist_comps, *kontakt_comps, *om_oss_comps, remiss_comp,
     ]
 
     bundle = {
@@ -2240,7 +2548,7 @@ def main() -> None:
         "pages": pages,
         "extra_menu_items": [
             {"label": "Om kliniken",       "url": "/om-oss/",                       "parent": "Om oss"},
-            {"label": "Vi som jobbar",     "url": "/om-oss/#vi-som-jobbar",          "parent": "Om oss"},
+            {"label": "Vi som jobbar",     "url": "/om-oss/#team",                    "parent": "Om oss"},
             {"label": "Organisation",      "url": "/om-oss/#organisation",           "parent": "Om oss"},
             {"label": "Hitta till oss",    "url": "/om-oss/#hitta-till-oss",         "parent": "Om oss"},
             {"label": "Arbeta med oss",    "url": "/om-oss/#arbeta-med-oss",         "parent": "Om oss"},
