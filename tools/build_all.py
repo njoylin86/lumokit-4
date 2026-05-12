@@ -211,6 +211,44 @@ def build_site(site_name: str, pages: list, extra_menu_items: list | None = None
         sys.exit(1)
 
 
+def sync_page_statuses(pages: list) -> None:
+    """Set WP page status (publish/draft) for pages that declare a 'status' field."""
+    pages_with_status = [p for p in pages if p.get("status") in ("draft", "publish")]
+    if not pages_with_status:
+        return
+
+    for page_spec in pages_with_status:
+        slug   = page_spec["slug"]
+        status = page_spec["status"]
+
+        # Find the page by slug
+        r = requests.get(
+            f"{WP_URL}/wp-json/wp/v2/pages",
+            params={"slug": slug, "context": "edit"},
+            auth=(WP_USERNAME, WP_APP_PASSWORD),
+            timeout=15,
+        )
+        if not r.ok or not r.json():
+            print(f"  [WARN] Could not find page '{slug}' to set status={status}")
+            continue
+
+        page_id = r.json()[0]["id"]
+        current_status = r.json()[0].get("status")
+        if current_status == status:
+            continue  # already correct
+
+        r2 = requests.post(
+            f"{WP_URL}/wp-json/wp/v2/pages/{page_id}",
+            json={"status": status},
+            auth=(WP_USERNAME, WP_APP_PASSWORD),
+            timeout=15,
+        )
+        if r2.ok:
+            print(f"  [OK]   /{slug}/ → {status}")
+        else:
+            print(f"  [WARN] Failed to set /{slug}/ to {status}: {r2.status_code}")
+
+
 def patch_menu_parents(extra_menu_items: list | None) -> None:
     """Ensure extra_menu_items with a 'parent' label are nested correctly in WP nav menu.
 
@@ -394,14 +432,17 @@ def build_all(bundle_path: str, allow_production: bool = False,
         print(f"        Vill du skriva över sidornas innehåll: lägg till --overwrite-content")
     else:
         if keep_pages:
-            kept = [p for p in pages if p.get("slug") in keep_pages]
-            pages = [p for p in pages if p.get("slug") not in keep_pages]
-            if kept:
-                print(f"\n[INFO] --keep-pages preserved {len(kept)} page(s) from overwrite: "
-                      f"{', '.join(p.get('slug') for p in kept)}")
+            kept_slugs = []
+            for p in pages:
+                if p.get("slug") in keep_pages:
+                    p["keep_content"] = True
+                    kept_slugs.append(p.get("slug"))
+            if kept_slugs:
+                print(f"\n[INFO] --keep-pages preserved {len(kept_slugs)} page(s) from overwrite: "
+                      f"{', '.join(kept_slugs)}")
 
-        slugs = [p.get("slug") for p in pages]
-        print(f"\n[WARN] OVERWRITE-CONTENT är aktivt. Följande {len(pages)} sida(or) kommer "
+        slugs = [p.get("slug") for p in pages if not p.get("keep_content")]
+        print(f"\n[WARN] OVERWRITE-CONTENT är aktivt. Följande {len(slugs)} sida(or) kommer "
               f"skrivas över på {WP_URL}:")
         for s in slugs:
             print(f"        - /{s}/")
@@ -421,6 +462,7 @@ def build_all(bundle_path: str, allow_production: bool = False,
             print(f"\n[{step}/{total_steps}] Building site '{site_name}' with {len(pages)} page(s)...")
             build_site(site_name, pages, extra_menu_items=extra_menu_items)
             patch_menu_parents(extra_menu_items)
+            sync_page_statuses(pages)
 
     # --- Step 3: Compile & push CSS from this bundle only -----------------
     print(f"\n[CSS] Compiling Tailwind CSS from {Path(bundle_path).name} ...")

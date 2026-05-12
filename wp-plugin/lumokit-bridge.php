@@ -208,9 +208,14 @@ function lumokit_build_site( WP_REST_Request $request ) {
 	$results    = [];
 
 	// --- Create or update each page ---
+	// Pages with keep_content:true are skipped for content but still included in the menu.
 	foreach ( $pages_spec as $page_spec ) {
 		if ( empty( $page_spec['title'] ) || empty( $page_spec['blocks'] ) ) {
 			continue;
+		}
+
+		if ( ! empty( $page_spec['keep_content'] ) ) {
+			continue; // Preserve existing page content — menu will still pick it up below.
 		}
 
 		$page_request = new WP_REST_Request( 'POST' );
@@ -1494,7 +1499,7 @@ function lumokit_render_block( $block, $content = '', $is_preview = false ) {
 	// ACF stores block field data keyed by field key (not name) in $block['data'].
 	// If the field key is present, the user has saved this field — even an empty
 	// value should be respected (editor expects "clear field → disappears").
-	$block_data  = is_array( $block['data'] ?? null ) ? $block['data'] : [];
+	$block_data  = (array) ( $block['data'] ?? [] );
 	$slug_prefix = sanitize_title( str_replace( '/', '_', $block_name ) );
 
 	foreach ( $schema as $field_def ) {
@@ -1513,6 +1518,16 @@ function lumokit_render_block( $block, $content = '', $is_preview = false ) {
 		$user_set_field = array_key_exists( $field_key, $block_data )
 			|| array_key_exists( '_' . $name, $block_data )
 			|| array_key_exists( $name, $block_data );
+
+		// get_field() can return empty if ACF's block meta context isn't resolved
+		// (e.g. field group not yet cached). Read directly from block_data as fallback.
+		if ( empty( $value ) && isset( $block_data[ $name ] ) && $block_data[ $name ] !== '' ) {
+			$value = $block_data[ $name ];
+			// If an image field stored an attachment ID, resolve it to a URL.
+			if ( $type === 'image' && is_numeric( $value ) ) {
+				$value = wp_get_attachment_url( (int) $value ) ?: '';
+			}
+		}
 
 		// Fall back to schema default ONLY when the user has never saved this field.
 		if ( ! $user_set_field && empty( $value ) && ! empty( $default ) ) {

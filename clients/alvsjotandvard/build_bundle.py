@@ -22,6 +22,11 @@ OUT_FILE    = CLIENT_DIR / "bundle.json"
 
 ADDRESS_ENC = quote_plus("Prästgårdsgränd 4, 125 44 Älvsjö")
 
+# ── Header-variant ──────────────────────────────────────────────────────────
+# True  = svart header (ink-700, vit logga)
+# False = vit header (vit bakgrund, färglogga)
+DARK_HEADER = True
+
 # Logo URLs — coloured version for header, white version for footer
 LOGO_COLOR = "https://alvsjotandvard.se/wp-content/uploads/2020/12/Alvsjo-tandvard-logo-farg.png"
 LOGO_WHITE = "https://alvsjotandvard.se/wp-content/uploads/2020/12/Alvsjo-tandvard-logo-vit.png"
@@ -48,7 +53,7 @@ ICO_CLOCK = ico('<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16
 # ---------------------------------------------------------------------------
 LAYOUT_CSS = r"""
 /* ── Overflow guard ─────────────────────────────────────────────── */
-html, body { overflow-x: hidden; max-width: 100vw; }
+html, body { overflow-x: clip; max-width: 100vw; }
 
 /* ── Containers ─────────────────────────────────────────────────── */
 .container-wide {
@@ -95,7 +100,7 @@ html, body { overflow-x: hidden; max-width: 100vw; }
 /* ── Header ─────────────────────────────────────────────────────── */
 .site-header {
   position: sticky; top: 0; z-index: 50;
-  background: var(--white); border-bottom: 1px solid var(--border);
+  background: var(--ink-700); border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 .admin-bar .site-header { top: 32px; }
 @media (max-width: 782px) { .admin-bar .site-header { top: 46px; } }
@@ -109,19 +114,19 @@ html, body { overflow-x: hidden; max-width: 100vw; }
 .site-header nav { display: flex; align-items: center; gap: 32px; }
 .site-header nav a, .site-header nav .menu-item a {
   font-family: var(--font-sans); font-size: 14px; font-weight: 500;
-  color: var(--ink-600); text-decoration: none;
+  color: rgba(255,255,255,0.85) !important; text-decoration: none;
   transition: color var(--dur-fast) var(--ease-standard);
 }
-.site-header nav a:hover { color: var(--blush-600); }
-.site-header nav a.btn, .site-header nav a.btn:visited { color: #fff !important; }
-.site-header nav a.btn:hover { color: #fff !important; }
+.site-header nav a:hover, .site-header nav .menu-item a:hover { color: var(--white) !important; }
+.site-header nav a.btn, .site-header nav a.btn:visited { background: var(--white) !important; color: var(--ink-700) !important; border-color: var(--white) !important; }
+.site-header nav a.btn:hover { background: var(--blush-50) !important; color: var(--ink-700) !important; }
 .site-header nav ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 32px; align-items: center; }
 .site-header nav li { position: relative; }
 .site-header nav li.menu-item-has-children > a::after { content: "▾"; margin-left: 5px; font-size: 10px; opacity: 0.6; }
 .site-header nav .sub-menu {
   display: none; position: absolute; top: 100%; left: 0;
-  background: var(--white); border: 1px solid var(--border);
-  box-shadow: 0 12px 32px rgba(20,20,18,0.10);
+  background: var(--ink-700); border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.25);
   padding: 8px 0; margin-top: 8px; min-width: 220px;
   flex-direction: column; gap: 0; border-radius: 4px; z-index: 60;
 }
@@ -135,7 +140,7 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   display: block; padding: 10px 18px; font-size: 13px; white-space: nowrap;
   transition: background var(--dur-fast) var(--ease-standard), color var(--dur-fast) var(--ease-standard);
 }
-.site-header nav .sub-menu a:hover { background: var(--blush-50); color: var(--blush-600); }
+.site-header nav .sub-menu a:hover { background: rgba(255,255,255,0.08); color: var(--white); }
 
 /* Hamburger (mobile) */
 .site-header .nav-toggle { display: none; }
@@ -146,7 +151,7 @@ html, body { overflow-x: hidden; max-width: 100vw; }
 }
 .site-header .hamburger:hover { background: var(--blush-50); }
 .site-header .hamburger span {
-  display: block; width: 24px; height: 2px; background: var(--ink-700); border-radius: 2px;
+  display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px;
   transition: transform var(--dur-fast) var(--ease-standard), opacity var(--dur-fast) var(--ease-standard);
 }
 .site-header .nav-toggle:checked ~ .hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -405,6 +410,7 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   display: grid; grid-template-columns: repeat(6, 1fr); gap: 24px;
 }
 .team-member { display: flex; flex-direction: column; gap: 14px; }
+.team-member:has(.team-name:empty) { display: none; }
 .team-photo {
   aspect-ratio: 4/5; background-size: cover;
   background-position: center; background-repeat: no-repeat;
@@ -452,7 +458,8 @@ html, body { overflow-x: hidden; max-width: 100vw; }
 }
 
 /* ── Footer (DARK) ──────────────────────────────────────────────── */
-.site-footer { background: var(--ink-700); color: var(--white); padding-top: 96px; }
+.site-footer { background: var(--ink-700); color: var(--white); padding-top: 0; }
+.footer-partners { padding: 56px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
 .footer-top {
   display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr;
   gap: 64px; margin-bottom: 72px;
@@ -500,11 +507,13 @@ html, body { overflow-x: hidden; max-width: 100vw; }
 @media (max-width: 900px) {
   .site-topstrip { display: none; }
   .site-header .hamburger { display: flex; }
+  .header-style-toggle-mobile { display: flex !important; color: rgba(255,255,255,0.85); }
+  html.header-light .header-style-toggle-mobile { color: var(--ink-600) !important; }
   .site-header nav {
     position: absolute; top: 100%; left: 0; right: 0;
     flex-direction: column; align-items: stretch; gap: 0;
-    background: var(--white); border-bottom: 1px solid var(--border);
-    box-shadow: 0 12px 28px rgba(20,20,18,0.10);
+    background: var(--ink-700); border-bottom: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.3);
     max-height: 0; overflow: hidden; opacity: 0;
     transition: max-height var(--dur-base) var(--ease-standard),
       opacity var(--dur-base) var(--ease-standard),
@@ -522,8 +531,10 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   .site-header nav .sub-menu li a { padding: 10px 4px 10px 24px !important; font-size: 12px !important; }
   .site-header nav li.menu-item-has-children > a::after { content: ""; }
   .site-header nav a, .site-header nav ul li a {
-    padding: 16px 4px; border-bottom: 1px solid var(--border); font-size: 14px; display: block;
+    padding: 16px 4px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 14px; display: block;
+    color: rgba(255,255,255,0.85) !important;
   }
+  .site-header nav a:hover, .site-header nav ul li a:hover { color: var(--white) !important; }
   .site-header nav ul li:last-child a { border-bottom: none; }
   .site-header nav a.btn { margin-top: 14px; padding: 14px 20px; text-align: center; border-bottom: none; }
   .hero-bleed .hb-top { display: none; }
@@ -579,6 +590,8 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   .about-img { aspect-ratio: 3 / 2; }
   .team-grid { grid-template-columns: repeat(2, 1fr); }
   .team-hdr { grid-template-columns: 1fr; }
+  .team-hdr-right { align-items: flex-start; }
+  .team-hdr-right p { text-align: left; }
   .pt-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 140px; }
   .pt-tile { grid-column: span 1 !important; grid-row: span 1 !important; }
   .pt-label { font-size: 9px; letter-spacing: 0.1em; left: 12px; bottom: 12px; }
@@ -611,14 +624,14 @@ html, body { overflow-x: hidden; max-width: 100vw; }
 
 /* ── PageHero (Barnspecialist — ingen foto) ─────────────────────── */
 .page-hero { background:var(--cream); padding:96px 0; border-bottom:1px solid var(--border); }
-.page-hero .ph-grid { display:grid; grid-template-columns:1.3fr 1fr; gap:80px; align-items:end; }
+.page-hero .ph-grid { display:grid; grid-template-columns:1.3fr 1fr; gap:80px; align-items:center; }
 .page-hero h1 { font-family:var(--font-serif); font-weight:300; font-size:clamp(64px,7.5vw,132px); line-height:0.95; letter-spacing:-0.035em; color:var(--ink-700); max-width:14ch; margin:0; }
 .page-hero h1 em { font-style:italic; color:var(--sage-600); font-weight:300; }
 .page-hero .ph-right { padding-bottom:16px; }
 .page-hero .ph-lead { max-width:40ch; margin-bottom:32px; color:var(--ink-500); }
 .page-hero .ph-bullets { display:grid; grid-template-columns:1fr 1fr; gap:14px; padding-top:24px; border-top:1px solid var(--border); margin-bottom:40px; }
-.page-hero .ph-bullet { display:flex; align-items:baseline; gap:10px; font-size:14px; font-weight:500; color:var(--ink-600); }
-.page-hero .ph-num { font-size:11px; color:var(--sage-600); letter-spacing:0.14em; flex-shrink:0; }
+.page-hero .ph-bullet { display:flex; align-items:baseline; gap:10px; font-size:16px; font-weight:500; color:var(--ink-700); }
+.page-hero .ph-num { font-size:13px; color:var(--sage-600); letter-spacing:0.14em; flex-shrink:0; }
 
 /* ── CTAStrip ───────────────────────────────────────────────────── */
 .cta-strip { background:var(--ink-700); color:var(--white); padding:80px 0; }
@@ -630,8 +643,15 @@ html, body { overflow-x: hidden; max-width: 100vw; }
 .btn-white-ghost:hover { background:rgba(255,255,255,0.1); color:var(--white); }
 
 /* ── FactStrip (Barnspecialist) ─────────────────────────────────── */
-.fact-strip { background:var(--white); padding:var(--space-10) 0; }
+.fact-strip { background:var(--white); padding:64px 0; }
 .fact-strip .fs-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); }
+.cb-section { padding:0 0 96px; }
+.cb-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; }
+.cb-grid--mirror .cb-text { order:2; }
+.cb-grid--mirror .cb-img  { order:1; }
+.cb-grid--normal .cb-text { order:1; }
+.cb-grid--normal .cb-img  { order:2; }
+.cb-img { width:100%; aspect-ratio:4/5; overflow:hidden; border-radius:var(--radius-sm); background:var(--blush-100); }
 .fact-strip .fs-cell { background:var(--white); padding:36px 28px; }
 .fact-strip .fs-value { font-family:var(--font-serif); font-weight:300; font-size:48px; line-height:1; letter-spacing:-0.03em; color:var(--ink-700); margin-bottom:14px; }
 .fact-strip .fs-label { font-size:14px; color:var(--ink-500); line-height:1.5; }
@@ -683,19 +703,96 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   .cta-strip .cs-grid { grid-template-columns:1fr; }
   .cta-strip .cs-actions { justify-self:start; }
   .fact-strip .fs-grid { grid-template-columns:repeat(2,1fr); }
-  .contact-grid .cg-inner { grid-template-columns:1fr; }
+  .cb-grid { grid-template-columns:1fr; gap:40px; }
+  .cb-grid--mirror .cb-text, .cb-grid--normal .cb-text { order:1; }
+  .cb-grid--mirror .cb-img,  .cb-grid--normal .cb-img  { order:2; }
+  .cb-img { aspect-ratio:3/2; }
+  .cb-section { padding:56px 0; }
+  .contact-grid .cg-inner { grid-template-columns:1fr; gap:0; }
+  .contact-grid .cg-card { border-bottom:1px solid var(--border); }
+  .contact-grid .cg-card:last-child { border-bottom:none; }
   .map-hours .mh-grid { grid-template-columns:1fr; }
-  .map-hours .mh-map { min-height:320px; }
+  .map-hours .mh-map { min-height:280px; }
   .contact-form-section .cf-grid { grid-template-columns:1fr; gap:40px; }
 }
 @media (max-width: 600px) {
   .treatment-hero .th-bullets { grid-template-columns:1fr; }
-  .page-hero h1 { font-size:clamp(48px,12vw,96px); }
-  .fact-strip .fs-grid { grid-template-columns:1fr 1fr; }
+  .page-hero { padding:56px 0; }
+  .page-hero h1 { font-size:clamp(40px,11vw,72px); }
+  .page-hero .ph-bullets { grid-template-columns:1fr; gap:10px; }
+  .page-hero .ph-right .btn { width:100%; justify-content:center; }
+  .eb-cta { min-width:0; }
+  .eb-phone { font-size:22px; }
+  .fact-strip .fs-grid { grid-template-columns:1fr; }
+  .contact-grid .cg-card { padding:28px 20px; }
   .lumo-contact-form { grid-template-columns:1fr; }
   .lumo-contact-form label.full { grid-column:1/-1; }
+  .map-hours .mh-map { min-height:220px; }
+  .map-hours .mh-hours { padding:24px 20px; }
+}
+
+/* ── Partners strip (i footern) ─────────────────────────────────── */
+.footer-partners .ps-eyebrow {
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 36px;
+}
+.footer-partners .ps-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 40px 56px;
+}
+.footer-partners .ps-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.55;
+  transition: opacity 0.25s ease;
+}
+.footer-partners .ps-logo:hover { opacity: 1; }
+.footer-partners .ps-logo img {
+  height: 88px;
+  width: auto;
+  max-width: 320px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+.footer-partners .ps-logo.ps-logo-round img {
+  height: 128px;
+  border-radius: 50%;
+  filter: none;
+  opacity: 1;
+}
+.footer-partners .ps-logo.ps-logo-round { opacity: 0.75; }
+.footer-partners .ps-logo.ps-logo-round:hover { opacity: 1; }
+/* Natural-color logos — no invert, screen blend hides any white bg */
+.footer-partners .ps-logo.ps-logo-natural { opacity: 0.9; }
+.footer-partners .ps-logo.ps-logo-natural:hover { opacity: 1; }
+.footer-partners .ps-logo.ps-logo-natural img {
+  filter: none;
+  mix-blend-mode: screen;
+}
+@media (max-width: 600px) {
+  .footer-partners { padding: 40px 0; }
+  .footer-partners .ps-logos { gap: 20px 32px; }
+  .footer-partners .ps-logo img { height: 44px; }
+  .footer-partners .ps-logo.ps-logo-round img { height: 64px; }
 }
 """
+
+# ---------------------------------------------------------------------------
+# Behandlingar som är aktiva (publika). Övriga sätts till draft i WP.
+# ---------------------------------------------------------------------------
+ACTIVE_TREATMENTS: set[str] = {
+    "akuttandvard",
+}
 
 # ---------------------------------------------------------------------------
 # Per-page hero data (from approved mockups in design-system/)
@@ -806,13 +903,38 @@ BARNSPECIALIST_DATA = {
     "ingress":      "På Älvsjö Pedodonti möter vi barn och unga upp till 23 år med specialistkompetens. Vi skapar trygga och positiva tandvårdsupplevelser, anpassade efter varje individs behov och känslor.",
     "bullets":      ["Specialist för barn", "Trygga upplevelser", "Korta väntetider", "Region Stockholm"],
     "cta_title":    "Behöver ditt barn specialistvård?",
-    "cta_sub":      "Vi tar emot remisser via Libretto. Är du osäker — ring oss på 08-12 85 45 55 så hjälper vi dig vidare.",
+    "cta_sub":      "Vi tar emot remisser via Muntra. Är du osäker — ring oss på 08-12 85 45 55 så hjälper vi dig vidare.",
 }
 
 KONTAKT_CTA_DATA = {
     "cta_title": "Behöver du akut hjälp?",
     "cta_sub":   "Ring oss direkt — vi gör vårt bästa för att ge dig en tid samma dag.",
 }
+
+PARTNERS = [
+    {"name": "Nattvandrarna",           "url": "https://swordfish.templweb.com/wp-content/uploads/2026/05/Rund-Banner_2_SKS2025-1-300x300-1.png",   "round": True,  "natural": False, "link": "https://nattvandrarna.se/"},
+    {"name": "Region Stockholm",        "url": "https://swordfish.templweb.com/wp-content/uploads/2026/05/Pa-uppdrag-av_vit-300x77-1.png",           "round": False, "natural": False, "link": "https://www.vardguiden.se/"},
+    {"name": "Älvsjö Pedodonti",        "url": "https://swordfish.templweb.com/wp-content/uploads/2026/05/Pedodonti-logo-2023-v2-300x106-1.png",     "round": False, "natural": False, "link": "https://www.alvsjotandvard.se/barnspecialist/"},
+    {"name": "UNICEF",                  "url": "https://swordfish.templweb.com/wp-content/uploads/2026/05/alvsjo-tandvard-unicef2025.jpg",            "round": False, "natural": True,  "link": "https://unicef.se/"},
+    {"name": "Älvsjö AIK",              "url": "https://swordfish.templweb.com/wp-content/uploads/2026/05/alvsjo_aik_emblem_fotboll_vit-text-liten.png", "round": False, "natural": True, "link": "http://alvsjoaik.se"},
+]
+
+
+def build_partners_logos_html() -> str:
+    logos = ""
+    for p in PARTNERS:
+        if p["round"]:
+            cls = "ps-logo ps-logo-round"
+        elif p["natural"]:
+            cls = "ps-logo ps-logo-natural"
+        else:
+            cls = "ps-logo"
+        logos += (
+            f'<a href="{p["link"]}" class="{cls}" target="_blank" rel="noopener" aria-label="{p["name"]}">'
+            f'<img src="{p["url"]}" alt="{p["name"]}" loading="lazy">'
+            f'</a>'
+        )
+    return logos
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -830,7 +952,37 @@ def build_site_header(tokens_css: str) -> dict:
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Outfit:wght@400;500;600&display=swap">
 """
-    style_block = f"<style>\n{tokens_css}\n{LAYOUT_CSS}\n</style>"
+    header_variant_css = "" if DARK_HEADER else """
+.site-header { background: var(--white) !important; border-bottom: 1px solid var(--border) !important; }
+.site-header nav a, .site-header nav .menu-item a { color: var(--ink-600) !important; }
+.site-header nav a:hover, .site-header nav .menu-item a:hover { color: var(--blush-600) !important; }
+.site-header nav a.btn, .site-header nav a.btn:visited { background: var(--ink-700) !important; color: var(--white) !important; border-color: var(--ink-700) !important; }
+.site-header nav a.btn:hover { background: var(--ink-900) !important; color: var(--white) !important; }
+.site-header nav .sub-menu { background: var(--white) !important; border-color: var(--border) !important; box-shadow: 0 12px 32px rgba(20,20,18,0.10) !important; }
+.site-header nav .sub-menu a:hover { background: var(--blush-50) !important; color: var(--blush-600) !important; }
+.site-header .hamburger span { background: var(--ink-700) !important; }
+@media (max-width: 900px) {
+  .site-header nav { background: var(--white) !important; border-bottom-color: var(--border) !important; }
+  .site-header nav a, .site-header nav ul li a { color: var(--ink-600) !important; border-bottom-color: var(--border) !important; }
+  .site-header nav a:hover, .site-header nav ul li a:hover { color: var(--blush-600) !important; }
+}
+"""
+    header_logo = LOGO_WHITE if DARK_HEADER else LOGO_COLOR
+    header_light_override = """
+html.header-light .site-header { background: var(--white) !important; border-bottom: 1px solid var(--border) !important; }
+html.header-light .site-header nav a, html.header-light .site-header nav .menu-item a { color: var(--ink-600) !important; }
+html.header-light .site-header nav a:hover, html.header-light .site-header nav .menu-item a:hover { color: var(--blush-600) !important; }
+html.header-light .site-header nav a.btn, html.header-light .site-header nav a.btn:visited { background: var(--ink-700) !important; color: var(--white) !important; border-color: var(--ink-700) !important; }
+html.header-light .site-header nav a.btn:hover { background: var(--ink-900) !important; }
+html.header-light .site-header nav .sub-menu { background: var(--white) !important; border-color: var(--border) !important; box-shadow: 0 12px 32px rgba(20,20,18,0.10) !important; }
+html.header-light .site-header nav .sub-menu a:hover { background: var(--blush-50) !important; color: var(--blush-600) !important; }
+html.header-light .site-header .hamburger span { background: var(--ink-700) !important; }
+@media (max-width: 900px) {
+  html.header-light .site-header nav { background: var(--white) !important; border-bottom-color: var(--border) !important; }
+  html.header-light .site-header nav a, html.header-light .site-header nav ul li a { color: var(--ink-600) !important; border-bottom-color: var(--border) !important; }
+}
+"""
+    style_block = f"<style>\n{tokens_css}\n{LAYOUT_CSS}\n{header_variant_css}\n{header_light_override}\n</style>"
     onload_js = """<script>
 (function(){
   var done=false;
@@ -869,6 +1021,7 @@ document.addEventListener('submit',function(e){
     html = f"""
 {font_preload}
 {style_block}
+<script>(function(){{var h=localStorage.getItem('hdr');if(h==='0'){{document.documentElement.classList.add('header-light');document.addEventListener('DOMContentLoaded',function(){{document.querySelectorAll('.hdr-toggle-label').forEach(function(b){{b.textContent='○ White';}});var b=document.getElementById('header-style-toggle');if(b)b.textContent='○ White';}});}}}})();</script>
 {onload_js}
 <div class="site-topstrip">
   <div class="ts-inner">
@@ -879,6 +1032,8 @@ document.addEventListener('submit',function(e){
     </div>
     <div class="ts-right">
       <a href="https://minatider.alvsjotandvard.se/?src=site">Mina tider</a>
+      <span class="ts-sep">·</span>
+      <button id="header-style-toggle" onclick="(function(){{var h=document.documentElement;var isLight=h.classList.toggle('header-light');localStorage.setItem('hdr',isLight?'0':'1');document.getElementById('header-style-toggle').textContent=isLight?'○ White':'● Black';document.querySelectorAll('.hdr-toggle-label').forEach(function(b){{b.textContent=isLight?'○ White':'● Black';}});}})()" style="background:none;border:none;color:rgba(255,255,255,0.85);font-size:12px;cursor:pointer;padding:0;letter-spacing:0.04em;font-family:inherit;">● Black</button>
       <span class="ts-sep">·</span>
       <a href="/remiss">Remiss</a>
       <span class="ts-sep">·</span>
@@ -891,6 +1046,7 @@ document.addEventListener('submit',function(e){
     <a href="/" class="logo" aria-label="Älvsjö Tandvård">
       <img src="{LOGO_COLOR}" alt="Älvsjö Tandvård">
     </a>
+    <button class="header-style-toggle-mobile" onclick="(function(){{var h=document.documentElement;var isLight=h.classList.toggle('header-light');localStorage.setItem('hdr',isLight?'0':'1');document.querySelectorAll('.hdr-toggle-label').forEach(function(b){{b.textContent=isLight?'○ White':'● Black';}});}})()" style="display:none;background:none;border:none;font-size:16px;cursor:pointer;padding:4px 8px;"><span class="hdr-toggle-label">● Black</span></button>
     <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
     <label for="nav-toggle" class="hamburger" aria-label="Öppna meny">
       <span></span><span></span><span></span>
@@ -918,7 +1074,7 @@ def build_hero() -> dict:
 
   <div class="hb-top">
     <div class="hb-top-inner">
-      <span class="hb-top-left">Modern tandvård · 2 min från pendeln · Älvsjö</span>
+      <span class="hb-top-left">{{eyebrow}}</span>
     </div>
     <div class="hb-top-medals hb-medals-desktop">
       <a href="https://www.tandlakare.se/klinik/stockholm/alvsjo-tandvard/" target="_blank" rel="noopener" class="hb-medal-link">
@@ -937,10 +1093,10 @@ def build_hero() -> dict:
     </div>
     <div class="hb-right">
       <div class="hb-stats hb-stats-mobile">
-        <div><span class="hb-stat-val">Gratis</span><span class="hb-stat-lbl">Barn t.o.m. 19</span></div>
-        <div><span class="hb-stat-val">Idag</span><span class="hb-stat-lbl">Akut hjälp</span></div>
-        <div><span class="hb-stat-val">6 dagar</span><span class="hb-stat-lbl">Öppet i veckan</span></div>
-        <div><span class="hb-stat-val">0 %</span><span class="hb-stat-lbl">Delbetalning</span></div>
+        <div><span class="hb-stat-val">{{stat_1_val}}</span><span class="hb-stat-lbl">{{stat_1_lbl}}</span></div>
+        <div><span class="hb-stat-val">{{stat_2_val}}</span><span class="hb-stat-lbl">{{stat_2_lbl}}</span></div>
+        <div><span class="hb-stat-val">{{stat_3_val}}</span><span class="hb-stat-lbl">{{stat_3_lbl}}</span></div>
+        <div><span class="hb-stat-val">{{stat_4_val}}</span><span class="hb-stat-lbl">{{stat_4_lbl}}</span></div>
       </div>
       <a href="#tdl-booking-widget" class="btn btn-light btn-lg" style="width:100%;">Boka tid online</a>
       <a href="/akuttandvard" class="hb-link">Akuttandvård samma dag →</a>
@@ -957,10 +1113,10 @@ def build_hero() -> dict:
   </div>
 
   <div class="hb-stats hb-stats-desktop container-wide">
-    <div><span class="hb-stat-val">Gratis</span><span class="hb-stat-lbl">Barn t.o.m. 19</span></div>
-    <div><span class="hb-stat-val">Idag</span><span class="hb-stat-lbl">Akut hjälp</span></div>
-    <div><span class="hb-stat-val">6 dagar</span><span class="hb-stat-lbl">Öppet i veckan</span></div>
-    <div><span class="hb-stat-val">0 %</span><span class="hb-stat-lbl">Delbetalning</span></div>
+    <div><span class="hb-stat-val">{{stat_1_val}}</span><span class="hb-stat-lbl">{{stat_1_lbl}}</span></div>
+    <div><span class="hb-stat-val">{{stat_2_val}}</span><span class="hb-stat-lbl">{{stat_2_lbl}}</span></div>
+    <div><span class="hb-stat-val">{{stat_3_val}}</span><span class="hb-stat-lbl">{{stat_3_lbl}}</span></div>
+    <div><span class="hb-stat-val">{{stat_4_val}}</span><span class="hb-stat-lbl">{{stat_4_lbl}}</span></div>
   </div>
 </section>
 """
@@ -969,12 +1125,17 @@ def build_hero() -> dict:
         "title": "Hero",
         "html_template": collapse(html),
         "schema": [
-            {"name": "hero_image", "type": "image", "label": "Bakgrundsbild", "default": "https://swordfish.templweb.com/wp-content/uploads/2026/05/hero-1.jpg"},
-            {"name": "headline", "type": "text", "label": "Rubrik",
-             "default": "Trygg tandvård.\nHela familjen."},
-            {"name": "ingress", "type": "textarea", "label": "Ingress",
-             "default": "Från första undersökningen till implantat och Invisalign — en nyrenoverad klinik mitt i Älvsjö där varje besök är utformat för att du ska känna dig lugn och omhändertagen."},
-            {"name": "reviews_count", "type": "text", "label": "Antal Google-omdömen", "default": "4 142"},
+            {"name": "hero_image",  "type": "image",    "label": "Bakgrundsbild", "default": "https://swordfish.templweb.com/wp-content/uploads/2026/05/hero-1.jpg"},
+            {"name": "eyebrow",     "type": "text",     "label": "Etikett",       "default": "Modern tandvård · 2 min från pendeln · Älvsjö"},
+            {"name": "ingress",     "type": "textarea", "label": "Ingress",       "default": "Från första undersökningen till implantat och Invisalign — en nyrenoverad klinik mitt i Älvsjö där varje besök är utformat för att du ska känna dig lugn och omhändertagen."},
+            {"name": "stat_1_val",  "type": "text",     "label": "Stat 1 – värde",  "default": "Gratis"},
+            {"name": "stat_1_lbl",  "type": "text",     "label": "Stat 1 – etikett","default": "Barn t.o.m. 19"},
+            {"name": "stat_2_val",  "type": "text",     "label": "Stat 2 – värde",  "default": "Idag"},
+            {"name": "stat_2_lbl",  "type": "text",     "label": "Stat 2 – etikett","default": "Akut hjälp"},
+            {"name": "stat_3_val",  "type": "text",     "label": "Stat 3 – värde",  "default": "6 dagar"},
+            {"name": "stat_3_lbl",  "type": "text",     "label": "Stat 3 – etikett","default": "Öppet i veckan"},
+            {"name": "stat_4_val",  "type": "text",     "label": "Stat 4 – värde",  "default": "0% ränta"},
+            {"name": "stat_4_lbl",  "type": "text",     "label": "Stat 4 – etikett","default": "Delbetalning"},
         ],
     }
 
@@ -1051,7 +1212,7 @@ def build_reviews_section() -> dict:
     <div class="reviews-hdr">
       <div>
         <div class="eyebrow">02 / Patientomdömen</div>
-        <h2><span style="font-style:italic;">Tusentals</span> nöjda patienter i Älvsjö.</h2>
+        <h2>{{heading}}</h2>
       </div>
     </div>
     <div class="reviews-widget-wrap">{{site_reviews_testimonials}}</div>
@@ -1062,7 +1223,9 @@ def build_reviews_section() -> dict:
         "block_name": "lumo/reviews-section",
         "title": "Recensioner",
         "html_template": collapse(html),
-        "schema": [],
+        "schema": [
+            {"name": "heading", "type": "text", "label": "Rubrik", "default": "<span style=\"font-style:italic;\">Tusentals</span> nöjda patienter i Stockholm."},
+        ],
     }
 
 
@@ -1117,7 +1280,7 @@ def build_emergency_banner() -> dict:
       </div>
       <div class="eb-cta">
         <a href="tel:{{{{site_phone}}}}" class="eb-phone">{ICO_PHONE} {{{{site_phone}}}}</a>
-        <a href="#tdl-booking-widget" class="btn btn-light btn-sm" style="width:fit-content;">Boka akuttid →</a>
+        <a href="#tdl-booking-widget" class="btn btn-light btn-sm">Boka akuttid →</a>
       </div>
     </div>
   </div>
@@ -1150,6 +1313,11 @@ def build_team() -> dict:
         ("Evin",       "Tandsköterska"),
         ("Erika",      "Tandsköterska"),
         ("Maxim",      "Ekonomi"),
+        ("", ""),
+        ("", ""),
+        ("", ""),
+        ("", ""),
+        ("", ""),
     ]
 
     members_html = ""
@@ -1183,9 +1351,13 @@ def build_team() -> dict:
     schema = []
     for i, (name, role) in enumerate(MEMBERS, start=1):
         slug = name.lower()
+        photo_default = f"{BASE_IMG}staff-{slug}.jpg" if name else ""
         schema.append({"name": f"member_{i}_name",  "type": "text",  "label": f"Person {i} – namn",  "default": name})
         schema.append({"name": f"member_{i}_role",  "type": "text",  "label": f"Person {i} – roll",  "default": role})
-        schema.append({"name": f"member_{i}_photo", "type": "image", "label": f"Person {i} – foto",  "default": f"{BASE_IMG}staff-{slug}.jpg"})
+        field = {"name": f"member_{i}_photo", "type": "image", "label": f"Person {i} – foto"}
+        if photo_default:
+            field["default"] = photo_default
+        schema.append(field)
 
     return {
         "block_name": "lumo/team",
@@ -1220,14 +1392,14 @@ def build_photo_tour() -> dict:
     <div class="pt-hdr">
       <div>
         <div class="eyebrow" style="margin-bottom:16px;">05 / Klinikens lokaler</div>
-        <h2>14 behandlingsrum. 1 200 m² över två våningar.</h2>
+        <h2>{{{{heading}}}}</h2>
       </div>
     </div>
     <div class="pt-grid">{tiles_html}</div>
   </div>
 </section>
 """
-    schema = []
+    schema = [{"name": "heading", "type": "text", "label": "Rubrik", "default": "14 behandlingsrum. 1 200 m² över två våningar."}]
     for key, label_default, _, _, img in TILES:
         schema.append({"name": f"pt_{key}_image", "type": "image", "label": f"{label_default} – bild", "default": BASE_IMG + img})
         schema.append({"name": f"pt_{key}_label", "type": "text",  "label": f"{label_default} – text", "default": label_default})
@@ -1255,9 +1427,17 @@ def build_site_footer() -> dict:
         for d, h in hours
     )
 
+    partners_logos = build_partners_logos_html()
+
     html = f"""
 <footer class="site-footer">
-  <div class="container-wide">
+  <div class="footer-partners">
+    <div class="container-wide">
+      <p class="ps-eyebrow">Vi stödjer &amp; samarbetar med</p>
+      <div class="ps-logos">{partners_logos}</div>
+    </div>
+  </div>
+  <div class="container-wide" style="padding-top:96px;">
     <div class="footer-top">
       <div class="footer-brand">
         <img src="{LOGO_WHITE}" alt="Älvsjö Tandvård" class="footer-brand-logo">
@@ -1340,9 +1520,9 @@ def build_contact_panel() -> dict:
         <h3 style="font-family:var(--font-sans);font-size:18px;font-weight:500;text-transform:uppercase;letter-spacing:0.18em;color:var(--ink-700);margin:0 0 22px;">{{{{heading}}}}</h3>
         <p style="font-family:var(--font-sans);font-size:15px;line-height:1.65;color:var(--ink-600);margin:0 0 24px;max-width:520px;">{{{{intro_text}}}}</p>
         <div style="display:flex;flex-direction:column;gap:10px;">
-          <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--blush-700);">{ICO_PHONE}<a href="tel:+46812854555" style="color:var(--blush-700);">08 – 12 85 45 55</a></div>
-          <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--blush-700);">{ICO_MAIL}<a href="mailto:boka@alvsjotandvard.se" style="color:var(--blush-700);">boka@alvsjotandvard.se</a></div>
-          <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--blush-700);margin-top:8px;">{ICO_PIN}<a href="https://maps.google.com/?q={ADDRESS_ENC}" target="_blank" rel="noopener" style="color:var(--blush-700);">Prästgårdsgränd 4, Älvsjö</a></div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--blush-700);">{ICO_PHONE}<a href="tel:+46812854555" style="color:var(--blush-700);">{{{{site_phone}}}}</a></div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--blush-700);">{ICO_MAIL}<a href="mailto:{{{{site_email}}}}" style="color:var(--blush-700);">{{{{site_email}}}}</a></div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--blush-700);margin-top:8px;">{ICO_PIN}<a href="https://maps.google.com/?q={ADDRESS_ENC}" target="_blank" rel="noopener" style="color:var(--blush-700);">{{{{site_address}}}}</a></div>
         </div>
       </div>
       <div>
@@ -1460,6 +1640,52 @@ def build_treatment_hero(slug: str) -> dict:
     }
 
 
+def build_page_hero_info() -> dict:
+    """Shared hero template for info pages: Om oss, Kontakt, Barnspecialist."""
+    html = """
+<section class="page-hero">
+  <div class="container-wide">
+    <div class="eyebrow" style="margin-bottom:32px;color:var(--sage-600);">{{eyebrow}}</div>
+    <div class="ph-grid">
+      <h1>{{title}}<br><em>{{title_italic}}</em></h1>
+      <div class="ph-right">
+        <p class="lead ph-lead">{{ingress}}</p>
+        <div class="ph-bullets">
+          <div class="ph-bullet"><span class="ph-num">01</span>{{bullet_1}}</div>
+          <div class="ph-bullet"><span class="ph-num">02</span>{{bullet_2}}</div>
+          <div class="ph-bullet"><span class="ph-num">03</span>{{bullet_3}}</div>
+          <div class="ph-bullet"><span class="ph-num">04</span>{{bullet_4}}</div>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="{{cta_1_href}}" class="btn btn-primary btn-lg">{{cta_1_text}}</a>
+          <a href="{{cta_2_href}}" class="btn btn-ghost btn-lg">{{cta_2_text}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+"""
+    return {
+        "block_name": "lumo/page-hero-info",
+        "title": "Page Hero – Info (delad mall)",
+        "html_template": collapse(html),
+        "schema": [
+            {"name": "eyebrow",      "type": "text",     "label": "Etikett (t.ex. N° 02 — Om oss)"},
+            {"name": "title",        "type": "text",     "label": "Rubrik"},
+            {"name": "title_italic", "type": "text",     "label": "Rubrik (kursiv del)"},
+            {"name": "ingress",      "type": "textarea", "label": "Ingress"},
+            {"name": "bullet_1",     "type": "text",     "label": "Punkt 1"},
+            {"name": "bullet_2",     "type": "text",     "label": "Punkt 2"},
+            {"name": "bullet_3",     "type": "text",     "label": "Punkt 3"},
+            {"name": "bullet_4",     "type": "text",     "label": "Punkt 4"},
+            {"name": "cta_1_text",   "type": "text",     "label": "Knapp 1 – text"},
+            {"name": "cta_1_href",   "type": "text",     "label": "Knapp 1 – länk"},
+            {"name": "cta_2_text",   "type": "text",     "label": "Knapp 2 – text"},
+            {"name": "cta_2_href",   "type": "text",     "label": "Knapp 2 – länk"},
+        ],
+    }
+
+
 def build_page_hero_barnspecialist() -> dict:
     d = BARNSPECIALIST_DATA
     b = d["bullets"]
@@ -1504,21 +1730,24 @@ def build_page_hero_barnspecialist() -> dict:
 
 
 def build_fact_strip_barnspecialist() -> dict:
-    facts = [
-        ("19 år",   "Gratis tandvård för barn och unga upp till 19 år."),
-        ("23 år",   "Specialistvård via Älvsjö Pedodonti upp till 23 år."),
-        ("Region",  "Vi arbetar på uppdrag av Region Stockholm."),
-        ("Libretto","Vi tar emot remisser via Libretto."),
-    ]
     cells = "".join(
-        f'<div class="fs-cell"><div class="fs-value">{v}</div><div class="fs-label">{l}</div></div>'
-        for v, l in facts
+        f'<div class="fs-cell"><div class="fs-value">{{{{val_{i}}}}}</div><div class="fs-label">{{{{label_{i}}}}}</div></div>'
+        for i in range(1, 5)
     )
     return {
         "block_name": "lumo/fact-strip-barnspecialist",
         "title": "Fact Strip – Barnspecialist",
         "html_template": f'<section class="fact-strip"><div class="container-wide"><div class="fs-grid">{cells}</div></div></section>',
-        "schema": [],
+        "schema": [
+            {"name": "val_1",   "type": "text", "label": "Fakt 1 – värde",  "default": "19 år"},
+            {"name": "label_1", "type": "text", "label": "Fakt 1 – text",   "default": "Gratis tandvård för barn och unga upp till 19 år."},
+            {"name": "val_2",   "type": "text", "label": "Fakt 2 – värde",  "default": "23 år"},
+            {"name": "label_2", "type": "text", "label": "Fakt 2 – text",   "default": "Specialistvård via Älvsjö Pedodonti upp till 23 år."},
+            {"name": "val_3",   "type": "text", "label": "Fakt 3 – värde",  "default": "Region"},
+            {"name": "label_3", "type": "text", "label": "Fakt 3 – text",   "default": "Vi arbetar på uppdrag av Region Stockholm."},
+            {"name": "val_4",   "type": "text", "label": "Fakt 4 – värde",  "default": "Muntra"},
+            {"name": "label_4", "type": "text", "label": "Fakt 4 – text",   "default": "Vi tar emot remisser via Muntra."},
+        ],
     }
 
 
@@ -1537,9 +1766,9 @@ def build_page_hero_kontakt() -> dict:
           <div class="ph-bullet"><span class="ph-num">03</span>08-12 85 45 55</div>
           <div class="ph-bullet"><span class="ph-num">04</span>Öppet måndag–lördag</div>
         </div>
-        <div style="display:flex;gap:12px;flex-wrap:nowrap;">
-          <a href="#kontaktformular" class="btn btn-primary btn-lg" style="flex-shrink:0;">Skriv till oss</a>
-          <a href="tel:+46812854555" class="btn btn-ghost btn-lg" style="flex-shrink:0;">Ring oss</a>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="#kontaktformular" class="btn btn-primary btn-lg">Skriv till oss</a>
+          <a href="tel:+46812854555" class="btn btn-ghost btn-lg">Ring oss</a>
         </div>
       </div>
     </div>
@@ -1558,24 +1787,26 @@ def build_contact_grid() -> dict:
     html = f"""
 <section class="contact-grid">
   <div class="container-wide">
+    <div class="eyebrow" style="margin-bottom:16px;">Kontakt</div>
+    <h2 style="margin-bottom:40px;">{{{{heading}}}}</h2>
     <div class="cg-inner">
       <div class="cg-card">
         <div class="eyebrow">Adress</div>
-        <a href="https://maps.google.com/?q={ADDRESS_ENC}" target="_blank" rel="noopener" class="cg-h">Prästgårdsgränd 4</a>
-        <div class="cg-sub">125 44 Älvsjö</div>
-        <div class="cg-note">2 min från pendeltågsstationen · Intill Vårdcentralen · Hiss</div>
+        <a href="https://maps.google.com/?q={ADDRESS_ENC}" target="_blank" rel="noopener" class="cg-h">{{{{site_address}}}}</a>
+        <div class="cg-sub">{{{{address_sub}}}}</div>
+        <div class="cg-note">{{{{address_note}}}}</div>
       </div>
       <div class="cg-card">
         <div class="eyebrow">Telefon</div>
-        <a href="tel:+46812854555" class="cg-h">08-12 85 45 55</a>
-        <div class="cg-sub">Tidsbokning · akuta besvär</div>
-        <div class="cg-note">Vi prioriterar akuta patienter — ring tidigt för bästa tid samma dag.</div>
+        <a href="tel:+46812854555" class="cg-h">{{{{site_phone}}}}</a>
+        <div class="cg-sub">{{{{phone_sub}}}}</div>
+        <div class="cg-note">{{{{phone_note}}}}</div>
       </div>
       <div class="cg-card">
         <div class="eyebrow">E-post</div>
-        <a href="mailto:info@alvsjotandvard.se" class="cg-h">info@alvsjotandvard.se</a>
-        <div class="cg-sub">Svar inom 1 arbetsdag</div>
-        <div class="cg-note">För remisser, fakturafrågor och allmänna ärenden.</div>
+        <a href="mailto:{{{{site_email}}}}" class="cg-h">{{{{site_email}}}}</a>
+        <div class="cg-sub">{{{{email_sub}}}}</div>
+        <div class="cg-note">{{{{email_note}}}}</div>
       </div>
     </div>
   </div>
@@ -1585,7 +1816,15 @@ def build_contact_grid() -> dict:
         "block_name": "lumo/contact-grid",
         "title": "Kontaktgrid",
         "html_template": collapse(html),
-        "schema": [],
+        "schema": [
+            {"name": "heading",      "type": "text",     "label": "Rubrik",               "default": "Hur når du oss?"},
+            {"name": "address_sub",  "type": "text",     "label": "Adress – undertext",   "default": "125 44 Älvsjö"},
+            {"name": "address_note", "type": "textarea", "label": "Adress – not",         "default": "2 min från pendeltågsstationen · Intill Vårdcentralen · Hiss"},
+            {"name": "phone_sub",    "type": "text",     "label": "Telefon – undertext",  "default": "Tidsbokning · akuta besvär"},
+            {"name": "phone_note",   "type": "textarea", "label": "Telefon – not",        "default": "Vi prioriterar akuta patienter — ring tidigt för bästa tid samma dag."},
+            {"name": "email_sub",    "type": "text",     "label": "E-post – undertext",   "default": "Svar inom 1 arbetsdag"},
+            {"name": "email_note",   "type": "textarea", "label": "E-post – not",         "default": "För remisser, fakturafrågor och allmänna ärenden."},
+        ],
     }
 
 
@@ -1607,6 +1846,8 @@ def build_map_hours_kontakt() -> dict:
     html = f"""
 <section class="map-hours">
   <div class="container-wide">
+    <div class="eyebrow" style="margin-bottom:16px;">Hitta till oss</div>
+    <h2 style="margin-bottom:40px;">{{{{heading}}}}</h2>
     <div class="mh-grid">
       <div class="mh-map">
         <iframe src="https://maps.google.com/maps?q={ADDRESS_ENC}&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen title="Karta — Älvsjö Tandvård" style="position:absolute;inset:0;width:100%;height:100%;border:0;display:block;"></iframe>
@@ -1614,7 +1855,7 @@ def build_map_hours_kontakt() -> dict:
       <div class="mh-hours">
         <div class="eyebrow" style="margin-bottom:20px;">Öppettider</div>
         {rows}
-        <div class="mh-note"><strong style="color:var(--ink-700);">Akut?</strong> Ring 08-12 85 45 55 så snart som möjligt — vi gör vårt bästa för att ge dig en tid samma dag.</div>
+        <div class="mh-note">{{{{emergency_note}}}}</div>
       </div>
     </div>
   </div>
@@ -1624,7 +1865,10 @@ def build_map_hours_kontakt() -> dict:
         "block_name": "lumo/map-hours-kontakt",
         "title": "Karta + Öppettider",
         "html_template": collapse(html),
-        "schema": [],
+        "schema": [
+            {"name": "heading",        "type": "text",     "label": "Rubrik",    "default": "Mitt i Älvsjö, 2 min från pendeln."},
+            {"name": "emergency_note", "type": "textarea", "label": "Akut-text", "default": "<strong style=\"color:var(--ink-700);\">Akut?</strong> Ring 08-12 85 45 55 så snart som möjligt — vi gör vårt bästa för att ge dig en tid samma dag."},
+        ],
     }
 
 
@@ -1635,11 +1879,8 @@ def build_contact_form() -> dict:
     <div class="cf-grid">
       <div>
         <div class="eyebrow" style="margin-bottom:16px;">Skriv till oss</div>
-        <h2>Inte akut? Skriv så hörs vi av.</h2>
-        <p style="font-size:15px;color:var(--ink-500);max-width:40ch;line-height:1.7;">
-          Vi svarar inom en arbetsdag. För akuta besvär, ring oss istället på
-          <a href="tel:+46812854555" style="color:var(--ink-700);">08-12 85 45 55</a>.
-        </p>
+        <h2>{{heading}}</h2>
+        <p style="font-size:15px;color:var(--ink-500);max-width:40ch;line-height:1.7;">{{intro}}</p>
       </div>
       <form class="lumo-contact-form" novalidate>
         <input type="text" name="website" style="display:none;" tabindex="-1" autocomplete="off">
@@ -1661,7 +1902,10 @@ def build_contact_form() -> dict:
         "block_name": "lumo/contact-form",
         "title": "Kontaktformulär",
         "html_template": collapse(html),
-        "schema": [],
+        "schema": [
+            {"name": "heading", "type": "text",     "label": "Rubrik",   "default": "Inte akut? Skriv så hörs vi av."},
+            {"name": "intro",   "type": "textarea", "label": "Brödtext", "default": "Vi svarar inom en arbetsdag. För akuta besvär, ring oss istället på 08-12 85 45 55."},
+        ],
     }
 
 
@@ -1722,10 +1966,10 @@ def build_content_block(block_name: str, title: str, mirror: bool) -> dict:
     text_order = "2" if mirror else "1"
     img_order  = "1" if mirror else "2"
     html = f"""
-<section style="padding:96px 0;background:var(--white);">
+<section class="cb-section" style="background:var(--white);">
   <div class="container-wide">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
-      <div style="order:{text_order};">
+    <div class="cb-grid cb-grid--{'mirror' if mirror else 'normal'}">
+      <div class="cb-text">
         <div class="eyebrow" style="margin-bottom:16px;">{{{{eyebrow}}}}</div>
         <h2 style="font-family:var(--font-serif);font-weight:500;font-size:clamp(28px,2.6vw,40px);line-height:1.15;letter-spacing:-0.02em;color:var(--ink-700);margin:0 0 24px;">{{{{h2}}}}</h2>
         <div style="font-family:var(--font-sans);font-size:16px;line-height:1.7;color:var(--fg);">{{{{body}}}}</div>
@@ -1733,7 +1977,7 @@ def build_content_block(block_name: str, title: str, mirror: bool) -> dict:
           <a href="{{{{cta_link}}}}" class="btn btn-primary">{{{{cta_text}}}}</a>
         </div>
       </div>
-      <div style="order:{img_order};width:100%;aspect-ratio:4/5;overflow:hidden;border-radius:var(--radius-sm);background:var(--blush-100);">
+      <div class="cb-img">
         <img src="{{{{image}}}}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
     </div>
@@ -1823,11 +2067,7 @@ def build_site(bases: dict) -> tuple[list, list]:
     # ── Om oss ─────────────────────────────────────────────────────────────
     blocks = [
         "lumo/site-header",
-        add("hero", "om-oss", {
-            "headline": "Tandvård med hjärta sedan 1982.",
-            "ingress": "Vi är ett erfaret team av tandläkare, tandhygienister och specialister som brinner för att ge dig bästa möjliga tandvård.",
-            "reviews_count": "4 142",
-        }, "Om oss"),
+        "lumo/page-hero-info",
         add("content-block-1", "om-oss", {
             "eyebrow": "Vår historia",
             "h2": "En klinik för hela familjen",
@@ -1843,7 +2083,7 @@ def build_site(bases: dict) -> tuple[list, list]:
     # ── Kontakt ────────────────────────────────────────────────────────────
     blocks = [
         "lumo/site-header",
-        "lumo/page-hero-kontakt",
+        "lumo/page-hero-info",
         "lumo/cta-strip-kontakt",
         "lumo/contact-grid",
         "lumo/map-hours-kontakt",
@@ -1885,22 +2125,37 @@ def build_site(bases: dict) -> tuple[list, list]:
             }, menu_label),
             "lumo/site-footer",
         ]
-        p = {"title": h1, "slug": slug, "menu_label": menu_label, "blocks": blocks, "menu_parent": parent}
+        active = slug in ACTIVE_TREATMENTS
+        p = {
+            "title": h1, "slug": slug, "blocks": blocks,
+            "menu_label": menu_label if active else None,
+            "menu_parent": parent if active else None,
+            "status": "publish" if active else "draft",
+        }
         pages.append(p)
 
     # ── Barnspecialist (PageHero + FactStrip) ───────────────────────────────
     db = BARNSPECIALIST_DATA
     blocks = [
         "lumo/site-header",
-        "lumo/page-hero-barnspecialist",
+        "lumo/page-hero-info",
         "lumo/fact-strip-barnspecialist",
         add("content-block-1", "barnspecialist", {
             "eyebrow": "Älvsjö Pedodonti",
             "h2":      "Anpassad specialistvård med omtanke.",
-            "body":    "<p>Älvsjö Pedodonti är vår specialistklinik för <strong>barn och unga upp till 23 års ålder</strong>. Vi arbetar på uppdrag av Region Stockholm och tar emot remisser via Libretto för att säkerställa expertis och trygg vård för ditt barn.</p><p>För en trygg upplevelse erbjuder vi <strong>lustgas, lugnande medel (Midazolam) och i särskilda fall narkosbehandling</strong>. Tandvård är alltid <strong>gratis för barn och ungdomar upp till 19 år</strong>.</p>",
+            "body":    "<p>Älvsjö Pedodonti är vår specialistklinik för <strong>barn och unga upp till 23 års ålder</strong>. Vi arbetar på uppdrag av Region Stockholm och tar emot remisser via Muntra för att säkerställa expertis och trygg vård för ditt barn.</p><p>För en trygg upplevelse erbjuder vi <strong>lustgas, lugnande medel (Midazolam) och i särskilda fall narkosbehandling</strong>. Tandvård är alltid <strong>gratis för barn och ungdomar upp till 19 år</strong>.</p>",
             "cta_text": "Skicka remiss",
+            "cta_link": "/remiss",
         }, "Barnspecialist"),
-        add("faq", "barnspecialist", {"heading": "Frågor från föräldrar."}, "Barnspecialist"),
+        add("faq", "barnspecialist", {
+            "heading": "Frågor från föräldrar.",
+            "q_1": "Vilka kan få specialisttandvård hos Älvsjö Pedodonti?",
+            "a_1": "Älvsjö Pedodonti är en specialistklinik för barn och unga upp till 23 år. Vi tar emot remisser via Muntra och arbetar på uppdrag av Region Stockholm för att erbjuda specialistvård.",
+            "q_2": "Vad gör ni om mitt barn är rädd för tandläkaren?",
+            "a_2": "Vi möter rädda barn med extra tålamod och anpassad omsorg. Vårt team är specialiserat på psykologisk omvårdnad och erbjuder vid behov lustgas, lugnande medel eller narkos för en trygg upplevelse.",
+            "q_3": "Kostar tandvården något för barn?",
+            "a_3": "Nej, hos Älvsjö Tandvård är all tandvård alltid gratis för barn och ungdomar upp till 19 år. Det gäller både allmäntandvård och specialisttandvård på remiss.",
+        }, "Barnspecialist"),
         "lumo/cta-strip-barnspecialist",
         add("contact-panel", "barnspecialist", {
             "heading": "Kontakta oss",
@@ -1943,6 +2198,7 @@ def main() -> None:
     # Treatment hero + CTA strip per page
     treatment_heroes = [build_treatment_hero(slug) for slug in TREATMENT_HERO_DATA]
     cta_strips = [build_cta_strip(slug) for slug in list(TREATMENT_HERO_DATA) + ["barnspecialist", "kontakt"]]
+    page_hero_info = build_page_hero_info()
     barnspecialist_comps = [build_page_hero_barnspecialist(), build_fact_strip_barnspecialist()]
     kontakt_comps = [build_page_hero_kontakt(), build_contact_grid(), build_map_hours_kontakt(), build_contact_form()]
     remiss_comp   = build_remiss_widget()
@@ -1953,6 +2209,7 @@ def main() -> None:
     global_components = [
         site_header, site_footer,
         hero, treatments, reviews, about, emergency, team, photo_tour,
+        page_hero_info,
         *treatment_heroes, *cta_strips, *barnspecialist_comps, *kontakt_comps, remiss_comp,
     ]
 
