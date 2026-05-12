@@ -22,10 +22,9 @@ import sys
 from pathlib import Path
 
 import requests
-from dotenv import load_dotenv
+from env_loader import ROOT, load_env
 
-ROOT = Path(__file__).resolve().parent.parent
-load_dotenv(ROOT / ".env")
+load_env()
 
 WP_URL          = os.getenv("WP_URL", "").rstrip("/")
 WP_USERNAME     = os.getenv("WP_USERNAME", "")
@@ -217,10 +216,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Bake schema defaults into WP page content.")
     parser.add_argument("bundle", help="Path to bundle.json")
     parser.add_argument("--dry-run", action="store_true", help="Preview changes without writing")
+    parser.add_argument("--production", action="store_true", help="Allow running against a production WP")
     args = parser.parse_args()
 
-    if WP_ENV == "production":
-        print("[BLOCKED] WP_ENV=production. Re-run with WP_ENV=staging or development.")
+    if WP_ENV == "production" and not args.production:
+        print("[BLOCKED] WP_ENV=production. Re-run with --production flag.")
         sys.exit(1)
 
     bundle_path = Path(args.bundle)

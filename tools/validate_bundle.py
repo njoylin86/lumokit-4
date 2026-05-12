@@ -107,6 +107,9 @@ def validate_component(component: dict) -> tuple[list[str], list[str]]:
         "site_reviews_score", "site_reviews_testimonials", "site_booking_api_key",
         "site_booking_cta_link", "site_booking_widget_id", "site_trustindex_script",
         "site_opening_hours", "lumokit-primary",
+        "site_hours_monday", "site_hours_tuesday", "site_hours_wednesday",
+        "site_hours_thursday", "site_hours_friday", "site_hours_saturday",
+        "site_hours_sunday",
     }
     template_vars  = extract_mustache_vars(html) - GLOBAL_VARS
     schema_names   = extract_schema_names(schema)

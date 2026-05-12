@@ -270,6 +270,9 @@ function lumokit_build_site( WP_REST_Request $request ) {
 	}
 
 	// Second pass: create page items, nested under parent when menu_parent is set.
+	// Also tracks created item IDs by menu_label so extra_menu_items can nest under them.
+	$page_item_ids = []; // [ 'Om oss' => 99, ... ]
+
 	foreach ( $pages_spec as $page_spec ) {
 		$label = ! empty( $page_spec['menu_label'] ) ? $page_spec['menu_label'] : null;
 
@@ -301,11 +304,16 @@ function lumokit_build_site( WP_REST_Request $request ) {
 			$item_args['menu-item-parent-id'] = $parent_item_ids[ $parent_label ];
 		}
 
-		wp_update_nav_menu_item( $menu_id, 0, $item_args );
+		$item_id = wp_update_nav_menu_item( $menu_id, 0, $item_args );
+		if ( $label && ! is_wp_error( $item_id ) ) {
+			$page_item_ids[ $label ] = $item_id;
+		}
 	}
 
-	// Third pass: append custom-URL items (e.g. anchor CTAs like "Boka tid").
-	$extra_items = ! empty( $body['extra_menu_items'] ) && is_array( $body['extra_menu_items'] )
+	// Third pass: append custom-URL items (e.g. anchor links, CTAs).
+	// Supports optional "parent" key matching a menu_label from pages or a parent group.
+	$all_item_ids = array_merge( $parent_item_ids, $page_item_ids );
+	$extra_items  = ! empty( $body['extra_menu_items'] ) && is_array( $body['extra_menu_items'] )
 		? $body['extra_menu_items']
 		: [];
 
@@ -313,12 +321,17 @@ function lumokit_build_site( WP_REST_Request $request ) {
 		if ( empty( $extra['label'] ) || empty( $extra['url'] ) ) {
 			continue;
 		}
-		wp_update_nav_menu_item( $menu_id, 0, [
+		$args = [
 			'menu-item-title'  => sanitize_text_field( $extra['label'] ),
 			'menu-item-url'    => esc_url_raw( $extra['url'] ),
 			'menu-item-type'   => 'custom',
 			'menu-item-status' => 'publish',
-		] );
+		];
+		$parent_key = ! empty( $extra['parent'] ) ? sanitize_text_field( $extra['parent'] ) : null;
+		if ( $parent_key && isset( $all_item_ids[ $parent_key ] ) ) {
+			$args['menu-item-parent-id'] = $all_item_ids[ $parent_key ];
+		}
+		wp_update_nav_menu_item( $menu_id, 0, $args );
 	}
 
 	// --- Assign menu to lumokit-primary location ---
@@ -329,7 +342,7 @@ function lumokit_build_site( WP_REST_Request $request ) {
 	// --- Set the "hem" page as the static front page (so / renders the home page,
 	// not the default blog or "Sample Page"). Only acts when a page with slug "hem"
 	// was built in this run.
-	foreach ( $pages as $page_spec ) {
+	foreach ( $pages_spec as $page_spec ) {
 		if ( ( $page_spec['slug'] ?? '' ) === 'hem' ) {
 			$home_page = get_page_by_path( 'hem', OBJECT, 'page' );
 			if ( $home_page ) {
@@ -580,6 +593,13 @@ function lumokit_save_options( WP_REST_Request $request ) {
 		'site_phone',
 		'site_email',
 		'site_opening_hours',
+		'site_hours_monday',
+		'site_hours_tuesday',
+		'site_hours_wednesday',
+		'site_hours_thursday',
+		'site_hours_friday',
+		'site_hours_saturday',
+		'site_hours_sunday',
 		'site_facebook',
 		'site_instagram',
 		'site_linkedin',
@@ -965,11 +985,66 @@ function lumokit_register_dynamic_blocks() {
 			[
 				'key'          => 'field_lumo_site_opening_hours',
 				'name'         => 'site_opening_hours',
-				'label'        => 'Öppettider',
+				'label'        => 'Öppettider (sammanfattning)',
 				'type'         => 'textarea',
 				'rows'         => 4,
 				'default_value' => '',
-				'instructions' => 'T.ex. Mån–Fre 08–17, Lör 10–14',
+				'instructions' => 'Korttext för topstrip/footer. T.ex. Mån–Tor 07–20, Fre 07–17',
+			],
+			[
+				'key'   => 'field_lumo_settings_tab_hours',
+				'label' => 'Öppettider per dag',
+				'name'  => '',
+				'type'  => 'tab',
+			],
+			[
+				'key'           => 'field_lumo_site_hours_monday',
+				'name'          => 'site_hours_monday',
+				'label'         => 'Måndag',
+				'type'          => 'text',
+				'default_value' => '07:00 – 20:00',
+			],
+			[
+				'key'           => 'field_lumo_site_hours_tuesday',
+				'name'          => 'site_hours_tuesday',
+				'label'         => 'Tisdag',
+				'type'          => 'text',
+				'default_value' => '07:00 – 20:00',
+			],
+			[
+				'key'           => 'field_lumo_site_hours_wednesday',
+				'name'          => 'site_hours_wednesday',
+				'label'         => 'Onsdag',
+				'type'          => 'text',
+				'default_value' => '07:00 – 20:00',
+			],
+			[
+				'key'           => 'field_lumo_site_hours_thursday',
+				'name'          => 'site_hours_thursday',
+				'label'         => 'Torsdag',
+				'type'          => 'text',
+				'default_value' => '07:00 – 20:00',
+			],
+			[
+				'key'           => 'field_lumo_site_hours_friday',
+				'name'          => 'site_hours_friday',
+				'label'         => 'Fredag',
+				'type'          => 'text',
+				'default_value' => '07:00 – 17:00',
+			],
+			[
+				'key'           => 'field_lumo_site_hours_saturday',
+				'name'          => 'site_hours_saturday',
+				'label'         => 'Lördag',
+				'type'          => 'text',
+				'default_value' => '09:00 – 15:00',
+			],
+			[
+				'key'           => 'field_lumo_site_hours_sunday',
+				'name'          => 'site_hours_sunday',
+				'label'         => 'Söndag',
+				'type'          => 'text',
+				'default_value' => 'Stängt',
 			],
 			[
 				'key'   => 'field_lumo_settings_tab_social',
@@ -1326,6 +1401,13 @@ function lumokit_get_global_replacements() {
 		'site_phone',
 		'site_email',
 		'site_opening_hours',
+		'site_hours_monday',
+		'site_hours_tuesday',
+		'site_hours_wednesday',
+		'site_hours_thursday',
+		'site_hours_friday',
+		'site_hours_saturday',
+		'site_hours_sunday',
 		'site_facebook',
 		'site_instagram',
 		'site_linkedin',

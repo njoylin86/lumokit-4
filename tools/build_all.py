@@ -211,6 +211,63 @@ def build_site(site_name: str, pages: list, extra_menu_items: list | None = None
         sys.exit(1)
 
 
+def patch_menu_parents(extra_menu_items: list | None) -> None:
+    """Ensure extra_menu_items with a 'parent' label are nested correctly in WP nav menu.
+
+    Bridge PHP sets parent-id during build, but opcode cache can serve stale code.
+    This REST-API pass is a reliable safety net that runs after build_site().
+    """
+    if not extra_menu_items:
+        return
+    items_needing_parent = [i for i in extra_menu_items if i.get("parent")]
+    if not items_needing_parent:
+        return
+
+    # Fetch all current menu items
+    resp = requests.get(
+        f"{WP_URL}/wp-json/wp/v2/menu-items",
+        params={"per_page": 100},
+        auth=(WP_USERNAME, WP_APP_PASSWORD),
+        timeout=30,
+    )
+    if resp.status_code != 200:
+        print("  [WARN] Could not fetch menu items for parent patch — skip")
+        return
+
+    all_items = resp.json()
+    # Build lookup: rendered title → item id
+    id_by_label: dict[str, int] = {}
+    for item in all_items:
+        title = item.get("title", {}).get("rendered", "")
+        id_by_label[title] = item["id"]
+
+    patched = 0
+    for extra in items_needing_parent:
+        label  = extra.get("label", "")
+        parent = extra.get("parent", "")
+        parent_id = id_by_label.get(parent)
+        item_id   = id_by_label.get(label)
+        if not parent_id or not item_id:
+            continue
+        # Find current parent from fetched items
+        current_parent = next((i.get("parent") for i in all_items if i["id"] == item_id), None)
+        if current_parent == parent_id:
+            continue  # Already correct
+        patch = requests.post(
+            f"{WP_URL}/wp-json/wp/v2/menu-items/{item_id}",
+            json={"parent": parent_id},
+            auth=(WP_USERNAME, WP_APP_PASSWORD),
+            timeout=15,
+        )
+        if patch.status_code == 200:
+            patched += 1
+        else:
+            print(f"  [WARN] Could not patch parent for '{label}'")
+
+    if patched:
+        print(f"  [OK]   Menu parent patch: {patched} item(s) re-nested.")
+
+
 def print_mode_banner(overwrite_content: bool, keep_pages: set, force: bool) -> None:
     """Always show what mode we're running in so the user can't forget the flags."""
     print()
@@ -363,6 +420,7 @@ def build_all(bundle_path: str, allow_production: bool = False,
         if pages:
             print(f"\n[{step}/{total_steps}] Building site '{site_name}' with {len(pages)} page(s)...")
             build_site(site_name, pages, extra_menu_items=extra_menu_items)
+            patch_menu_parents(extra_menu_items)
 
     # --- Step 3: Compile & push CSS from this bundle only -----------------
     print(f"\n[CSS] Compiling Tailwind CSS from {Path(bundle_path).name} ...")
