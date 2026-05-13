@@ -135,6 +135,7 @@ def process_page(
     title: str,
     block_names: list[str],
     schema_map: dict[str, list],
+    page_defaults: dict[str, dict],
     dry_run: bool,
 ) -> bool:
     page = fetch_page(slug)
@@ -147,12 +148,27 @@ def process_page(
     any_patched = False
     total_patched = []
 
+    # Build per-page schema_map: merge page_defaults over component schema defaults
+    effective_schema_map = {}
+    for block_name, schema in schema_map.items():
+        overrides = page_defaults.get(block_name)
+        if not overrides:
+            effective_schema_map[block_name] = schema
+            continue
+        merged = []
+        for field in schema:
+            f = dict(field)
+            if f["name"] in overrides:
+                f["default"] = overrides[f["name"]]
+            merged.append(f)
+        effective_schema_map[block_name] = merged
+
     def replace_block(m: re.Match) -> str:
         nonlocal any_patched
         prefix, block_slug, attrs_str, suffix = m.group(1), m.group(2), m.group(3), m.group(4)
         full_block_name = f"lumo/{block_slug}"
 
-        schema = schema_map.get(full_block_name)
+        schema = effective_schema_map.get(full_block_name)
         if not schema:
             return m.group(0)  # not our component — leave alone
 
@@ -245,8 +261,9 @@ def main() -> None:
         slug = page["slug"]
         title = page.get("title", slug)
         blocks = page.get("blocks", [])
+        page_defaults = page.get("page_defaults", {})
         print(f"Page: {title} ({slug})")
-        ok = process_page(slug, title, blocks, schema_map, args.dry_run)
+        ok = process_page(slug, title, blocks, schema_map, page_defaults, args.dry_run)
         all_ok = all_ok and ok
 
     if not all_ok:

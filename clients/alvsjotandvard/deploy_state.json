@@ -3,279 +3,179 @@
   "components": {
     "lumo/site-header": {
       "status": "ok",
-      "at": "2026-05-13T12:45:31"
+      "at": "2026-05-13T18:19:29"
     },
     "lumo/site-footer": {
       "status": "ok",
-      "at": "2026-05-13T12:45:32"
+      "at": "2026-05-13T18:19:29"
     },
     "lumo/hero": {
       "status": "ok",
-      "at": "2026-05-13T12:45:32"
+      "at": "2026-05-13T18:19:29"
     },
     "lumo/treatments-grid": {
       "status": "ok",
-      "at": "2026-05-13T12:45:32"
+      "at": "2026-05-13T18:19:29"
     },
     "lumo/reviews-section": {
       "status": "ok",
-      "at": "2026-05-13T12:45:32"
+      "at": "2026-05-13T18:19:29"
     },
     "lumo/about": {
       "status": "ok",
-      "at": "2026-05-13T12:45:32"
+      "at": "2026-05-13T18:19:29"
     },
     "lumo/emergency-banner": {
       "status": "ok",
-      "at": "2026-05-13T12:45:32"
+      "at": "2026-05-13T18:19:29"
     },
     "lumo/team": {
       "status": "ok",
-      "at": "2026-05-13T12:45:32"
+      "at": "2026-05-13T18:19:29"
     },
     "lumo/photo-tour": {
       "status": "ok",
-      "at": "2026-05-13T12:45:32"
+      "at": "2026-05-13T18:19:29"
     },
     "lumo/page-hero-info": {
       "status": "ok",
-      "at": "2026-05-13T12:45:32"
+      "at": "2026-05-13T18:19:30"
     },
-    "lumo/treatment-hero-akut-tandvard": {
+    "lumo/treatment-hero": {
       "status": "ok",
-      "at": "2026-05-13T12:45:33"
+      "at": "2026-05-13T18:19:30"
     },
-    "lumo/treatment-hero-implantat": {
+    "lumo/triage-grid": {
       "status": "ok",
-      "at": "2026-05-13T12:45:33"
+      "at": "2026-05-13T18:19:30"
     },
-    "lumo/treatment-hero-karies-hal-i-tanden": {
+    "lumo/process-steps": {
       "status": "ok",
-      "at": "2026-05-13T12:45:33"
+      "at": "2026-05-13T18:19:30"
     },
-    "lumo/treatment-hero-tandblekning": {
+    "lumo/price-row": {
       "status": "ok",
-      "at": "2026-05-13T12:45:33"
+      "at": "2026-05-13T18:19:30"
     },
-    "lumo/treatment-hero-tandfasader-veneers": {
+    "lumo/content-block-1": {
       "status": "ok",
-      "at": "2026-05-13T12:45:33"
+      "at": "2026-05-13T18:19:30"
     },
-    "lumo/treatment-hero-tandreglering-stockholm": {
+    "lumo/content-block-2": {
       "status": "ok",
-      "at": "2026-05-13T12:45:33"
+      "at": "2026-05-13T18:19:30"
     },
-    "lumo/treatment-hero-tandsten-tandhygienist": {
+    "lumo/faq": {
       "status": "ok",
-      "at": "2026-05-13T12:45:33"
-    },
-    "lumo/treatment-hero-tandvardsradsla": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:33"
+      "at": "2026-05-13T18:19:30"
     },
     "lumo/cta-strip-akut-tandvard": {
       "status": "ok",
-      "at": "2026-05-13T12:45:34"
+      "at": "2026-05-13T18:19:30"
     },
     "lumo/cta-strip-implantat": {
       "status": "ok",
-      "at": "2026-05-13T12:45:34"
+      "at": "2026-05-13T18:19:30"
     },
     "lumo/cta-strip-karies-hal-i-tanden": {
       "status": "ok",
-      "at": "2026-05-13T12:45:35"
+      "at": "2026-05-13T18:19:31"
     },
     "lumo/cta-strip-tandblekning": {
       "status": "ok",
-      "at": "2026-05-13T12:45:35"
+      "at": "2026-05-13T18:19:31"
     },
     "lumo/cta-strip-tandfasader-veneers": {
       "status": "ok",
-      "at": "2026-05-13T12:45:35"
+      "at": "2026-05-13T18:19:31"
     },
     "lumo/cta-strip-tandreglering-stockholm": {
       "status": "ok",
-      "at": "2026-05-13T12:45:35"
+      "at": "2026-05-13T18:19:31"
     },
     "lumo/cta-strip-tandsten-tandhygienist": {
       "status": "ok",
-      "at": "2026-05-13T12:45:35"
+      "at": "2026-05-13T18:19:31"
     },
     "lumo/cta-strip-tandvardsradsla": {
       "status": "ok",
-      "at": "2026-05-13T12:45:35"
+      "at": "2026-05-13T18:19:31"
     },
     "lumo/cta-strip-barnspecialist": {
       "status": "ok",
-      "at": "2026-05-13T12:45:36"
+      "at": "2026-05-13T18:19:31"
     },
     "lumo/cta-strip-kontakt": {
       "status": "ok",
-      "at": "2026-05-13T12:45:36"
+      "at": "2026-05-13T18:19:31"
     },
     "lumo/page-hero-barnspecialist": {
       "status": "ok",
-      "at": "2026-05-13T12:45:36"
+      "at": "2026-05-13T18:19:31"
     },
     "lumo/fact-strip-barnspecialist": {
       "status": "ok",
-      "at": "2026-05-13T12:45:36"
+      "at": "2026-05-13T18:19:32"
     },
     "lumo/page-hero-kontakt": {
       "status": "ok",
-      "at": "2026-05-13T12:45:36"
+      "at": "2026-05-13T18:19:32"
     },
     "lumo/contact-grid": {
       "status": "ok",
-      "at": "2026-05-13T12:45:36"
+      "at": "2026-05-13T18:19:32"
     },
     "lumo/map-hours-kontakt": {
       "status": "ok",
-      "at": "2026-05-13T12:45:37"
+      "at": "2026-05-13T18:19:32"
     },
     "lumo/contact-form": {
       "status": "ok",
-      "at": "2026-05-13T12:45:37"
+      "at": "2026-05-13T18:19:32"
     },
     "lumo/text-blocks-om-oss": {
       "status": "ok",
-      "at": "2026-05-13T12:45:37"
+      "at": "2026-05-13T18:19:32"
     },
     "lumo/organisation-om-oss": {
       "status": "ok",
-      "at": "2026-05-13T12:45:37"
+      "at": "2026-05-13T18:19:32"
     },
     "lumo/arbeta-med-oss": {
       "status": "ok",
-      "at": "2026-05-13T12:45:37"
+      "at": "2026-05-13T18:19:32"
     },
     "lumo/feedback-form-om-oss": {
       "status": "ok",
-      "at": "2026-05-13T12:45:37"
+      "at": "2026-05-13T18:19:32"
     },
     "lumo/cta-strip-om-oss": {
       "status": "ok",
-      "at": "2026-05-13T12:45:37"
+      "at": "2026-05-13T18:19:33"
     },
     "lumo/remiss-widget": {
       "status": "ok",
-      "at": "2026-05-13T12:45:37"
+      "at": "2026-05-13T18:19:33"
     },
     "lumo/content-block-1-om-oss": {
       "status": "ok",
-      "at": "2026-05-13T12:45:38"
+      "at": "2026-05-13T18:19:33"
     },
     "lumo/map-section-om-oss": {
       "status": "ok",
-      "at": "2026-05-13T12:45:38"
-    },
-    "lumo/content-block-1-akut-tandvard": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:38"
-    },
-    "lumo/faq-akut-tandvard": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:38"
-    },
-    "lumo/contact-panel-akut-tandvard": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:38"
-    },
-    "lumo/content-block-1-implantat": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:38"
-    },
-    "lumo/faq-implantat": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:39"
-    },
-    "lumo/contact-panel-implantat": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:39"
-    },
-    "lumo/content-block-1-karies-hal-i-tanden": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:39"
-    },
-    "lumo/faq-karies-hal-i-tanden": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:39"
-    },
-    "lumo/contact-panel-karies-hal-i-tanden": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:39"
-    },
-    "lumo/content-block-1-tandblekning": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:39"
-    },
-    "lumo/faq-tandblekning": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:40"
-    },
-    "lumo/contact-panel-tandblekning": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:40"
-    },
-    "lumo/content-block-1-tandfasader-veneers": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:40"
-    },
-    "lumo/faq-tandfasader-veneers": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:40"
-    },
-    "lumo/contact-panel-tandfasader-veneers": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:40"
-    },
-    "lumo/content-block-1-tandreglering-stockholm": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:40"
-    },
-    "lumo/faq-tandreglering-stockholm": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:40"
-    },
-    "lumo/contact-panel-tandreglering-stockholm": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:41"
-    },
-    "lumo/content-block-1-tandsten-tandhygienist": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:41"
-    },
-    "lumo/faq-tandsten-tandhygienist": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:41"
-    },
-    "lumo/contact-panel-tandsten-tandhygienist": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:41"
-    },
-    "lumo/content-block-1-tandvardsradsla": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:41"
-    },
-    "lumo/faq-tandvardsradsla": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:41"
-    },
-    "lumo/contact-panel-tandvardsradsla": {
-      "status": "ok",
-      "at": "2026-05-13T12:45:42"
+      "at": "2026-05-13T18:19:33"
     },
     "lumo/content-block-1-barnspecialist": {
       "status": "ok",
-      "at": "2026-05-13T12:45:42"
+      "at": "2026-05-13T18:19:33"
     },
     "lumo/faq-barnspecialist": {
       "status": "ok",
-      "at": "2026-05-13T12:45:42"
+      "at": "2026-05-13T18:19:33"
     },
     "lumo/contact-panel-barnspecialist": {
       "status": "ok",
-      "at": "2026-05-13T12:45:42"
+      "at": "2026-05-13T18:19:33"
     }
   }
 }
