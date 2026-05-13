@@ -27,6 +27,11 @@ ADDRESS_ENC = quote_plus("Prästgårdsgränd 4, 125 44 Älvsjö")
 # False = vit header (vit bakgrund, färglogga)
 DARK_HEADER = True
 
+# ── Hero-bakgrund ────────────────────────────────────────────────────────────
+# False = stillbild  (hero_image-fältet i ACF)
+# True  = video      (hero_video_desktop / hero_video_mobile i ACF)
+HERO_VIDEO = True
+
 # Logo URLs — coloured version for header, white version for footer
 LOGO_COLOR = "https://alvsjotandvard.se/wp-content/uploads/2020/12/Alvsjo-tandvard-logo-farg.png"
 LOGO_WHITE = "https://alvsjotandvard.se/wp-content/uploads/2020/12/Alvsjo-tandvard-logo-vit.png"
@@ -159,22 +164,44 @@ html, body { overflow-x: clip; max-width: 100vw; }
 .site-header .nav-toggle:checked ~ .hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ── Hero (HeroBleed) ───────────────────────────────────────────── */
+@keyframes camera-drift {
+  0%   { transform: scale(2.0) translate(-8%, 0%); }
+  25%  { transform: scale(2.2) translate(-6%, 2%); }
+  50%  { transform: scale(2.1) translate(-10%, -2%); }
+  75%  { transform: scale(2.3) translate(-7%, -3%); }
+  100% { transform: scale(2.0) translate(-9%, 3%); }
+}
 .hero-bleed {
   position: relative; min-height: min(82vh, 820px);
-  background: var(--ink-700); display: flex; flex-direction: column;
+  background: #050505; display: flex; flex-direction: column;
   justify-content: flex-end; overflow: hidden;
+}
+.hero-bleed.hero-bg-video::after {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Dissolve_Noise_Texture.png');
+  opacity: 0.15; mix-blend-mode: overlay; pointer-events: none; z-index: 2;
 }
 .hero-bleed .hb-bg {
   position: absolute; inset: 0;
   background-size: cover; background-position: center; background-repeat: no-repeat;
   filter: saturate(1.05) brightness(0.75);
 }
+.hero-bleed .hb-bg-video {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  object-fit: cover;
+  filter: blur(12px) brightness(0.55) contrast(1.5);
+  z-index: 1;
+  animation: camera-drift 10s ease-in-out infinite alternate;
+}
+.hero-bleed .hb-bg-video--mobile { display: none; }
+.hero-bleed .hb-bg-video--desktop { display: none; }
 .hero-bleed .hb-overlay {
-  position: absolute; inset: 0;
+  position: absolute; inset: 0; z-index: 10;
   background: linear-gradient(180deg, rgba(20,20,18,0.55) 0%, rgba(20,20,18,0.30) 35%, rgba(20,20,18,0.88) 100%);
 }
 .hero-bleed .hb-top {
-  position: absolute; top: 48px; left: 0; right: 0; z-index: 2;
+  position: absolute; top: 48px; left: 0; right: 0; z-index: 10;
 }
 .hero-bleed .hb-top-inner {
   max-width: var(--maxw-wide); margin: 0 auto; padding: 0 var(--gutter);
@@ -208,7 +235,7 @@ html, body { overflow-x: clip; max-width: 100vw; }
 .hero-bleed .hb-score { font-size: 13px; font-weight: 500; }
 .hero-bleed .hb-count { font-size: 12px; opacity: 0.7; }
 .hero-bleed .hb-content {
-  position: relative; z-index: 2;
+  position: relative; z-index: 10;
   max-width: var(--maxw-wide); margin: 0 auto; padding: 0 var(--gutter);
   padding-top: 96px; padding-bottom: 0;
   color: var(--white);
@@ -236,8 +263,20 @@ html, body { overflow-x: clip; max-width: 100vw; }
 }
 .hero-bleed .hb-link:hover { border-bottom-color: var(--white); }
 .hb-stats-mobile { display: none !important; }
+/* Hero bg toggle button — only for logged-in admins */
+.hb-bg-toggle {
+  display: none;
+  position: absolute; bottom: 16px; right: 16px; z-index: 20;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.6); background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.2); border-radius: 4px;
+  padding: 5px 10px; text-decoration: none; backdrop-filter: blur(4px);
+  transition: color 0.2s, background 0.2s;
+}
+.hb-bg-toggle:hover { color: #fff; background: rgba(0,0,0,0.55); }
+.hb-bg-toggle { display: block; }
 .hero-bleed .hb-stats {
-  position: relative; z-index: 2;
+  position: relative; z-index: 10;
   max-width: var(--maxw-wide); margin: 0 auto; padding: 0 var(--gutter);
   margin-top: 80px; padding-top: 56px; padding-bottom: 56px;
   border-top: 1px solid rgba(255,255,255,0.2);
@@ -538,6 +577,7 @@ html, body { overflow-x: clip; max-width: 100vw; }
   .site-header nav ul li:last-child a { border-bottom: none; }
   .site-header nav a.btn { margin-top: 14px; padding: 14px 20px; text-align: center; border-bottom: none; }
   .hero-bleed .hb-top { display: none; }
+  /* video: .hb-bg-video--desktop/.hb-bg-video--mobile — byt display:none/block för att aktivera */
   .hero-bleed .hb-content { grid-template-columns: 1fr; gap: 24px; padding-top: 48px; }
   .hero-bleed .hb-review-widget { position: static; margin-top: 12px; }
   .hero-bleed .hb-right { padding-bottom: 32px; }
@@ -1045,7 +1085,12 @@ html.header-light .site-header .hamburger span { background: var(--ink-700) !imp
   html.header-light .site-header nav a, html.header-light .site-header nav ul li a { color: var(--ink-600) !important; border-bottom-color: var(--border) !important; }
 }
 """
-    style_block = f"<style>\n{tokens_css}\n{LAYOUT_CSS}\n{header_variant_css}\n{header_light_override}\n</style>"
+    hero_bg_css = (
+        ".hero-bleed.hero-bg-video .hb-bg { display: none; }\n"
+        ".hero-bleed.hero-bg-video .hb-bg-video--desktop { display: block; }\n"
+        "@media (max-width: 768px) { .hero-bleed.hero-bg-video .hb-bg-video--desktop { display: none; } .hero-bleed.hero-bg-video .hb-bg-video--mobile { display: block; } }\n"
+    )
+    style_block = f"<style>\n{tokens_css}\n{LAYOUT_CSS}\n{header_variant_css}\n{header_light_override}\n{hero_bg_css}\n</style>"
     onload_js = """<script>
 (function(){
   var done=false;
@@ -1132,7 +1177,15 @@ document.addEventListener('submit',function(e){
 def build_hero() -> dict:
     html = """
 <section class="hero-bleed">
-  <div class="hb-bg" style="background-image:url({{hero_image}});"></div>
+  <div class="hb-bg" style="background-image:url('{{hero_image}}');"></div>
+  <video class="hb-bg-video hb-bg-video--desktop" autoplay muted loop playsinline oncanplay="this.playbackRate=0.75">
+    <source src="{{hero_video_desktop_webm}}" type="video/webm">
+    <source src="{{hero_video_desktop}}" type="video/mp4">
+  </video>
+  <video class="hb-bg-video hb-bg-video--mobile" autoplay muted loop playsinline oncanplay="this.playbackRate=0.75">
+    <source src="{{hero_video_mobile_webm}}" type="video/webm">
+    <source src="{{hero_video_mobile}}" type="video/mp4">
+  </video>
   <div class="hb-overlay"></div>
 
   <div class="hb-top">
@@ -1181,6 +1234,24 @@ def build_hero() -> dict:
     <div><span class="hb-stat-val">{{stat_3_val}}</span><span class="hb-stat-lbl">{{stat_3_lbl}}</span></div>
     <div><span class="hb-stat-val">{{stat_4_val}}</span><span class="hb-stat-lbl">{{stat_4_lbl}}</span></div>
   </div>
+  <button class="hb-bg-toggle" id="hb-bg-toggle" title="Byt bakgrund">◼ Bild</button>
+  <script>
+  (function(){
+    var hero = document.querySelector('.hero-bleed');
+    var btn  = document.getElementById('hb-bg-toggle');
+    var mode = localStorage.getItem('heroBg') || 'video';
+    function apply(m){
+      hero.classList.toggle('hero-bg-video', m==='video');
+      btn.textContent = m==='video' ? '◼ Bild' : '▶ Video';
+    }
+    apply(mode);
+    btn.addEventListener('click', function(){
+      mode = mode==='video' ? 'image' : 'video';
+      localStorage.setItem('heroBg', mode);
+      apply(mode);
+    });
+  })();
+  </script>
 </section>
 """
     return {
@@ -1188,7 +1259,11 @@ def build_hero() -> dict:
         "title": "Hero",
         "html_template": collapse(html),
         "schema": [
-            {"name": "hero_image",  "type": "image",    "label": "Bakgrundsbild", "default": "https://swordfish.templweb.com/wp-content/uploads/2026/05/hero-1.jpg"},
+            {"name": "hero_image",         "type": "image", "label": "Bakgrundsbild",               "default": "https://swordfish.templweb.com/wp-content/uploads/2026/05/hero-1.jpg"},
+            {"name": "hero_video_desktop",      "type": "text", "label": "Bakgrundsvideo desktop — MP4-URL", "default": "https://swordfish.templweb.com/wp-content/uploads/2026/05/video_mp_.mp4"},
+            {"name": "hero_video_desktop_webm", "type": "text", "label": "Bakgrundsvideo desktop — WebM-URL", "default": ""},
+            {"name": "hero_video_mobile",       "type": "text", "label": "Bakgrundsvideo mobil — MP4-URL",    "default": "https://swordfish.templweb.com/wp-content/uploads/2026/05/video_mp_.mp4"},
+            {"name": "hero_video_mobile_webm",  "type": "text", "label": "Bakgrundsvideo mobil — WebM-URL",  "default": ""},
             {"name": "eyebrow",     "type": "text",     "label": "Etikett",       "default": "Modern tandvård · 2 min från pendeln · Älvsjö"},
             {"name": "ingress",     "type": "textarea", "label": "Ingress",       "default": "Från första undersökningen till implantat och Invisalign — en nyrenoverad klinik mitt i Älvsjö där varje besök är utformat för att du ska känna dig lugn och omhändertagen."},
             {"name": "stat_1_val",  "type": "text",     "label": "Stat 1 – värde",  "default": "Gratis"},
