@@ -27,10 +27,6 @@ ADDRESS_ENC = quote_plus("Prästgårdsgränd 4, 125 44 Älvsjö")
 # False = vit header (vit bakgrund, färglogga)
 DARK_HEADER = True
 
-# ── Hero-bakgrund ────────────────────────────────────────────────────────────
-# False = stillbild  (hero_image-fältet i ACF)
-# True  = video      (hero_video_desktop / hero_video_mobile i ACF)
-HERO_VIDEO = True
 
 # Logo URLs — coloured version for header, white version for footer
 LOGO_COLOR = "https://alvsjotandvard.se/wp-content/uploads/2020/12/Alvsjo-tandvard-logo-farg.png"
@@ -1088,7 +1084,7 @@ html.header-light .site-header .hamburger span { background: var(--ink-700) !imp
     hero_bg_css = (
         ".hero-bleed.hero-bg-video .hb-bg { display: none; }\n"
         ".hero-bleed.hero-bg-video .hb-bg-video--desktop { display: block; }\n"
-        "@media (max-width: 768px) { .hero-bleed.hero-bg-video .hb-bg-video--desktop { display: none; } .hero-bleed.hero-bg-video .hb-bg-video--mobile { display: block; } }\n"
+        "@media (max-width: 768px) { .hero-bleed.hero-bg-video .hb-bg-video--desktop { display: none; } .hero-bleed.hero-bg-video .hb-bg-video--mobile { display: block; } }"
     )
     style_block = f"<style>\n{tokens_css}\n{LAYOUT_CSS}\n{header_variant_css}\n{header_light_override}\n{hero_bg_css}\n</style>"
     onload_js = """<script>
