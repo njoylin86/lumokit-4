@@ -789,6 +789,7 @@ html, body { overflow-x: clip; max-width: 100vw; }
 .treatment-hero .th-stat-label { font-size:10px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:var(--sage-300); margin-bottom:10px; }
 .treatment-hero .th-stat-value { font-family:var(--font-serif); font-weight:300; font-size:clamp(40px,4vw,56px); line-height:0.95; letter-spacing:-0.03em; margin-bottom:8px; }
 .treatment-hero .th-stat-sub { font-size:12px; color:rgba(255,255,255,0.7); line-height:1.5; }
+.treatment-hero .th-mobile-bg { display:none; position:absolute; inset:0; background-size:cover; background-position:center; opacity:0.18; filter:saturate(0.6); }
 
 /* ── PageHero (Barnspecialist — ingen foto) ─────────────────────── */
 .page-hero { background:var(--cream); padding:96px 0; border-bottom:1px solid var(--border); }
@@ -813,7 +814,7 @@ html, body { overflow-x: clip; max-width: 100vw; }
 /* ── FactStrip (Barnspecialist) ─────────────────────────────────── */
 .fact-strip { background:var(--white); padding:64px 0; }
 .fact-strip .fs-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); }
-.cb-section { padding:0 0 96px; }
+.cb-section { padding:96px 0; }
 .cb-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; }
 .cb-grid--mirror .cb-text { order:2; }
 .cb-grid--mirror .cb-img  { order:1; }
@@ -863,6 +864,21 @@ html, body { overflow-x: clip; max-width: 100vw; }
 .lumo-form-msg { grid-column:1/-1; font-size:14px; color:#c0392b; min-height:20px; }
 .lumo-form-success { font-family:var(--font-serif); font-size:24px; color:var(--ink-700); line-height:1.5; padding:40px 0; }
 
+/* ── Emergency Strip ────────────────────────────────────────── */
+.emergency-strip { background:var(--sage-600); color:var(--white); padding:10px 0; }
+.es-inner { display:flex; align-items:center; justify-content:space-between; gap:32px; flex-wrap:wrap; }
+.es-left { display:flex; align-items:center; gap:20px; }
+.es-dot { display:inline-flex; width:10px; height:10px; border-radius:50%; background:var(--white); flex-shrink:0;
+  box-shadow:0 0 0 4px rgba(255,255,255,0.25); animation:es-pulse 2s ease-in-out infinite; }
+@keyframes es-pulse { 0%,100%{ transform:scale(1);opacity:1; } 50%{ transform:scale(1.4);opacity:0.6; } }
+.es-label { font-size:11px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; }
+.es-serif { font-family:var(--font-serif); font-size:20px; font-weight:400; letter-spacing:-0.01em; }
+.es-phone { display:inline-flex; align-items:center; gap:14px; color:var(--white); text-decoration:none;
+  font-family:var(--font-serif); font-size:28px; font-weight:400; letter-spacing:-0.02em;
+  padding-left:28px; border-left:1px solid rgba(255,255,255,0.3); }
+.es-ring { font-size:10px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; font-family:var(--font-sans); }
+@media (max-width:700px) { .es-serif { display:none; } .es-phone { border-left:none; padding-left:0; } }
+
 /* ── Triage Grid ────────────────────────────────────────────── */
 .triage-grid { background:var(--white); padding:var(--space-10) 0; }
 .tg-header { display:grid; grid-template-columns:1fr auto; align-items:end; gap:32px; margin-bottom:56px; padding-bottom:32px; border-bottom:1px solid var(--border); }
@@ -898,10 +914,47 @@ html, body { overflow-x: clip; max-width: 100vw; }
 .price-row .pr-label { font-size:16px; color:var(--ink-700); }
 .price-row .pr-price { font-family:var(--font-serif); font-size:22px; font-weight:400; letter-spacing:-0.01em; color:var(--ink-700); white-space:nowrap; }
 
+/* ── Info Grid — delad sektion-wrapper ──────────────────────── */
+.ig-section { background:var(--white); padding:var(--space-10) 0; }
+.ig-hdr { margin-bottom:56px; padding-bottom:32px; border-bottom:1px solid var(--border); }
+.ig-hdr h2 { max-width:32ch; margin:8px 0 0; font-family:var(--font-serif); font-weight:400; font-size:clamp(28px,2.6vw,40px); line-height:1.15; letter-spacing:-0.02em; color:var(--ink-700); }
+.ig-grid { display:grid; gap:1px; background:var(--border); border:1px solid var(--border); }
+.ig-grid--3 { grid-template-columns:repeat(3,1fr); }
+.ig-grid--4 { grid-template-columns:repeat(4,1fr); }
+
+/* ── Method Comparison (Tandblekning) ───────────────────────── */
+.mc-section { background:var(--white); padding:var(--space-10) 0; }
+.mc-hdr { margin-bottom:56px; padding-bottom:32px; border-bottom:1px solid var(--border); }
+.mc-hdr h2 { max-width:28ch; margin:8px 0 0; font-family:var(--font-serif); font-weight:400; font-size:clamp(28px,2.6vw,40px); line-height:1.15; letter-spacing:-0.02em; color:var(--ink-700); }
+.mc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); }
+.mc-item { background:var(--white); padding:40px 32px; display:flex; flex-direction:column; gap:16px; }
+.mc-name-row { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+.mc-name { font-family:var(--font-serif); font-weight:400; font-size:28px; line-height:1.1; letter-spacing:-0.02em; color:var(--ink-700); margin:0; }
+.mc-badge { font-size:9px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--sage-600); padding:4px 8px; border:1px solid var(--border); white-space:nowrap; flex-shrink:0; margin-top:4px; }
+.mc-meta { display:flex; flex-direction:column; gap:6px; }
+.mc-meta-row { display:flex; gap:12px; align-items:baseline; }
+.mc-meta-label { font-size:10px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:var(--fg-muted); min-width:48px; flex-shrink:0; }
+.mc-meta-val { font-family:var(--font-serif); font-size:18px; color:var(--ink-700); letter-spacing:-0.01em; }
+.mc-meta-val--accent { color:var(--sage-600); }
+.mc-desc { font-size:14px; line-height:1.65; color:var(--ink-500); margin:0; padding-top:16px; border-top:1px solid var(--border); }
+
+/* ── Process Steps 4-column variant ────────────────────────── */
+.ps-grid--4 { grid-template-columns:repeat(4,1fr); gap:40px; }
+
 @media (max-width: 900px) {
-  .treatment-hero { height:auto; }
+  .treatment-hero { height:auto; background:var(--ink-700) !important; position:relative; }
   .treatment-hero .th-grid { grid-template-columns:1fr; height:auto; }
   .treatment-hero .th-right { display:none; }
+  .treatment-hero .th-mobile-bg { display:block; }
+  .treatment-hero .th-inner { position:relative; z-index:1; }
+  .treatment-hero h1 { color:var(--white); }
+  .treatment-hero h1 em { color:var(--sage-300) !important; }
+  .treatment-hero .th-lead { color:rgba(255,255,255,0.75) !important; }
+  .treatment-hero .th-bullet { color:rgba(255,255,255,0.85) !important; }
+  .treatment-hero .th-bullets { border-top-color:rgba(255,255,255,0.15) !important; }
+  .treatment-hero .eyebrow { color:var(--sage-300) !important; }
+  .treatment-hero .btn-ghost { color:var(--white); border-color:rgba(255,255,255,0.4); }
+  .treatment-hero .btn-ghost:hover { background:rgba(255,255,255,0.1); }
   .page-hero .ph-grid { grid-template-columns:1fr; gap:40px; }
   .cta-strip .cs-grid { grid-template-columns:1fr; }
   .cta-strip .cs-actions { justify-self:start; }
@@ -924,7 +977,10 @@ html, body { overflow-x: clip; max-width: 100vw; }
   .tg-card { min-height:auto; }
   .ps-header { margin-bottom:40px; }
   .ps-grid { grid-template-columns:1fr; gap:40px; }
+  .ps-grid--4 { grid-template-columns:repeat(2,1fr); }
   .price-row .pr-grid { grid-template-columns:1fr; gap:40px; }
+  .ig-grid--3, .ig-grid--4 { grid-template-columns:repeat(2,1fr); }
+  .mc-grid { grid-template-columns:1fr; }
 }
 @media (max-width: 600px) {
   .treatment-hero .th-bullets { grid-template-columns:1fr; }
@@ -945,8 +1001,10 @@ html, body { overflow-x: clip; max-width: 100vw; }
   .tg-card h3 { font-size:22px; }
   .ps-num { font-size:56px; }
   .ps-step h3 { font-size:24px; }
+  .ps-grid--4 { grid-template-columns:1fr; }
   .price-row .pr-row { grid-template-columns:1fr; gap:4px; }
   .price-row .pr-price { font-size:18px; }
+  .ig-grid--3, .ig-grid--4 { grid-template-columns:1fr; }
 }
 
 /* ── Om oss — TextBlocks ────────────────────────────────────────── */
@@ -1223,12 +1281,43 @@ TREATMENT_PAGE_DATA: dict[str, dict] = {
         "faq_a_4": "Vi möter alla med förståelse och extra tålamod. Berätta om din rädsla när du bokar så anpassar vi besöket.",
     },
     "implantat": {
+        "ig_eyebrow": "Varför implantat?",
+        "ig_heading": "Den moderna lösningen för saknade tänder.",
+        "ig_items": [
+            {"val": "98 %",      "desc": "Hög lyckandegräns — lyckad osseointegration efter 10 år (meta-analys, PubMed 2019)."},
+            {"val": "3D",        "desc": "CBCT-planering — digital 3D-röntgen för exakt implantatplacering och maximal säkerhet."},
+            {"val": "0 %",       "desc": "Räntefri delbetalning — betala i bekväma månadsbelopp utan dolda avgifter."},
+            {"val": "Komplett",  "desc": "Allt under ett tak — från konsultation och insättning till färdig krona hos oss."},
+        ],
         "cb1_eyebrow":  "Behandlingen",
         "cb1_h2":       "Permanenta tänder som ser och känns helt naturliga.",
         "cb1_body":     "<p>Ett tandimplantat är en titanskruv som placeras i käkbenet och fungerar som tandens rot. Ovanpå skruven monteras en tandkrona som matchar dina egna tänder exakt — i form, färg och funktion.</p><p>Vi utför <strong>3D-planering med CBCT-röntgen</strong> inför alla implantatbehandlingar för maximal precision och säkerhet. Hela förloppet — från konsultation och insättning till färdig krona — sköts på vår klinik, utan remisser vidare.</p>",
         "cb1_image":    BASE_IMG + "tandmodell.jpg",
         "cb1_cta_text": "Boka implantatrådgivning",
         "cb1_cta_link": "#tdl-booking-widget",
+        "ps_eyebrow":   "Behandlingens gång",
+        "ps_heading":   "Fyra faser — från diagnos till permanent tand.",
+        "ps_steps": [
+            {"title": "Konsultation & 3D-planering", "desc": "CBCT-röntgen och digitalt avtryck. Vi planerar exakt placering — du ser resultatet innan vi sätter igång."},
+            {"title": "Implantatinsättning",         "desc": "Titanskruven placeras i käkbenet under lokalbedövning. Lika smärtfritt som en vanlig tandlagning."},
+            {"title": "Läkningstid",                 "desc": "Käkbenet integrerar skruven under 3–6 månader. En tillfällig krona sätts under hela perioden."},
+            {"title": "Permanent krona",             "desc": "Den skräddarsydda kronan monteras. Du lämnar kliniken med ett komplett, permanent leende."},
+        ],
+        "cb2_eyebrow":  "Varför Älvsjö Tandvård",
+        "cb2_h2":       "Hela behandlingen — under ett tak.",
+        "cb2_body":     '<ul style="padding-left:0;list-style:none;display:flex;flex-direction:column;gap:14px;margin:0;"><li style="display:flex;gap:16px;align-items:baseline;"><span style="font-family:var(--font-sans);font-size:11px;font-weight:600;letter-spacing:0.22em;color:var(--sage-600);text-transform:uppercase;flex-shrink:0;min-width:32px;">01</span><span><strong>Specialistteam</strong> — kirurg, tandtekniker och tandsköterska på plats.</span></li><li style="display:flex;gap:16px;align-items:baseline;"><span style="font-family:var(--font-sans);font-size:11px;font-weight:600;letter-spacing:0.22em;color:var(--sage-600);text-transform:uppercase;flex-shrink:0;min-width:32px;">02</span><span><strong>Räntefri delbetalning</strong> — dela upp kostnaden utan extra avgifter.</span></li><li style="display:flex;gap:16px;align-items:baseline;"><span style="font-family:var(--font-sans);font-size:11px;font-weight:600;letter-spacing:0.22em;color:var(--sage-600);text-transform:uppercase;flex-shrink:0;min-width:32px;">03</span><span><strong>Gratis konsultation</strong> — vi bedömer din situation utan kostnad vid första besöket.</span></li><li style="display:flex;gap:16px;align-items:baseline;"><span style="font-family:var(--font-sans);font-size:11px;font-weight:600;letter-spacing:0.22em;color:var(--sage-600);text-transform:uppercase;flex-shrink:0;min-width:32px;">04</span><span><strong>Livslång hållbarhet</strong> — med rätt skötsel varar implantatet ett helt liv.</span></li></ul>',
+        "cb2_image":    BASE_IMG + "clinic-room-2.jpg",
+        "cb2_cta_text": "Boka implantatrådgivning",
+        "cb2_cta_link": "#tdl-booking-widget",
+        "pr_eyebrow":   "Pris & ersättning",
+        "pr_heading":   "Tydliga priser — utan överraskningar.",
+        "pr_intro":     "Vi erbjuder räntefri delbetalning och hjälper dig att kartlägga om din tandvårdsförsäkring täcker delar av kostnaden. Kontakta oss för en exakt offert.",
+        "pr_rows": [
+            {"label": "Implantatrådgivning (konsultation)", "price": "Gratis"},
+            {"label": "Implantatinsättning inkl. CBCT-röntgen", "price": "Från 18 000 kr"},
+            {"label": "Kronarbete (laboratorietillverkad)", "price": "Från 8 500 kr"},
+            {"label": "Räntefri delbetalning", "price": "Vid större ingrepp"},
+        ],
         "faq_heading":  "Vanliga frågor om tandimplantat.",
         "faq_q_1": "Hur lång är behandlingstiden?",
         "faq_a_1": "Från insättning av implantatet till färdig krona tar det vanligtvis 3–6 månader. Käkbenet behöver integrera titanskruven (osseointegration) innan kronan monteras.",
@@ -1240,12 +1329,26 @@ TREATMENT_PAGE_DATA: dict[str, dict] = {
         "faq_a_4": "De flesta vuxna med tillräckligt käkben och god allmänhälsa kan få implantat. Vi bedömer din situation med röntgen och klinisk undersökning — kostnadsfritt vid konsultationsbesöket.",
     },
     "karies-hal-i-tanden": {
+        "ig_eyebrow": "Kariesens stadier",
+        "ig_heading": "Ju tidigare — desto enklare behandling.",
+        "ig_items": [
+            {"stage": "Stadium 1", "title": "Initial karies",   "desc": "Mineraltapp i emaljytan utan synligt hål. Behandlas med fluor och kostråd — ingen borr."},
+            {"stage": "Stadium 2", "title": "Emaljkaries",      "desc": "Liten skada i emaljens yttre lager. Kräver en liten fyllning under lokalbedövning."},
+            {"stage": "Stadium 3", "title": "Dentinkaries",     "desc": "Skadan har nått dentinet under emaljen. Större fyllning — behandla omgående för att undvika nervpåverkan."},
+            {"stage": "Stadium 4", "title": "Pulpapåverkan",    "desc": "Karies har nått tandens nerv. Kan kräva rotfyllning eller i värsta fall extraktion."},
+        ],
         "cb1_eyebrow":  "Behandlingen",
         "cb1_h2":       "Modern lagning — estetisk, skonsam och hållbar.",
         "cb1_body":     "<p>Karies uppstår när bakterier i munnen omvandlar socker till syra som bryter ned tandens emalj. Ju tidigare vi behandlar, desto mindre ingrepp behövs — och desto lägre kostnad för dig.</p><p>Vi använder <strong>tandfärgad komposit</strong> som ser helt naturlig ut och binder direkt till tandsubstansen. Behandlingen sker under lokalbedövning och tar vanligtvis 20–45 minuter. Röntgen ingår alltid för att utesluta djupare skada.</p>",
         "cb1_image":    BASE_IMG + "intraoral-rontgen.jpg",
         "cb1_cta_text": "Boka tandundersökning",
         "cb1_cta_link": "#tdl-booking-widget",
+        "cb2_eyebrow":  "Förebyggande vård",
+        "cb2_h2":       "Förebygg karies — med rätt daglig rutin.",
+        "cb2_body":     "<p>Den bästa behandlingen mot karies är att förebygga den. Med rätt rutin kan du drastiskt minska risken för nya hål — och hålla dina tänder friska längre.</p><ul style='padding-left:0;list-style:none;display:flex;flex-direction:column;gap:12px;margin:12px 0 0;'><li style='display:flex;gap:12px;'>→<span><strong>Borsta 2 gånger/dag</strong> med fluortandkräm (1 450 ppm).</span></li><li style='display:flex;gap:12px;'>→<span><strong>Använd tandstickor eller tandtråd</strong> varje kväll — mellanrum är kariesrisk nr 1.</span></li><li style='display:flex;gap:12px;'>→<span><strong>Begränsa söta drycker</strong> — det är frekvensen av socker, inte mängden, som skadar.</span></li><li style='display:flex;gap:12px;'>→<span><strong>Regelbundna kontroller</strong> — tidig diagnos är alltid billigare behandling.</span></li></ul>",
+        "cb2_image":    BASE_IMG + "utrustning.jpg",
+        "cb2_cta_text": "Boka undersökning",
+        "cb2_cta_link": "#tdl-booking-widget",
         "faq_heading":  "Frågor om karies och hål i tanden.",
         "faq_q_1": "Hur vet jag om jag har hål i tanden?",
         "faq_a_1": "Vanliga tecken är smärta vid kallt, varmt eller sött, synliga mörkfärgningar eller en känsla av att något saknas i tanden. Tidig karies ger ofta inga symptom — därför är regelbundna kontroller viktiga.",
@@ -1257,12 +1360,25 @@ TREATMENT_PAGE_DATA: dict[str, dict] = {
         "faq_a_4": "Ja, vi använder alltid lokalbedövning vid lagning. Du känner ingenting under behandlingen. Vid ytlig karies kan vi i vissa fall laga utan bedövning om patienten föredrar det.",
     },
     "tandblekning": {
+        "ig_eyebrow": "Blekningsmetoder",
+        "ig_heading": "Välj rätt metod för ditt leende.",
+        "ig_items": [
+            {"name": "Klinikblekning",      "badge": "Snabbt resultat",  "time": "60–90 min",        "effect": "Upp till 8 nyanser",  "desc": "Professionellt gel och LED-ljus ger ett omedelbart, intensivt resultat redan samma dag."},
+            {"name": "Hemblekning",         "badge": "Skonsamt",         "time": "2–3 veckor",        "effect": "4–6 nyanser",         "desc": "Skräddarsydda skenor och professionellt blekgel — gradvist och skonsamt i din egen takt."},
+            {"name": "Kombinationsblekning","badge": "Rekommenderas",    "time": "Klinik + hemkit",   "effect": "Upp till 10 nyanser", "desc": "Klinikblekning kombinerat med hemkittet — det bästa och mest långvariga resultatet."},
+        ],
         "cb1_eyebrow":  "Behandlingen",
         "cb1_h2":       "Säker blekning — kontrollerat, snabbt och skonsamt.",
         "cb1_body":     "<p>Professionell tandblekning ger ett märkbart resultat på bara ett besök. Vi erbjuder <strong>klinikblekning</strong> med aktivt gel och LED-ljus, <strong>hemblekning</strong> med skräddarsydda skenor, samt en <strong>kombinationsmetod</strong> för de bästa och mest långvariga resultaten.</p><p>Till skillnad från butiksprodukter är koncentrationen av blekmedlet hos oss optimerad för din tandhälsa — vi säkerställer att emaljen inte skadas och att du inte får onödig tandöverkänslighet.</p>",
         "cb1_image":    BASE_IMG + "undersok.jpg",
         "cb1_cta_text": "Boka blekningskonsultation",
         "cb1_cta_link": "#tdl-booking-widget",
+        "cb2_eyebrow":  "Eftervård",
+        "cb2_h2":       "Håll resultatet längre — enkla tips.",
+        "cb2_body":     "<p>Med rätt eftervård håller ditt blekningsresultat avsevärt längre. Tänderna är lite mer öppna de första 48 timmarna efter blekning — undvik mat och dryck som färgar.</p><ul style='padding-left:0;list-style:none;display:flex;flex-direction:column;gap:12px;margin:12px 0 0;'><li style='display:flex;gap:12px;'>→<span><strong>Undvik kaffe, te, rödvin</strong> de första 48 timmarna efter blekning.</span></li><li style='display:flex;gap:12px;'>→<span><strong>Borsta med fluortandkräm</strong> — stärker emaljen och reducerar känslighet.</span></li><li style='display:flex;gap:12px;'>→<span><strong>Uppfräschning med hemblekning</strong> var 6–12 månader förlänger resultatet markant.</span></li><li style='display:flex;gap:12px;'>→<span><strong>Regelbundna kontroller</strong> håller tänderna vita och friska längre.</span></li></ul>",
+        "cb2_image":    BASE_IMG + "clinic-room-1.jpg",
+        "cb2_cta_text": "Boka blekningskonsultation",
+        "cb2_cta_link": "#tdl-booking-widget",
         "faq_heading":  "Frågor om tandblekning.",
         "faq_q_1": "Hur många nyanser ljusare kan jag bli?",
         "faq_a_1": "Med professionell klinikblekning uppnår de flesta 6–10 nyanser ljusare tänder, beroende på ursprungsfärg och metod. Vi visar dig en realistisk förväntan vid konsultationsbesöket.",
@@ -1274,12 +1390,28 @@ TREATMENT_PAGE_DATA: dict[str, dict] = {
         "faq_a_4": "Blekmedlet påverkar inte keramik eller komposit — kronor och faner behåller sin ursprungsfärg. Om du planerar att kombinera blekning med kronarbete bör blekning göras först.",
     },
     "tandfasader-veneers": {
+        "ig_eyebrow": "När är tandfasader rätt?",
+        "ig_heading": "Sex vanliga indikationer för veneers.",
+        "ig_items": [
+            {"title": "Missfärgade tänder",  "desc": "Permanenta fläckar som inte svarar på blekning — porslin ger en vit, jämn yta för livet."},
+            {"title": "Mellanrum",            "desc": "Diasteman som stör leendets harmoni — korrigeras utan tandreglering."},
+            {"title": "Ojämna tänder",        "desc": "Längd- och formskillnader som skapar ett obalanserat leende åtgärdas på ett besök."},
+            {"title": "Slitna tänder",        "desc": "Förkortade tänder från bruxism eller åldrande återfår form, längd och estetik."},
+            {"title": "Lätta skevheter",      "desc": "Roterade eller oregelbundna tänder kan korrigeras optiskt — utan byglar."},
+            {"title": "Smile design",         "desc": "Du vill designa ett helt nytt leende från grunden — form, färg och symmetri."},
+        ],
         "cb1_eyebrow":  "Behandlingen",
         "cb1_h2":       "Porslinsfaner skräddarsydda för just ditt leende.",
         "cb1_body":     "<p>Tandfasader (veneers) är tunna skal av porslin eller komposit som limmas på tandens framsida. De kan dölja missfärgningar, ojämnheter, mellanrum och lätta skevheter — utan att tanden behöver slipas ner märkbart.</p><p>Processen börjar alltid med ett <strong>digitalt smile design-samtal</strong> där vi visar dig en preview av resultatet innan vi påbörjar behandlingen. Porslinsfaner tillverkas av vårt laboratorium och är både estetiskt och funktionellt hållbara i 15–20 år.</p>",
         "cb1_image":    BASE_IMG + "clinic-room-1.jpg",
         "cb1_cta_text": "Boka konsultation",
         "cb1_cta_link": "#tdl-booking-widget",
+        "cb2_eyebrow":  "Processen",
+        "cb2_h2":       "Tre steg till ditt drömleende.",
+        "cb2_body":     '<ul style="padding-left:0;list-style:none;display:flex;flex-direction:column;gap:14px;margin:0;"><li style="display:flex;gap:16px;align-items:baseline;"><span style="font-family:var(--font-sans);font-size:11px;font-weight:600;letter-spacing:0.22em;color:var(--sage-600);text-transform:uppercase;flex-shrink:0;min-width:32px;">01</span><span><strong>Konsultation & smile design</strong> — vi digitalt simulerar ditt nya leende och gör ett fysiskt mock-up i komposit. Du godkänner formen innan vi slipar.</span></li><li style="display:flex;gap:16px;align-items:baseline;"><span style="font-family:var(--font-sans);font-size:11px;font-weight:600;letter-spacing:0.22em;color:var(--sage-600);text-transform:uppercase;flex-shrink:0;min-width:32px;">02</span><span><strong>Preparation & avtryck</strong> — en tunn skiva emalj avlägsnas (0,3–0,5 mm), ett digitalt eller fysiskt avtryck tas och skickas till laboratoriet.</span></li><li style="display:flex;gap:16px;align-items:baseline;"><span style="font-family:var(--font-sans);font-size:11px;font-weight:600;letter-spacing:0.22em;color:var(--sage-600);text-transform:uppercase;flex-shrink:0;min-width:32px;">03</span><span><strong>Cementering</strong> — de färdiga porslinsfanerna limmas permanent på plats. Resultatet är omedelbart och håller 15–20 år.</span></li></ul>',
+        "cb2_image":    BASE_IMG + "clinic-1.jpg",
+        "cb2_cta_text": "Boka smile design-samtal",
+        "cb2_cta_link": "#tdl-booking-widget",
         "faq_heading":  "Frågor om tandfasader och veneers.",
         "faq_q_1": "Hur länge håller porslinsfaner?",
         "faq_a_1": "Med god munhygien och regelbundna kontroller håller porslinsfaner 15–20 år. De är resistenta mot missfärgning och slitage, men undvik att bita i hårda föremål eller knapra is.",
@@ -1291,12 +1423,34 @@ TREATMENT_PAGE_DATA: dict[str, dict] = {
         "faq_a_4": "Estetiska behandlingar som tandfasader ingår inte i det statliga tandvårdsbidraget, men täcks delvis av en del privata tandvårdsförsäkringar. Vi hjälper dig att kolla dina villkor.",
     },
     "tandreglering-stockholm": {
+        "ig_eyebrow": "Invisalign-fördelar",
+        "ig_heading": "Raka tänder på dina egna villkor.",
+        "ig_items": [
+            {"val": "Osynlig",   "desc": "Klara skenor som knappt syns — ingen märker att du behandlas."},
+            {"val": "6–24 mån",  "desc": "Kortare behandlingstid än traditionell tandreglering för de flesta fall."},
+            {"val": "Avtagbar",  "desc": "Ta av skenorna vid måltider och tandborstning — inga kostbegränsningar."},
+            {"val": "98 %",      "desc": "Kliniska studier visar konsekvent hög patientnöjdhet med Invisalign världen över."},
+        ],
         "cb1_eyebrow":  "Behandlingen",
         "cb1_h2":       "Invisalign — osynlig tandreglering i din vardag.",
         "cb1_body":     "<p>Vi är <strong>certifierade Invisalign-leverantörer</strong>. Med en serie klara, avtagbara skenor rätas dina tänder ut steg för steg — utan metallbyglar, utan synliga apparater och utan att du behöver ändra dina matvanor.</p><p>Processen börjar med ett digitalt 3D-avtryck och en simulation som visar hur dina tänder rör sig under behandlingen. Du ser slutresultatet redan vid konsultationen — kostnadsfritt.</p>",
         "cb1_image":    BASE_IMG + "clinic-room-2.jpg",
         "cb1_cta_text": "Boka Invisalign-konsultation",
         "cb1_cta_link": "#tdl-booking-widget",
+        "ps_eyebrow":   "Behandlingens gång",
+        "ps_heading":   "Från digital scan till stabilt leende.",
+        "ps_steps": [
+            {"title": "Digital scanning",       "desc": "Digitalt 3D-avtryck — ingen mesig massa. Du ser din behandlingsplan och slutresultatet direkt på skärmen."},
+            {"title": "Individuella skenor",    "desc": "Dina transparenta skenor tillverkas skräddarsydda av Invisalign. Du byter skenpar var 1–2 vecka."},
+            {"title": "Regelbundna kontroller", "desc": "Vi följer upp var 6–8 vecka. De flesta kontrollbesök är korta och problemfria."},
+            {"title": "Retention",              "desc": "En tunn, permanent retainstång bakom tänderna håller ditt resultat för livet."},
+        ],
+        "cb2_eyebrow":  "Varför Invisalign?",
+        "cb2_h2":       "Raka tänder som passar ditt liv.",
+        "cb2_body":     '<ul style="padding-left:0;list-style:none;display:flex;flex-direction:column;gap:14px;margin:0;"><li style="display:flex;gap:16px;align-items:baseline;"><span style="font-family:var(--font-sans);font-size:11px;font-weight:600;letter-spacing:0.22em;color:var(--sage-600);text-transform:uppercase;flex-shrink:0;min-width:32px;">01</span><span><strong>Certifierat team</strong> — vi är certifierade Invisalign-leverantörer med dokumenterad erfarenhet.</span></li><li style="display:flex;gap:16px;align-items:baseline;"><span style="font-family:var(--font-sans);font-size:11px;font-weight:600;letter-spacing:0.22em;color:var(--sage-600);text-transform:uppercase;flex-shrink:0;min-width:32px;">02</span><span><strong>Se resultatet direkt</strong> — vi visar din digitala behandlingsplan och slutresultat redan vid konsultationen.</span></li><li style="display:flex;gap:16px;align-items:baseline;"><span style="font-family:var(--font-sans);font-size:11px;font-weight:600;letter-spacing:0.22em;color:var(--sage-600);text-transform:uppercase;flex-shrink:0;min-width:32px;">03</span><span><strong>Gratis konsultation</strong> — inga dolda kostnader för att se om Invisalign är rätt för dig.</span></li><li style="display:flex;gap:16px;align-items:baseline;"><span style="font-family:var(--font-sans);font-size:11px;font-weight:600;letter-spacing:0.22em;color:var(--sage-600);text-transform:uppercase;flex-shrink:0;min-width:32px;">04</span><span><strong>Räntefri delbetalning</strong> — dela upp kostnaden i månadsbelopp utan ränta.</span></li></ul>',
+        "cb2_image":    BASE_IMG + "undersok.jpg",
+        "cb2_cta_text": "Boka Invisalign-konsultation",
+        "cb2_cta_link": "#tdl-booking-widget",
         "faq_heading":  "Frågor om tandreglering och Invisalign.",
         "faq_q_1": "Hur länge tar Invisalign-behandlingen?",
         "faq_a_1": "Behandlingstiden varierar från 6 månader för enklare fall till 18–24 månader för mer komplexa. En genomsnittlig vuxenpatient är klar på 12–18 månader.",
@@ -1308,12 +1462,28 @@ TREATMENT_PAGE_DATA: dict[str, dict] = {
         "faq_a_4": "Priset beror på behandlingens komplexitet och längd. Vi erbjuder räntefri delbetalning för att göra behandlingen tillgänglig. Exakt prisuppgift ger vi vid konsultationsbesöket.",
     },
     "tandsten-tandhygienist": {
+        "ig_eyebrow": "Varför regelbunden tandrengöring?",
+        "ig_heading": "Sex skäl att prioritera tandhygienisten.",
+        "ig_items": [
+            {"title": "Förebygger tandlossning",  "desc": "Tandsten under tandköttet är den vanligaste orsaken till tandlossning — bort med den innan skadan sker."},
+            {"title": "Friskare andedräkt",       "desc": "Bakterier i tandsten ger dålig andedräkt. Professionell rengöring löser grundproblemet, inte bara symptomen."},
+            {"title": "Ljusare tänder",           "desc": "Ytmissfärgningar från kaffe, te och vin poleras bort — tänderna återfår sin naturliga lyster."},
+            {"title": "Hjärthälsa",               "desc": "Forskning visar samband mellan kronisk tandlossning och hjärt-kärlsjukdom. Friska tandkött = friskare kropp."},
+            {"title": "Tidig diagnos",            "desc": "Tandhygienisten identifierar tidiga tecken på karies, slitage och andra problem — innan de blir dyra."},
+            {"title": "Individuell rådgivning",   "desc": "Du får en personlig genomgång av din hemvårdsrutin — anpassad efter just dina risker och behov."},
+        ],
         "cb1_eyebrow":  "Behandlingen",
         "cb1_h2":       "Professionell rengöring — grunden för friska tänder.",
         "cb1_body":     "<p>Tandsten bildas av plack som mineraliserats och sitter fast på tänderna — det går inte att borsta bort hemma. Regelbunden tandhygienistbehandling är det mest effektiva sättet att förebygga karies, tandlossning och dålig andedräkt.</p><p>Våra <strong>erfarna tandhygienister</strong> använder ultraljudsrengöring och handinstrument för en grundlig rensning, följt av polering och en individuell genomgång av din hemvårdsrutin. Besöket tar 45–60 minuter och är odramatiskt.</p>",
         "cb1_image":    BASE_IMG + "utrustning.jpg",
         "cb1_cta_text": "Boka tandhygienistbesök",
         "cb1_cta_link": "#tdl-booking-widget",
+        "cb2_eyebrow":  "Hemvård",
+        "cb2_h2":       "Rätt hemvård — grunden mellan besöken.",
+        "cb2_body":     "<p>Professionell rengöring var 6–12 månader är grunden — men din dagliga hemvård avgör hur snabbt tandstenen kommer tillbaka. Med rätt rutin räcker ett besök per år för de flesta.</p><ul style='padding-left:0;list-style:none;display:flex;flex-direction:column;gap:12px;margin:12px 0 0;'><li style='display:flex;gap:12px;'>→<span><strong>Borsta 2 minuter, 2 gånger per dag</strong> med fluortandkräm. Elektrisk tandborste är effektivare.</span></li><li style='display:flex;gap:12px;'>→<span><strong>Rengör mellanrummen dagligen</strong> med tandstickor eller tandtråd — det är här tandstenen bildas.</span></li><li style='display:flex;gap:12px;'>→<span><strong>Sköljning med fluorsköljmedel</strong> på kvällen stärker emaljen och minskar kariesrisken.</span></li><li style='display:flex;gap:12px;'>→<span><strong>Drick vatten efter söta drycker</strong> — sänker syran snabbt och skyddar tänderna.</span></li></ul>",
+        "cb2_image":    BASE_IMG + "clinic-room-2.jpg",
+        "cb2_cta_text": "Boka tandhygienistbesök",
+        "cb2_cta_link": "#tdl-booking-widget",
         "faq_heading":  "Frågor om tandsten och tandhygienistbehandling.",
         "faq_q_1": "Hur ofta bör jag besöka tandhygienisten?",
         "faq_a_1": "De flesta vuxna rekommenderas ett besök var 6–12 månad. Din tandhygienist gör en individuell riskbedömning och rekommenderar ett intervall anpassat till din munhälsa.",
@@ -1325,12 +1495,28 @@ TREATMENT_PAGE_DATA: dict[str, dict] = {
         "faq_a_4": "Tandvård är gratis för alla barn och ungdomar upp till 19 år, inklusive tandhygienistbehandlingar.",
     },
     "tandvardsradsla": {
+        "ig_eyebrow": "Vår approach",
+        "ig_heading": "Sex sätt vi gör besöket hanterbart.",
+        "ig_items": [
+            {"num": "01", "title": "Dela din rädsla",       "desc": "Berätta när du bokar — vi anpassar hela besöket till din situation och sätter rätt personal."},
+            {"num": "02", "title": "Stop-signal",           "desc": "Du har alltid full kontroll. Ett tecken från dig och vi stannar omedelbart, utan frågor."},
+            {"num": "03", "title": "Pausa när du vill",     "desc": "Ingenting händer i en takt du inte är bekväm med. Vi jobbar alltid i din rytm, inte vår."},
+            {"num": "04", "title": "Gradvis exponering",    "desc": "Vi börjar enkelt — ett samtal, sedan ett kort besök — och bygger upp tryggheten besök för besök."},
+            {"num": "05", "title": "Förklarar varje steg",  "desc": "Inga överraskningar. Vi berättar alltid vad vi gör, varför och hur länge innan vi sätter igång."},
+            {"num": "06", "title": "Lugnande vid behov",    "desc": "Vid svår rädsla erbjuder vi lugnande medicin (Triazolam) för att göra besöket möjligt."},
+        ],
         "cb1_eyebrow":  "Vår approach",
         "cb1_h2":       "Vi skapar tandvård du faktiskt klarar av.",
         "cb1_body":     "<p>Tandvårdsrädsla är vanligare än du tror — och det är inget att skämmas för. Vi möter dagligen patienter med allt från mild oro till svår fobi, och vår erfarenhet är att alla kan nå en punkt där tandvård är hanterbar.</p><p>Hos oss arbetar vi med <strong>stop-signal, extra tid, tydlig kommunikation och — vid behov — lugnande medicin</strong>. Vi börjar alltid i din takt: med ett samtal, sedan ett enkelt besök, och sedan vidare när du känner dig redo.</p>",
         "cb1_image":    BASE_IMG + "clinic-1.jpg",
         "cb1_cta_text": "Ta det första steget",
         "cb1_cta_link": "tel:+46812854555",
+        "cb2_eyebrow":  "Kliniken",
+        "cb2_h2":       "En miljö designad för att lugna.",
+        "cb2_body":     "<p>Vår klinik på Prästgårdsgränd 4 är designad med rädda patienter i åtanke — ljus, luftig och utan den stela klinikkänslan. Ingen väntsal fylld med obekväma intryck, inget onödigt prat om ingrepp.</p><p>Vi arbetar alltid med <strong>lugnande musik, anpassat ljus och en tydlig, lugn kommunikationsstil</strong>. Många av våra patienter med tandvårdsrädsla berättar att bara <em>miljön</em> gör halva jobbet för dem.</p>",
+        "cb2_image":    BASE_IMG + "reception.jpg",
+        "cb2_cta_text": "Ta det första steget",
+        "cb2_cta_link": "tel:+46812854555",
         "faq_heading":  "Frågor om tandvårdsrädsla.",
         "faq_q_1": "Hur gör ni för patienter som är mycket rädda?",
         "faq_a_1": "Vi börjar alltid med ett vanligt samtal — utan undersökning om du inte vill. Vi sätter upp en stop-signal som gäller omedelbart, arbetar i lugnt tempo och förklarar varje steg. Vi erbjuder även lugnande medicin (Triazolam) vid behov.",
@@ -2154,6 +2340,7 @@ def build_treatment_hero_shared() -> dict:
     """Delad hero-mall för alla behandlingssidor. Per-sida-innehåll sätts via page_defaults i bundle."""
     html = """
 <section class="treatment-hero">
+  <div class="th-mobile-bg" style="background-image:url({{hero_image}});"></div>
   <div class="th-inner">
     <div class="eyebrow" style="margin-bottom:20px;color:var(--sage-600);">{{eyebrow}}</div>
     <div class="th-grid">
@@ -2797,6 +2984,421 @@ def build_content_block(block_name: str, title: str, mirror: bool, bg: str = "va
     }
 
 
+def build_emergency_strip() -> dict:
+    """Sage-grön blixtlist ovanför akut-heron — pulserande prick + telefonnummer."""
+    html = """
+<section class="emergency-strip">
+  <div class="container-wide es-inner">
+    <div class="es-left">
+      <span class="es-dot"></span>
+      <span class="es-label">{{tagline}}</span>
+      <span class="es-serif">{{message}}</span>
+    </div>
+    <a href="tel:+46812854555" class="es-phone">
+      <span class="es-ring">Ring</span>
+      {{phone_display}}
+    </a>
+  </div>
+</section>
+"""
+    return {
+        "block_name": "lumo/emergency-strip",
+        "title": "Emergency Strip (akut)",
+        "html_template": collapse(html),
+        "schema": [
+            {"name": "tagline",       "type": "text", "label": "Etikett",        "default": "Akut tandvärk?"},
+            {"name": "message",       "type": "text", "label": "Meddelande",     "default": "Vi har ofta tider redan idag."},
+            {"name": "phone_display", "type": "text", "label": "Telefon (text)", "default": "08 — 12 85 45 55"},
+        ],
+    }
+
+
+def build_dental_triage_widget() -> dict:
+    html = """
+<section class="dtw-section">
+<style>
+.dtw-section{background:var(--bg-soft);padding:var(--space-9) 0;border-bottom:1px solid var(--border);}
+.dtw-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:80px;align-items:start;}
+.dtw-left{position:sticky;top:120px;}
+.dtw-trust{display:flex;flex-direction:column;gap:12px;margin-top:32px;}
+.dtw-trust-item{display:flex;align-items:flex-start;gap:12px;}
+.dtw-trust-dot{width:6px;height:6px;border-radius:50%;background:var(--blush-400);flex-shrink:0;margin-top:6px;}
+.dtw-section-hdr{display:grid;grid-template-columns:1fr auto;align-items:end;gap:32px;margin-bottom:48px;padding-bottom:28px;border-bottom:1px solid var(--border);}
+.dtw-premium{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;background:rgba(10,10,10,0.88);border:1px solid rgba(249,115,22,0.55);border-radius:4px;color:#f97316;font-size:9px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;position:relative;vertical-align:middle;margin-left:10px;backdrop-filter:blur(4px);cursor:pointer;user-select:none;transition:border-color .2s,color .2s;}
+.dtw-premium.dtw-mode-basic{border-color:rgba(120,120,120,0.4);color:var(--fg-subtle);}
+.dtw-premium.dtw-mode-basic .dtw-premium-dot{background:var(--fg-subtle);}
+.dtw-premium.dtw-mode-basic::before{animation:none;opacity:0;}
+.dtw-tooltip{position:absolute;bottom:calc(100% + 12px);left:50%;transform:translateX(-50%);width:280px;background:var(--ink-900);color:var(--white);border-radius:6px;padding:18px 20px;pointer-events:none;opacity:0;transition:opacity .2s ease;white-space:normal;text-transform:none;letter-spacing:0;font-weight:400;z-index:200;box-shadow:0 12px 32px rgba(0,0,0,0.3);}
+.dtw-tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--ink-900);}
+.dtw-premium:hover .dtw-tooltip{opacity:1;}
+.dtw-premium.dtw-mode-basic .dtw-tooltip{display:none;}
+.dtw-tt-title{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:12px;}
+.dtw-tt-list{list-style:none;padding:0;margin:0 0 14px;display:flex;flex-direction:column;gap:8px;}
+.dtw-tt-list li{font-size:12px;line-height:1.5;padding-left:16px;position:relative;color:rgba(255,255,255,0.88);}
+.dtw-tt-list li::before{content:'✓';position:absolute;left:0;color:#22c55e;font-size:10px;top:1px;}
+.dtw-tt-note{font-size:10px;color:rgba(255,255,255,0.38);border-top:1px solid rgba(255,255,255,0.1);padding-top:10px;line-height:1.5;}
+.dtw-premium::before{content:'';position:absolute;inset:-5px;border-radius:5px;border:1.5px solid rgba(249,115,22,0.7);animation:dtw-ring 2.4s ease-out infinite;pointer-events:none;}
+.dtw-premium-dot{width:5px;height:5px;border-radius:50%;background:#f97316;flex-shrink:0;}
+@keyframes dtw-ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.2);opacity:0}}
+.dtw-card{background:var(--white);border:1px solid var(--border);box-shadow:var(--shadow-md);padding:clamp(28px,4vw,44px);}
+.dtw-prog{margin-bottom:32px;}
+.dtw-prog-meta{display:flex;justify-content:space-between;margin-bottom:8px;}
+.dtw-prog-track{height:2px;background:var(--border);}
+.dtw-prog-fill{height:100%;background:var(--blush-400);transition:width .4s cubic-bezier(.2,.7,.2,1);}
+.dtw-opts{display:flex;flex-direction:column;gap:6px;margin-bottom:20px;}
+.dtw-opt{display:flex;align-items:center;gap:16px;padding:12px 16px;background:var(--white);border:1px solid var(--border);cursor:pointer;text-align:left;width:100%;transition:border-color .14s,background .14s;font-family:var(--font-sans);}
+.dtw-opt:hover{border-color:var(--blush-300);background:var(--blush-50);}
+.dtw-opt.sel{border-color:var(--blush-500);background:var(--blush-50);}
+.dtw-ind{width:16px;height:16px;border:1.5px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .14s;}
+.dtw-ind.radio{border-radius:50%;}
+.dtw-opt.sel .dtw-ind{border-color:var(--blush-500);background:var(--blush-500);}
+.dtw-opt-lbl{font-size:14px;font-weight:500;color:var(--fg);line-height:1.25;}
+.dtw-opt.sel .dtw-opt-lbl{color:var(--fg-strong);}
+.dtw-opt-desc{font-size:12px;color:var(--fg-subtle);margin-top:2px;}
+.dtw-btn{margin-top:20px;width:100%;padding:10px 18px;border:1px solid transparent;border-radius:4px;font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;font-family:var(--font-sans);transition:all .2s;}
+.dtw-btn.on{background:var(--ink-700);color:var(--white);}
+.dtw-btn.on:hover{background:var(--ink-900);}
+.dtw-btn.off{background:var(--blush-100);color:var(--blush-300);cursor:not-allowed;}
+.dtw-badge{border:1px solid;padding:20px;margin-bottom:20px;display:flex;align-items:flex-start;gap:16px;}
+.dtw-badge-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:7px;}
+.dtw-tips{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:20px;}
+.dtw-tip{background:var(--white);padding:16px 20px;display:flex;flex-direction:column;gap:4px;}
+.dtw-tip-lbl{font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;}
+.dtw-tip-txt{font-family:var(--font-serif);font-weight:400;font-size:16px;line-height:1.4;letter-spacing:-.01em;color:var(--fg-strong);}
+.dtw-actions{display:flex;flex-direction:column;gap:8px;}
+.dtw-actions a{display:block;text-align:center;padding:10px 18px;border-radius:4px;text-decoration:none;font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;font-family:var(--font-sans);transition:all .2s;}
+.dtw-divider{height:1px;background:var(--border);margin:20px 0;}
+.dtw-restart{background:none;border:none;color:var(--fg-subtle);font-size:12px;cursor:pointer;font-family:var(--font-sans);letter-spacing:.04em;padding:0;transition:color .14s;}
+.dtw-restart:hover{color:var(--fg-muted);}
+.dtw-back{background:none;border:none;padding:0;cursor:pointer;font-size:11px;color:var(--fg-subtle);font-family:var(--font-sans);letter-spacing:.04em;transition:color .14s;}
+.dtw-back:hover{color:var(--fg-muted);}
+.dtw-part-lbl{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-subtle);margin-bottom:8px;}
+.dtw-opts--row{flex-direction:row;}
+.dtw-opts--row .dtw-opt{flex:1;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px 8px;gap:4px;}
+.dtw-opts--row .dtw-ind{display:none;}
+.dtw-opts--row .dtw-opt-lbl{font-size:13px;font-weight:600;}
+.dtw-opts--row .dtw-opt-desc{font-size:11px;color:var(--fg-subtle);text-align:center;margin-top:0;}
+.dtw-analyzing{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 0;gap:20px;}
+.dtw-dots{display:flex;gap:7px;}
+.dtw-dots span{width:6px;height:6px;border-radius:50%;background:var(--blush-400);animation:dtw-dot 1.2s ease-in-out infinite;}
+.dtw-dots span:nth-child(2){animation-delay:.16s;}
+.dtw-dots span:nth-child(3){animation-delay:.32s;}
+@keyframes dtw-dot{0%,80%,100%{transform:translateY(0);opacity:.25}40%{transform:translateY(-5px);opacity:1}}
+@keyframes dtw-slide{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
+@keyframes dtw-up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes dtw-check-pop{0%{transform:scale(.3);opacity:0}65%{transform:scale(1.25);opacity:1}100%{transform:scale(1)}}
+@keyframes dtw-check-draw{from{stroke-dashoffset:20}to{stroke-dashoffset:0}}
+.dtw-anim-slide{animation:dtw-slide .28s cubic-bezier(.2,.7,.2,1) both;}
+.dtw-anim-up{animation:dtw-up .36s cubic-bezier(.2,.7,.2,1) both;}
+.dtw-check{animation:dtw-check-pop .22s cubic-bezier(.2,.7,.2,1) both;}
+.dtw-check path{stroke-dasharray:20;stroke-dashoffset:0;animation:dtw-check-draw .2s cubic-bezier(.2,.7,.2,1) .04s both;}
+@media(max-width:900px){.dtw-grid{grid-template-columns:1fr;gap:40px;}.dtw-left{position:static;}.dtw-section-hdr{grid-template-columns:1fr;gap:16px;}.dtw-section-hdr p{text-align:left;}}
+</style>
+<div class="container-wide">
+  <div class="dtw-section-hdr">
+    <div>
+      <div style="margin-bottom:12px;display:flex;align-items:center;">
+        <span class="eyebrow">{{eyebrow}}</span>
+        <span class="dtw-premium" id="dtw-mode-btn" onclick="dtwToggle()"><span class="dtw-premium-dot"></span><span id="dtw-mode-lbl">Premium</span><div class="dtw-tooltip"><div class="dtw-tt-title">Varför Premium?</div><ul class="dtw-tt-list"><li>Patienten vet vad de ska göra — direkt på sidan</li><li>Färre samtal och frågemail till receptionen</li><li>Rätt bokningar — ingen som ringer i onödan</li><li>Sparar tid för både patient och personal</li></ul><div class="dtw-tt-note">Innehållet anpassas helt efter er kliniks önskemål.</div></div></span>
+      </div>
+      <h2 style="max-width:22ch;">{{heading}}</h2>
+    </div>
+    <p class="small" id="dtw-subtext" style="max-width:32ch;text-align:right;margin:0;">{{subtext}}</p>
+  </div>
+  <div class="dtw-grid" id="dtw-body">
+    <div class="dtw-left">
+      <p style="color:var(--ink-500);font-size:19px;line-height:1.55;margin-bottom:32px;max-width:38ch;">Besvara <em style="color:var(--fg-accent);font-family:var(--font-serif);font-style:italic;font-weight:400;font-size:x-large;">tre korta frågor</em> om dina besvär. Guiden ger en rekommendation direkt — baserad på kliniska riktlinjer.</p>
+      <div class="dtw-trust">
+        <div class="dtw-trust-item"><div class="dtw-trust-dot"></div><div><div style="font-size:14px;font-weight:500;color:var(--fg-strong);margin-bottom:2px;">{{trust_1_title}}</div><div style="font-size:12px;color:var(--fg-subtle);">{{trust_1_desc}}</div></div></div>
+        <div class="dtw-trust-item"><div class="dtw-trust-dot"></div><div><div style="font-size:14px;font-weight:500;color:var(--fg-strong);margin-bottom:2px;">{{trust_2_title}}</div><div style="font-size:12px;color:var(--fg-subtle);">{{trust_2_desc}}</div></div></div>
+        <div class="dtw-trust-item"><div class="dtw-trust-dot"></div><div><div style="font-size:14px;font-weight:500;color:var(--fg-strong);margin-bottom:2px;">{{trust_3_title}}</div><div style="font-size:12px;color:var(--fg-subtle);">{{trust_3_desc}}</div></div></div>
+      </div>
+    </div>
+    <div class="dtw-card" id="dtw-root"></div>
+  </div>
+  <div id="dtw-triage-panel" style="display:none">
+    <div class="tg-cards">
+      <article class="tg-card">
+        <div class="tg-urgency tg-urgency--urgent">Ring idag</div>
+        <h3>Kraftig tandvärk</h3>
+        <p>Ihållande, värkande smärta som inte ger med sig.</p>
+      </article>
+      <article class="tg-card">
+        <div class="tg-urgency tg-urgency--urgent">Ring idag</div>
+        <h3>Sprucken eller bruten tand</h3>
+        <p>Bit eller fall som skadat en tand — även utan smärta.</p>
+      </article>
+      <article class="tg-card">
+        <div class="tg-urgency tg-urgency--critical">Akut — ring nu</div>
+        <h3>Tand som slagits loss</h3>
+        <p>Lägg tanden i mjölk eller saliv och kontakta oss direkt.</p>
+      </article>
+      <article class="tg-card">
+        <div class="tg-urgency tg-urgency--soon">Inom 1–2 dagar</div>
+        <h3>Förlorad fyllning eller krona</h3>
+        <p>Tanden är känslig men inte alltid smärtsam.</p>
+      </article>
+      <article class="tg-card">
+        <div class="tg-urgency tg-urgency--urgent">Ring idag</div>
+        <h3>Svullnad eller infektion</h3>
+        <p>Var- eller vätskebildning, eventuellt feber.</p>
+      </article>
+      <article class="tg-card">
+        <div class="tg-urgency tg-urgency--critical">Akut — ring nu</div>
+        <h3>Käksmärta efter trauma</h3>
+        <p>Slag mot ansiktet eller plötslig orörlighet i käken.</p>
+      </article>
+    </div>
+  </div>
+</div>
+<script>
+(function() {
+var PHONE = '{{clinic_phone}}';
+var BOOKING = '#tdl-booking-widget';
+var Qs = [
+  {id:'symptom',title:'Vilket är ditt huvudbesär?',sub:'Välj det alternativ som stämmer bäst',type:'single',opts:[
+    {id:'pain',lbl:'Smärta eller tandvärk',desc:'Värkande, pulserande eller skarp smärta'},
+    {id:'trauma',lbl:'Skada eller olycka',desc:'Slag, fall eller annan yttre påverkan'},
+    {id:'swelling',lbl:'Svullnad',desc:'Svullnad i kind, tandkött eller hals'},
+    {id:'filling',lbl:'Tappat lagning eller krona',desc:'Lagning, krona eller bro har lossnat'},
+    {id:'sensitivity',lbl:'Känslighet',desc:'Ömhet mot kallt, varmt eller sött'},
+    {id:'cosmetic',lbl:'Estetik eller rutinkontroll',desc:'Blekning, utseende eller vanlig kontroll'}
+  ]},
+  {id:'severity',title:'Hur stark är besvären och hur länge har du haft dem?',sub:'Svara på båda delarna nedan',type:'compound',parts:[
+    {id:'severity',lbl:'Allvarlighetsgrad',opts:[
+      {id:'mild',lbl:'Mild',desc:'Knappt märkbar — stör inte vardagen',color:'#22c55e'},
+      {id:'moderate',lbl:'Måttlig',desc:'Påtaglig — påverkar vardagen något',color:'#f59e0b'},
+      {id:'severe',lbl:'Stark',desc:'Kraftig — svårt att fungera normalt',color:'#ef4444'}
+    ]},
+    {id:'duration',lbl:'Hur länge?',layout:'row',opts:[
+      {id:'hours',lbl:'I dag',desc:'0–24 timmar'},
+      {id:'days',lbl:'Några dagar',desc:'1–7 dagar'},
+      {id:'weeks',lbl:'Länge',desc:'Mer än 1 vecka'}
+    ]}
+  ]},
+  {id:'systemics',title:'Har du något av dessa symtom?',sub:'Markera alla som stämmer — eller välj ”Inget av ovanstående”',type:'multi',opts:[
+    {id:'fever',lbl:'Feber över 38 °C'},
+    {id:'swelling_neck',lbl:'Svullnad mot hals eller käke'},
+    {id:'swallowing',lbl:'Svårt att svälja'},
+    {id:'breathing',lbl:'Svårt att andas'},
+    {id:'none',lbl:'Inget av ovanstående',excl:true}
+  ]},
+];
+var OUTCOMES = {
+  emergency_medical:{dot:'#ef4444',bg:'#fef2f2',border:'#fecaca',ew:'Medicinskt akut',lbl:'Ring 112 nu',body:'Dina symtom kan tyda på ett livshotande tillstånd som kräver omedelbar sjukvård — inte tandvård. Andningssvårigheter eller sväljproblem i kombination med dental infektion kan vara livshotande.',tips:[{lbl:'Berätta för operatören',txt:'Säg att det gäller misstänkt dental infektion med andnings- eller sväljbesvär.'},{lbl:'Sitt upprätt',txt:'Lägg dig inte ner — det kan förvärra svullnad mot halsen.'}],actions:[{lbl:'Ring 112',href:'tel:112',primary:true}]},
+  emergency_dental:{dot:'#f97316',bg:'#fff7ed',border:'#fed7aa',ew:'Tandvårdsakut',lbl:'Kontakta tandläkare idag',body:'Du bör träffa en tandläkare samma dag. Dina symtom tyder på ett akut tillstånd som kräver snabb behandling. Ring oss direkt — vi har avsatta tider för akuta patienter.',tips:[{lbl:'Om tand slagits loss',txt:'Lägg tanden i mjölk eller saliv — rör inte roten. Tid är avgörande.'},{lbl:'Om kraftig smärta',txt:'Ta receptfria smärtstillande (ibuprofen eller paracetamol) i väntan på tandläkartid.'},{lbl:'Om svullnad',txt:'Kyl utifrån med ispack insvept i handduk — aldrig direkt mot huden.'},{lbl:'Om kliniken är stängd',txt:'Ring 1177 för hänvisning till jourhavande tandläkare.'}],actions:[{lbl:'Ring kliniken',href:'tel:'+PHONE,primary:true}]},
+  book_soon:{dot:'#f59e0b',bg:'#fffbeb',border:'#fde68a',ew:'Bör undersökas snart',lbl:'Boka tid inom 1–2 dagar',body:'Ditt tillstånd är inte omedelbart akut men bör undersökas relativt snart. Boka en tid inom de närmaste dagarna för att undvika att bevären förvärras.',tips:[{lbl:'Under tiden',txt:'Undvik att tugga på den berörda sidan tills du fått en tid.'},{lbl:'Vid försämring',txt:'Hör av dig tidigare — vi prioriterar bevär som förvärras.'}],actions:[{lbl:'Boka tid nu',href:BOOKING,primary:true},{lbl:'Ring kliniken',href:'tel:'+PHONE,primary:false}]},
+  book_regular:{dot:'var(--blush-400)',bg:'var(--blush-50)',border:'var(--blush-200)',ew:'Inget akut',lbl:'Boka vanlig tid',body:'Dina bevär verkar inte akuta. Boka en vanlig tid för undersökning eller behandling. En tidig kontroll är alltid bättre än att vänta för länge.',tips:[{lbl:'Bra att veta',txt:'En tidig undersökning förhindrar att små problem blir stora — och dyrare.'}],actions:[{lbl:'Boka tid online',href:BOOKING,primary:true}]}
+};
+function skip(id, a) {
+  var sys = a.systemics || [];
+  if (id === 'severity') return a.symptom === 'cosmetic';
+  if (id === 'systemics') return ['cosmetic','filling','sensitivity'].indexOf(a.symptom) > -1 || a.severity === 'mild';
+  return false;
+}
+function calcTriage(a) {
+  var sys = a.systemics || [];
+  if (sys.indexOf('breathing') > -1 || sys.indexOf('swallowing') > -1) return 'emergency_medical';
+  if (sys.indexOf('fever') > -1 && sys.indexOf('swelling_neck') > -1) return 'emergency_medical';
+  if (a.symptom === 'swelling'  && a.severity === 'severe')   return 'emergency_dental';
+  if (a.symptom === 'trauma'    && a.severity !== 'mild')     return 'emergency_dental';
+  if (a.symptom === 'pain'      && a.severity === 'severe')   return 'emergency_dental';
+  if (a.symptom === 'swelling'  && a.severity === 'moderate') return 'emergency_dental';
+  if (sys.indexOf('fever') > -1 || sys.indexOf('swelling_neck') > -1) return 'emergency_dental';
+  if (a.symptom === 'filling')                                return 'book_soon';
+  if (a.severity === 'moderate')                             return 'book_soon';
+  if (a.symptom === 'sensitivity' && a.severity === 'severe') return 'book_soon';
+  if (a.symptom === 'trauma'      && a.severity === 'mild')   return 'book_soon';
+  if (a.duration === 'hours') return 'book_soon';
+  return 'book_regular';
+}
+var state = {answers:{}, qIdx:0, multiSel:[], result:null, analyzing:false, scrolled:false};
+function visibleQs() { return Qs.filter(function(q){ return !skip(q.id, state.answers); }); }
+function render() {
+  var root = document.getElementById('dtw-root');
+  if (!root) return;
+  var vqs = visibleQs();
+  var q = vqs[state.qIdx];
+  var total = vqs.length;
+  var pct = state.result ? 100 : Math.round((state.qIdx / total) * 100);
+  if (state.analyzing) {
+    root.innerHTML = '<div class="dtw-analyzing"><div class="dtw-dots"><span></span><span></span><span></span></div><div style="font-size:12px;color:var(--fg-subtle);letter-spacing:.1em;">Analyserar din bedömning</div></div>';
+    return;
+  }
+  if (state.result) {
+    var o = OUTCOMES[state.result];
+    var tipsHtml = '';
+    if (o.tips) {
+      tipsHtml = '<div class="dtw-tips">';
+      o.tips.forEach(function(t){ tipsHtml += '<div class="dtw-tip"><div class="dtw-tip-lbl" style="color:'+o.dot+'">'+t.lbl+'</div><div class="dtw-tip-txt">'+t.txt+'</div></div>'; });
+      tipsHtml += '</div>';
+    }
+    var actHtml = '<div class="dtw-actions">';
+    o.actions.forEach(function(ac) {
+      actHtml += '<a href="'+ac.href+'" style="'+(ac.primary ? 'background:var(--ink-700);color:var(--white);' : 'background:transparent;color:var(--ink-700);border:1px solid var(--ink-700);')+'">'+ac.lbl+'</a>';
+    });
+    actHtml += '</div>';
+    root.innerHTML = '<div class="dtw-anim-up">'
+      +'<div class="dtw-badge" style="background:'+o.bg+';border-color:'+o.border+'">'
+      +'<div class="dtw-badge-dot" style="background:'+o.dot+'"></div>'
+      +'<div><div class="eyebrow" style="margin-bottom:8px;">'+o.ew+'</div>'
+      +'<h3 style="font-family:var(--font-serif);font-weight:400;font-size:24px;letter-spacing:-.01em;color:var(--fg-strong);">'+o.lbl+'</h3></div></div>'
+      +'<p style="font-size:14px;color:var(--fg-muted);line-height:1.7;margin-bottom:20px;">'+o.body+'</p>'
+      +tipsHtml+actHtml
+      +'<div class="dtw-divider"></div>'
+      +'<button class="dtw-restart" onclick="dtwRestart()">← Gör om bedömningen</button>'
+      +'</div>';
+    return;
+  }
+  var optsHtml = '';
+  var canNext;
+  if (q.type === 'compound') {
+    q.parts.forEach(function(part, idx) {
+      var pOpts = '';
+      part.opts.forEach(function(opt) {
+        var sel = state.answers[part.id] === opt.id;
+        var indHtml = sel
+          ? '<div class="dtw-ind radio sel"><svg class="dtw-check" width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3 5.5L8 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'
+          : '<div class="dtw-ind radio"></div>';
+        var descHtml = opt.desc ? '<div class="dtw-opt-desc">'+opt.desc+'</div>' : '';
+        var optStyle = opt.color ? 'border-left:3px solid '+opt.color+';' : '';
+        pOpts += '<button class="dtw-opt'+(sel?' sel':'')+'" style="'+optStyle+'" data-oid="'+opt.id+'" data-qid="'+part.id+'" onclick="dtwSelect(this.dataset.oid,false,this.dataset.qid)">'+indHtml+'<div><div class="dtw-opt-lbl">'+opt.lbl+'</div>'+descHtml+'</div></button>';
+      });
+      var rowCls = part.layout === 'row' ? ' dtw-opts--row' : '';
+      optsHtml += (idx>0?'<div style="height:20px"></div>':'')+'<div class="dtw-part-lbl">'+part.lbl+'</div><div class="dtw-opts'+rowCls+'">'+pOpts+'</div>';
+    });
+    canNext = q.parts.filter(function(p){ return !state.answers[p.id]; }).length === 0;
+  } else {
+    var isSel = function(id) { return q.type === 'multi' ? state.multiSel.indexOf(id) > -1 : state.answers[q.id] === id; };
+    q.opts.forEach(function(opt) {
+      var sel = isSel(opt.id);
+      var indHtml = sel
+        ? '<div class="dtw-ind'+(q.type==='multi'?'':' radio')+' sel"><svg class="dtw-check" width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3 5.5L8 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'
+        : '<div class="dtw-ind'+(q.type==='multi'?'':' radio')+'"></div>';
+      var descHtml = opt.desc ? '<div class="dtw-opt-desc">'+opt.desc+'</div>' : '';
+      optsHtml += '<button class="dtw-opt'+(sel?' sel':'')+'" data-oid="'+opt.id+'" data-excl="'+(opt.excl?'1':'0')+'" onclick="dtwSelect(this.dataset.oid,this.dataset.excl==1)">'+indHtml+'<div><div class="dtw-opt-lbl">'+opt.lbl+'</div>'+descHtml+'</div></button>';
+    });
+    optsHtml = '<div class="dtw-opts">'+optsHtml+'</div>';
+    canNext = q.type === 'multi' ? state.multiSel.length > 0 : !!state.answers[q.id];
+  }
+  var isLast = state.qIdx + 1 === total;
+  var backBtn = state.qIdx > 0 ? '<button class="dtw-back" onclick="dtwBack()">← Tillbaka</button>' : '<span></span>';
+  root.innerHTML = '<div class="dtw-prog">'
+    +'<div class="dtw-prog-meta">'+backBtn+'<span style="font-size:12px;color:var(--fg-subtle);">Fråga '+(state.qIdx+1)+'</span><span style="font-size:12px;color:var(--fg-subtle);">'+pct+'%</span></div>'
+    +'<div class="dtw-prog-track"><div class="dtw-prog-fill" style="width:'+pct+'%"></div></div>'
+    +'</div>'
+    +'<div class="dtw-anim-slide">'
+    +'<h3 style="font-family:var(--font-serif);font-weight:400;font-size:24px;letter-spacing:-.01em;color:var(--fg-strong);margin-bottom:8px;">'+q.title+'</h3>'
+    +(q.sub ? '<p style="font-size:14px;color:var(--fg-muted);margin-bottom:20px;">'+q.sub+'</p>' : '')
+    +'<div class="dtw-opts">'+optsHtml+'</div>'
+    +'<button class="dtw-btn '+(canNext?'on':'off')+'" onclick="dtwNext()">'+(isLast?'Se rekommendation':'Nästa')+'</button>'
+    +'</div>';
+}
+window.dtwSelect = function(id, excl, qid) {
+  if (!state.scrolled) {
+    state.scrolled = true;
+    var card = document.getElementById('dtw-root');
+    if (card) card.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+  var vqs = visibleQs();
+  var q = vqs[state.qIdx];
+  if (q.type === 'compound') {
+    state.answers[qid] = id;
+  } else if (q.type === 'multi') {
+    if (excl) { state.multiSel = ['none']; }
+    else {
+      var without = state.multiSel.filter(function(x){ return x !== 'none'; });
+      var i = without.indexOf(id);
+      state.multiSel = i > -1 ? without.filter(function(x){ return x !== id; }) : without.concat([id]);
+    }
+  } else {
+    state.answers[q.id] = id;
+  }
+  render();
+};
+window.dtwNext = function() {
+  var vqs = visibleQs();
+  var q = vqs[state.qIdx];
+  var canNext = q.type === 'compound'
+    ? q.parts.filter(function(p){ return !state.answers[p.id]; }).length === 0
+    : q.type === 'multi' ? state.multiSel.length > 0 : !!state.answers[q.id];
+  if (!canNext) return;
+  if (q.type === 'multi') state.answers[q.id] = state.multiSel.slice();
+  var newVqs = Qs.filter(function(qq){ return !skip(qq.id, state.answers); });
+  if (state.qIdx + 1 < newVqs.length) {
+    state.qIdx++;
+    state.multiSel = [];
+    render();
+  } else {
+    var finalAnswers = state.answers;
+    state.analyzing = true;
+    render();
+    setTimeout(function() {
+      state.analyzing = false;
+      state.result = calcTriage(finalAnswers);
+      render();
+    }, 1100);
+  }
+};
+window.dtwToggle = function() {
+  var body  = document.getElementById('dtw-body');
+  var panel = document.getElementById('dtw-triage-panel');
+  var lbl   = document.getElementById('dtw-mode-lbl');
+  var btn   = document.getElementById('dtw-mode-btn');
+  var sub   = document.getElementById('dtw-subtext');
+  if (!body || !panel) return;
+  var isPremium = body.style.display !== 'none';
+  body.style.display  = isPremium ? 'none' : '';
+  panel.style.display = isPremium ? ''     : 'none';
+  if (lbl) lbl.textContent = isPremium ? 'Basic' : 'Premium';
+  if (btn) btn.classList[isPremium ? 'add' : 'remove']('dtw-mode-basic');
+  if (sub) {
+    if (!sub.dataset.premium) sub.dataset.premium = sub.textContent;
+    sub.textContent = isPremium ? 'Är du osäker — ring oss alltid. Vi prioriterar akuta besvär och hjälper dig vidare på telefon.' : sub.dataset.premium;
+  }
+};
+window.dtwBack = function() {
+  if (state.qIdx <= 0) return;
+  var vqs = visibleQs();
+  var q = vqs[state.qIdx];
+  if (q.type === 'compound') {
+    q.parts.forEach(function(p){ delete state.answers[p.id]; });
+  } else {
+    delete state.answers[q.id];
+  }
+  state.multiSel = [];
+  state.qIdx--;
+  render();
+};
+window.dtwRestart = function() {
+  state = {answers:{}, qIdx:0, multiSel:[], result:null, analyzing:false, scrolled:false};
+  render();
+};
+render();
+})();
+</script>
+</section>
+"""
+    return {
+        "block_name": "lumo/dental-triage-widget",
+        "title": "Dental Triage Widget",
+        "html_template": collapse(html),
+        "schema": [
+            {"name": "eyebrow",       "type": "text",     "label": "Etikett",           "default": "Akutbedömning"},
+            {"name": "heading",       "type": "text",     "label": "Rubrik",             "default": "Osäker på hur akut det är?"},
+            {"name": "subtext",       "type": "text",     "label": "Undertext",          "default": "Tre frågor hjälper dig avgöra om du behöver komma in idag, inom några dagar — eller ringa 112."},
+            {"name": "lead",          "type": "textarea", "label": "Lead-text",          "default": "Besvara tre korta frågor om dina besvär. Guiden ger en rekommendation direkt — baserad på kliniska riktlinjer."},
+            {"name": "trust_1_title", "type": "text",     "label": "Förtroendepoint 1 rubrik", "default": "Anpassad för tandvårdsbesvär"},
+            {"name": "trust_1_desc",  "type": "text",     "label": "Förtroendepoint 1 text",   "default": "Frågorna är utformade av vår kliniska personal."},
+            {"name": "trust_2_title", "type": "text",     "label": "Förtroendepoint 2 rubrik", "default": "Ingen inloggning krävs"},
+            {"name": "trust_2_desc",  "type": "text",     "label": "Förtroendepoint 2 text",   "default": "Dina svar sparas inte och lämnar inte sidan."},
+            {"name": "trust_3_title", "type": "text",     "label": "Förtroendepoint 3 rubrik", "default": "Alltid mänsklig bedömning"},
+            {"name": "trust_3_desc",  "type": "text",     "label": "Förtroendepoint 3 text",   "default": "Guiden ersätter inte ett tandläkarbesök."},
+            {"name": "clinic_phone",  "type": "text",     "label": "Klinikens telefon",  "default": "0812854555"},
+        ],
+    }
+
+
 def build_triage_grid() -> dict:
     # Urgency-färg per position är hårdkodad (klinisk prioritetsordning)
     # Urgency-TEXT och kortens titel + beskrivning är editerbara ACF-fält
@@ -2960,6 +3562,262 @@ def build_price_row() -> dict:
     }
 
 
+def _mst(var: str) -> str:
+    """Return {{var}} mustache placeholder."""
+    return "{{" + var + "}}"
+
+
+def _ig_hdr_html(eyebrow_var: str = "eyebrow", heading_var: str = "heading") -> str:
+    return (
+        f'<div class="ig-hdr">'
+        f'<div class="eyebrow" style="margin-bottom:16px;">{_mst(eyebrow_var)}</div>'
+        f'<h2 class="ig-heading">{_mst(heading_var)}</h2>'
+        f'</div>'
+    )
+
+
+def build_stats_strip(block_name: str, title: str, items: list[dict]) -> dict:
+    """Stats strip utan header — Implantat & Tandreglering.
+    items: [{"val": ..., "desc": ...}]
+    """
+    n = len(items)
+    cells = ""
+    for i, _item in enumerate(items, 1):
+        cells += (
+            f'<div style="background:var(--white);padding:40px 32px;">'
+            f'<div style="font-family:var(--font-serif);font-weight:300;'
+            f'font-size:clamp(40px,4vw,64px);line-height:1;letter-spacing:-0.03em;'
+            f'color:var(--ink-700);margin-bottom:14px;">{_mst(f"val_{i}")}</div>'
+            f'<div style="font-size:14px;color:var(--ink-500);line-height:1.55;">{_mst(f"desc_{i}")}</div>'
+            f'</div>'
+        )
+    html = f"""
+<section class="ig-section" style="padding-top:0;">
+  <div class="container-wide" style="padding-top:0;">
+    <div class="ig-grid ig-grid--{n}" style="border-top:1px solid var(--border);">
+      {cells}
+    </div>
+  </div>
+</section>
+"""
+    schema: list[dict] = []
+    for i, item in enumerate(items, 1):
+        schema.append({"name": f"val_{i}",  "type": "text",     "label": f"Stat {i} – värde",        "default": item.get("val",  "")})
+        schema.append({"name": f"desc_{i}", "type": "textarea", "label": f"Stat {i} – beskrivning",  "default": item.get("desc", "")})
+    return {"block_name": block_name, "title": title, "html_template": collapse(html), "schema": schema}
+
+
+def build_stages_grid(block_name: str, title: str, eyebrow: str, heading: str,
+                      items: list[dict]) -> dict:
+    """Karies-stadier med färgpunkt per allvarlighetsgrad.
+    items: [{"stage": ..., "title": ..., "desc": ...}]
+    """
+    dot_colors = ["var(--sage-300)", "var(--sage-500)", "var(--sage-600)", "var(--ink-700)"]
+    cells = ""
+    for i, _item in enumerate(items, 1):
+        color = dot_colors[i - 1] if i <= len(dot_colors) else "var(--sage-600)"
+        cells += (
+            f'<article style="background:var(--white);padding:40px 32px;display:flex;flex-direction:column;gap:14px;">'
+            f'<div style="width:10px;height:10px;border-radius:50%;background:{color};margin-bottom:6px;"></div>'
+            f'<div style="font-size:10px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:var(--fg-muted);">{_mst(f"stage_{i}")}</div>'
+            f'<h3 style="font-family:var(--font-serif);font-weight:400;font-size:24px;line-height:1.2;'
+            f'letter-spacing:-0.02em;color:var(--ink-700);margin:0;">{_mst(f"title_{i}")}</h3>'
+            f'<p style="font-size:14px;line-height:1.65;color:var(--ink-500);margin:0;">{_mst(f"desc_{i}")}</p>'
+            f'</article>'
+        )
+    html = f"""
+<section class="ig-section">
+  <div class="container-wide">
+    {_ig_hdr_html()}
+    <div class="ig-grid ig-grid--4">
+      {cells}
+    </div>
+  </div>
+</section>
+"""
+    schema: list[dict] = [
+        {"name": "eyebrow", "type": "text", "label": "Etikett", "default": eyebrow},
+        {"name": "heading", "type": "text", "label": "Rubrik",  "default": heading},
+    ]
+    for i, item in enumerate(items, 1):
+        schema.append({"name": f"stage_{i}", "type": "text",     "label": f"Stadium {i} – etikett",    "default": item.get("stage", f"Stadium {i}")})
+        schema.append({"name": f"title_{i}", "type": "text",     "label": f"Stadium {i} – rubrik",     "default": item.get("title", "")})
+        schema.append({"name": f"desc_{i}",  "type": "textarea", "label": f"Stadium {i} – beskrivning","default": item.get("desc",  "")})
+    return {"block_name": block_name, "title": title, "html_template": collapse(html), "schema": schema}
+
+
+def build_method_comparison(block_name: str, title: str, eyebrow: str, heading: str,
+                             items: list[dict]) -> dict:
+    """Tandblekning — jämförelse med tid/effekt-rader och badge.
+    items: [{"name": ..., "badge": ..., "time": ..., "effect": ..., "desc": ...}]
+    """
+    cells = ""
+    for i, _item in enumerate(items, 1):
+        cells += (
+            f'<article class="mc-item">'
+            f'<div class="mc-name-row">'
+            f'<h3 class="mc-name">{_mst(f"m{i}_name")}</h3>'
+            f'<span class="mc-badge">{_mst(f"m{i}_badge")}</span>'
+            f'</div>'
+            f'<div class="mc-meta">'
+            f'<div class="mc-meta-row"><span class="mc-meta-label">Tid</span>'
+            f'<span class="mc-meta-val">{_mst(f"m{i}_time")}</span></div>'
+            f'<div class="mc-meta-row"><span class="mc-meta-label">Effekt</span>'
+            f'<span class="mc-meta-val mc-meta-val--accent">{_mst(f"m{i}_effect")}</span></div>'
+            f'</div>'
+            f'<p class="mc-desc">{_mst(f"m{i}_desc")}</p>'
+            f'</article>'
+        )
+    html = f"""
+<section class="mc-section">
+  <div class="container-wide">
+    <div class="mc-hdr">
+      <div class="eyebrow" style="margin-bottom:16px;">{_mst("eyebrow")}</div>
+      <h2>{_mst("heading")}</h2>
+    </div>
+    <div class="mc-grid">
+      {cells}
+    </div>
+  </div>
+</section>
+"""
+    schema: list[dict] = [
+        {"name": "eyebrow", "type": "text", "label": "Etikett", "default": eyebrow},
+        {"name": "heading", "type": "text", "label": "Rubrik",  "default": heading},
+    ]
+    for i, item in enumerate(items, 1):
+        schema.append({"name": f"m{i}_name",   "type": "text",     "label": f"Metod {i} – namn",    "default": item.get("name",   "")})
+        schema.append({"name": f"m{i}_badge",  "type": "text",     "label": f"Metod {i} – badge",   "default": item.get("badge",  "")})
+        schema.append({"name": f"m{i}_time",   "type": "text",     "label": f"Metod {i} – tid",     "default": item.get("time",   "")})
+        schema.append({"name": f"m{i}_effect", "type": "text",     "label": f"Metod {i} – effekt",  "default": item.get("effect", "")})
+        schema.append({"name": f"m{i}_desc",   "type": "textarea", "label": f"Metod {i} – text",    "default": item.get("desc",   "")})
+    return {"block_name": block_name, "title": title, "html_template": collapse(html), "schema": schema}
+
+
+def build_use_cases_grid(block_name: str, title: str, eyebrow: str, heading: str,
+                          items: list[dict], cols: int = 3) -> dict:
+    """Tandfasader & Tandsten — ren titel+beskrivning utan nummer.
+    items: [{"title": ..., "desc": ...}]
+    """
+    cells = ""
+    for i, _item in enumerate(items, 1):
+        cells += (
+            f'<article style="background:var(--white);padding:40px 32px;display:flex;flex-direction:column;gap:12px;">'
+            f'<h3 style="font-family:var(--font-serif);font-weight:400;font-size:24px;line-height:1.2;'
+            f'letter-spacing:-0.02em;color:var(--ink-700);margin:0;">{_mst(f"title_{i}")}</h3>'
+            f'<p style="font-size:14px;line-height:1.65;color:var(--ink-500);margin:0;">{_mst(f"desc_{i}")}</p>'
+            f'</article>'
+        )
+    html = f"""
+<section class="ig-section">
+  <div class="container-wide">
+    {_ig_hdr_html()}
+    <div class="ig-grid ig-grid--{cols}">
+      {cells}
+    </div>
+  </div>
+</section>
+"""
+    schema: list[dict] = [
+        {"name": "eyebrow", "type": "text", "label": "Etikett", "default": eyebrow},
+        {"name": "heading", "type": "text", "label": "Rubrik",  "default": heading},
+    ]
+    for i, item in enumerate(items, 1):
+        schema.append({"name": f"title_{i}", "type": "text",     "label": f"Punkt {i} – titel",       "default": item.get("title", "")})
+        schema.append({"name": f"desc_{i}",  "type": "textarea", "label": f"Punkt {i} – beskrivning", "default": item.get("desc",  "")})
+    return {"block_name": block_name, "title": title, "html_template": collapse(html), "schema": schema}
+
+
+def build_approach_grid(block_name: str, title: str, eyebrow: str, heading: str,
+                         items: list[dict], cols: int = 3) -> dict:
+    """Tandvårdsrädsla — stora sage-siffror + titel + beskrivning.
+    items: [{"num": ..., "title": ..., "desc": ...}]
+    """
+    cells = ""
+    for i, _item in enumerate(items, 1):
+        cells += (
+            f'<article style="background:var(--white);padding:40px 32px;display:flex;flex-direction:column;gap:12px;">'
+            f'<div style="font-family:var(--font-serif);font-weight:300;font-size:48px;line-height:1;'
+            f'letter-spacing:-0.03em;color:var(--sage-600);">{_mst(f"num_{i}")}</div>'
+            f'<h3 style="font-family:var(--font-serif);font-weight:400;font-size:22px;line-height:1.2;'
+            f'letter-spacing:-0.02em;color:var(--ink-700);margin:0;">{_mst(f"title_{i}")}</h3>'
+            f'<p style="font-size:14px;line-height:1.65;color:var(--ink-500);margin:0;">{_mst(f"desc_{i}")}</p>'
+            f'</article>'
+        )
+    html = f"""
+<section class="ig-section">
+  <div class="container-wide">
+    {_ig_hdr_html()}
+    <div class="ig-grid ig-grid--{cols}">
+      {cells}
+    </div>
+  </div>
+</section>
+"""
+    schema: list[dict] = [
+        {"name": "eyebrow", "type": "text", "label": "Etikett", "default": eyebrow},
+        {"name": "heading", "type": "text", "label": "Rubrik",  "default": heading},
+    ]
+    for i, item in enumerate(items, 1):
+        schema.append({"name": f"num_{i}",   "type": "text",     "label": f"Punkt {i} – nummer",      "default": item.get("num",   "")})
+        schema.append({"name": f"title_{i}", "type": "text",     "label": f"Punkt {i} – titel",       "default": item.get("title", "")})
+        schema.append({"name": f"desc_{i}",  "type": "textarea", "label": f"Punkt {i} – beskrivning", "default": item.get("desc",  "")})
+    return {"block_name": block_name, "title": title, "html_template": collapse(html), "schema": schema}
+
+
+def build_process_steps_4(block_name: str, title: str) -> dict:
+    """Four-column process steps variant."""
+    html = """
+<section class="process-steps">
+  <div class="container-wide">
+    <div class="ps-header">
+      <div class="eyebrow" style="margin-bottom:16px;">{{eyebrow}}</div>
+      <h2>{{heading}}</h2>
+    </div>
+    <div class="ps-grid ps-grid--4">
+      <article class="ps-step">
+        <div class="ps-num">01</div>
+        <h3>{{step_1_title}}</h3>
+        <p>{{step_1_desc}}</p>
+      </article>
+      <article class="ps-step">
+        <div class="ps-num">02</div>
+        <h3>{{step_2_title}}</h3>
+        <p>{{step_2_desc}}</p>
+      </article>
+      <article class="ps-step">
+        <div class="ps-num">03</div>
+        <h3>{{step_3_title}}</h3>
+        <p>{{step_3_desc}}</p>
+      </article>
+      <article class="ps-step">
+        <div class="ps-num">04</div>
+        <h3>{{step_4_title}}</h3>
+        <p>{{step_4_desc}}</p>
+      </article>
+    </div>
+  </div>
+</section>
+"""
+    return {
+        "block_name": block_name,
+        "title": title,
+        "html_template": collapse(html),
+        "schema": [
+            {"name": "eyebrow",      "type": "text",     "label": "Etikett"},
+            {"name": "heading",      "type": "text",     "label": "Rubrik"},
+            {"name": "step_1_title", "type": "text",     "label": "Steg 1 – titel"},
+            {"name": "step_1_desc",  "type": "textarea", "label": "Steg 1 – text"},
+            {"name": "step_2_title", "type": "text",     "label": "Steg 2 – titel"},
+            {"name": "step_2_desc",  "type": "textarea", "label": "Steg 2 – text"},
+            {"name": "step_3_title", "type": "text",     "label": "Steg 3 – titel"},
+            {"name": "step_3_desc",  "type": "textarea", "label": "Steg 3 – text"},
+            {"name": "step_4_title", "type": "text",     "label": "Steg 4 – titel"},
+            {"name": "step_4_desc",  "type": "textarea", "label": "Steg 4 – text"},
+        ],
+    }
+
+
 def build_map_section() -> dict:
     html = f"""
 <section id="hitta-till-oss" style="padding:96px 0;background:var(--white);">
@@ -3040,10 +3898,10 @@ def build_site(bases: dict) -> tuple[list, list]:
         "lumo/text-blocks-om-oss",
         "lumo/team",
         "lumo/organisation-om-oss",
+        "lumo/cta-strip-om-oss",
         add("map-section", "om-oss", {"heading": "Hitta till kliniken"}, "Om oss"),
         "lumo/arbeta-med-oss",
         "lumo/feedback-form-om-oss",
-        "lumo/cta-strip-om-oss",
         "lumo/site-footer",
     ]
     pages.append({"title": "Om oss", "slug": "om-oss", "menu_label": "Om oss", "keep_content": True, "blocks": blocks})
@@ -3069,33 +3927,10 @@ def build_site(bases: dict) -> tuple[list, list]:
         pd = TREATMENT_PAGE_DATA[slug]
         b  = d["bullets"]
 
-        # Shared blocks — all treatment pages use the same component names.
-        # Per-page content is injected via page_defaults → bake_defaults.py.
-        if slug == "akut-tandvard":
-            blocks = [
-                "lumo/site-header",
-                "lumo/treatment-hero",
-                "lumo/triage-grid",
-                "lumo/content-block-1",
-                "lumo/process-steps",
-                "lumo/content-block-2",
-                "lumo/price-row",
-                "lumo/faq",
-                f"lumo/cta-strip-{slug}",
-                "lumo/site-footer",
-            ]
-        else:
-            blocks = [
-                "lumo/site-header",
-                "lumo/treatment-hero",
-                "lumo/content-block-1",
-                "lumo/faq",
-                f"lumo/cta-strip-{slug}",
-                "lumo/site-footer",
-            ]
-
-        page_defs: dict = {
-            "lumo/treatment-hero": {
+        # Baka in hero-innehållet i en per-slug variant — aldrig beroende av page_defaults
+        hero_v = make_variant(
+            bases["treatment-hero"], slug,
+            {
                 "eyebrow":      d["eyebrow"],
                 "title":        d["title"],
                 "title_italic": d["title_italic"],
@@ -3109,33 +3944,39 @@ def build_site(bases: dict) -> tuple[list, list]:
                 "stat_value":   d["stat_value"],
                 "stat_sub":     d["stat_sub"],
             },
-            "lumo/content-block-1": {
+            title_sfx=menu_label,
+        )
+        if hero_v["block_name"] not in seen:
+            seen.add(hero_v["block_name"])
+            variants.append(hero_v)
+
+        page_defs: dict = {}
+
+        if slug == "akut-tandvard":
+            # Per-slug varianter — innehåll inbakat i schema-defaults, aldrig page_defaults
+            akut_cb1 = make_variant(bases["content-block-1"], slug, {
                 "eyebrow":  pd["cb1_eyebrow"],
                 "h2":       pd["cb1_h2"],
                 "body":     pd["cb1_body"],
                 "image":    pd["cb1_image"],
                 "cta_text": pd["cb1_cta_text"],
                 "cta_link": pd["cb1_cta_link"],
-            },
-            "lumo/faq": {
-                "heading": pd["faq_heading"],
-                "q_1": pd["faq_q_1"], "a_1": pd["faq_a_1"],
-                "q_2": pd["faq_q_2"], "a_2": pd["faq_a_2"],
-                "q_3": pd["faq_q_3"], "a_3": pd["faq_a_3"],
-                "q_4": pd["faq_q_4"], "a_4": pd["faq_a_4"],
-            },
-        }
+            }, title_sfx=menu_label)
+            if akut_cb1["block_name"] not in seen:
+                seen.add(akut_cb1["block_name"]); variants.append(akut_cb1)
 
-        if slug == "akut-tandvard":
-            page_defs["lumo/content-block-2"] = {
+            akut_cb2 = make_variant(bases["content-block-2"], slug, {
                 "eyebrow":  pd["cb2_eyebrow"],
                 "h2":       pd["cb2_h2"],
                 "body":     pd["cb2_body"],
                 "image":    pd["cb2_image"],
                 "cta_text": pd["cb2_cta_text"],
                 "cta_link": pd["cb2_cta_link"],
-            }
-            page_defs["lumo/process-steps"] = {
+            }, title_sfx=menu_label)
+            if akut_cb2["block_name"] not in seen:
+                seen.add(akut_cb2["block_name"]); variants.append(akut_cb2)
+
+            akut_ps = make_variant(bases["process-steps"], slug, {
                 "eyebrow":      "Så får du snabb hjälp",
                 "heading":      "Tre steg — från första samtal till lindring.",
                 "step_1_title": "Ring oss",
@@ -3144,8 +3985,11 @@ def build_site(bases: dict) -> tuple[list, list]:
                 "step_2_desc":  "Vi har avsatta tider för akuta patienter, även på kvällar och lördagar.",
                 "step_3_title": "Lindring + plan",
                 "step_3_desc":  "En noggrann undersökning, smärtlindring direkt — och en tydlig behandlingsplan framåt.",
-            }
-            page_defs["lumo/price-row"] = {
+            }, title_sfx=menu_label)
+            if akut_ps["block_name"] not in seen:
+                seen.add(akut_ps["block_name"]); variants.append(akut_ps)
+
+            akut_pr = make_variant(bases["price-row"], slug, {
                 "eyebrow":     "Pris & ersättning",
                 "heading":     "Tydliga priser — utan överraskningar.",
                 "intro":       "Vi följer Folktandvårdens prislista och är anslutna till Försäkringskassan. Din tandvårdsersättning dras direkt på fakturan.",
@@ -3157,7 +4001,149 @@ def build_site(bases: dict) -> tuple[list, list]:
                 "row_3_price": "Folktandvårdens prislista",
                 "row_4_label": "Räntefri delbetalning",
                 "row_4_price": "Vid större ingrepp",
-            }
+            }, title_sfx=menu_label)
+            if akut_pr["block_name"] not in seen:
+                seen.add(akut_pr["block_name"]); variants.append(akut_pr)
+
+            akut_faq = make_variant(bases["faq"], slug, {
+                "heading": pd["faq_heading"],
+                "q_1": pd["faq_q_1"], "a_1": pd["faq_a_1"],
+                "q_2": pd["faq_q_2"], "a_2": pd["faq_a_2"],
+                "q_3": pd["faq_q_3"], "a_3": pd["faq_a_3"],
+                "q_4": pd["faq_q_4"], "a_4": pd["faq_a_4"],
+            }, title_sfx=menu_label)
+            if akut_faq["block_name"] not in seen:
+                seen.add(akut_faq["block_name"]); variants.append(akut_faq)
+
+            blocks = [
+                "lumo/site-header",
+                "lumo/emergency-strip",
+                hero_v["block_name"],
+                "lumo/dental-triage-widget",
+                akut_cb1["block_name"],
+                akut_ps["block_name"],
+                akut_cb2["block_name"],
+                akut_pr["block_name"],
+                f"lumo/cta-strip-{slug}",
+                akut_faq["block_name"],
+                "lumo/site-footer",
+            ]
+
+        else:
+            # ── Bygg info-grid-komponent per behandling (visuell variant per sida)
+            bn  = f"lumo/info-grid-{slug}"
+            ttl = f"Info-grid – {menu_label}"
+            if slug in ("implantat", "tandreglering-stockholm"):
+                ig = build_stats_strip(bn, ttl, pd["ig_items"])
+            elif slug == "karies-hal-i-tanden":
+                ig = build_stages_grid(bn, ttl, pd["ig_eyebrow"], pd["ig_heading"], pd["ig_items"])
+            elif slug == "tandblekning":
+                ig = build_method_comparison(bn, ttl, pd["ig_eyebrow"], pd["ig_heading"], pd["ig_items"])
+            elif slug in ("tandfasader-veneers", "tandsten-tandhygienist"):
+                ig = build_use_cases_grid(bn, ttl, pd["ig_eyebrow"], pd["ig_heading"], pd["ig_items"])
+            elif slug == "tandvardsradsla":
+                ig = build_approach_grid(bn, ttl, pd["ig_eyebrow"], pd["ig_heading"], pd["ig_items"])
+            else:
+                ig = build_info_grid(bn, ttl, pd["ig_eyebrow"], pd["ig_heading"], pd["ig_items"])
+            if ig["block_name"] not in seen:
+                seen.add(ig["block_name"])
+                variants.append(ig)
+
+            # ── Bygg cb1/cb2-varianter per behandling ────────────────────
+            cb1 = make_variant(
+                bases["content-block-1"], slug,
+                {
+                    "image":    pd["cb1_image"],
+                    "eyebrow":  pd["cb1_eyebrow"],
+                    "h2":       pd["cb1_h2"],
+                    "body":     pd["cb1_body"],
+                    "cta_text": pd["cb1_cta_text"],
+                    "cta_link": pd["cb1_cta_link"],
+                },
+                title_sfx=menu_label,
+            )
+            if cb1["block_name"] not in seen:
+                seen.add(cb1["block_name"])
+                variants.append(cb1)
+
+            cb2 = make_variant(
+                bases["content-block-2"], slug,
+                {
+                    "image":    pd["cb2_image"],
+                    "eyebrow":  pd["cb2_eyebrow"],
+                    "h2":       pd["cb2_h2"],
+                    "body":     pd["cb2_body"],
+                    "cta_text": pd["cb2_cta_text"],
+                    "cta_link": pd["cb2_cta_link"],
+                },
+                title_sfx=menu_label,
+            )
+            if cb2["block_name"] not in seen:
+                seen.add(cb2["block_name"])
+                variants.append(cb2)
+
+            # ── Bygg faq-variant per behandling ──────────────────────────
+            faq_v = make_variant(
+                bases["faq"], slug,
+                {
+                    "heading": pd["faq_heading"],
+                    "q_1": pd["faq_q_1"], "a_1": pd["faq_a_1"],
+                    "q_2": pd["faq_q_2"], "a_2": pd["faq_a_2"],
+                    "q_3": pd["faq_q_3"], "a_3": pd["faq_a_3"],
+                    "q_4": pd["faq_q_4"], "a_4": pd["faq_a_4"],
+                },
+                title_sfx=menu_label,
+            )
+            if faq_v["block_name"] not in seen:
+                seen.add(faq_v["block_name"])
+                variants.append(faq_v)
+
+            # ── Bygg blocks-lista ─────────────────────────────────────────
+            blocks = [
+                "lumo/site-header",
+                hero_v["block_name"],
+                ig["block_name"],
+                cb1["block_name"],
+            ]
+
+            # Process-steps (4-steg) för implantat & tandreglering
+            needs_process = slug in ("implantat", "tandreglering-stockholm")
+            if needs_process:
+                ps4 = build_process_steps_4(
+                    block_name=f"lumo/process-steps-{slug}",
+                    title=f"Behandlingssteg – {menu_label}",
+                )
+                if ps4["block_name"] not in seen:
+                    seen.add(ps4["block_name"])
+                    variants.append(ps4)
+                blocks.append(ps4["block_name"])
+                steps = pd["ps_steps"]
+                page_defs[ps4["block_name"]] = {
+                    "eyebrow": pd["ps_eyebrow"],
+                    "heading": pd["ps_heading"],
+                    "step_1_title": steps[0]["title"], "step_1_desc": steps[0]["desc"],
+                    "step_2_title": steps[1]["title"], "step_2_desc": steps[1]["desc"],
+                    "step_3_title": steps[2]["title"], "step_3_desc": steps[2]["desc"],
+                    "step_4_title": steps[3]["title"], "step_4_desc": steps[3]["desc"],
+                }
+
+            blocks.append(cb2["block_name"])
+
+            # Pristabell för implantat
+            if slug == "implantat":
+                pr_rows = pd["pr_rows"]
+                page_defs["lumo/price-row"] = {
+                    "eyebrow":     pd["pr_eyebrow"],
+                    "heading":     pd["pr_heading"],
+                    "intro":       pd["pr_intro"],
+                    "row_1_label": pr_rows[0]["label"], "row_1_price": pr_rows[0]["price"],
+                    "row_2_label": pr_rows[1]["label"], "row_2_price": pr_rows[1]["price"],
+                    "row_3_label": pr_rows[2]["label"], "row_3_price": pr_rows[2]["price"],
+                    "row_4_label": pr_rows[3]["label"], "row_4_price": pr_rows[3]["price"],
+                }
+                blocks.append("lumo/price-row")
+
+            blocks += [f"lumo/cta-strip-{slug}", faq_v["block_name"], "lumo/site-footer"]
 
         active = slug in ACTIVE_TREATMENTS
         p = {
@@ -3183,6 +4169,7 @@ def build_site(bases: dict) -> tuple[list, list]:
             "cta_text": "Skicka remiss",
             "cta_link": "/remiss-2",
         }, "Barnspecialist"),
+        "lumo/cta-strip-barnspecialist",
         add("faq", "barnspecialist", {
             "heading": "Frågor från föräldrar.",
             "q_1": "Vilka kan få specialisttandvård hos Älvsjö Pedodonti?",
@@ -3192,7 +4179,6 @@ def build_site(bases: dict) -> tuple[list, list]:
             "q_3": "Kostar tandvården något för barn?",
             "a_3": "Nej, hos Älvsjö Tandvård är all tandvård alltid gratis för barn och ungdomar upp till 19 år. Det gäller både allmäntandvård och specialisttandvård på remiss.",
         }, "Barnspecialist"),
-        "lumo/cta-strip-barnspecialist",
         add("contact-panel", "barnspecialist", {
             "heading": "Kontakta oss",
             "intro_text": "Har du frågor om barnspecialistvård? Vi hjälper dig gärna.",
@@ -3245,19 +4231,24 @@ def main() -> None:
     photo_tour   = build_photo_tour()
 
     bases = {
-        "hero":            hero,
-        "content-block-1": build_content_block("lumo/content-block-1", "Innehållsblock",          mirror=False, bg="var(--white)"),
-        "content-block-2": build_content_block("lumo/content-block-2", "Innehållsblock (speglat)", mirror=True,  bg="var(--cream)"),
-        "contact-panel":   build_contact_panel(),
-        "faq":             build_faq(),
-        "map-section":     build_map_section(),
+        "hero":             hero,
+        "treatment-hero":   build_treatment_hero_shared(),
+        "content-block-1":  build_content_block("lumo/content-block-1", "Innehållsblock",          mirror=False, bg="var(--white)"),
+        "content-block-2":  build_content_block("lumo/content-block-2", "Innehållsblock (speglat)", mirror=True,  bg="var(--cream)"),
+        "contact-panel":    build_contact_panel(),
+        "faq":              build_faq(),
+        "map-section":      build_map_section(),
+        "process-steps":    build_process_steps(),
+        "price-row":        build_price_row(),
     }
 
-    # Delad treatment-hero + CTA strip per page + akut-specifika sektioner
-    treatment_hero_shared = build_treatment_hero_shared()
-    triage_grid    = build_triage_grid()
-    process_steps  = build_process_steps()
-    price_row      = build_price_row()
+    # CTA strip per page + akut-specifika sektioner
+    treatment_hero_shared = bases["treatment-hero"]
+    triage_widget    = build_dental_triage_widget()
+    triage_grid      = build_triage_grid()
+    emergency_strip  = build_emergency_strip()
+    process_steps    = bases["process-steps"]
+    price_row        = bases["price-row"]
     cta_strips = [build_cta_strip(slug) for slug in list(TREATMENT_HERO_DATA) + ["barnspecialist", "kontakt"]]
     page_hero_info = build_page_hero_info()
     barnspecialist_comps = [build_page_hero_barnspecialist(), build_fact_strip_barnspecialist()]
@@ -3280,7 +4271,7 @@ def main() -> None:
         site_header, site_footer,
         hero, treatments, reviews, about, emergency, team, photo_tour,
         page_hero_info,
-        treatment_hero_shared, triage_grid, process_steps, price_row,
+        treatment_hero_shared, emergency_strip, triage_widget, triage_grid, process_steps, price_row,
         bases["content-block-1"], bases["content-block-2"], bases["faq"],
         *cta_strips, *barnspecialist_comps, *kontakt_comps, *om_oss_comps, remiss_comp,
     ]
@@ -3317,14 +4308,6 @@ def main() -> None:
             {"label": "Hitta till oss",         "url": "/om-oss/#hitta-till-oss",       "parent": "Om oss"},
             {"label": "Arbeta med oss",         "url": "/om-oss/#arbeta-med-oss",       "parent": "Om oss"},
             {"label": "Hjälp oss bli bäst",     "url": "/om-oss/#hjalp-oss-bli-bast",  "parent": "Om oss"},
-            # Inaktiva behandlingar — visas som "Kommer snart" i menyn
-            {"label": "Implantat",              "url": "/implantat/",               "parent": "Behandlingar"},
-            {"label": "Karies / Hål i tanden",  "url": "/karies-hal-i-tanden/",    "parent": "Behandlingar"},
-            {"label": "Tandblekning",           "url": "/tandblekning/",            "parent": "Behandlingar"},
-            {"label": "Tandfasader / Veneers",  "url": "/tandfasader-veneers/",    "parent": "Behandlingar"},
-            {"label": "Tandreglering",          "url": "/tandreglering-stockholm/", "parent": "Behandlingar"},
-            {"label": "Tandsten / Tandhygienist","url": "/tandsten-tandhygienist/", "parent": "Behandlingar"},
-            {"label": "Tandvårdsrädsla",        "url": "/tandvardsradsla/",         "parent": "Behandlingar"},
         ],
     }
 
