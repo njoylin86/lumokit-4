@@ -1,8 +1,8 @@
 {
-  "deployed_at": "2026-05-14T16:08:40",
+  "deployed_at": "2026-05-15T16:15:06",
   "bundle": "bundle.json",
   "wp_url": "https://swordfish.templweb.com",
   "bridge_version": "1.0.0",
-  "overwrite_content": false,
+  "overwrite_content": true,
   "site_name": "Älvsjö Tandvård"
 }

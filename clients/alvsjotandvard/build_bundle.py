@@ -15,6 +15,8 @@ import copy, json
 from pathlib import Path
 from urllib.parse import quote_plus
 
+from premium_features import build_fear_matcher, build_treatment_stepper, build_cost_calculator, build_premium_tour_html, lumo_tooltip
+
 CLIENT_DIR  = Path(__file__).resolve().parent
 ROOT        = CLIENT_DIR.parent.parent
 TOKENS_FILE = CLIENT_DIR / "design-system" / "alvsjotandvard_ds" / "styles.css"
@@ -55,6 +57,7 @@ ICO_CLOCK = ico('<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16
 LAYOUT_CSS = r"""
 /* ── Overflow guard ─────────────────────────────────────────────── */
 html, body { overflow-x: clip; max-width: 100vw; }
+html { scroll-padding-top: 78px; }
 
 /* ── Containers ─────────────────────────────────────────────────── */
 .container-wide {
@@ -74,6 +77,7 @@ html, body { overflow-x: clip; max-width: 100vw; }
 }
 .btn-primary { background: var(--ink-700); color: var(--white); border-color: var(--ink-700); }
 .btn-primary:hover { background: var(--ink-900); color: var(--white); }
+.cb-text a.btn-primary, .cb-text a.btn-primary:visited, .cb-text a.btn-primary:hover { color: var(--white) !important; }
 .btn-ghost { background: transparent; color: var(--ink-700); border-color: var(--ink-700); }
 .btn-ghost:hover { background: var(--blush-50); color: var(--ink-700); }
 .btn-light { background: var(--white); color: var(--ink-700); border-color: transparent; }
@@ -112,6 +116,7 @@ html, body { overflow-x: clip; max-width: 100vw; }
 }
 .site-header .logo { display: inline-flex; align-items: center; text-decoration: none; }
 .site-header .logo img { height: 57px; width: auto; display: block; }
+html.header-light .site-header .logo img { filter: drop-shadow(0 1px 4px rgba(0,0,0,0.18)); }
 .site-header nav { display: flex; align-items: center; gap: 32px; }
 .site-header nav a, .site-header nav .menu-item a {
   font-family: var(--font-sans); font-size: 14px; font-weight: 500;
@@ -214,7 +219,7 @@ html, body { overflow-x: clip; max-width: 100vw; }
 }
 .hb-medals { display: flex; gap: 12px; align-items: center; }
 .hb-top-medals {
-  display: flex; gap: 12px; align-items: center;
+  display: flex; gap: 12px; align-items: center; justify-content: flex-end;
   max-width: var(--maxw-wide); margin: 12px auto 0;
   padding: 0 var(--gutter);
 }
@@ -431,7 +436,7 @@ html, body { overflow-x: clip; max-width: 100vw; }
 .reviews-widget-wrap { margin-top: 8px; }
 
 /* ── About ──────────────────────────────────────────────────────── */
-.about-section { background: var(--white); }
+.about-section { background: var(--white); padding: 64px 0; }
 .about-grid {
   display: grid; grid-template-columns: 1fr 1.1fr;
   gap: 96px; align-items: center;
@@ -440,7 +445,7 @@ html, body { overflow-x: clip; max-width: 100vw; }
 .about-text .lead { margin-bottom: 24px; max-width: 44ch; }
 .about-text p { margin-bottom: 32px; max-width: 52ch; color: var(--ink-500); }
 .about-img {
-  width: 100%; aspect-ratio: 4 / 5; overflow: hidden;
+  width: 100%; aspect-ratio: 4 / 5; overflow: hidden; max-height: 460px;
 }
 
 /* ── Emergency banner ───────────────────────────────────────────── */
@@ -588,20 +593,16 @@ html, body { overflow-x: clip; max-width: 100vw; }
 
 /* ── Coming-soon nav items (endast sidor ej lanserade än) ────────── */
 .site-header nav a[href*="/lista-dig"],
-.site-header nav a[href*="/rantefritt"],
 .site-header nav a[href*="/kampanjer"],
 .site-topstrip a[href*="/lista-dig"],
 .mobile-nav a[href*="/lista-dig"],
-.mobile-nav a[href*="/rantefritt"],
 .mobile-nav a[href*="/kampanjer"] {
   opacity: 0.38 !important;
   pointer-events: none !important;
   cursor: default !important;
 }
 /* Desktop tooltip för ej lanserade sidor */
-.site-header nav li:has(> a[href*="/rantefritt"]),
 .site-header nav li:has(> a[href*="/kampanjer"]) { position: relative; }
-.site-header nav li:has(> a[href*="/rantefritt"])::after,
 .site-header nav li:has(> a[href*="/kampanjer"])::after {
   content: "Kommer snart";
   position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
@@ -610,7 +611,6 @@ html, body { overflow-x: clip; max-width: 100vw; }
   padding: 4px 9px; border-radius: 4px; white-space: nowrap;
   opacity: 0; pointer-events: none; z-index: 100; transition: opacity 0.15s ease;
 }
-.site-header nav li:has(> a[href*="/rantefritt"]):hover::after,
 .site-header nav li:has(> a[href*="/kampanjer"]):hover::after { opacity: 1; }
 /* Topstrip Lista dig — wrapper span för hover-tooltip */
 .nav-cs { position: relative; display: inline-flex; align-items: center; }
@@ -624,7 +624,6 @@ html, body { overflow-x: clip; max-width: 100vw; }
 }
 .nav-cs:hover::after { opacity: 1; }
 /* Mobil badge för ej lanserade sidor */
-.mobile-nav a[href*="/rantefritt"]::after,
 .mobile-nav a[href*="/kampanjer"]::after {
   content: "Kommer snart";
   display: inline-block; vertical-align: middle;
@@ -790,6 +789,10 @@ html, body { overflow-x: clip; max-width: 100vw; }
 .treatment-hero .th-stat-value { font-family:var(--font-serif); font-weight:300; font-size:clamp(40px,4vw,56px); line-height:0.95; letter-spacing:-0.03em; margin-bottom:8px; }
 .treatment-hero .th-stat-sub { font-size:12px; color:rgba(255,255,255,0.7); line-height:1.5; }
 .treatment-hero .th-mobile-bg { display:none; position:absolute; inset:0; background-size:cover; background-position:center; opacity:0.18; filter:saturate(0.6); }
+.treatment-hero .th-review-widget { margin-top:20px; }
+.treatment-hero .th-review-widget .ti-widget,
+.treatment-hero .th-review-widget .ti-widget-container,
+.treatment-hero .th-review-widget .ti-header { text-align:left !important; justify-content:flex-start !important; margin-left:0 !important; }
 
 /* ── PageHero (Barnspecialist — ingen foto) ─────────────────────── */
 .page-hero { background:var(--cream); padding:96px 0; border-bottom:1px solid var(--border); }
@@ -814,13 +817,13 @@ html, body { overflow-x: clip; max-width: 100vw; }
 /* ── FactStrip (Barnspecialist) ─────────────────────────────────── */
 .fact-strip { background:var(--white); padding:64px 0; }
 .fact-strip .fs-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); }
-.cb-section { padding:96px 0; }
+.cb-section { padding:64px 0; }
 .cb-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; }
 .cb-grid--mirror .cb-text { order:2; }
 .cb-grid--mirror .cb-img  { order:1; }
 .cb-grid--normal .cb-text { order:1; }
 .cb-grid--normal .cb-img  { order:2; }
-.cb-img { width:100%; aspect-ratio:4/5; overflow:hidden; border-radius:var(--radius-sm); background:var(--blush-100); }
+.cb-img { width:100%; aspect-ratio:4/5; overflow:hidden; border-radius:var(--radius-sm); background:var(--blush-100); max-height:460px; }
 .fact-strip .fs-cell { background:var(--white); padding:36px 28px; }
 .fact-strip .fs-value { font-family:var(--font-serif); font-weight:300; font-size:48px; line-height:1; letter-spacing:-0.03em; color:var(--ink-700); margin-bottom:14px; }
 .fact-strip .fs-label { font-size:14px; color:var(--ink-500); line-height:1.5; }
@@ -877,7 +880,15 @@ html, body { overflow-x: clip; max-width: 100vw; }
   font-family:var(--font-serif); font-size:28px; font-weight:400; letter-spacing:-0.02em;
   padding-left:28px; border-left:1px solid rgba(255,255,255,0.3); }
 .es-ring { font-size:10px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; font-family:var(--font-sans); }
-@media (max-width:700px) { .es-serif { display:none; } .es-phone { border-left:none; padding-left:0; } }
+@media (max-width:700px) {
+  .emergency-strip { padding:14px 0; }
+  .es-inner { gap:10px 14px; flex-direction:column; align-items:flex-start; }
+  .es-left { gap:10px; flex-wrap:wrap; }
+  .es-serif { display:none; }
+  .es-label { font-size:10px; letter-spacing:.16em; }
+  .es-phone { border-left:none; padding-left:0; font-size:16px; gap:10px; align-self:stretch; justify-content:space-between; padding-top:8px; border-top:1px solid rgba(255,255,255,.15); width:100%; }
+  .es-ring { font-size:9px; letter-spacing:.18em; }
+}
 
 /* ── Triage Grid ────────────────────────────────────────────── */
 .triage-grid { background:var(--white); padding:var(--space-10) 0; }
@@ -950,11 +961,16 @@ html, body { overflow-x: clip; max-width: 100vw; }
   .treatment-hero h1 { color:var(--white); }
   .treatment-hero h1 em { color:var(--sage-300) !important; }
   .treatment-hero .th-lead { color:rgba(255,255,255,0.75) !important; }
-  .treatment-hero .th-bullet { color:rgba(255,255,255,0.85) !important; }
+  .treatment-hero .th-bullet { color:rgba(255,255,255,0.85) !important; font-size:20px; }
+  .page-hero .ph-bullet { font-size:20px; }
   .treatment-hero .th-bullets { border-top-color:rgba(255,255,255,0.15) !important; }
   .treatment-hero .eyebrow { color:var(--sage-300) !important; }
   .treatment-hero .btn-ghost { color:var(--white); border-color:rgba(255,255,255,0.4); }
   .treatment-hero .btn-ghost:hover { background:rgba(255,255,255,0.1); }
+  .treatment-hero .btn-primary { background:var(--white) !important; color:var(--ink-700) !important; border-color:var(--white) !important; }
+  .treatment-hero .btn-primary:hover { background:var(--ink-100) !important; color:var(--ink-700) !important; }
+  .treatment-hero .th-ctas { justify-content:center; flex-direction:column; align-items:stretch; }
+  .treatment-hero .th-ctas .btn { width:100%; justify-content:center; }
   .page-hero .ph-grid { grid-template-columns:1fr; gap:40px; }
   .cta-strip .cs-grid { grid-template-columns:1fr; }
   .cta-strip .cs-actions { justify-self:start; }
@@ -1124,6 +1140,68 @@ html, body { overflow-x: clip; max-width: 100vw; }
   .footer-partners .ps-logo img { height: 44px; }
   .footer-partners .ps-logo.ps-logo-round img { height: 64px; }
 }
+
+/* ── Lumo premium badge + tooltip — delad mellan alla premium-komponenter ── */
+.lumo-premium-badge { display:inline-flex; align-items:center; gap:6px; padding:4px 9px; background:rgba(10,10,10,.88); border:1px solid rgba(201,161,74,.6); border-radius:var(--radius-sm); color:#c9a14a; font-size:9px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; position:relative; margin-left:12px; cursor:pointer; user-select:none; transition:border-color .2s,color .2s; }
+.lumo-premium-badge.lumo-mode-basic { border-color:rgba(120,120,120,.4)!important; color:var(--fg-subtle)!important; }
+.lumo-premium-badge.lumo-mode-basic .lumo-premium-dot { background:var(--fg-subtle); }
+.lumo-premium-badge.lumo-mode-basic::before { animation:none; opacity:0; }
+.lumo-premium-badge.lumo-mode-basic .lumo-tooltip { display:none; }
+
+/* Toggle-bar = top-row som behåller eyebrow + badge synlig i basic-läge */
+/* Collapse-animation för fm/ts/cc — innehållet glider ihop med smooth height+opacity transition */
+.fm-section, .ts-section, .cc-section { transition:padding .35s ease; }
+.fm-section .fm-header > div > h2, .fm-section .fm-header-meta, .fm-section .fm-grid,
+.ts-section .ts-header > div > h2, .ts-section .ts-header-meta, .ts-section [data-treatment-stepper], .ts-section .ts-bottom,
+.cc-section .cc-header > div > h2, .cc-section .cc-header-meta, .cc-section [data-cost-calc],
+.fm-section .fm-premium-note, .ts-section .ts-premium-note {
+  max-height:6000px; opacity:1; overflow:hidden;
+  transition:max-height .4s ease, opacity .25s ease, margin .35s ease;
+}
+.fm-section.lumo-mode-basic, .ts-section.lumo-mode-basic, .cc-section.lumo-mode-basic { padding:24px 0; border-bottom:1px solid var(--border); }
+.fm-section.lumo-mode-basic .fm-header, .ts-section.lumo-mode-basic .ts-header, .cc-section.lumo-mode-basic .cc-header {
+  margin-bottom:0; padding-bottom:0; border-bottom:none;
+  transition:margin-bottom .35s ease, padding-bottom .35s ease;
+}
+.fm-section.lumo-mode-basic .fm-header > div > h2, .fm-section.lumo-mode-basic .fm-header-meta, .fm-section.lumo-mode-basic .fm-grid,
+.ts-section.lumo-mode-basic .ts-header > div > h2, .ts-section.lumo-mode-basic .ts-header-meta, .ts-section.lumo-mode-basic [data-treatment-stepper], .ts-section.lumo-mode-basic .ts-bottom,
+.cc-section.lumo-mode-basic .cc-header > div > h2, .cc-section.lumo-mode-basic .cc-header-meta, .cc-section.lumo-mode-basic [data-cost-calc],
+.fm-section.lumo-mode-basic .fm-premium-note, .ts-section.lumo-mode-basic .ts-premium-note {
+  max-height:0; opacity:0; margin-top:0; margin-bottom:0; padding-top:0; padding-bottom:0;
+}
+
+/* Mobil — centrera alla knappar/CTA-grupper på hela sajten (utom hero som har egen logik) */
+@media (max-width:900px) {
+  .cb-text > div[style*="display:flex"] { justify-content:center; }
+  .ts-bottom-ctas { justify-content:center; align-items:stretch; }
+  .cta-strip .cs-actions { justify-content:center; justify-self:center; }
+  .price-row .pr-actions { justify-content:center; }
+  .pmc-result { justify-content:center; }
+  .cc-card-cta { justify-content:center; }
+  .ph-right { justify-content:center; }
+  .ph-right .btn { justify-content:center; }
+  .fm-actions { align-items:stretch; }
+  .arbeta-actions { justify-content:center; }
+  .org-form-wrap .btn, .feedback-form-wrap .btn { width:100%; justify-content:center; }
+  .lumo-contact-form button[type="submit"] { width:100%; justify-content:center; }
+}
+
+/* Swap-animation för pmc/dtw — content fade:as in från botten när det visas */
+@keyframes lumo-swap-in { 0% { opacity:0; transform:translateY(10px); } 100% { opacity:1; transform:translateY(0); } }
+#pmc-body, #pmc-basic-panel, #dtw-body, #dtw-triage-panel { animation:lumo-swap-in .35s var(--ease-standard, ease) both; }
+.lumo-premium-badge::before { content:''; position:absolute; inset:-5px; border-radius:5px; border:1.5px solid rgba(201,161,74,.75); animation:lumo-premium-ring 2.4s ease-in-out infinite; pointer-events:none; }
+.lumo-premium-dot { width:5px; height:5px; border-radius:50%; background:#c9a14a; flex-shrink:0; }
+@keyframes lumo-premium-ring { 0%,100% { opacity:.25; } 50% { opacity:.85; } }
+
+.lumo-tooltip { position:absolute; left:calc(100% + 14px); top:0; transform:translateX(8px); width:280px; background:var(--ink-900); color:var(--white); border-radius:6px; padding:18px 20px; pointer-events:none; opacity:0; transition:opacity .2s ease, transform .2s ease; white-space:normal; text-transform:none; letter-spacing:0; font-weight:400; z-index:200; box-shadow:0 12px 32px rgba(0,0,0,0.3); }
+.lumo-tooltip::after { content:''; position:absolute; top:10px; right:100%; border:6px solid transparent; border-right-color:var(--ink-900); }
+.lumo-premium-badge:hover .lumo-tooltip { opacity:1; transform:translateX(0); }
+.lumo-tt-title { font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.5); margin-bottom:12px; }
+.lumo-tt-list { list-style:none; padding:0; margin:0 0 14px; display:flex; flex-direction:column; gap:8px; }
+.lumo-tt-list li { font-size:12px; line-height:1.5; padding-left:16px; position:relative; color:rgba(255,255,255,.88); }
+.lumo-tt-list li::before { content:'✓'; position:absolute; left:0; color:#22c55e; font-size:10px; top:1px; }
+.lumo-tt-note { font-size:10px; color:rgba(255,255,255,.38); border-top:1px solid rgba(255,255,255,.1); padding-top:10px; line-height:1.5; }
+@media (max-width:780px) { .lumo-tooltip { display:none; } }
 """
 
 # ---------------------------------------------------------------------------
@@ -1131,7 +1209,7 @@ html, body { overflow-x: clip; max-width: 100vw; }
 # ---------------------------------------------------------------------------
 BASE_IMG = "https://swordfish.templweb.com/wp-content/uploads/2026/05/"
 
-ACTIVE_TREATMENTS: set[str] = {
+ALL_TREATMENT_SLUGS: set[str] = {
     "akut-tandvard",
     "implantat",
     "karies-hal-i-tanden",
@@ -1141,6 +1219,14 @@ ACTIVE_TREATMENTS: set[str] = {
     "tandsten-tandhygienist",
     "tandvardsradsla",
 }
+
+ACTIVE_TREATMENTS: set[str] = {
+    "akut-tandvard",      # premium: dental-triage-widget
+    "implantat",          # premium: treatment-stepper + payment-calculator
+    "tandvardsradsla",    # premium: fear-matcher
+}
+
+INACTIVE_TREATMENTS: set[str] = ALL_TREATMENT_SLUGS - ACTIVE_TREATMENTS
 
 # ---------------------------------------------------------------------------
 # Per-page hero data (from approved mockups in design-system/)
@@ -1274,9 +1360,9 @@ TREATMENT_PAGE_DATA: dict[str, dict] = {
         "faq_q_1": "Hur bokar jag en akuttid hos er?",
         "faq_a_1": "Ring oss direkt på 08-12 85 45 55. Vi har avsatta tider för akuta patienter och gör vårt bästa för att du ska få en tid redan samma dag, även på kvällar och lördagar.",
         "faq_q_2": "Vad kostar ett akutbesök?",
-        "faq_a_2": "En akut undersökning kostar 575 kr (440 kr för nya patienter). Eventuell behandling prissätts efter undersökningen. Vi följer Folktandvårdens prislista och är anslutna till Försäkringskassan.",
+        "faq_a_2": "En akut undersökning kostar 575 kr (445 kr för nya patienter). Eventuell behandling prissätts efter undersökningen. Vi följer Folktandvårdens prislista och är anslutna till Försäkringskassan.",
         "faq_q_3": "Har ni öppet för akutbesök på kvällar och helger?",
-        "faq_a_3": "Ja — öppet till 20:00 måndag–torsdag och lördagar 09:00–15:00. Ring oss för att boka.",
+        "faq_a_3": "Ja — öppet till 20:00 måndag–torsdag och lördagar 09:00–15:00. Boka enkelt via bokningsmodulen på sidan, eller ring oss om du föredrar det.",
         "faq_q_4": "Hur hanterar ni patienter med tandvårdsrädsla?",
         "faq_a_4": "Vi möter alla med förståelse och extra tålamod. Berätta om din rädsla när du bokar så anpassar vi besöket.",
     },
@@ -1624,7 +1710,32 @@ html.header-light .mobile-nav .mn-item-cta .btn { background: var(--ink-700) !im
         " .hero-bleed.hero-bg-video .hb-bg-video--mobile { opacity: 1; pointer-events: auto; }"
         " }"
     )
-    style_block = f"<style>\n{tokens_css}\n{LAYOUT_CSS}\n{header_variant_css}\n{header_light_override}\n{hero_bg_css}\n</style>"
+    def _sel_link(s: str) -> str:
+        return (
+            f'.site-header nav a[href*="/{s}/"],.site-header nav a[href$="/{s}"],'
+            f'.mobile-nav a[href*="/{s}/"],.mobile-nav a[href$="/{s}"],'
+            f'.footer-col a[href*="/{s}/"],.footer-col a[href$="/{s}"],'
+            f'.site-footer a[href*="/{s}/"],.site-footer a[href$="/{s}"]'
+        )
+    def _sel_card(s: str) -> str:
+        return f'.treatment-card[href*="/{s}/"],.treatment-card[href$="/{s}"]'
+    def _sel_card_after(s: str) -> str:
+        return f'.treatment-card[href*="/{s}/"]::after,.treatment-card[href$="/{s}"]::after'
+
+    if INACTIVE_TREATMENTS:
+        slugs_sorted = sorted(INACTIVE_TREATMENTS)
+        link_sel  = ",".join(_sel_link(s) for s in slugs_sorted)
+        card_sel  = ",".join(_sel_card(s) for s in slugs_sorted)
+        after_sel = ",".join(_sel_card_after(s) for s in slugs_sorted)
+        inactive_css = (
+            f"{link_sel}{{opacity:.3!important;pointer-events:none!important;cursor:default!important;}}"
+            f"{card_sel}{{position:relative;pointer-events:none!important;cursor:default!important;}}"
+            f"{after_sel}"
+            "{content:'Kommer\\Asnart';white-space:pre;text-align:center;line-height:1.15;position:absolute;top:14px;right:14px;background:rgba(0,0,0,.55);color:#fff;font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;padding:5px 8px;border-radius:3px;backdrop-filter:blur(4px);z-index:5;}"
+        )
+    else:
+        inactive_css = ""
+    style_block = f"<style>\n{tokens_css}\n{LAYOUT_CSS}\n{header_variant_css}\n{header_light_override}\n{hero_bg_css}\n{inactive_css}\n</style>"
     onload_js = """<script>
 (function(){
   var done=false;
@@ -1633,6 +1744,16 @@ html.header-light .mobile-nav .mn-item-cta .btn { background: var(--ink-700) !im
   if(document.readyState!=='loading'){r();}else document.addEventListener('DOMContentLoaded',r);
   setTimeout(r,600);
 })();
+/* Lumo premium toggle — Premium <-> Basic (sektionen kollapsar i Basic, badge syns kvar) */
+window.lumoToggle = function(badge) {
+  if (!badge) return;
+  var section = badge.closest('.fm-section, .ts-section, .cc-section');
+  if (!section) return;
+  var isBasic = section.classList.toggle('lumo-mode-basic');
+  badge.classList[isBasic ? 'add' : 'remove']('lumo-mode-basic');
+  var lbl = badge.querySelector('.lumo-mode-lbl');
+  if (lbl) lbl.textContent = isBasic ? 'Basic' : 'Premium';
+};
 /* Mobile nav — byggs dynamiskt från WP-renderad desktop-nav */
 (function(){
   function buildMobileNav(){
@@ -1910,7 +2031,7 @@ def build_treatments_grid() -> dict:
     cards_html = ""
     for i, (name, count, badge, href, img) in enumerate(TREATMENTS, start=1):
         badge_html = (
-            f'<div class="tc-badge"><span class="tc-badge-dot"></span>Öppet nu</div>'
+            '<div class="tc-badge" data-clinic-status><span class="tc-badge-dot"></span><span data-clinic-status-label>·</span></div>'
             if badge else ""
         )
         cards_html += f"""
@@ -1926,6 +2047,65 @@ def build_treatments_grid() -> dict:
   </div>
 </a>"""
 
+    clinic_status_js = """
+<script>
+(function(){
+  var DAYS = ['mån','tis','ons','tor','fre','lör'];
+  var HOURS = {1:[420,1200],2:[420,1200],3:[420,1200],4:[420,1200],5:[420,1020],6:[540,900]};
+  /* Mån-Tor 07-20, Fre 07-17, Lör 09-15, Sön stängt. Minuter sedan midnatt. */
+  function nowStockholm(){
+    try {
+      var fmt = new Intl.DateTimeFormat('en-US',{timeZone:'Europe/Stockholm',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false});
+      var parts = {};
+      fmt.formatToParts(new Date()).forEach(function(p){ parts[p.type] = p.value; });
+      var wkMap = {Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
+      var day = wkMap[parts.weekday];
+      var hour = parseInt(parts.hour,10);
+      if (hour === 24) hour = 0;
+      var min = hour*60 + parseInt(parts.minute,10);
+      return { day: day, min: min };
+    } catch(e) { return null; }
+  }
+  function nextOpen(day, mins){
+    for(var i=0;i<7;i++){
+      var d = (day+i)%7;
+      var h = HOURS[d];
+      if(!h) continue;
+      if(i===0){ if(mins < h[0]) return { day: d, min: h[0], today: true }; continue; }
+      return { day: d, min: h[0], today: false };
+    }
+    return null;
+  }
+  function fmt(min){ var h=Math.floor(min/60), m=min%60; return (h<10?'0':'')+h+':'+(m<10?'0':'')+m; }
+  function update(){
+    var t = nowStockholm();
+    if(!t) return;
+    var h = HOURS[t.day];
+    var isOpen = false;
+    if (h) { if (t.min >= h[0]) { if (t.min < h[1]) { isOpen = true; } } }
+    document.querySelectorAll('[data-clinic-status]').forEach(function(el){
+      var lbl = el.querySelector('[data-clinic-status-label]');
+      if(isOpen){
+        el.classList.remove('is-closed');
+        if(lbl) lbl.textContent = 'Öppet nu';
+      } else {
+        var n = nextOpen(t.day, t.min);
+        el.classList.add('is-closed');
+        if(lbl){
+          if(n){
+            lbl.textContent = n.today ? ('Öppnar ' + fmt(n.min)) : ('Öppnar ' + DAYS[n.day-1] + ' ' + fmt(n.min));
+          } else { lbl.textContent = 'Stängt'; }
+        }
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',update);
+  else update();
+  setInterval(update, 60000);
+})();
+</script>
+<style>.tc-badge.is-closed{background:rgba(60,60,60,.92);}.tc-badge.is-closed .tc-badge-dot{background:#9a9a9a;}</style>
+"""
     html = f"""
 <section class="treatments-section section">
   <div class="container-wide">
@@ -1942,6 +2122,7 @@ def build_treatments_grid() -> dict:
     <div class="treatments-grid">{cards_html}</div>
   </div>
 </section>
+{clinic_status_js}
 """
     schema = []
     for i, (name, count, _, href, img) in enumerate(TREATMENTS, start=1):
@@ -2094,7 +2275,6 @@ def build_team() -> dict:
       </div>
       <div class="team-hdr-right">
         <p>Tandläkare, tandhygienister och tandsköterskor som brinner för din munhälsa. Vi vidareutbildar oss kontinuerligt och möter dig alltid med tid, lugn och förståelse.</p>
-        <a href="/om-oss" class="btn btn-ghost">Lär känna oss</a>
       </div>
     </div>
     <div class="team-grid">{members_html}</div>
@@ -2251,7 +2431,7 @@ def build_site_footer() -> dict:
     return {
         "block_name": "lumo/site-footer",
         "title": "Sidfot",
-        "html_template": collapse(html),
+        "html_template": collapse(html) + build_premium_tour_html(),
         "schema": [
             {"name": "copyright_text", "type": "text", "label": "Copyright",
              "default": "© 2026 Älvsjö Tandvård AB · Org.nr 559089-8598"},
@@ -2345,7 +2525,7 @@ def build_treatment_hero_shared() -> dict:
     <div class="eyebrow" style="margin-bottom:20px;color:var(--sage-600);">{{eyebrow}}</div>
     <div class="th-grid">
       <div class="th-left">
-        <h1>{{title}} <em>{{title_italic}}</em></h1>
+        <h1>{{title}}<br><em>{{title_italic}}</em></h1>
         <div>
           <p class="lead th-lead">{{ingress}}</p>
           <div class="th-bullets">
@@ -2354,10 +2534,11 @@ def build_treatment_hero_shared() -> dict:
             <div class="th-bullet"><span class="th-num">03</span>{{bullet_3}}</div>
             <div class="th-bullet"><span class="th-num">04</span>{{bullet_4}}</div>
           </div>
-          <div style="display:flex;gap:12px;">
+          <div class="th-ctas" style="display:flex;gap:12px;">
             <a href="#tdl-booking-widget" class="btn btn-primary">Boka tid</a>
             <a href="tel:+46812854555" class="btn btn-ghost">Ring oss</a>
           </div>
+          <div class="th-review-widget">[trustindex data-widget-id=0771e9d71a88743f97661278b10]</div>
         </div>
       </div>
       <div class="th-right">
@@ -2447,7 +2628,7 @@ def build_page_hero_barnspecialist() -> dict:
   <div class="container-wide">
     <div class="eyebrow" style="margin-bottom:32px;color:var(--sage-600);">{{{{eyebrow}}}}</div>
     <div class="ph-grid">
-      <h1>{{{{title}}}} <em>{{{{title_italic}}}}</em></h1>
+      <h1>{{{{title}}}}<br><em>{{{{title_italic}}}}</em></h1>
       <div class="ph-right">
         <p class="lead ph-lead">{{{{ingress}}}}</p>
         <div class="ph-bullets">
@@ -2918,6 +3099,8 @@ def build_cta_strip(slug: str) -> dict:
         d = BARNSPECIALIST_DATA
     elif slug == "kontakt":
         d = KONTAKT_CTA_DATA
+    elif slug == "rantefritt":
+        d = {"cta_title": "Boka en konsultation.", "cta_sub": "Vi går igenom kostnaden och en plan för delbetalning tillsammans — innan du tar beslut."}
     else:
         d = TREATMENT_HERO_DATA[slug]
     html = f"""
@@ -3013,33 +3196,206 @@ def build_emergency_strip() -> dict:
     }
 
 
+def build_payment_calculator() -> dict:
+    html = """
+<section id="kostnadskalkylator" class="pmc-section">
+<style>
+.pmc-section{background:var(--white);padding:96px 0;scroll-margin-top:120px;}
+.pmc-hdr{display:grid;grid-template-columns:1fr auto;align-items:end;gap:32px;margin-bottom:56px;padding-bottom:28px;border-bottom:1px solid var(--border);}.pmc-hdr.pmc-no-divider{border-bottom:none;padding-bottom:0;}
+.pmc-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start;}
+.pmc-card{background:var(--cream);padding:48px 48px 56px;border:1px solid var(--border);}
+.pmc-slider-row{display:flex;flex-direction:column;gap:32px;}
+.pmc-slider-item{display:flex;flex-direction:column;gap:12px;}
+.pmc-slider-header{display:flex;justify-content:space-between;align-items:baseline;}
+.pmc-slider-label{font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg-subtle);}
+.pmc-slider-value{font-family:var(--font-serif);font-size:22px;font-weight:400;color:var(--ink-700);}
+.pmc-range{width:100%;accent-color:var(--sage-600);cursor:pointer;}
+.pmc-result{padding-top:28px;border-top:1px solid var(--border);display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:32px;}
+.pmc-result-lbl{display:flex;flex-direction:column;gap:6px;flex-shrink:0;}
+.pmc-result-title{font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--fg-subtle);}
+.pmc-result-note{font-size:12px;color:var(--ink-500);white-space:nowrap;}
+.pmc-result-amount{font-family:var(--font-serif);font-weight:300;font-size:64px;line-height:1;letter-spacing:-0.03em;color:var(--ink-700);}
+.pmc-result-unit{font-family:var(--font-serif);font-size:22px;color:var(--ink-500);}
+.pmc-basic{font-size:15px;color:var(--ink-500);line-height:1.7;}
+.pmc-premium{cursor:pointer;user-select:none;}
+.pmc-premium.pmc-mode-basic{border-color:rgba(120,120,120,0.4)!important;color:var(--fg-subtle)!important;}
+.pmc-premium.pmc-mode-basic .lumo-premium-dot{background:var(--fg-subtle);}
+.pmc-premium.pmc-mode-basic::before{animation:none;opacity:0;}
+.pmc-premium.pmc-mode-basic .lumo-tooltip{display:none;}
+@media(max-width:900px){.pmc-grid{grid-template-columns:1fr;gap:48px;}.pmc-card{padding:32px 24px 40px;}.pmc-hdr{grid-template-columns:1fr;gap:16px;}.pmc-basic .pmc-grid{grid-template-columns:1fr;}.pmc-section{padding:64px 0;}#pmc-subtext{display:none;}}
+@media(max-width:600px){.pmc-result{flex-direction:column;align-items:flex-start;gap:12px;}.pmc-result-amount{font-size:48px;}.pmc-hdr p{text-align:left;}}
+</style>
+<div class="container-wide">
+  <div class="pmc-hdr">
+    <div>
+      <div style="margin-bottom:12px;display:flex;align-items:center;">
+        <span class="eyebrow" id="pmc-eyebrow">{{eyebrow}}</span>
+        <span class="pmc-premium lumo-premium-badge" id="pmc-mode-btn" onclick="pmcToggle()"><span class="lumo-premium-dot"></span><span id="pmc-mode-lbl">Premium</span><!--TT-PMC--></span>
+      </div>
+      <h2 id="pmc-heading" style="max-width:22ch;">Räkna på din <em style="color:var(--sage-600);font-family:var(--font-serif);font-style:italic;font-weight:400;">räntefria</em> månadskostnad.</h2>
+    </div>
+    <p class="small" id="pmc-subtext" style="max-width:32ch;text-align:right;margin:0;">{{description}}</p>
+  </div>
+  <div id="pmc-body">
+    <div class="pmc-grid">
+      <div>
+        <img src="https://swordfish.templweb.com/wp-content/uploads/2026/05/reception.jpg" alt="" style="width:100%;height:260px;object-fit:cover;border-radius:var(--radius-md);margin-bottom:28px;">
+        <div style="font-size:15px;color:var(--ink-500);line-height:1.7;">
+          <p>På Älvsjö Tandvård erbjuder vi <strong>räntefri delbetalning</strong> i upp till 12 månader via våra samarbetspartners. Detta ger dig flexibilitet att sprida kostnaden över tid och få den vård du behöver när du behöver den.</p>
+          <p style="margin-top:16px;">Vår reception hjälper dig med ansökan och att hitta det bästa upplägget för dig, förutsatt en godkänd kreditprövning.</p>
+          <p style="margin-top:16px;font-size:13px;color:var(--fg-subtle);">Delbetalning är ett ekonomiskt åtagande. Om du inte kan betala tillbaka i tid riskerar du en betalningsanmärkning. För rådgivning — vänd dig till budget- och skuldrådgivningen i din kommun.</p>
+        </div>
+      </div>
+      <div class="pmc-card">
+        <div class="pmc-slider-row">
+          <div class="pmc-slider-item">
+            <div class="pmc-slider-header">
+              <span class="pmc-slider-label">Behandlingens belopp</span>
+              <span class="pmc-slider-value" id="pmc-amount-lbl">15 000 kr</span>
+            </div>
+            <input type="range" class="pmc-range" id="pmc-amount" min="3000" max="60000" step="500" value="15000">
+          </div>
+          <div class="pmc-slider-item">
+            <div class="pmc-slider-header">
+              <span class="pmc-slider-label">Antal månader</span>
+              <span class="pmc-slider-value" id="pmc-months-lbl">11 månader</span>
+            </div>
+            <input type="range" class="pmc-range" id="pmc-months" min="3" max="12" step="1" value="11">
+          </div>
+        </div>
+        <div class="pmc-result">
+          <div class="pmc-result-lbl">
+            <span class="pmc-result-title">Din månadskostnad</span>
+            <span class="pmc-result-note">räntefritt — ingen uppläggningsavgift</span>
+          </div>
+          <div>
+            <span class="pmc-result-amount" id="pmc-monthly">1 250</span><span class="pmc-result-unit"> kr/mån</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:32px;">
+          <a href="#tdl-booking-widget" class="btn btn-primary" style="flex:1;justify-content:center;">Boka tid</a>
+          <a href="tel:08-12 85 45 55" class="btn btn-ghost" style="flex:1;justify-content:center;">Ring oss</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="pmc-basic-panel" style="display:none">
+    <div class="pmc-basic">
+      <div class="pmc-grid">
+        <div>
+          <div style="font-size:15px;color:var(--ink-500);line-height:1.7;">
+            <p>På Älvsjö Tandvård erbjuder vi <strong>räntefri delbetalning</strong> i upp till 12 månader via våra samarbetspartners. Detta ger dig flexibilitet att sprida kostnaden över tid och få den vård du behöver när du behöver den.</p>
+            <p style="margin-top:16px;">Vår reception hjälper dig med ansökan och att hitta det bästa upplägget för dig, förutsatt en godkänd kreditprövning.</p>
+            <p style="margin-top:16px;font-size:13px;color:var(--fg-subtle);">Delbetalning är ett ekonomiskt åtagande. Om du inte kan betala tillbaka i tid riskerar du en betalningsanmärkning. För rådgivning — vänd dig till budget- och skuldrådgivningen i din kommun.</p>
+          </div>
+          <a href="tel:08-12854555" class="btn btn-primary" style="margin-top:32px;background:var(--ink-700);color:var(--white);border-color:var(--ink-700);">Ring oss</a>
+        </div>
+        <div style="display:flex;align-items:center;"><img src="https://swordfish.templweb.com/wp-content/uploads/2026/05/reception.jpg" alt="" style="width:100%;height:340px;object-fit:cover;border-radius:var(--radius-md);"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(function() {
+  function fmt(n) { return n.toLocaleString('sv-SE'); }
+  function update() {
+    var amount = parseInt(document.getElementById('pmc-amount').value, 10);
+    var months = parseInt(document.getElementById('pmc-months').value, 10);
+    document.getElementById('pmc-amount-lbl').textContent = fmt(amount) + ' kr';
+    document.getElementById('pmc-months-lbl').textContent = months + ' månader';
+    document.getElementById('pmc-monthly').textContent = fmt(Math.round(amount / months));
+  }
+  var a = document.getElementById('pmc-amount');
+  var m = document.getElementById('pmc-months');
+  if (a && m) { a.addEventListener('input', update); m.addEventListener('input', update); }
+  var pmcLive = false;
+  var pmcT0 = null;
+  function pmcAnimate(ts) {
+    if (!pmcLive) return;
+    if (!pmcT0) pmcT0 = ts;
+    var t = (ts - pmcT0) / 20000;
+    var val = Math.round(4000 + 46000 * (0.5 + 0.5 * Math.cos(t * Math.PI * 2)));
+    val = Math.round(val / 500) * 500;
+    if (a) a.value = val;
+    update();
+    requestAnimationFrame(pmcAnimate);
+  }
+  function pmcStop() { pmcLive = false; }
+  if (a) { a.addEventListener('mousedown', pmcStop); a.addEventListener('touchstart', pmcStop); }
+  if (m) { m.addEventListener('mousedown', pmcStop); m.addEventListener('touchstart', pmcStop); }
+  var pmcSection = document.querySelector('.pmc-section');
+  if (pmcSection && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function(entries, obs) {
+      if (entries[0].isIntersecting) {
+        pmcLive = true;
+        pmcT0 = null;
+        requestAnimationFrame(pmcAnimate);
+        obs.disconnect();
+      }
+    }, { threshold: 0.2 }).observe(pmcSection);
+  }
+  window.pmcToggle = function() {
+    var body    = document.getElementById('pmc-body');
+    var panel   = document.getElementById('pmc-basic-panel');
+    var lbl     = document.getElementById('pmc-mode-lbl');
+    var btn     = document.getElementById('pmc-mode-btn');
+    var sub     = document.getElementById('pmc-subtext');
+    var eyebrow = document.getElementById('pmc-eyebrow');
+    var heading = document.getElementById('pmc-heading');
+    var hdr     = document.querySelector('.pmc-hdr');
+    if (!body || !panel) return;
+    var isPremium = body.style.display !== 'none';
+    body.style.display  = isPremium ? 'none' : '';
+    panel.style.display = isPremium ? ''     : 'none';
+    if (lbl) lbl.textContent = isPremium ? 'Basic' : 'Premium';
+    if (btn) btn.classList[isPremium ? 'add' : 'remove']('pmc-mode-basic');
+    if (hdr) hdr.classList[isPremium ? 'add' : 'remove']('pmc-no-divider');
+    if (sub) {
+      if (!sub.dataset.premium) sub.dataset.premium = sub.textContent;
+      sub.textContent = isPremium ? 'Prata med receptionen — vi hjälper dig hitta ett upplägg som passar.' : sub.dataset.premium;
+    }
+    if (eyebrow) {
+      if (!eyebrow.dataset.premium) eyebrow.dataset.premium = eyebrow.textContent;
+      eyebrow.textContent = isPremium ? 'Så fungerar det' : eyebrow.dataset.premium;
+    }
+    if (heading) {
+      if (!heading.dataset.premium) heading.dataset.premium = heading.innerHTML;
+      if (isPremium) { heading.textContent = 'Räntefri delbetalning hos oss.'; } else { heading.innerHTML = heading.dataset.premium; }
+    }
+  };
+})();
+</script>
+</section>
+"""
+    html = html.replace("<!--TT-PMC-->", lumo_tooltip("kostnadskalkylator"))
+    return {
+        "block_name": "lumo/payment-calculator",
+        "title": "Betalningskalkylator",
+        "html_template": collapse(html),
+        "schema": [
+            {"name": "eyebrow",     "type": "text",     "label": "Etikett",      "default": "Räkneexempel"},
+            {"name": "heading",     "type": "text",     "label": "Rubrik",       "default": "Räkna på din månadskostnad."},
+            {"name": "description", "type": "textarea", "label": "Beskrivning",  "default": "Ett enkelt sätt att se hur en behandling kan delas upp. Den exakta lösningen tas fram tillsammans med vår reception och godkänns av vår kreditpartner."},
+        ],
+    }
+
+
 def build_dental_triage_widget() -> dict:
     html = """
-<section class="dtw-section">
+<section id="symptom-triage" class="dtw-section">
 <style>
-.dtw-section{background:var(--bg-soft);padding:var(--space-9) 0;border-bottom:1px solid var(--border);}
+.dtw-section{background:var(--bg-soft);padding:var(--space-9) 0;border-bottom:1px solid var(--border);scroll-margin-top:120px;}
 .dtw-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:80px;align-items:start;}
 .dtw-left{position:sticky;top:120px;}
 .dtw-trust{display:flex;flex-direction:column;gap:12px;margin-top:32px;}
 .dtw-trust-item{display:flex;align-items:flex-start;gap:12px;}
 .dtw-trust-dot{width:6px;height:6px;border-radius:50%;background:var(--blush-400);flex-shrink:0;margin-top:6px;}
 .dtw-section-hdr{display:grid;grid-template-columns:1fr auto;align-items:end;gap:32px;margin-bottom:48px;padding-bottom:28px;border-bottom:1px solid var(--border);}
-.dtw-premium{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;background:rgba(10,10,10,0.88);border:1px solid rgba(249,115,22,0.55);border-radius:4px;color:#f97316;font-size:9px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;position:relative;vertical-align:middle;margin-left:10px;backdrop-filter:blur(4px);cursor:pointer;user-select:none;transition:border-color .2s,color .2s;}
-.dtw-premium.dtw-mode-basic{border-color:rgba(120,120,120,0.4);color:var(--fg-subtle);}
-.dtw-premium.dtw-mode-basic .dtw-premium-dot{background:var(--fg-subtle);}
+.dtw-premium{cursor:pointer;user-select:none;}
+.dtw-premium.dtw-mode-basic{border-color:rgba(120,120,120,0.4)!important;color:var(--fg-subtle)!important;}
+.dtw-premium.dtw-mode-basic .lumo-premium-dot{background:var(--fg-subtle);}
 .dtw-premium.dtw-mode-basic::before{animation:none;opacity:0;}
-.dtw-tooltip{position:absolute;bottom:calc(100% + 12px);left:50%;transform:translateX(-50%);width:280px;background:var(--ink-900);color:var(--white);border-radius:6px;padding:18px 20px;pointer-events:none;opacity:0;transition:opacity .2s ease;white-space:normal;text-transform:none;letter-spacing:0;font-weight:400;z-index:200;box-shadow:0 12px 32px rgba(0,0,0,0.3);}
-.dtw-tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--ink-900);}
-.dtw-premium:hover .dtw-tooltip{opacity:1;}
-.dtw-premium.dtw-mode-basic .dtw-tooltip{display:none;}
-.dtw-tt-title{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:12px;}
-.dtw-tt-list{list-style:none;padding:0;margin:0 0 14px;display:flex;flex-direction:column;gap:8px;}
-.dtw-tt-list li{font-size:12px;line-height:1.5;padding-left:16px;position:relative;color:rgba(255,255,255,0.88);}
-.dtw-tt-list li::before{content:'✓';position:absolute;left:0;color:#22c55e;font-size:10px;top:1px;}
-.dtw-tt-note{font-size:10px;color:rgba(255,255,255,0.38);border-top:1px solid rgba(255,255,255,0.1);padding-top:10px;line-height:1.5;}
-.dtw-premium::before{content:'';position:absolute;inset:-5px;border-radius:5px;border:1.5px solid rgba(249,115,22,0.7);animation:dtw-ring 2.4s ease-out infinite;pointer-events:none;}
-.dtw-premium-dot{width:5px;height:5px;border-radius:50%;background:#f97316;flex-shrink:0;}
-@keyframes dtw-ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.2);opacity:0}}
+.dtw-premium.dtw-mode-basic .lumo-tooltip{display:none;}
 .dtw-card{background:var(--white);border:1px solid var(--border);box-shadow:var(--shadow-md);padding:clamp(28px,4vw,44px);}
 .dtw-prog{margin-bottom:32px;}
 .dtw-prog-meta{display:flex;justify-content:space-between;margin-bottom:8px;}
@@ -3099,7 +3455,7 @@ def build_dental_triage_widget() -> dict:
     <div>
       <div style="margin-bottom:12px;display:flex;align-items:center;">
         <span class="eyebrow">{{eyebrow}}</span>
-        <span class="dtw-premium" id="dtw-mode-btn" onclick="dtwToggle()"><span class="dtw-premium-dot"></span><span id="dtw-mode-lbl">Premium</span><div class="dtw-tooltip"><div class="dtw-tt-title">Varför Premium?</div><ul class="dtw-tt-list"><li>Patienten vet vad de ska göra — direkt på sidan</li><li>Färre samtal och frågemail till receptionen</li><li>Rätt bokningar — ingen som ringer i onödan</li><li>Sparar tid för både patient och personal</li></ul><div class="dtw-tt-note">Innehållet anpassas helt efter er kliniks önskemål.</div></div></span>
+        <span class="dtw-premium lumo-premium-badge" id="dtw-mode-btn" onclick="dtwToggle()"><span class="lumo-premium-dot"></span><span id="dtw-mode-lbl">Premium</span><!--TT-DTW--></span>
       </div>
       <h2 style="max-width:22ch;">{{heading}}</h2>
     </div>
@@ -3379,6 +3735,7 @@ render();
 </script>
 </section>
 """
+    html = html.replace("<!--TT-DTW-->", lumo_tooltip("symptom-triage"))
     return {
         "block_name": "lumo/dental-triage-widget",
         "title": "Dental Triage Widget",
@@ -3765,7 +4122,7 @@ def build_approach_grid(block_name: str, title: str, eyebrow: str, heading: str,
     return {"block_name": block_name, "title": title, "html_template": collapse(html), "schema": schema}
 
 
-def build_process_steps_4(block_name: str, title: str) -> dict:
+def build_process_steps_4(block_name: str, title: str, content: dict | None = None) -> dict:
     """Four-column process steps variant."""
     html = """
 <section class="process-steps">
@@ -3804,16 +4161,16 @@ def build_process_steps_4(block_name: str, title: str) -> dict:
         "title": title,
         "html_template": collapse(html),
         "schema": [
-            {"name": "eyebrow",      "type": "text",     "label": "Etikett"},
-            {"name": "heading",      "type": "text",     "label": "Rubrik"},
-            {"name": "step_1_title", "type": "text",     "label": "Steg 1 – titel"},
-            {"name": "step_1_desc",  "type": "textarea", "label": "Steg 1 – text"},
-            {"name": "step_2_title", "type": "text",     "label": "Steg 2 – titel"},
-            {"name": "step_2_desc",  "type": "textarea", "label": "Steg 2 – text"},
-            {"name": "step_3_title", "type": "text",     "label": "Steg 3 – titel"},
-            {"name": "step_3_desc",  "type": "textarea", "label": "Steg 3 – text"},
-            {"name": "step_4_title", "type": "text",     "label": "Steg 4 – titel"},
-            {"name": "step_4_desc",  "type": "textarea", "label": "Steg 4 – text"},
+            {"name": "eyebrow",      "type": "text",     "label": "Etikett",        **({"default": content["eyebrow"]}       if content and "eyebrow"      in content else {})},
+            {"name": "heading",      "type": "text",     "label": "Rubrik",         **({"default": content["heading"]}       if content and "heading"      in content else {})},
+            {"name": "step_1_title", "type": "text",     "label": "Steg 1 – titel", **({"default": content["step_1_title"]}  if content and "step_1_title" in content else {})},
+            {"name": "step_1_desc",  "type": "textarea", "label": "Steg 1 – text",  **({"default": content["step_1_desc"]}   if content and "step_1_desc"  in content else {})},
+            {"name": "step_2_title", "type": "text",     "label": "Steg 2 – titel", **({"default": content["step_2_title"]}  if content and "step_2_title" in content else {})},
+            {"name": "step_2_desc",  "type": "textarea", "label": "Steg 2 – text",  **({"default": content["step_2_desc"]}   if content and "step_2_desc"  in content else {})},
+            {"name": "step_3_title", "type": "text",     "label": "Steg 3 – titel", **({"default": content["step_3_title"]}  if content and "step_3_title" in content else {})},
+            {"name": "step_3_desc",  "type": "textarea", "label": "Steg 3 – text",  **({"default": content["step_3_desc"]}   if content and "step_3_desc"  in content else {})},
+            {"name": "step_4_title", "type": "text",     "label": "Steg 4 – titel", **({"default": content["step_4_title"]}  if content and "step_4_title" in content else {})},
+            {"name": "step_4_desc",  "type": "textarea", "label": "Steg 4 – text",  **({"default": content["step_4_desc"]}   if content and "step_4_desc"  in content else {})},
         ],
     }
 
@@ -3875,7 +4232,14 @@ def build_site(bases: dict) -> tuple[list, list]:
         "lumo/hero",           # single global hero (no variant needed)
         "lumo/treatments-grid",
         "lumo/reviews-section",
-        "lumo/about",
+        add("content-block-1", "hem", {
+            "image":    "https://swordfish.templweb.com/wp-content/uploads/2026/05/undersok.jpg",
+            "eyebrow":  "03 / Om kliniken",
+            "h2":       "Trygghet och kvalitet för ditt leende.",
+            "body":     "<p>Vår nyrenoverade och luftiga klinik på Prästgårdsgränd 4 erbjuder en lugn, modern miljö där vi tar hand om dig och din familj med professionalism och värme.</p><p>För de yngre familjemedlemmarna har vi även <strong>Älvsjö Pedodonti</strong>, en specialistenhet för barn och unga upp till 23 år. Vi är anslutna till Försäkringskassan och erbjuder räntefri delbetalning.</p>",
+            "cta_text": "Läs mer om oss",
+            "cta_link": "/om-oss",
+        }, "Hem"),
         "lumo/emergency-banner",
         "lumo/team",
         "lumo/photo-tour",
@@ -3994,7 +4358,7 @@ def build_site(bases: dict) -> tuple[list, list]:
                 "heading":     "Tydliga priser — utan överraskningar.",
                 "intro":       "Vi följer Folktandvårdens prislista och är anslutna till Försäkringskassan. Din tandvårdsersättning dras direkt på fakturan.",
                 "row_1_label": "Akut undersökning, ny patient",
-                "row_1_price": "440 kr",
+                "row_1_price": "445 kr",
                 "row_2_label": "Akut undersökning, befintlig patient",
                 "row_2_price": "575 kr",
                 "row_3_label": "Eventuell behandling",
@@ -4106,19 +4470,16 @@ def build_site(bases: dict) -> tuple[list, list]:
                 cb1["block_name"],
             ]
 
-            # Process-steps (4-steg) för implantat & tandreglering
-            needs_process = slug in ("implantat", "tandreglering-stockholm")
+            # Premium: 5-stegs interaktiv stepper på implantat-sidan
+            # (ersätter den enklare 4-stegs process-steps för just den sidan)
+            if slug == "implantat":
+                blocks.append("lumo/treatment-stepper")
+
+            # Process-steps (4-steg) för tandreglering
+            needs_process = slug == "tandreglering-stockholm"
             if needs_process:
-                ps4 = build_process_steps_4(
-                    block_name=f"lumo/process-steps-{slug}",
-                    title=f"Behandlingssteg – {menu_label}",
-                )
-                if ps4["block_name"] not in seen:
-                    seen.add(ps4["block_name"])
-                    variants.append(ps4)
-                blocks.append(ps4["block_name"])
                 steps = pd["ps_steps"]
-                page_defs[ps4["block_name"]] = {
+                ps4_content = {
                     "eyebrow": pd["ps_eyebrow"],
                     "heading": pd["ps_heading"],
                     "step_1_title": steps[0]["title"], "step_1_desc": steps[0]["desc"],
@@ -4126,31 +4487,51 @@ def build_site(bases: dict) -> tuple[list, list]:
                     "step_3_title": steps[2]["title"], "step_3_desc": steps[2]["desc"],
                     "step_4_title": steps[3]["title"], "step_4_desc": steps[3]["desc"],
                 }
+                ps4 = build_process_steps_4(
+                    block_name=f"lumo/process-steps-{slug}",
+                    title=f"Behandlingssteg – {menu_label}",
+                    content=ps4_content,
+                )
+                if ps4["block_name"] not in seen:
+                    seen.add(ps4["block_name"])
+                    variants.append(ps4)
+                blocks.append(ps4["block_name"])
 
             blocks.append(cb2["block_name"])
 
-            # Pristabell för implantat
+            # Premium: Trygghetsmatchning på tandvårdsrädsla-sidan
+            if slug == "tandvardsradsla":
+                blocks.append("lumo/fear-matcher")
+
+            # Pristabell för implantat — bakas in som per-slug-variant (page_defaults är otillförlitligt)
             if slug == "implantat":
                 pr_rows = pd["pr_rows"]
-                page_defs["lumo/price-row"] = {
-                    "eyebrow":     pd["pr_eyebrow"],
-                    "heading":     pd["pr_heading"],
-                    "intro":       pd["pr_intro"],
-                    "row_1_label": pr_rows[0]["label"], "row_1_price": pr_rows[0]["price"],
-                    "row_2_label": pr_rows[1]["label"], "row_2_price": pr_rows[1]["price"],
-                    "row_3_label": pr_rows[2]["label"], "row_3_price": pr_rows[2]["price"],
-                    "row_4_label": pr_rows[3]["label"], "row_4_price": pr_rows[3]["price"],
-                }
-                blocks.append("lumo/price-row")
+                pr_v = make_variant(
+                    bases["price-row"], slug,
+                    {
+                        "eyebrow":     pd["pr_eyebrow"],
+                        "heading":     pd["pr_heading"],
+                        "intro":       pd["pr_intro"],
+                        "row_1_label": pr_rows[0]["label"], "row_1_price": pr_rows[0]["price"],
+                        "row_2_label": pr_rows[1]["label"], "row_2_price": pr_rows[1]["price"],
+                        "row_3_label": pr_rows[2]["label"], "row_3_price": pr_rows[2]["price"],
+                        "row_4_label": pr_rows[3]["label"], "row_4_price": pr_rows[3]["price"],
+                    },
+                    title_sfx="Implantat",
+                )
+                if pr_v["block_name"] not in seen:
+                    seen.add(pr_v["block_name"])
+                    variants.append(pr_v)
+                blocks.append(pr_v["block_name"])
+                blocks.append("lumo/payment-calculator")
 
             blocks += [f"lumo/cta-strip-{slug}", faq_v["block_name"], "lumo/site-footer"]
 
-        active = slug in ACTIVE_TREATMENTS
         p = {
             "title": h1, "slug": slug, "blocks": blocks,
-            "menu_label": menu_label if active else None,
-            "menu_parent": parent if active else None,
-            "status": "publish" if active else "draft",
+            "menu_label": menu_label,
+            "menu_parent": parent,
+            "status": "publish",
             "page_defaults": page_defs,
         }
         pages.append(p)
@@ -4188,10 +4569,64 @@ def build_site(bases: dict) -> tuple[list, list]:
     pages.append({"title": "Barnspecialist (Pedodonti) i Älvsjö", "slug": "pedodonti",
                   "menu_label": "Barnspecialist", "blocks": blocks})
 
+    # ── Räntefritt ──────────────────────────────────────────────────────────
+    rantefritt_blocks = [
+        "lumo/site-header",
+        add("page-hero-info", "rantefritt", {
+            "eyebrow":      "N° 04 — Räntefri delbetalning",
+            "title":        "Tandvård",
+            "title_italic": "utan ekonomisk oro.",
+            "ingress":      "För en smidigare ekonomisk planering av din tandvård — vi hjälper dig att dela upp betalningen räntefritt, så du kan fokusera på ditt välmående och ditt leende.",
+            "bullet_1":     "Dela upp kostnaden",
+            "bullet_2":     "Räntefri delbetalning",
+            "bullet_3":     "Upp till 12 månader",
+            "bullet_4":     "Hjälp med ansökan",
+            "cta_1_text":   "Boka tid",
+            "cta_1_href":   "#tdl-booking-widget",
+            "cta_2_text":   "Ring oss",
+            "cta_2_href":   "tel:08-12 85 45 55",
+        }, "Räntefritt"),
+        "lumo/payment-calculator",
+        "lumo/cta-strip-rantefritt",
+        add("faq", "rantefritt", {
+            "heading": "Frågor om delbetalning.",
+            "q_1": "Vad innebär räntefri delbetalning?",
+            "a_1": "Det betyder att du kan fördela kostnaden för din tandvård över tid, upp till 12 månader, utan att betala extra ränta. Du betalar en fast summa varje månad.",
+            "q_2": "Hur ansöker jag om delbetalning?",
+            "a_2": "Prata med vår personal i receptionen vid ditt besök. De guidar dig genom ansökningsprocessen och hjälper dig att hitta en lösning som passar dig, efter en godkänd kreditprövning.",
+            "q_3": "Finns det några risker med delbetalning?",
+            "a_3": "Ja, det är ett ekonomiskt åtagande. Om du inte kan betala i tid kan det leda till en betalningsanmärkning. Vi rekommenderar att du noga överväger din betalningsförmåga.",
+        }, "Räntefritt"),
+        "lumo/site-footer",
+    ]
+    pages.append({"title": "Räntefri delbetalning", "slug": "rantefritt",
+                  "menu_label": "Räntefritt", "blocks": rantefritt_blocks})
+
+    # ── /priser/ — transparent prismatris (premium) ──────────────────────
+    priser_blocks = [
+        "lumo/site-header",
+        add("page-hero-info", "priser", {
+            "eyebrow":      "Priser & kostnader",
+            "title":        "Vad",
+            "title_italic": "kostar det?",
+            "ingress":      "Välj behandling och se pris kontant, med räntefri delbetalning eller efter statligt tandvårdsstöd. Inga gömda avgifter.",
+            "bullet_1":     "Transparenta priser",
+            "bullet_2":     "Tre prismodeller",
+            "bullet_3":     "Inga gömda avgifter",
+            "bullet_4":     "Anpassat per situation",
+            "cta_1_text":   "Boka tid",
+            "cta_1_href":   "#tdl-booking-widget",
+            "cta_2_text":   "Ring oss",
+            "cta_2_href":   "tel:08-12 85 45 55",
+        }, "Priser"),
+        "lumo/cost-calculator",
+        "lumo/site-footer",
+    ]
+    pages.append({"title": "Priser & kostnader", "slug": "priser",
+                  "menu_label": "Priser", "blocks": priser_blocks})
+
     # ── Platshållarsidor (ej byggda än) ─────────────────────────────────────
     placeholder = ["lumo/site-header", "lumo/site-footer"]
-    pages.append({"title": "Räntefri delbetalning", "slug": "rantefritt",
-                  "menu_label": "Räntefritt", "blocks": placeholder})
     pages.append({"title": "Lista dig hos oss",     "slug": "lista-dig",
                   "menu_label": None,          "blocks": placeholder})
     pages.append({"title": "Kampanjer",             "slug": "kampanjer",
@@ -4240,16 +4675,20 @@ def main() -> None:
         "map-section":      build_map_section(),
         "process-steps":    build_process_steps(),
         "price-row":        build_price_row(),
+        "page-hero-info":   build_page_hero_info(),
     }
 
     # CTA strip per page + akut-specifika sektioner
     treatment_hero_shared = bases["treatment-hero"]
     triage_widget    = build_dental_triage_widget()
     triage_grid      = build_triage_grid()
+    fear_matcher       = build_fear_matcher()
+    treatment_stepper  = build_treatment_stepper()
+    cost_calculator    = build_cost_calculator()
     emergency_strip  = build_emergency_strip()
     process_steps    = bases["process-steps"]
     price_row        = bases["price-row"]
-    cta_strips = [build_cta_strip(slug) for slug in list(TREATMENT_HERO_DATA) + ["barnspecialist", "kontakt"]]
+    cta_strips = [build_cta_strip(slug) for slug in list(TREATMENT_HERO_DATA) + ["barnspecialist", "kontakt", "rantefritt"]]
     page_hero_info = build_page_hero_info()
     barnspecialist_comps = [build_page_hero_barnspecialist(), build_fact_strip_barnspecialist()]
     kontakt_comps = [build_page_hero_kontakt(), build_contact_grid(), build_map_hours_kontakt(), build_contact_form()]
@@ -4272,6 +4711,10 @@ def main() -> None:
         hero, treatments, reviews, about, emergency, team, photo_tour,
         page_hero_info,
         treatment_hero_shared, emergency_strip, triage_widget, triage_grid, process_steps, price_row,
+        fear_matcher,
+        treatment_stepper,
+        cost_calculator,
+        build_payment_calculator(),
         bases["content-block-1"], bases["content-block-2"], bases["faq"],
         *cta_strips, *barnspecialist_comps, *kontakt_comps, *om_oss_comps, remiss_comp,
     ]

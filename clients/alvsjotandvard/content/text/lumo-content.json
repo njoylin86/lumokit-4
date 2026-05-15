@@ -303,7 +303,7 @@
         },
         "content_block_2": {
           "h2": "Så får du snabb hjälp hos oss",
-          "text_html": "<p>Om du behöver akuttandvård, är det snabbaste sättet att få hjälp att <strong>ringa oss direkt på 08-12 85 45 55</strong>. Vi har avsatta tider för akuta patienter och strävar alltid efter att kunna erbjuda dig en tid samma dag. Våra öppettider, med sena kvällar och lördagsöppet, gör det enklare för dig att få vård när du behöver det.</p><p>Vid ditt akutbesök gör vi en noggrann undersökning för att fastställa orsaken till dina besvär och lägga upp en behandlingsplan. En akut undersökning kostar 575 kr (440 kr för nya patienter). Vi följer Folktandvårdens prislista och är anslutna till Försäkringskassan, vilket innebär att du får din tandvårdsersättning direkt. Vid större ingrepp erbjuder vi även räntefri delbetalning.</p>",
+          "text_html": "<p>Om du behöver akuttandvård, är det snabbaste sättet att få hjälp att <strong>ringa oss direkt på 08-12 85 45 55</strong>. Vi har avsatta tider för akuta patienter och strävar alltid efter att kunna erbjuda dig en tid samma dag. Våra öppettider, med sena kvällar och lördagsöppet, gör det enklare för dig att få vård när du behöver det.</p><p>Vid ditt akutbesök gör vi en noggrann undersökning för att fastställa orsaken till dina besvär och lägga upp en behandlingsplan. En akut undersökning kostar 575 kr (445 kr för nya patienter). Vi följer Folktandvårdens prislista och är anslutna till Försäkringskassan, vilket innebär att du får din tandvårdsersättning direkt. Vid större ingrepp erbjuder vi även räntefri delbetalning.</p>",
           "buttons": {
             "boka": {
               "title": "Boka tid",
@@ -320,7 +320,7 @@
           },
           {
             "question": "Vad kostar ett akutbesök?",
-            "answer": "En akut undersökning kostar 575 kr (440 kr för nya patienter). Priset för eventuell behandling fastställs efter undersökningen. Vi följer Folktandvårdens prislista och är anslutna till Försäkringskassan."
+            "answer": "En akut undersökning kostar 575 kr (445 kr för nya patienter). Priset för eventuell behandling fastställs efter undersökningen. Vi följer Folktandvårdens prislista och är anslutna till Försäkringskassan."
           },
           {
             "question": "Har ni öppet för akutbesök på kvällar och helger?",
