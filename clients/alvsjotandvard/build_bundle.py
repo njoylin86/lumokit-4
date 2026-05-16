@@ -27,7 +27,7 @@ ADDRESS_ENC = quote_plus("Prästgårdsgränd 4, 125 44 Älvsjö")
 # ── Header-variant ──────────────────────────────────────────────────────────
 # True  = svart header (ink-700, vit logga)
 # False = vit header (vit bakgrund, färglogga)
-DARK_HEADER = True
+DARK_HEADER = False
 
 
 # Logo URLs — coloured version for header, white version for footer
@@ -224,6 +224,10 @@ html.header-light .site-header .logo img { filter: drop-shadow(0 1px 4px rgba(0,
   padding: 0 var(--gutter);
 }
 .hb-medals-mobile { display: none; flex-direction: row; gap: 12px; margin-top: 8px; }
+@media (max-width: 900px) {
+  .hb-medals-mobile-corner { position: absolute; top: 16px; right: 16px; z-index: 11; margin-top: 0 !important; }
+  .hb-medals-mobile-corner .hb-medal-link img { width: 84px; }
+}
 .hb-medal-link { display: block; flex-shrink: 0; }
 .hb-medal-link img { width: 100px; height: auto; object-fit: contain; transition: transform 0.2s; }
 .hb-medal-link:hover img { transform: scale(1.04); }
@@ -263,6 +267,8 @@ html.header-light .site-header .logo img { filter: drop-shadow(0 1px 4px rgba(0,
   border-bottom: 1px solid rgba(255,255,255,0.4); padding-bottom: 4px;
 }
 .hero-bleed .hb-link:hover { border-bottom-color: var(--white); }
+.hero-bleed .hb-right .btn-light { background:var(--blush-600) !important; color:var(--white) !important; border-color:rgba(255,255,255,.17) !important; }
+.hero-bleed .hb-right .btn-light:hover { background:var(--blush-700) !important; color:var(--white) !important; }
 .hb-stats-mobile { display: none !important; }
 /* Hero bg toggle button — only for logged-in admins */
 @keyframes hb-toggle-pulse {
@@ -391,7 +397,9 @@ html.header-light .site-header .logo img { filter: drop-shadow(0 1px 4px rgba(0,
   display: inline-flex; align-items: center; gap: 5px; flex-shrink: 0;
   padding: 4px 8px; background: var(--danger); color: var(--white);
   font-size: 9px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  line-height: 1.25; text-align: center;
 }
+.treatment-card .tc-badge [data-clinic-status-label] { display: inline-block; }
 .treatment-card .tc-badge-dot {
   width: 5px; height: 5px; border-radius: 50%; background: var(--white);
 }
@@ -742,11 +750,12 @@ html.header-light .site-header .logo img { filter: drop-shadow(0 1px 4px rgba(0,
 @media (max-width: 600px) {
   .site-header .sh-inner { padding: 0 20px; }
   .site-header .logo img { height: 44px; }
-  .hero-bleed { min-height: 580px; }
-  .hero-bleed .hb-headline { font-size: clamp(40px, 10vw, 48px); }
-  .hero-bleed .hb-ingress { font-size: 15px; }
-  .hero-bleed .hb-content { padding-top: 32px; gap: 20px; }
-  .hero-bleed .hb-stats { grid-template-columns: repeat(2, 1fr); padding-bottom: 32px; margin-top: 24px; }
+  .hero-bleed { min-height: calc(100vh - 56px); }
+  .hero-bleed .hb-content { padding-top: 80px; padding-bottom: 48px; gap: 48px; padding-left: 24px; padding-right: 24px; min-height: calc(100vh - 56px); }
+  .hero-bleed .hb-headline { font-size: clamp(44px, 11vw, 56px); margin-bottom: 28px; }
+  .hero-bleed .hb-ingress { font-size: 16px; line-height: 1.65; margin-bottom: 12px; }
+  .hero-bleed .hb-stats { grid-template-columns: 1fr; padding-bottom: 48px; padding-top: 32px; margin-top: 40px; gap: 14px; }
+  .hero-bleed .hb-stat-lbl { font-size: 12px; letter-spacing: .14em; }
   .hero-bleed .hb-stat-val { font-size: 28px; }
   .hero-bleed .hb-stat-lbl { font-size: 10px; }
   .treatments-hdr { margin-bottom: 28px; padding-bottom: 20px; }
@@ -882,12 +891,12 @@ html.header-light .site-header .logo img { filter: drop-shadow(0 1px 4px rgba(0,
 .es-ring { font-size:10px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; font-family:var(--font-sans); }
 @media (max-width:700px) {
   .emergency-strip { padding:14px 0; }
-  .es-inner { gap:10px 14px; flex-direction:column; align-items:flex-start; }
+  .es-inner { gap:14px; flex-direction:row; align-items:center; justify-content:space-between; flex-wrap:nowrap; }
   .es-left { gap:10px; flex-wrap:wrap; }
   .es-serif { display:none; }
   .es-label { font-size:10px; letter-spacing:.16em; }
-  .es-phone { border-left:none; padding-left:0; font-size:16px; gap:10px; align-self:stretch; justify-content:space-between; padding-top:8px; border-top:1px solid rgba(255,255,255,.15); width:100%; }
-  .es-ring { font-size:9px; letter-spacing:.18em; }
+  .es-phone { border-left:none; padding-left:0; font-size:15px; gap:0; }
+  .es-ring { display:none; }
 }
 
 /* ── Triage Grid ────────────────────────────────────────────── */
@@ -967,10 +976,15 @@ html.header-light .site-header .logo img { filter: drop-shadow(0 1px 4px rgba(0,
   .treatment-hero .eyebrow { color:var(--sage-300) !important; }
   .treatment-hero .btn-ghost { color:var(--white); border-color:rgba(255,255,255,0.4); }
   .treatment-hero .btn-ghost:hover { background:rgba(255,255,255,0.1); }
-  .treatment-hero .btn-primary { background:var(--white) !important; color:var(--ink-700) !important; border-color:var(--white) !important; }
-  .treatment-hero .btn-primary:hover { background:var(--ink-100) !important; color:var(--ink-700) !important; }
-  .treatment-hero .th-ctas { justify-content:center; flex-direction:column; align-items:stretch; }
-  .treatment-hero .th-ctas .btn { width:100%; justify-content:center; }
+  .treatment-hero .btn-primary { background:var(--blush-600) !important; color:var(--white) !important; border-color:rgba(255,255,255,.44) !important; }
+  .treatment-hero .btn-primary:hover { background:var(--blush-700) !important; color:var(--white) !important; }
+  .treatment-hero .th-ctas { justify-content:center; flex-direction:column; align-items:stretch; gap:10px; margin-top:4px; }
+  .treatment-hero .th-ctas .btn { width:100%; justify-content:center; padding:14px 22px; }
+  .treatment-hero .th-inner { padding:40px 24px 48px; }
+  .treatment-hero .eyebrow { font-size:11px; letter-spacing:.22em; margin-bottom:18px !important; }
+  .treatment-hero h1 { margin-bottom:20px; line-height:1.02; }
+  .treatment-hero .th-lead { margin-bottom:22px; line-height:1.6; font-size:16px; }
+  .treatment-hero .th-bullets { gap:12px 24px; padding-top:20px; margin-top:4px; margin-bottom:24px; }
   .page-hero .ph-grid { grid-template-columns:1fr; gap:40px; }
   .cta-strip .cs-grid { grid-template-columns:1fr; }
   .cta-strip .cs-actions { justify-self:start; }
@@ -1855,7 +1869,6 @@ document.addEventListener('submit',function(e){
     html = f"""
 {font_preload}
 {style_block}
-<script>(function(){{var h=localStorage.getItem('hdr');if(h==='0'){{document.documentElement.classList.add('header-light');document.addEventListener('DOMContentLoaded',function(){{document.querySelectorAll('.hdr-toggle-label').forEach(function(b){{b.textContent='○ White';}});var b=document.getElementById('header-style-toggle');if(b)b.textContent='○ White';}});}}}})();</script>
 {onload_js}
 <div class="site-topstrip">
   <div class="ts-inner">
@@ -1865,8 +1878,6 @@ document.addEventListener('submit',function(e){
       <span style="display:flex;align-items:center;gap:6px;">{ICO_CLOCK} Öppet vardagar {{{{site_hours_monday}}}}</span>
     </div>
     <div class="ts-right">
-      <button id="header-style-toggle" onclick="(function(){{var h=document.documentElement;var isLight=h.classList.toggle('header-light');localStorage.setItem('hdr',isLight?'0':'1');document.getElementById('header-style-toggle').textContent=isLight?'○ White':'● Black';document.querySelectorAll('.hdr-toggle-label').forEach(function(b){{b.textContent=isLight?'○ White':'● Black';}});}})()" data-tip="Vit navbar ger ett rent och luftigt intryck. Svart matchar sidans detaljer och får loggan att verkligen sticka ut och synas." style="background:none;border:none;color:#f97316;font-size:12px;cursor:pointer;padding:0;letter-spacing:0.04em;font-family:inherit;">● Black</button>
-      <span class="ts-sep">·</span>
       <a href="https://minatider.alvsjotandvard.se/?src=site">Mina tider</a>
       <span class="ts-sep">·</span>
       <span class="nav-cs"><a href="/lista-dig">Lista dig</a></span>
@@ -1883,7 +1894,6 @@ document.addEventListener('submit',function(e){
     <a href="/" class="logo" aria-label="Älvsjö Tandvård">
       <img src="{LOGO_COLOR}" alt="Älvsjö Tandvård">
     </a>
-    <button class="header-style-toggle-mobile" onclick="(function(){{var h=document.documentElement;var isLight=h.classList.toggle('header-light');localStorage.setItem('hdr',isLight?'0':'1');document.querySelectorAll('.hdr-toggle-label').forEach(function(b){{b.textContent=isLight?'○ White':'● Black';}});}})()" style="display:none;background:none;border:none;color:#f97316;font-size:16px;cursor:pointer;padding:4px 8px;"><span class="hdr-toggle-label">● Black</span></button>
     <label for="nav-toggle" class="hamburger" aria-label="Öppna meny">
       <span></span><span></span><span></span>
     </label>
@@ -1925,9 +1935,6 @@ def build_hero() -> dict:
       <a href="https://www.tandlakare.se/klinik/stockholm/alvsjo-tandvard/" target="_blank" rel="noopener" class="hb-medal-link">
         <img src="https://swordfish.templweb.com/wp-content/uploads/2026/05/medal_gold-2025.webp" alt="Rekommenderad klinik 2025 – Tandläkare.se">
       </a>
-      <a href="https://www.tandlakare.se/klinik/stockholm/alvsjo-tandvard/" target="_blank" rel="noopener" class="hb-medal-link">
-        <img src="https://swordfish.templweb.com/wp-content/uploads/2026/05/medal_pink-2023.webp" alt="Rekommenderad klinik 2023 – Tandläkare.se">
-      </a>
     </div>
   </div>
 
@@ -1938,30 +1945,27 @@ def build_hero() -> dict:
     </div>
     <div class="hb-right">
       <div class="hb-stats hb-stats-mobile">
-        <div><span class="hb-stat-val">{{stat_1_val}}</span><span class="hb-stat-lbl">{{stat_1_lbl}}</span></div>
-        <div><span class="hb-stat-val">{{stat_2_val}}</span><span class="hb-stat-lbl">{{stat_2_lbl}}</span></div>
-        <div><span class="hb-stat-val">{{stat_3_val}}</span><span class="hb-stat-lbl">{{stat_3_lbl}}</span></div>
-        <div><span class="hb-stat-val">{{stat_4_val}}</span><span class="hb-stat-lbl">{{stat_4_lbl}}</span></div>
+        <div><span class="hb-stat-lbl">{{stat_1_text}}</span></div>
+        <div><span class="hb-stat-lbl">{{stat_2_text}}</span></div>
+        <div><span class="hb-stat-lbl">{{stat_3_text}}</span></div>
+        <div><span class="hb-stat-lbl">{{stat_4_text}}</span></div>
+      </div>
+      <div class="hb-medals hb-medals-mobile hb-medals-mobile-corner">
+        <a href="https://www.tandlakare.se/klinik/stockholm/alvsjo-tandvard/" target="_blank" rel="noopener" class="hb-medal-link">
+          <img src="https://swordfish.templweb.com/wp-content/uploads/2026/05/medal_gold-2025.webp" alt="Rekommenderad klinik 2025 – Tandläkare.se">
+        </a>
       </div>
       <a href="#tdl-booking-widget" class="btn btn-light btn-lg" style="width:100%;">Boka tid online</a>
       <a href="/akut-tandvard" class="hb-link">Akuttandvård samma dag →</a>
       <div class="hb-review-widget">[trustindex data-widget-id=0771e9d71a88743f97661278b10]</div>
-      <div class="hb-medals hb-medals-mobile">
-        <a href="https://www.tandlakare.se/klinik/stockholm/alvsjo-tandvard/" target="_blank" rel="noopener" class="hb-medal-link">
-          <img src="https://swordfish.templweb.com/wp-content/uploads/2026/05/medal_gold-2025.webp" alt="Rekommenderad klinik 2025 – Tandläkare.se">
-        </a>
-        <a href="https://www.tandlakare.se/klinik/stockholm/alvsjo-tandvard/" target="_blank" rel="noopener" class="hb-medal-link">
-          <img src="https://swordfish.templweb.com/wp-content/uploads/2026/05/medal_pink-2023.webp" alt="Rekommenderad klinik 2023 – Tandläkare.se">
-        </a>
-      </div>
     </div>
   </div>
 
   <div class="hb-stats hb-stats-desktop container-wide">
-    <div><span class="hb-stat-val">{{stat_1_val}}</span><span class="hb-stat-lbl">{{stat_1_lbl}}</span></div>
-    <div><span class="hb-stat-val">{{stat_2_val}}</span><span class="hb-stat-lbl">{{stat_2_lbl}}</span></div>
-    <div><span class="hb-stat-val">{{stat_3_val}}</span><span class="hb-stat-lbl">{{stat_3_lbl}}</span></div>
-    <div><span class="hb-stat-val">{{stat_4_val}}</span><span class="hb-stat-lbl">{{stat_4_lbl}}</span></div>
+    <div><span class="hb-stat-lbl">{{stat_1_text}}</span></div>
+    <div><span class="hb-stat-lbl">{{stat_2_text}}</span></div>
+    <div><span class="hb-stat-lbl">{{stat_3_text}}</span></div>
+    <div><span class="hb-stat-lbl">{{stat_4_text}}</span></div>
   </div>
   <button class="hb-bg-toggle" id="hb-bg-toggle" data-tip="Demo-video — i produktion byts denna ut mot en skräddarsydd film som passar kliniken perfekt.">◼ Bild</button>
   <script>
@@ -2004,28 +2008,24 @@ def build_hero() -> dict:
             {"name": "hero_video_mobile_webm",  "type": "text", "label": "Bakgrundsvideo mobil — WebM-URL",  "default": ""},
             {"name": "eyebrow",     "type": "text",     "label": "Etikett",       "default": "Modern tandvård · 2 min från pendeln · Älvsjö"},
             {"name": "ingress",     "type": "textarea", "label": "Ingress",       "default": "Från första undersökningen till implantat och Invisalign — en nyrenoverad klinik mitt i Älvsjö där varje besök är utformat för att du ska känna dig lugn och omhändertagen."},
-            {"name": "stat_1_val",  "type": "text",     "label": "Stat 1 – värde",  "default": "Gratis"},
-            {"name": "stat_1_lbl",  "type": "text",     "label": "Stat 1 – etikett","default": "Barn t.o.m. 19"},
-            {"name": "stat_2_val",  "type": "text",     "label": "Stat 2 – värde",  "default": "Idag"},
-            {"name": "stat_2_lbl",  "type": "text",     "label": "Stat 2 – etikett","default": "Akut hjälp"},
-            {"name": "stat_3_val",  "type": "text",     "label": "Stat 3 – värde",  "default": "6 dagar"},
-            {"name": "stat_3_lbl",  "type": "text",     "label": "Stat 3 – etikett","default": "Öppet i veckan"},
-            {"name": "stat_4_val",  "type": "text",     "label": "Stat 4 – värde",  "default": "0% ränta"},
-            {"name": "stat_4_lbl",  "type": "text",     "label": "Stat 4 – etikett","default": "Delbetalning"},
+            {"name": "stat_1_text", "type": "text", "label": "USP 1", "default": "Gratis för barn t.o.m. 19"},
+            {"name": "stat_2_text", "type": "text", "label": "USP 2", "default": "Akut hjälp redan idag"},
+            {"name": "stat_3_text", "type": "text", "label": "USP 3", "default": "Öppet 6 dagar i veckan"},
+            {"name": "stat_4_text", "type": "text", "label": "USP 4", "default": "Räntefri delbetalning"},
         ],
     }
 
 
 def build_treatments_grid() -> dict:
     TREATMENTS = [
-        ("Akuttandvård",            "Tider samma dag",    True,  "/akut-tandvard",           "t-akut.jpg"),
-        ("Implantat",               "Specialistteam",     False, "/implantat",               "t-implantat.jpg"),
-        ("Karies / Hål i tanden",   "Allmäntandvård",     False, "/karies-hal-i-tanden",     "t-karies.jpg"),
-        ("Tandblekning",            "Klinik & hemma",     False, "/tandblekning",             "t-tandblekning.jpg"),
-        ("Tandfasader / Veneers",   "Estetisk tandvård",  False, "/tandfasader-veneers",      "t-tandfasader.jpg"),
-        ("Tandreglering",           "Invisalign",         False, "/tandreglering-stockholm",  "t-tandreglering.jpg"),
-        ("Tandsten / Tandhygienist","Förebyggande vård",  False, "/tandsten-tandhygienist",   "t-tandsten.jpg"),
-        ("Tandvårdsrädsla",         "Lugnande vård",      False, "/tandvardsradsla",          "t-tandradsla.jpg"),
+        ("Akuttandvård",            "Tider samma dag",    True,  "/akut-tandvard",           "akuttandvard.jpg"),
+        ("Implantat",               "Specialistteam",     False, "/implantat",               "implantat.jpg"),
+        ("Karies / Hål i tanden",   "Allmäntandvård",     False, "/karies-hal-i-tanden",     "karieshal-i-tanden.jpg"),
+        ("Tandblekning",            "Klinik & hemma",     False, "/tandblekning",             "tandblekning.jpg"),
+        ("Tandfasader / Veneers",   "Estetisk tandvård",  False, "/tandfasader-veneers",      "tandfasader-veneers.jpg"),
+        ("Tandreglering",           "Invisalign",         False, "/tandreglering-stockholm",  "tandreglering.jpg"),
+        ("Tandsten / Tandhygienist","Förebyggande vård",  False, "/tandsten-tandhygienist",   "tandstentandhygienist.jpg"),
+        ("Tandvårdsrädsla",         "Lugnande vård",      False, "/tandvardsradsla",          "tandvardsradslatandlakarskrack.jpg"),
     ]
 
     cards_html = ""
@@ -2093,7 +2093,7 @@ def build_treatments_grid() -> dict:
         el.classList.add('is-closed');
         if(lbl){
           if(n){
-            lbl.textContent = n.today ? ('Öppnar ' + fmt(n.min)) : ('Öppnar ' + DAYS[n.day-1] + ' ' + fmt(n.min));
+            lbl.innerHTML = n.today ? ('Öppnar<br>' + fmt(n.min)) : ('Öppnar ' + DAYS[n.day-1] + '<br>' + fmt(n.min));
           } else { lbl.textContent = 'Stängt'; }
         }
       }
@@ -2945,6 +2945,162 @@ def build_organisation_om_oss() -> dict:
     }
 
 
+def build_tandvardsstod_om_oss() -> dict:
+    css = """
+.tvs-section{background:var(--white);padding:var(--space-10) 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);scroll-margin-top:-78px;}
+.tvs-hdr{max-width:780px;margin-bottom:64px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+.tvs-hdr .eyebrow{margin-bottom:16px;}
+.tvs-hdr h2{max-width:22ch;margin:0 0 24px 0;}
+.tvs-lead{font-size:var(--fs-lead);line-height:1.6;color:var(--ink-500);margin:0;}
+.tvs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:48px 56px;margin-bottom:72px;}
+.tvs-card{display:flex;flex-direction:column;gap:14px;padding:32px;background:var(--cream);border:1px solid var(--border);}
+.tvs-card-num{font-size:11px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--sage-600);}
+.tvs-card h3{font-family:var(--font-serif);font-weight:400;font-size:clamp(20px,1.8vw,26px);line-height:1.2;letter-spacing:-0.02em;color:var(--ink-700);margin:0;}
+.tvs-card-list{list-style:none;padding:0;margin:8px 0 4px 0;display:flex;flex-direction:column;gap:6px;}
+.tvs-card-list li{font-size:15px;line-height:1.55;color:var(--ink-700);padding-left:18px;position:relative;}
+.tvs-card-list li::before{content:"";position:absolute;left:0;top:9px;width:8px;height:1.5px;background:var(--blush-600);}
+.tvs-card p{font-size:14px;line-height:1.7;color:var(--ink-500);margin:8px 0 0 0;}
+.tvs-foot{display:grid;grid-template-columns:1fr 1fr;gap:48px;padding-top:48px;border-top:1px solid var(--border);}
+.tvs-foot-block h4{font-family:var(--font-serif);font-weight:400;font-size:20px;line-height:1.25;color:var(--ink-700);margin:0 0 12px 0;}
+.tvs-foot-block p{font-size:14px;line-height:1.7;color:var(--ink-500);margin:0 0 16px 0;}
+.tvs-foot-cta{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--blush-600);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s ease;}
+.tvs-foot-cta:hover{border-bottom-color:var(--blush-600);}
+.tvs-foot-cta svg{flex-shrink:0;}
+.tvs-cta{margin:56px 0 0 0;padding:36px 40px;background:var(--cream);border:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;}
+.tvs-cta-text{font-family:var(--font-serif);font-weight:400;font-size:22px;line-height:1.3;letter-spacing:-0.01em;color:var(--ink-700);margin:0;max-width:38ch;}
+.tvs-cta-buttons{display:flex;gap:12px;flex-wrap:wrap;}
+.tvs-disclaimer{margin:32px 0 0 0;font-size:12px;line-height:1.6;color:var(--fg-subtle);font-style:italic;}
+@media(max-width:900px){
+  .tvs-grid{grid-template-columns:1fr;gap:24px;margin-bottom:48px;}
+  .tvs-card{padding:24px;}
+  .tvs-foot{grid-template-columns:1fr;gap:32px;}
+  .tvs-hdr{margin-bottom:40px;}
+  .tvs-cta{padding:28px;flex-direction:column;align-items:flex-start;}
+  .tvs-cta-text{font-size:20px;}
+  .tvs-cta-buttons{width:100%;}
+  .tvs-cta-buttons .btn{flex:1;justify-content:center;min-width:0;}
+}
+"""
+    html = (
+        '<section id="tandvardsstod" class="tvs-section">'
+        '<style>' + css + '</style>'
+        '<div class="container-wide">'
+        '<div class="tvs-hdr">'
+        '<div class="eyebrow">{{eyebrow}}</div>'
+        '<h2>{{heading}}</h2>'
+        '<p class="tvs-lead">{{lead}}</p>'
+        '</div>'
+        '<div class="tvs-grid">'
+        '<article class="tvs-card">'
+        '<div class="tvs-card-num">01</div>'
+        '<h3>{{card_1_h3}}</h3>'
+        '<ul class="tvs-card-list">'
+        '<li>{{card_1_li_1}}</li>'
+        '<li>{{card_1_li_2}}</li>'
+        '</ul>'
+        '<p>{{card_1_body}}</p>'
+        '</article>'
+        '<article class="tvs-card">'
+        '<div class="tvs-card-num">02</div>'
+        '<h3>{{card_2_h3}}</h3>'
+        '<ul class="tvs-card-list">'
+        '<li>{{card_2_li_1}}</li>'
+        '<li>{{card_2_li_2}}</li>'
+        '<li>{{card_2_li_3}}</li>'
+        '</ul>'
+        '<p>{{card_2_body}}</p>'
+        '</article>'
+        '<article class="tvs-card">'
+        '<div class="tvs-card-num">03</div>'
+        '<h3>{{card_3_h3}}</h3>'
+        '<ul class="tvs-card-list">'
+        '<li>{{card_3_li_1}}</li>'
+        '</ul>'
+        '<p>{{card_3_body}}</p>'
+        '</article>'
+        '<article class="tvs-card">'
+        '<div class="tvs-card-num">04</div>'
+        '<h3>{{card_4_h3}}</h3>'
+        '<ul class="tvs-card-list">'
+        '<li>{{card_4_li_1}}</li>'
+        '<li>{{card_4_li_2}}</li>'
+        '</ul>'
+        '<p>{{card_4_body}}</p>'
+        '</article>'
+        '</div>'
+        '<div class="tvs-foot">'
+        '<div class="tvs-foot-block">'
+        '<h4>{{foot_1_h4}}</h4>'
+        '<p>{{foot_1_body}}</p>'
+        '<a href="#tdl-booking-widget" class="tvs-foot-cta">{{foot_1_cta}} '
+        '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 5.5h9M6 1l4.5 4.5L6 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+        '</a>'
+        '</div>'
+        '<div class="tvs-foot-block">'
+        '<h4>{{foot_2_h4}}</h4>'
+        '<p>{{foot_2_body}}</p>'
+        '<a href="#tdl-booking-widget" class="tvs-foot-cta">{{foot_2_cta}} '
+        '<svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 5.5h9M6 1l4.5 4.5L6 10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+        '</a>'
+        '</div>'
+        '</div>'
+        '<div class="tvs-cta">'
+        '<p class="tvs-cta-text">{{cta_heading}}</p>'
+        '<div class="tvs-cta-buttons">'
+        '<a href="tel:+46812854555" class="btn btn-ghost">{{cta_phone_text}}</a>'
+        '<a href="#tdl-booking-widget" class="btn btn-primary">{{cta_book_text}}</a>'
+        '</div>'
+        '</div>'
+        '<p class="tvs-disclaimer">{{disclaimer}}</p>'
+        '</div>'
+        '</section>'
+    )
+    return {
+        "block_name": "lumo/tandvardsstod-om-oss",
+        "title": "Tandvårdsstöd – Om oss",
+        "html_template": collapse(html),
+        "schema": [
+            {"name": "eyebrow", "type": "text", "label": "Etikett", "default": "Tandvårdsstöd"},
+            {"name": "heading", "type": "text", "label": "Rubrik", "default": "Vad du har rätt till — och vad vi hjälper dig med."},
+            {"name": "lead", "type": "textarea", "label": "Ingress", "default": "Älvsjö Tandvård är knutna till Försäkringskassan och följer Folktandvårdens prislista. Ditt högkostnadsskydd och Allmänna tandvårdsbidraget dras av automatiskt vid besöket. Här är de fyra stöd som kan göra din tandvård billigare."},
+
+            {"name": "card_1_h3",   "type": "text",     "label": "Kort 1 – rubrik", "default": "Allmänt tandvårdsbidrag (ATB)"},
+            {"name": "card_1_li_1", "type": "text",     "label": "Kort 1 – punkt 1", "default": "<strong>600 kr/år</strong> — om du är 24–29 år eller 65+"},
+            {"name": "card_1_li_2", "type": "text",     "label": "Kort 1 – punkt 2", "default": "<strong>300 kr/år</strong> — om du är 30–64 år"},
+            {"name": "card_1_body", "type": "textarea", "label": "Kort 1 – text",   "default": "Bidraget förnyas den 1 juli varje år och kan sparas i upp till två år — du kan alltså använda två års bidrag samma besök. Det dras av direkt på fakturan."},
+
+            {"name": "card_2_h3",   "type": "text",     "label": "Kort 2 – rubrik", "default": "Högkostnadsskydd"},
+            {"name": "card_2_li_1", "type": "text",     "label": "Kort 2 – punkt 1", "default": "0–3 000 kr: du betalar fullt pris"},
+            {"name": "card_2_li_2", "type": "text",     "label": "Kort 2 – punkt 2", "default": "3 000–15 000 kr: <strong>50 % subvention</strong>"},
+            {"name": "card_2_li_3", "type": "text",     "label": "Kort 2 – punkt 3", "default": "Över 15 000 kr: <strong>85 % subvention</strong>"},
+            {"name": "card_2_body", "type": "textarea", "label": "Kort 2 – text",   "default": "Subventionen beräknas på TLV:s referenspriser under en 12-månadersperiod som börjar vid din första åtgärd. Eftersom vi följer Folktandvårdens prislista dras din ersättning direkt på fakturan — du behöver inte själv hålla reda på saldot."},
+
+            {"name": "card_3_h3",   "type": "text",     "label": "Kort 3 – rubrik", "default": "Särskilt tandvårdsbidrag (STB)"},
+            {"name": "card_3_li_1", "type": "text",     "label": "Kort 3 – punkt 1", "default": "<strong>600 kr/halvår</strong> (1 200 kr/år)"},
+            {"name": "card_3_body", "type": "textarea", "label": "Kort 3 – text",   "default": "Ett statligt bidrag som betalas ut för förebyggande tandvård vid vissa diagnoser — t.ex. Sjögrens syndrom, efter strålbehandling i munhåla, sondmatning eller långvarig immunsuppression. Stödet administreras av Försäkringskassan. Berätta om dina diagnoser vid besöket — vi hjälper dig bedöma om du har rätt till bidraget."},
+
+            {"name": "card_4_h3",   "type": "text",     "label": "Kort 4 – rubrik", "default": "F-tandvård (Förstärkt tandvårdsstöd)"},
+            {"name": "card_4_li_1", "type": "text",     "label": "Kort 4 – punkt 1", "default": "Vanligtvis <strong>50–400 kr</strong> per besök istället för full tandvårdsavgift"},
+            {"name": "card_4_li_2", "type": "text",     "label": "Kort 4 – punkt 2", "default": "Räknas in i sjukvårdens högkostnadsskydd"},
+            {"name": "card_4_body", "type": "textarea", "label": "Kort 4 – text",   "default": "För patienter med vissa sjukdomstillstånd — bland annat kronisk njursvikt, MS, Parkinsons sjukdom, epilepsi, HIV, Sjögrens syndrom, tarmsjukdom med malabsorption, organtransplantation och flertalet cancerformer. Vi bedömer om du har rätt till stödet och hanterar kontakten med Region Stockholm — inget extraarbete för dig."},
+
+            {"name": "foot_1_h4",   "type": "text",     "label": "Foot 1 – rubrik", "default": "Barn och unga upp till 23 år"},
+            {"name": "foot_1_body", "type": "textarea", "label": "Foot 1 – text",   "default": "Tandvård är avgiftsfri till och med det år du fyller 23. Vi tar emot barn från första tanden — och bygger lugna, trygga tandvårdsvanor från start."},
+            {"name": "foot_1_cta",  "type": "text",     "label": "Foot 1 – knapptext", "default": "Boka tid för barn"},
+
+            {"name": "foot_2_h4",   "type": "text",     "label": "Foot 2 – rubrik", "default": "Vi förklarar gärna mer"},
+            {"name": "foot_2_body", "type": "textarea", "label": "Foot 2 – text",   "default": "Stöden kan kännas krångliga. Vid första besöket går vi igenom vilka bidrag som gäller just för dig — så du inte missar något du har rätt till."},
+            {"name": "foot_2_cta",  "type": "text",     "label": "Foot 2 – knapptext", "default": "Boka rådgivning"},
+
+            {"name": "cta_heading",     "type": "text", "label": "CTA – rubrik",       "default": "Osäker på vad du har rätt till? Vi går igenom det vid första besöket."},
+            {"name": "cta_phone_text",  "type": "text", "label": "CTA – ring-knapp",   "default": "Ring kliniken"},
+            {"name": "cta_book_text",   "type": "text", "label": "CTA – boka-knapp",   "default": "Boka tid"},
+
+            {"name": "disclaimer",  "type": "textarea", "label": "Disclaimer",     "default": "Källa: Försäkringskassan och Tandvårds- och läkemedelsförmånsverket (TLV). Belopp anges enligt 2026 års nivåer och kan justeras av regeringen."},
+        ],
+    }
+
+
 def build_arbeta_med_oss() -> dict:
     offers = "".join(
         f'<div class="arbeta-item"><span class="arbeta-item-num">0{i}</span>{{{{offer_{i}}}}}</div>'
@@ -3198,9 +3354,9 @@ def build_emergency_strip() -> dict:
 
 def build_payment_calculator() -> dict:
     html = """
-<section id="kostnadskalkylator" class="pmc-section">
+<section id="prismatris" class="pmc-section">
 <style>
-.pmc-section{background:var(--white);padding:96px 0;scroll-margin-top:120px;}
+.pmc-section{background:var(--white);padding:96px 0;scroll-margin-top:-78px;}
 .pmc-hdr{display:grid;grid-template-columns:1fr auto;align-items:end;gap:32px;margin-bottom:56px;padding-bottom:28px;border-bottom:1px solid var(--border);}.pmc-hdr.pmc-no-divider{border-bottom:none;padding-bottom:0;}
 .pmc-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start;}
 .pmc-card{background:var(--cream);padding:48px 48px 56px;border:1px solid var(--border);}
@@ -3222,7 +3378,7 @@ def build_payment_calculator() -> dict:
 .pmc-premium.pmc-mode-basic .lumo-premium-dot{background:var(--fg-subtle);}
 .pmc-premium.pmc-mode-basic::before{animation:none;opacity:0;}
 .pmc-premium.pmc-mode-basic .lumo-tooltip{display:none;}
-@media(max-width:900px){.pmc-grid{grid-template-columns:1fr;gap:48px;}.pmc-card{padding:32px 24px 40px;}.pmc-hdr{grid-template-columns:1fr;gap:16px;}.pmc-basic .pmc-grid{grid-template-columns:1fr;}.pmc-section{padding:64px 0;}#pmc-subtext{display:none;}}
+@media(max-width:900px){.pmc-grid{grid-template-columns:1fr;gap:48px;margin-top:24px;}.pmc-card{padding:32px 24px 40px;}.pmc-hdr{grid-template-columns:1fr;gap:16px;margin-bottom:0;padding-bottom:0;border-bottom:0;}.pmc-basic .pmc-grid{grid-template-columns:1fr;}.pmc-section{padding:64px 0;}#pmc-subtext{display:none;}}
 @media(max-width:600px){.pmc-result{flex-direction:column;align-items:flex-start;gap:12px;}.pmc-result-amount{font-size:48px;}.pmc-hdr p{text-align:left;}}
 </style>
 <div class="container-wide">
@@ -3241,8 +3397,8 @@ def build_payment_calculator() -> dict:
       <div>
         <img src="https://swordfish.templweb.com/wp-content/uploads/2026/05/reception.jpg" alt="" style="width:100%;height:260px;object-fit:cover;border-radius:var(--radius-md);margin-bottom:28px;">
         <div style="font-size:15px;color:var(--ink-500);line-height:1.7;">
-          <p>På Älvsjö Tandvård erbjuder vi <strong>räntefri delbetalning</strong> i upp till 12 månader via våra samarbetspartners. Detta ger dig flexibilitet att sprida kostnaden över tid och få den vård du behöver när du behöver den.</p>
-          <p style="margin-top:16px;">Vår reception hjälper dig med ansökan och att hitta det bästa upplägget för dig, förutsatt en godkänd kreditprövning.</p>
+          <p>På Älvsjö Tandvård erbjuder vi <strong>räntefri delbetalning</strong> i upp till 12 månader via <strong>Resurs Bank</strong> — utan extraavgift. Du sprider kostnaden över tid och får den vård du behöver, när du behöver den.</p>
+          <p style="margin-top:16px;">Vår reception hjälper dig med ansökan och att hitta rätt upplägg — allt ordnas direkt på plats, förutsatt godkänd kreditprövning.</p>
           <p style="margin-top:16px;font-size:13px;color:var(--fg-subtle);">Delbetalning är ett ekonomiskt åtagande. Om du inte kan betala tillbaka i tid riskerar du en betalningsanmärkning. För rådgivning — vänd dig till budget- och skuldrådgivningen i din kommun.</p>
         </div>
       </div>
@@ -3284,8 +3440,8 @@ def build_payment_calculator() -> dict:
       <div class="pmc-grid">
         <div>
           <div style="font-size:15px;color:var(--ink-500);line-height:1.7;">
-            <p>På Älvsjö Tandvård erbjuder vi <strong>räntefri delbetalning</strong> i upp till 12 månader via våra samarbetspartners. Detta ger dig flexibilitet att sprida kostnaden över tid och få den vård du behöver när du behöver den.</p>
-            <p style="margin-top:16px;">Vår reception hjälper dig med ansökan och att hitta det bästa upplägget för dig, förutsatt en godkänd kreditprövning.</p>
+            <p>På Älvsjö Tandvård erbjuder vi <strong>räntefri delbetalning</strong> i upp till 12 månader via <strong>Resurs Bank</strong> — utan extraavgift. Du sprider kostnaden över tid och får den vård du behöver, när du behöver den.</p>
+            <p style="margin-top:16px;">Vår reception hjälper dig med ansökan och att hitta rätt upplägg — allt ordnas direkt på plats, förutsatt godkänd kreditprövning.</p>
             <p style="margin-top:16px;font-size:13px;color:var(--fg-subtle);">Delbetalning är ett ekonomiskt åtagande. Om du inte kan betala tillbaka i tid riskerar du en betalningsanmärkning. För rådgivning — vänd dig till budget- och skuldrådgivningen i din kommun.</p>
           </div>
           <a href="tel:08-12854555" class="btn btn-primary" style="margin-top:32px;background:var(--ink-700);color:var(--white);border-color:var(--ink-700);">Ring oss</a>
@@ -3367,7 +3523,7 @@ def build_payment_calculator() -> dict:
 </script>
 </section>
 """
-    html = html.replace("<!--TT-PMC-->", lumo_tooltip("kostnadskalkylator"))
+    html = html.replace("<!--TT-PMC-->", lumo_tooltip("prismatris"))
     return {
         "block_name": "lumo/payment-calculator",
         "title": "Betalningskalkylator",
@@ -3384,7 +3540,7 @@ def build_dental_triage_widget() -> dict:
     html = """
 <section id="symptom-triage" class="dtw-section">
 <style>
-.dtw-section{background:var(--bg-soft);padding:var(--space-9) 0;border-bottom:1px solid var(--border);scroll-margin-top:120px;}
+.dtw-section{background:var(--bg-soft);padding:var(--space-9) 0;border-bottom:1px solid var(--border);scroll-margin-top:-78px;}
 .dtw-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:80px;align-items:start;}
 .dtw-left{position:sticky;top:120px;}
 .dtw-trust{display:flex;flex-direction:column;gap:12px;margin-top:32px;}
@@ -3448,7 +3604,7 @@ def build_dental_triage_widget() -> dict:
 .dtw-anim-up{animation:dtw-up .36s cubic-bezier(.2,.7,.2,1) both;}
 .dtw-check{animation:dtw-check-pop .22s cubic-bezier(.2,.7,.2,1) both;}
 .dtw-check path{stroke-dasharray:20;stroke-dashoffset:0;animation:dtw-check-draw .2s cubic-bezier(.2,.7,.2,1) .04s both;}
-@media(max-width:900px){.dtw-grid{grid-template-columns:1fr;gap:40px;}.dtw-left{position:static;}.dtw-section-hdr{grid-template-columns:1fr;gap:16px;}.dtw-section-hdr p{text-align:left;}}
+@media(max-width:900px){.dtw-grid{grid-template-columns:1fr;gap:40px;margin-top:24px;}.dtw-left{position:static;}.dtw-section-hdr{grid-template-columns:1fr;gap:16px;margin-bottom:0;padding-bottom:0;border-bottom:0;}.dtw-section-hdr p{text-align:left;}#dtw-subtext{display:none;}}
 </style>
 <div class="container-wide">
   <div class="dtw-section-hdr">
@@ -3469,6 +3625,7 @@ def build_dental_triage_widget() -> dict:
         <div class="dtw-trust-item"><div class="dtw-trust-dot"></div><div><div style="font-size:14px;font-weight:500;color:var(--fg-strong);margin-bottom:2px;">{{trust_2_title}}</div><div style="font-size:12px;color:var(--fg-subtle);">{{trust_2_desc}}</div></div></div>
         <div class="dtw-trust-item"><div class="dtw-trust-dot"></div><div><div style="font-size:14px;font-weight:500;color:var(--fg-strong);margin-bottom:2px;">{{trust_3_title}}</div><div style="font-size:12px;color:var(--fg-subtle);">{{trust_3_desc}}</div></div></div>
       </div>
+      <p class="dtw-disclaimer" style="margin-top:32px;padding-top:20px;border-top:1px solid var(--border);font-size:11px;color:var(--fg-subtle);line-height:1.55;font-style:italic;">Den här guiden ersätter inte vårdkontakt. Vid osäkerhet — ring oss på <a href="tel:{{clinic_phone}}" style="color:var(--fg-muted);text-decoration:underline;">{{clinic_phone}}</a>, sjukvårdsupplysningen på <a href="tel:1177" style="color:var(--fg-muted);text-decoration:underline;">1177</a> eller 112 vid livshotande symtom.</p>
     </div>
     <div class="dtw-card" id="dtw-root"></div>
   </div>
@@ -3512,7 +3669,7 @@ def build_dental_triage_widget() -> dict:
 var PHONE = '{{clinic_phone}}';
 var BOOKING = '#tdl-booking-widget';
 var Qs = [
-  {id:'symptom',title:'Vilket är ditt huvudbesär?',sub:'Välj det alternativ som stämmer bäst',type:'single',opts:[
+  {id:'symptom',title:'Vilket är ditt huvudbesvär?',sub:'Välj det alternativ som stämmer bäst',type:'single',opts:[
     {id:'pain',lbl:'Smärta eller tandvärk',desc:'Värkande, pulserande eller skarp smärta'},
     {id:'trauma',lbl:'Skada eller olycka',desc:'Slag, fall eller annan yttre påverkan'},
     {id:'swelling',lbl:'Svullnad',desc:'Svullnad i kind, tandkött eller hals'},
@@ -3520,7 +3677,7 @@ var Qs = [
     {id:'sensitivity',lbl:'Känslighet',desc:'Ömhet mot kallt, varmt eller sött'},
     {id:'cosmetic',lbl:'Estetik eller rutinkontroll',desc:'Blekning, utseende eller vanlig kontroll'}
   ]},
-  {id:'severity',title:'Hur stark är besvären och hur länge har du haft dem?',sub:'Svara på båda delarna nedan',type:'compound',parts:[
+  {id:'severity',title:'Hur starka är besvären och hur länge har du haft dem?',sub:'Svara på båda delarna nedan',type:'compound',parts:[
     {id:'severity',lbl:'Allvarlighetsgrad',opts:[
       {id:'mild',lbl:'Mild',desc:'Knappt märkbar — stör inte vardagen',color:'#22c55e'},
       {id:'moderate',lbl:'Måttlig',desc:'Påtaglig — påverkar vardagen något',color:'#f59e0b'},
@@ -3543,13 +3700,15 @@ var Qs = [
 var OUTCOMES = {
   emergency_medical:{dot:'#ef4444',bg:'#fef2f2',border:'#fecaca',ew:'Medicinskt akut',lbl:'Ring 112 nu',body:'Dina symtom kan tyda på ett livshotande tillstånd som kräver omedelbar sjukvård — inte tandvård. Andningssvårigheter eller sväljproblem i kombination med dental infektion kan vara livshotande.',tips:[{lbl:'Berätta för operatören',txt:'Säg att det gäller misstänkt dental infektion med andnings- eller sväljbesvär.'},{lbl:'Sitt upprätt',txt:'Lägg dig inte ner — det kan förvärra svullnad mot halsen.'}],actions:[{lbl:'Ring 112',href:'tel:112',primary:true}]},
   emergency_dental:{dot:'#f97316',bg:'#fff7ed',border:'#fed7aa',ew:'Tandvårdsakut',lbl:'Kontakta tandläkare idag',body:'Du bör träffa en tandläkare samma dag. Dina symtom tyder på ett akut tillstånd som kräver snabb behandling. Ring oss direkt — vi har avsatta tider för akuta patienter.',tips:[{lbl:'Om tand slagits loss',txt:'Lägg tanden i mjölk eller saliv — rör inte roten. Tid är avgörande.'},{lbl:'Om kraftig smärta',txt:'Ta receptfria smärtstillande (ibuprofen eller paracetamol) i väntan på tandläkartid.'},{lbl:'Om svullnad',txt:'Kyl utifrån med ispack insvept i handduk — aldrig direkt mot huden.'},{lbl:'Om kliniken är stängd',txt:'Ring 1177 för hänvisning till jourhavande tandläkare.'}],actions:[{lbl:'Ring kliniken',href:'tel:'+PHONE,primary:true}]},
-  book_soon:{dot:'#f59e0b',bg:'#fffbeb',border:'#fde68a',ew:'Bör undersökas snart',lbl:'Boka tid inom 1–2 dagar',body:'Ditt tillstånd är inte omedelbart akut men bör undersökas relativt snart. Boka en tid inom de närmaste dagarna för att undvika att bevären förvärras.',tips:[{lbl:'Under tiden',txt:'Undvik att tugga på den berörda sidan tills du fått en tid.'},{lbl:'Vid försämring',txt:'Hör av dig tidigare — vi prioriterar bevär som förvärras.'}],actions:[{lbl:'Boka tid nu',href:BOOKING,primary:true},{lbl:'Ring kliniken',href:'tel:'+PHONE,primary:false}]},
-  book_regular:{dot:'var(--blush-400)',bg:'var(--blush-50)',border:'var(--blush-200)',ew:'Inget akut',lbl:'Boka vanlig tid',body:'Dina bevär verkar inte akuta. Boka en vanlig tid för undersökning eller behandling. En tidig kontroll är alltid bättre än att vänta för länge.',tips:[{lbl:'Bra att veta',txt:'En tidig undersökning förhindrar att små problem blir stora — och dyrare.'}],actions:[{lbl:'Boka tid online',href:BOOKING,primary:true}]}
+  book_soon:{dot:'#f59e0b',bg:'#fffbeb',border:'#fde68a',ew:'Bör undersökas snart',lbl:'Boka tid inom 1–2 dagar',body:'Ditt tillstånd är inte omedelbart akut men bör undersökas relativt snart. Boka en tid inom de närmaste dagarna för att undvika att besvären förvärras.',tips:[{lbl:'Under tiden',txt:'Undvik att tugga på den berörda sidan tills du fått en tid.'},{lbl:'Vid försämring',txt:'Hör av dig tidigare — vi prioriterar besvär som förvärras.'}],actions:[{lbl:'Boka tid nu',href:BOOKING,primary:true},{lbl:'Ring kliniken',href:'tel:'+PHONE,primary:false}]},
+  book_regular:{dot:'var(--blush-400)',bg:'var(--blush-50)',border:'var(--blush-200)',ew:'Inget akut',lbl:'Boka vanlig tid',body:'Dina besvär verkar inte akuta. Boka en vanlig tid för undersökning eller behandling. En tidig kontroll är alltid bättre än att vänta för länge.',tips:[{lbl:'Bra att veta',txt:'En tidig undersökning förhindrar att små problem blir stora — och dyrare.'}],actions:[{lbl:'Boka tid online',href:BOOKING,primary:true}]}
 };
 function skip(id, a) {
-  var sys = a.systemics || [];
   if (id === 'severity') return a.symptom === 'cosmetic';
-  if (id === 'systemics') return ['cosmetic','filling','sensitivity'].indexOf(a.symptom) > -1 || a.severity === 'mild';
+  /* Q3 (systemiska symtom) hoppas ENBART över för helt icke-akuta symptomvägar.
+     Får ALDRIG hoppas över baserat på dental allvarlighetsgrad — feber/andning/sväljbesvär
+     är oberoende risksignaler som kan tyda på spridande infektion (t.ex. Ludwigs angina). */
+  if (id === 'systemics') return ['cosmetic','filling','sensitivity'].indexOf(a.symptom) > -1;
   return false;
 }
 function calcTriage(a) {
@@ -4231,6 +4390,7 @@ def build_site(bases: dict) -> tuple[list, list]:
         "lumo/site-header",
         "lumo/hero",           # single global hero (no variant needed)
         "lumo/treatments-grid",
+        "lumo/cost-calculator",
         "lumo/reviews-section",
         add("content-block-1", "hem", {
             "image":    "https://swordfish.templweb.com/wp-content/uploads/2026/05/undersok.jpg",
@@ -4261,6 +4421,7 @@ def build_site(bases: dict) -> tuple[list, list]:
         }, "Om oss"),
         "lumo/text-blocks-om-oss",
         "lumo/team",
+        "lumo/tandvardsstod-om-oss",
         "lumo/organisation-om-oss",
         "lumo/cta-strip-om-oss",
         add("map-section", "om-oss", {"heading": "Hitta till kliniken"}, "Om oss"),
@@ -4602,29 +4763,6 @@ def build_site(bases: dict) -> tuple[list, list]:
     pages.append({"title": "Räntefri delbetalning", "slug": "rantefritt",
                   "menu_label": "Räntefritt", "blocks": rantefritt_blocks})
 
-    # ── /priser/ — transparent prismatris (premium) ──────────────────────
-    priser_blocks = [
-        "lumo/site-header",
-        add("page-hero-info", "priser", {
-            "eyebrow":      "Priser & kostnader",
-            "title":        "Vad",
-            "title_italic": "kostar det?",
-            "ingress":      "Välj behandling och se pris kontant, med räntefri delbetalning eller efter statligt tandvårdsstöd. Inga gömda avgifter.",
-            "bullet_1":     "Transparenta priser",
-            "bullet_2":     "Tre prismodeller",
-            "bullet_3":     "Inga gömda avgifter",
-            "bullet_4":     "Anpassat per situation",
-            "cta_1_text":   "Boka tid",
-            "cta_1_href":   "#tdl-booking-widget",
-            "cta_2_text":   "Ring oss",
-            "cta_2_href":   "tel:08-12 85 45 55",
-        }, "Priser"),
-        "lumo/cost-calculator",
-        "lumo/site-footer",
-    ]
-    pages.append({"title": "Priser & kostnader", "slug": "priser",
-                  "menu_label": "Priser", "blocks": priser_blocks})
-
     # ── Platshållarsidor (ej byggda än) ─────────────────────────────────────
     placeholder = ["lumo/site-header", "lumo/site-footer"]
     pages.append({"title": "Lista dig hos oss",     "slug": "lista-dig",
@@ -4695,6 +4833,7 @@ def main() -> None:
     remiss_comp   = build_remiss_widget()
     om_oss_comps  = [
         build_text_blocks_om_oss(),
+        build_tandvardsstod_om_oss(),
         build_organisation_om_oss(),
         build_arbeta_med_oss(),
         build_feedback_form_om_oss(),
@@ -4747,6 +4886,7 @@ def main() -> None:
         "extra_menu_items": [
             {"label": "Om kliniken",            "url": "/om-oss/",                      "parent": "Om oss"},
             {"label": "Vi som jobbar",          "url": "/om-oss/#team",                 "parent": "Om oss"},
+            {"label": "Tandvårdsstöd",          "url": "/om-oss/#tandvardsstod",        "parent": "Om oss"},
             {"label": "Organisation",           "url": "/om-oss/#organisation",         "parent": "Om oss"},
             {"label": "Hitta till oss",         "url": "/om-oss/#hitta-till-oss",       "parent": "Om oss"},
             {"label": "Arbeta med oss",         "url": "/om-oss/#arbeta-med-oss",       "parent": "Om oss"},
