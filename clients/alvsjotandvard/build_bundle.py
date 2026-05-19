@@ -1920,7 +1920,7 @@ document.addEventListener('submit',function(e){
 def build_hero() -> dict:
     html = """
 <section class="hero-bleed">
-  <div class="hb-bg" style="background-image:url('{{site_url}}/wp-content/uploads/2026/05/startsida.jpg');"></div>
+  <div class="hb-bg" style="background-image:url({{hero_image}});"></div>
   <video class="hb-bg-video hb-bg-video--desktop" autoplay muted loop playsinline oncanplay="this.playbackRate=0.75">
     <source src="{{hero_video_desktop_webm}}" type="video/webm">
     <source src="{{hero_video_desktop}}" type="video/mp4">
@@ -2005,7 +2005,7 @@ def build_hero() -> dict:
         "title": "Hero",
         "html_template": collapse(html),
         "schema": [
-            {"name": "hero_image",         "type": "image", "label": "Bakgrundsbild",               "default": "{{site_url}}/wp-content/uploads/2026/05/hero-1.jpg"},
+            {"name": "hero_image",         "type": "image", "label": "Bakgrundsbild",               "default": "{{site_url}}/wp-content/uploads/2026/05/startsida-v2.jpg"},
             {"name": "hero_video_desktop",      "type": "text", "label": "Bakgrundsvideo desktop — MP4-URL", "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4"},
             {"name": "hero_video_desktop_webm", "type": "text", "label": "Bakgrundsvideo desktop — WebM-URL", "default": ""},
             {"name": "hero_video_mobile",       "type": "text", "label": "Bakgrundsvideo mobil — MP4-URL",    "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4"},
@@ -2040,7 +2040,7 @@ def build_treatments_grid() -> dict:
         )
         cards_html += f"""
 <a href="{{{{card_{i}_url}}}}" class="treatment-card">
-  <div class="tc-bg" style="background-image:url({BASE_IMG}{img});"></div>
+  <div class="tc-bg" style="background-image:url({{{{card_{i}_image}}}});"></div>
   <div class="tc-overlay"></div>
   <div class="tc-body">
     <div class="tc-top">
