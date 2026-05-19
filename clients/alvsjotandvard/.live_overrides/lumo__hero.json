@@ -11,27 +11,31 @@
     },
     {
       "name": "hero_video_desktop",
-      "type": "text",
-      "label": "Bakgrundsvideo desktop — MP4-URL",
-      "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4"
+      "type": "file",
+      "label": "Bakgrundsvideo desktop — MP4",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4",
+      "mime_types": "mp4"
     },
     {
       "name": "hero_video_desktop_webm",
-      "type": "text",
-      "label": "Bakgrundsvideo desktop — WebM-URL",
-      "default": ""
+      "type": "file",
+      "label": "Bakgrundsvideo desktop — WebM",
+      "default": "",
+      "mime_types": "webm"
     },
     {
       "name": "hero_video_mobile",
-      "type": "text",
-      "label": "Bakgrundsvideo mobil — MP4-URL",
-      "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4"
+      "type": "file",
+      "label": "Bakgrundsvideo mobil — MP4",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4",
+      "mime_types": "mp4"
     },
     {
       "name": "hero_video_mobile_webm",
-      "type": "text",
-      "label": "Bakgrundsvideo mobil — WebM-URL",
-      "default": ""
+      "type": "file",
+      "label": "Bakgrundsvideo mobil — WebM",
+      "default": "",
+      "mime_types": "webm"
     },
     {
       "name": "eyebrow",

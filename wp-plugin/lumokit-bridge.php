@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // Single source of truth for bridge version. Bumped by tools/release.py.
-define( 'LUMOKIT_BRIDGE_VERSION', '1.1.0' );
+define( 'LUMOKIT_BRIDGE_VERSION', '1.2.0' );
 
 define( 'LUMOKIT_OPTION_KEY', 'lumokit_components' );
 
@@ -435,10 +435,10 @@ function lumokit_build_page( WP_REST_Request $request ) {
 			}
 
 			$value_to_bake = $default;
-			if ( $type === 'image' ) {
-				// ACF expects an attachment ID for image fields. Look it up from the URL
+			if ( $type === 'image' || $type === 'file' ) {
+				// ACF expects an attachment ID for image/file fields. Look it up from the URL
 				// in our schema default. If the URL doesn't resolve to a known attachment,
-				// skip baking — admin will show "select image" but at least frontend renders.
+				// skip baking — admin will show empty picker but at least frontend renders.
 				if ( ! empty( $default ) && filter_var( $default, FILTER_VALIDATE_URL ) ) {
 					$attachment_id = attachment_url_to_postid( $default );
 					if ( $attachment_id ) {
@@ -556,22 +556,23 @@ function lumokit_sync_block_acf( WP_REST_Request $request ) {
 		}
 	}
 
-	// Identify which fields are image-typed for this block (need URL → attachment ID conversion)
+	// Identify which fields are image/file-typed for this block (need URL → attachment ID conversion)
 	$components = get_option( LUMOKIT_OPTION_KEY, [] );
 	$schema     = $components[ $block_name ]['schema'] ?? [];
-	$image_fields = [];
+	$attachment_fields = [];
 	foreach ( $schema as $field_def ) {
-		if ( ( $field_def['type'] ?? '' ) === 'image' ) {
-			$image_fields[ sanitize_key( $field_def['name'] ) ] = true;
+		$t = $field_def['type'] ?? '';
+		if ( $t === 'image' || $t === 'file' ) {
+			$attachment_fields[ sanitize_key( $field_def['name'] ) ] = true;
 		}
 	}
 
-	// Pre-resolve image URLs to attachment IDs (or leave numeric IDs as-is)
+	// Pre-resolve image/file URLs to attachment IDs (or leave numeric IDs as-is)
 	$resolved_fields = [];
 	$unresolved      = [];
 	foreach ( $fields as $name => $value ) {
 		$name = sanitize_key( $name );
-		if ( isset( $image_fields[ $name ] ) ) {
+		if ( isset( $attachment_fields[ $name ] ) ) {
 			if ( is_numeric( $value ) ) {
 				$resolved_fields[ $name ] = (int) $value;
 			} elseif ( is_string( $value ) && filter_var( $value, FILTER_VALIDATE_URL ) ) {
@@ -1538,7 +1539,7 @@ function lumokit_schema_to_acf_fields( array $schema, $block_name ) {
 
 		$name = sanitize_key( $field_def['name'] );
 
-		$allowed_types = [ 'text', 'textarea', 'image', 'url' ];
+		$allowed_types = [ 'text', 'textarea', 'image', 'url', 'file' ];
 		if ( ! in_array( $type, $allowed_types, true ) ) {
 			$type = 'text';
 		}
@@ -1550,6 +1551,16 @@ function lumokit_schema_to_acf_fields( array $schema, $block_name ) {
 			'type'          => $type,
 			'default_value' => '',
 		];
+
+		// File fields: return URL string so mustache resolves to a plain URL.
+		// Optional mime_types restriction (e.g. mp4,webm for video uploads) can be
+		// declared in the schema as "mime_types": "mp4,webm".
+		if ( $type === 'file' ) {
+			$field['return_format'] = 'url';
+			if ( ! empty( $field_def['mime_types'] ) ) {
+				$field['mime_types'] = $field_def['mime_types'];
+			}
+		}
 
 		// Don't register default_value with ACF — it would silently re-inject the
 		// default when a field is cleared, defeating "clear → disappears" behavior.
@@ -1683,7 +1694,7 @@ function lumokit_render_block( $block, $content = '', $is_preview = false ) {
 		$default = $field_def['default'] ?? '';
 		$value   = get_field( $name );
 
-		if ( $type === 'image' && is_array( $value ) ) {
+		if ( ( $type === 'image' || $type === 'file' ) && is_array( $value ) ) {
 			$value = $value['url'] ?? '';
 		}
 
@@ -1839,7 +1850,7 @@ function lumokit_render_injected( $block_name ) {
 		// Read from ACF Options Page
 		$value = function_exists( 'get_field' ) ? get_field( $name, 'option' ) : '';
 
-		if ( $type === 'image' && is_array( $value ) ) {
+		if ( ( $type === 'image' || $type === 'file' ) && is_array( $value ) ) {
 			$value = $value['url'] ?? '';
 		}
 

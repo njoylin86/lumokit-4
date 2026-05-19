@@ -4684,27 +4684,31 @@
       },
       {
         "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4",
-        "label": "Bakgrundsvideo desktop — MP4-URL",
+        "label": "Bakgrundsvideo desktop — MP4",
+        "mime_types": "mp4",
         "name": "hero_video_desktop",
-        "type": "text"
+        "type": "file"
       },
       {
         "default": "",
-        "label": "Bakgrundsvideo desktop — WebM-URL",
+        "label": "Bakgrundsvideo desktop — WebM",
+        "mime_types": "webm",
         "name": "hero_video_desktop_webm",
-        "type": "text"
+        "type": "file"
       },
       {
         "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4",
-        "label": "Bakgrundsvideo mobil — MP4-URL",
+        "label": "Bakgrundsvideo mobil — MP4",
+        "mime_types": "mp4",
         "name": "hero_video_mobile",
-        "type": "text"
+        "type": "file"
       },
       {
         "default": "",
-        "label": "Bakgrundsvideo mobil — WebM-URL",
+        "label": "Bakgrundsvideo mobil — WebM",
+        "mime_types": "webm",
         "name": "hero_video_mobile_webm",
-        "type": "text"
+        "type": "file"
       },
       {
         "default": "Modern tandvård · 2 min från pendeln · Älvsjö",

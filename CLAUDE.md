@@ -245,7 +245,7 @@ Design a Hero Section for a WordPress site and generate the required LumoKit JSO
 2. **Responsiveness:** Always ensure the design looks good on mobile (`default`), tablet (`md:`), and desktop (`lg:`).
 3. **Semantic HTML:** Use proper tags (`<section>`, `<h1>`, `<p>`, `<a>`).
 4. **Data Binding:** Use mustache syntax (e.g., `{{headline}}`) for any dynamic content. Do NOT hardcode text or image URLs in the HTML.
-5. **Allowed ACF Field Types:** Restrict the schema to `text`, `textarea`, `image`, and `url`.
+5. **Allowed ACF Field Types:** Restrict the schema to `text`, `textarea`, `image`, `url`, and `file`. Use `file` (with optional `mime_types` like `"mp4"` eller `"webm"`) för videor och andra ej-bild-uppladdningar — admin får filhämtare istället för text-fält.
 
 ## Output Format
 Your output must be a valid JSON object saved to `.tmp/hero_payload.json`.
