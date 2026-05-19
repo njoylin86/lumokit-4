@@ -1,9 +1,9 @@
 {
   "bundle": "bundle.json",
   "components": {
-    "lumo/hero": {
+    "lumo/photo-tour-hem": {
       "status": "ok",
-      "at": "2026-05-19T12:06:40"
+      "at": "2026-05-19T15:45:10"
     }
   }
 }

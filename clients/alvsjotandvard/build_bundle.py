@@ -191,6 +191,13 @@ html.header-light .site-header .logo img { filter: drop-shadow(0 1px 4px rgba(0,
   background-size: cover; background-position: center; background-repeat: no-repeat;
   filter: saturate(1.05) brightness(0.75);
 }
+.hero-bleed .hb-bg--mobile { display: none; }
+.hero-bleed .hb-bg[data-filter="1"] video.lumo-media-bg {
+  filter: blur(12px) brightness(0.55) contrast(1.5);
+}
+.hero-bleed .hb-bg[data-drift="1"] video.lumo-media-bg {
+  animation: camera-drift 10s ease-in-out infinite alternate;
+}
 .hero-bleed .hb-bg-video {
   position: absolute; top: 0; left: 0; width: 100%; height: 100%;
   object-fit: cover;
@@ -232,8 +239,21 @@ html.header-light .site-header .logo img { filter: drop-shadow(0 1px 4px rgba(0,
   .hb-medals-mobile-corner .hb-medal-link img { width: 84px; }
 }
 .hb-medal-link { display: block; flex-shrink: 0; }
-.hb-medal-link img { width: 100px; height: auto; object-fit: contain; transition: transform 0.2s; }
+.hb-medal-link img { width: 158px; height: auto; object-fit: contain; transition: transform 0.2s; }
 .hb-medal-link:hover img { transform: scale(1.04); }
+/* Align medal with right edge of centered container (--maxw-wide, --gutter)
+   so på stora skärmar sitter den i linje med .hb-content istället för viewport-edgen. */
+.hero-bleed > .hb-medal-fixed {
+  position: absolute; top: 60px; z-index: 11;
+  right: max(var(--gutter), calc(50% - var(--maxw-wide) / 2 + var(--gutter)));
+}
+@media (max-width: 900px) {
+  .hero-bleed > .hb-medal-fixed { top: 16px; right: 16px; }
+  .hero-bleed > .hb-medal-fixed img { width: 84px; }
+}
+@media (max-width: 600px) {
+  .hero-bleed > .hb-medal-fixed img { width: 64px; }
+}
 .hb-stats-mobile-row { display: contents; }
 .hb-review-widget { margin-top: 16px; }
 .hero-bleed .hb-review-widget {
@@ -336,7 +356,7 @@ html.header-light .site-header .logo img { filter: drop-shadow(0 1px 4px rgba(0,
 .hero-bleed .hb-stats {
   position: relative; z-index: 10;
   max-width: var(--maxw-wide); margin: 0 auto; padding: 0 var(--gutter);
-  margin-top: 80px; padding-top: 56px; padding-bottom: 56px;
+  margin-top: 35px; padding-top: 56px; padding-bottom: 56px;
   border-top: 1px solid rgba(255,255,255,0.2);
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
   color: var(--white);
@@ -349,7 +369,7 @@ html.header-light .site-header .logo img { filter: drop-shadow(0 1px 4px rgba(0,
 .hero-bleed .hb-stat-lbl {
   font-family: var(--font-sans); font-size: 11px; font-weight: 500;
   letter-spacing: 0.22em; text-transform: uppercase;
-  color: rgba(255,255,255,0.7); display: block;
+  color: rgba(255,255,255,0.7); display: block; text-align: center;
 }
 
 /* ── Treatments ─────────────────────────────────────────────────── */
@@ -754,7 +774,9 @@ html.header-light .site-header .logo img { filter: drop-shadow(0 1px 4px rgba(0,
   .site-header .sh-inner { padding: 0 20px; }
   .site-header .logo img { height: 44px; }
   .hero-bleed { min-height: calc(100vh - 56px); }
-  .hero-bleed .hb-bg { background-position: calc(50% - 200px) center; }
+  .hero-bleed .hb-bg--desktop { display: none; }
+  .hero-bleed .hb-bg--mobile { display: block; }
+  .hero-bleed .hb-bg .lumo-media-bg { object-position: calc(50% - 200px) center; }
   .hero-bleed .hb-content { padding-top: 80px; padding-bottom: 48px; gap: 48px; padding-left: 24px; padding-right: 24px; min-height: calc(100vh - 56px); }
   .hero-bleed .hb-headline { font-size: clamp(44px, 11vw, 56px); margin-bottom: 28px; }
   .hero-bleed .hb-ingress { font-size: 16px; line-height: 1.65; margin-bottom: 12px; }
@@ -1920,23 +1942,23 @@ document.addEventListener('submit',function(e){
 def build_hero() -> dict:
     html = """
 <section class="hero-bleed">
-  <div class="hb-bg" style="background-image:url({{hero_image}});"></div>
+  <div class="hb-bg hb-bg--desktop" data-filter="{{hero_video_filter}}" data-drift="{{hero_video_drift}}">{{hero_media_desktop__as_bg}}</div>
+  <div class="hb-bg hb-bg--mobile" data-filter="{{hero_video_filter}}" data-drift="{{hero_video_drift}}">{{hero_media_mobile__as_bg}}</div>
   <video class="hb-bg-video hb-bg-video--desktop" autoplay muted loop playsinline oncanplay="this.playbackRate=0.75">
-    <source src="{{hero_video_desktop}}" type="video/mp4">
+    <source src="{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4" type="video/mp4">
   </video>
   <video class="hb-bg-video hb-bg-video--mobile" autoplay muted loop playsinline oncanplay="this.playbackRate=0.75">
-    <source src="{{hero_video_mobile}}" type="video/mp4">
+    <source src="{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4" type="video/mp4">
   </video>
   <div class="hb-overlay"></div>
+
+  <a href="https://www.tandlakare.se/klinik/stockholm/alvsjo-tandvard/" target="_blank" rel="noopener" class="hb-medal-link hb-medal-fixed">
+    <img src="{{hero_medal_image}}" alt="Rekommenderad klinik 2025 – Tandläkare.se">
+  </a>
 
   <div class="hb-top">
     <div class="hb-top-inner">
       <span class="hb-top-left">{{eyebrow}}</span>
-    </div>
-    <div class="hb-top-medals hb-medals-desktop">
-      <a href="https://www.tandlakare.se/klinik/stockholm/alvsjo-tandvard/" target="_blank" rel="noopener" class="hb-medal-link">
-        <img src="{{site_url}}/wp-content/uploads/2026/05/medal_gold-2025.webp" alt="Rekommenderad klinik 2025 – Tandläkare.se">
-      </a>
     </div>
   </div>
 
@@ -1952,14 +1974,9 @@ def build_hero() -> dict:
         <div><span class="hb-stat-lbl">{{stat_3_text}}</span></div>
         <div><span class="hb-stat-lbl">{{stat_4_text}}</span></div>
       </div>
-      <div class="hb-medals hb-medals-mobile hb-medals-mobile-corner">
-        <a href="https://www.tandlakare.se/klinik/stockholm/alvsjo-tandvard/" target="_blank" rel="noopener" class="hb-medal-link">
-          <img src="{{site_url}}/wp-content/uploads/2026/05/medal_gold-2025.webp" alt="Rekommenderad klinik 2025 – Tandläkare.se">
-        </a>
-      </div>
       <a href="#tdl-booking-widget" class="btn btn-light btn-lg" style="width:100%;">Boka tid online</a>
       <a href="/akut-tandvard" class="hb-link">Akuttandvård samma dag →</a>
-      <div class="hb-review-widget">[trustindex data-widget-id=0771e9d71a88743f97661278b10]</div>
+      <div class="hb-review-widget">{{site_reviews_score}}</div>
     </div>
   </div>
 
@@ -1969,7 +1986,7 @@ def build_hero() -> dict:
     <div><span class="hb-stat-lbl">{{stat_3_text}}</span></div>
     <div><span class="hb-stat-lbl">{{stat_4_text}}</span></div>
   </div>
-  <button class="hb-bg-toggle" id="hb-bg-toggle" data-tip="Demo-video — i produktion byts denna ut mot en skräddarsydd film som passar kliniken perfekt.">◼ Bild</button>
+  <button class="hb-bg-toggle" id="hb-bg-toggle" data-tip="Den här bakgrundsvideon kan när som helst bytas ut mot en egen film från er klinik — säg bara till.">◼ Bild</button>
   <script>
   (function(){
     var hero = document.querySelector('.hero-bleed');
@@ -2003,9 +2020,11 @@ def build_hero() -> dict:
         "title": "Hero",
         "html_template": collapse(html),
         "schema": [
-            {"name": "hero_image",         "type": "image", "label": "Bakgrundsbild",               "default": "{{site_url}}/wp-content/uploads/2026/05/startsida-v2.jpg"},
-            {"name": "hero_video_desktop",      "type": "file", "label": "Bakgrundsvideo desktop", "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4"},
-            {"name": "hero_video_mobile",       "type": "file", "label": "Bakgrundsvideo mobil",   "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4"},
+            {"name": "hero_media_desktop", "type": "media", "label": "Hero-bakgrund desktop (bild eller video)", "default": "{{site_url}}/wp-content/uploads/2026/05/startsida-v2.jpg"},
+            {"name": "hero_media_mobile",  "type": "media", "label": "Hero-bakgrund mobil (bild eller video)",   "default": "{{site_url}}/wp-content/uploads/2026/05/startsida-v2.jpg"},
+            {"name": "hero_video_filter",  "type": "true_false", "label": "Aktivera video-filter (blur + dim + kontrast)", "default": True},
+            {"name": "hero_video_drift",   "type": "true_false", "label": "Aktivera kamera-drift-animation",               "default": True},
+            {"name": "hero_medal_image",   "type": "image",      "label": "Medaljbild (övre högra hörnet)",                "default": "{{site_url}}/wp-content/uploads/2026/05/medal_gold-2025.webp"},
             {"name": "eyebrow",     "type": "text",     "label": "Etikett",       "default": "Modern tandvård · 2 min från pendeln · Älvsjö"},
             {"name": "ingress",     "type": "textarea", "label": "Ingress",       "default": "Från första undersökningen till implantat och Invisalign — en nyrenoverad klinik mitt i Älvsjö där varje besök är utformat för att du ska känna dig lugn och omhändertagen."},
             {"name": "stat_1_text", "type": "text", "label": "USP 1", "default": "Gratis för barn t.o.m. 19"},
@@ -2019,7 +2038,7 @@ def build_hero() -> dict:
 def build_treatments_grid() -> dict:
     TREATMENTS = [
         ("Akuttandvård",            "Tider samma dag",    True,  "/akut-tandvard",           "akuttandvard.jpg"),
-        ("Implantat",               "Specialistteam",     False, "/implantat",               "implantat.jpg"),
+        ("Implantat",               "Specialistteam",     False, "/implantat",               "tandmodell-med-implantat-3.jpg"),
         ("Karies / Hål i tanden",   "Allmäntandvård",     False, "/karies-hal-i-tanden",     "karies-v4.jpg"),
         ("Tandblekning",            "Klinik & hemma",     False, "/tandblekning",             "tandblekning.jpg"),
         ("Tandfasader / Veneers",   "Estetisk tandvård",  False, "/tandfasader-veneers",      "tandfasader-veneers.jpg"),
@@ -2300,24 +2319,39 @@ def build_team() -> dict:
     }
 
 
-def build_photo_tour() -> dict:
-    # 5 tiles in a 12-column masonry layout
-    TILES = [
-        ("tile_1", "Receptionen",       "span 7", "span 3", "reception.jpg"),
-        ("tile_2", "Behandlingsrum 04", "span 5", "span 2", "clinic-room-1.jpg"),
-        ("tile_3", "Röntgenavdelning",  "span 5", "span 1", "intraoral-rontgen.jpg"),
-        ("tile_4", "Sterilcentral",     "span 5", "span 2", "clinic-detail-1.jpg"),
-        ("tile_5", "Operationsrum",     "span 7", "span 2", "clinic-room-2.jpg"),
-    ]
+PHOTO_TOUR_TILES_FULL = [
+    ("tile_1", "Korridoren",        "span 7",  "span 3", "korridor-bla-tandlogga-3.jpg"),
+    ("tile_2", "Behandlingsrum 04", "span 5",  "span 2", "clinic-room-1.jpg"),
+    ("tile_3", "Röntgenavdelning",  "span 5",  "span 1", "intraoral-rontgen.jpg"),
+    ("tile_4", "Sterilcentral",     "span 5",  "span 2", "clinic-detail-1.jpg"),
+    ("tile_5", "Operationsrum",     "span 7",  "span 2", "clinic-room-2.jpg"),
+    ("tile_6", "Receptionen",       "span 7",  "span 2", "reception.jpg"),
+    ("tile_7", "Instrument",        "span 5",  "span 2", "tandinstrument-narbild-3.jpg"),
+]
+
+
+def build_photo_tour_component(block_name: str, title: str, tile_count: int = 7, with_cta: bool = False, cta_text_default: str = "", cta_link_default: str = "") -> dict:
+    """Photo-tour-byggaren. Stödjer två varianter:
+    - 7 tiles (full) på t.ex. /om-oss
+    - 5 tiles (kompakt) med CTA-knapp till höger i header på t.ex. /hem.
+    """
+    tiles = PHOTO_TOUR_TILES_FULL[:tile_count]
 
     tiles_html = ""
-    for key, label_default, cols, rows, img in TILES:
+    for key, label_default, cols, rows, img in tiles:
         tiles_html += f"""
 <div class="pt-tile" style="grid-column:{cols};grid-row:{rows};">
   <div class="pt-tile-bg" style="background-image:url({{{{pt_{key}_image}}}});"></div>
   <div class="pt-overlay"></div>
   <div class="pt-label">{{{{pt_{key}_label}}}}</div>
 </div>"""
+
+    cta_html = ""
+    if with_cta:
+        cta_html = """
+      <div class="pt-hdr-cta">
+        <a href="{{cta_link}}" class="btn btn-ghost">{{cta_text}} →</a>
+      </div>"""
 
     html = f"""
 <section class="photo-tour section">
@@ -2326,23 +2360,43 @@ def build_photo_tour() -> dict:
       <div>
         <div class="eyebrow" style="margin-bottom:16px;">05 / Klinikens lokaler</div>
         <h2>{{{{heading}}}}</h2>
-      </div>
+      </div>{cta_html}
     </div>
     <div class="pt-grid">{tiles_html}</div>
   </div>
 </section>
 """
     schema = [{"name": "heading", "type": "text", "label": "Rubrik", "default": "14 behandlingsrum. 1 200 m² över två våningar."}]
-    for key, label_default, _, _, img in TILES:
+    for key, label_default, _, _, img in tiles:
         schema.append({"name": f"pt_{key}_image", "type": "image", "label": f"{label_default} – bild", "default": BASE_IMG + img})
         schema.append({"name": f"pt_{key}_label", "type": "text",  "label": f"{label_default} – text", "default": label_default})
+    if with_cta:
+        schema.append({"name": "cta_text", "type": "text", "label": "Knapptext", "default": cta_text_default})
+        schema.append({"name": "cta_link", "type": "url",  "label": "Knapplänk", "default": cta_link_default})
 
     return {
-        "block_name": "lumo/photo-tour",
-        "title": "Fotogalleri – kliniken",
+        "block_name": block_name,
+        "title": title,
         "html_template": collapse(html),
         "schema": schema,
     }
+
+
+def build_photo_tour() -> dict:
+    """Full version — 7 tiles, no CTA. Used on /om-oss."""
+    return build_photo_tour_component("lumo/photo-tour", "Fotogalleri – kliniken", tile_count=7, with_cta=False)
+
+
+def build_photo_tour_hem() -> dict:
+    """Hem-variant — 7 tiles + CTA-knapp till höger i header → /om-oss."""
+    return build_photo_tour_component(
+        "lumo/photo-tour-hem",
+        "Fotogalleri – kliniken (Hem)",
+        tile_count=7,
+        with_cta=True,
+        cta_text_default="Mer om vår klinik",
+        cta_link_default="/om-oss",
+    )
 
 
 def build_site_footer() -> dict:
@@ -2538,7 +2592,7 @@ def build_treatment_hero_shared() -> dict:
             <a href="#tdl-booking-widget" class="btn btn-primary">Boka tid</a>
             <a href="tel:+46812854555" class="btn btn-ghost">Ring oss</a>
           </div>
-          <div class="th-review-widget">[trustindex data-widget-id=0771e9d71a88743f97661278b10]</div>
+          <div class="th-review-widget">{{site_reviews_score}}</div>
         </div>
       </div>
       <div class="th-right">
@@ -4393,7 +4447,7 @@ def build_site(bases: dict) -> tuple[list, list]:
         "lumo/cost-calculator",
         "lumo/reviews-section",
         add("content-block-1", "hem", {
-            "image":    "{{site_url}}/wp-content/uploads/2026/05/undersok.jpg",
+            "image":    "{{site_url}}/wp-content/uploads/2026/05/nallebjorn-barnhorna-3.jpg",
             "eyebrow":  "03 / Om kliniken",
             "h2":       "Trygghet och kvalitet för ditt leende.",
             "body":     "<p>Vår nyrenoverade och luftiga klinik på Prästgårdsgränd 4 erbjuder en lugn, modern miljö där vi tar hand om dig och din familj med professionalism och värme.</p><p>För de yngre familjemedlemmarna har vi även <strong>Älvsjö Pedodonti</strong>, en specialistenhet för barn och unga upp till 23 år. Vi är anslutna till Försäkringskassan och erbjuder räntefri delbetalning.</p>",
@@ -4402,7 +4456,7 @@ def build_site(bases: dict) -> tuple[list, list]:
         }, "Hem"),
         "lumo/emergency-banner",
         "lumo/team",
-        "lumo/photo-tour",
+        "lumo/photo-tour-hem",
         "lumo/site-footer",
     ]
     pages.append({"title": "Hem", "slug": "hem", "menu_label": None, "blocks": blocks})
@@ -4421,6 +4475,7 @@ def build_site(bases: dict) -> tuple[list, list]:
         }, "Om oss"),
         "lumo/text-blocks-om-oss",
         "lumo/team",
+        "lumo/photo-tour",
         "lumo/tandvardsstod-om-oss",
         "lumo/organisation-om-oss",
         "lumo/cta-strip-om-oss",
@@ -4801,7 +4856,8 @@ def main() -> None:
     about        = build_about()
     emergency    = build_emergency_banner()
     team         = build_team()
-    photo_tour   = build_photo_tour()
+    photo_tour     = build_photo_tour()
+    photo_tour_hem = build_photo_tour_hem()
 
     bases = {
         "hero":             hero,
@@ -4847,7 +4903,7 @@ def main() -> None:
     # they're used on multiple pages — per-page content comes via page_defaults.
     global_components = [
         site_header, site_footer,
-        hero, treatments, reviews, about, emergency, team, photo_tour,
+        hero, treatments, reviews, about, emergency, team, photo_tour, photo_tour_hem,
         page_hero_info,
         treatment_hero_shared, emergency_strip, triage_widget, triage_grid, process_steps, price_row,
         fear_matcher,
