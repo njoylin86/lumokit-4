@@ -1922,11 +1922,9 @@ def build_hero() -> dict:
 <section class="hero-bleed">
   <div class="hb-bg" style="background-image:url({{hero_image}});"></div>
   <video class="hb-bg-video hb-bg-video--desktop" autoplay muted loop playsinline oncanplay="this.playbackRate=0.75">
-    <source src="{{hero_video_desktop_webm}}" type="video/webm">
     <source src="{{hero_video_desktop}}" type="video/mp4">
   </video>
   <video class="hb-bg-video hb-bg-video--mobile" autoplay muted loop playsinline oncanplay="this.playbackRate=0.75">
-    <source src="{{hero_video_mobile_webm}}" type="video/webm">
     <source src="{{hero_video_mobile}}" type="video/mp4">
   </video>
   <div class="hb-overlay"></div>
@@ -2006,10 +2004,8 @@ def build_hero() -> dict:
         "html_template": collapse(html),
         "schema": [
             {"name": "hero_image",         "type": "image", "label": "Bakgrundsbild",               "default": "{{site_url}}/wp-content/uploads/2026/05/startsida-v2.jpg"},
-            {"name": "hero_video_desktop",      "type": "file", "label": "Bakgrundsvideo desktop — MP4",  "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4", "mime_types": "mp4"},
-            {"name": "hero_video_desktop_webm", "type": "file", "label": "Bakgrundsvideo desktop — WebM", "default": "",                                                       "mime_types": "webm"},
-            {"name": "hero_video_mobile",       "type": "file", "label": "Bakgrundsvideo mobil — MP4",    "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4", "mime_types": "mp4"},
-            {"name": "hero_video_mobile_webm",  "type": "file", "label": "Bakgrundsvideo mobil — WebM",   "default": "",                                                       "mime_types": "webm"},
+            {"name": "hero_video_desktop",      "type": "file", "label": "Bakgrundsvideo desktop", "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4", "mime_types": "mp4"},
+            {"name": "hero_video_mobile",       "type": "file", "label": "Bakgrundsvideo mobil",   "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4", "mime_types": "mp4"},
             {"name": "eyebrow",     "type": "text",     "label": "Etikett",       "default": "Modern tandvård · 2 min från pendeln · Älvsjö"},
             {"name": "ingress",     "type": "textarea", "label": "Ingress",       "default": "Från första undersökningen till implantat och Invisalign — en nyrenoverad klinik mitt i Älvsjö där varje besök är utformat för att du ska känna dig lugn och omhändertagen."},
             {"name": "stat_1_text", "type": "text", "label": "USP 1", "default": "Gratis för barn t.o.m. 19"},
