@@ -1,0 +1,43 @@
+{
+  "block_name": "lumo/content-block-1-implantat",
+  "title": "Innehållsblock – Implantat",
+  "html_template": "<section class=\"cb-section cb-section--treatment\" style=\"background:var(--white);\"> <div class=\"container-wide\"> <div class=\"cb-grid cb-grid--normal\"> <div class=\"cb-text\"> <div class=\"eyebrow\" style=\"margin-bottom:16px;\">Behandlingen</div> <h2 style=\"font-family:var(--font-serif);font-weight:500;font-size:clamp(28px,2.6vw,40px);line-height:1.15;letter-spacing:-0.02em;color:var(--ink-700);margin:0 0 24px;\">{{h2}}</h2> <div style=\"font-family:var(--font-sans);font-size:16px;line-height:1.7;color:var(--fg);\">{{body}}</div> <div style=\"margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;\"> <a href=\"{{cta_link}}\" class=\"btn btn-primary\">{{cta_text}}</a> </div> </div> <div class=\"cb-img\"> <img src=\"{{site_url}}/wp-content/uploads/2026/05/implantat-1.jpg\" alt=\"Tandmodell — uppbyggnad och anatomi\" style=\"width:100%;height:100%;object-fit:cover;display:block;\"> </div> </div> </div> </section>",
+  "schema": [
+    {
+      "name": "image",
+      "type": "image",
+      "label": "Bild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/implantat-1.jpg"
+    },
+    {
+      "name": "eyebrow",
+      "type": "text",
+      "label": "Etikett",
+      "default": "Behandlingen"
+    },
+    {
+      "name": "h2",
+      "type": "text",
+      "label": "Rubrik",
+      "default": "Permanenta tänder som ser och känns helt naturliga."
+    },
+    {
+      "name": "body",
+      "type": "textarea",
+      "label": "Brödtext (HTML tillåten)",
+      "default": "<p>Ett tandimplantat är en titanskruv som placeras i käkbenet och fungerar som tandens rot. Ovanpå skruven monteras en tandkrona som matchar dina egna tänder exakt — i form, färg och funktion.</p><p>Vi utför <strong>3D-planering med CBCT-röntgen</strong> inför alla implantatbehandlingar för maximal precision och säkerhet. Hela förloppet — från konsultation och insättning till färdig krona — sköts på vår klinik, utan remisser vidare.</p>"
+    },
+    {
+      "name": "cta_text",
+      "type": "text",
+      "label": "CTA-text",
+      "default": "Boka implantatrådgivning"
+    },
+    {
+      "name": "cta_link",
+      "type": "url",
+      "label": "CTA-länk",
+      "default": "#tdl-booking-widget"
+    }
+  ]
+}

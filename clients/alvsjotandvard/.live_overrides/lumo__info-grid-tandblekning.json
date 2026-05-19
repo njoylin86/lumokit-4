@@ -1,0 +1,109 @@
+{
+  "block_name": "lumo/info-grid-tandblekning",
+  "title": "Info-grid – Tandblekning",
+  "html_template": "<section class=\"mc-section\" style=\"background:#fafafabd;\"> <div class=\"container-wide\"> <div class=\"mc-hdr\"> <div class=\"eyebrow\" style=\"margin-bottom:16px;\">{{eyebrow}}</div> <h2>{{heading}}</h2> </div> <div class=\"mc-grid\"> <article class=\"mc-item\"><div class=\"mc-name-row\"><h3 class=\"mc-name\">{{m1_name}}</h3><span class=\"mc-badge\">{{m1_badge}}</span></div><div class=\"mc-meta\"><div class=\"mc-meta-row\"><span class=\"mc-meta-label\">Tid</span><span class=\"mc-meta-val\">{{m1_time}}</span></div><div class=\"mc-meta-row\"><span class=\"mc-meta-label\">Effekt</span><span class=\"mc-meta-val mc-meta-val--accent\">{{m1_effect}}</span></div></div><p class=\"mc-desc\">{{m1_desc}}</p></article><article class=\"mc-item\"><div class=\"mc-name-row\"><h3 class=\"mc-name\">{{m2_name}}</h3><span class=\"mc-badge\">{{m2_badge}}</span></div><div class=\"mc-meta\"><div class=\"mc-meta-row\"><span class=\"mc-meta-label\">Tid</span><span class=\"mc-meta-val\">{{m2_time}}</span></div><div class=\"mc-meta-row\"><span class=\"mc-meta-label\">Effekt</span><span class=\"mc-meta-val mc-meta-val--accent\">{{m2_effect}}</span></div></div><p class=\"mc-desc\">{{m2_desc}}</p></article><article class=\"mc-item\"><div class=\"mc-name-row\"><h3 class=\"mc-name\">{{m3_name}}</h3><span class=\"mc-badge\">{{m3_badge}}</span></div><div class=\"mc-meta\"><div class=\"mc-meta-row\"><span class=\"mc-meta-label\">Tid</span><span class=\"mc-meta-val\">{{m3_time}}</span></div><div class=\"mc-meta-row\"><span class=\"mc-meta-label\">Effekt</span><span class=\"mc-meta-val mc-meta-val--accent\">{{m3_effect}}</span></div></div><p class=\"mc-desc\">{{m3_desc}}</p></article> </div> </div> </section>",
+  "schema": [
+    {
+      "name": "eyebrow",
+      "type": "text",
+      "label": "Etikett",
+      "default": "Blekningsmetoder"
+    },
+    {
+      "name": "heading",
+      "type": "text",
+      "label": "Rubrik",
+      "default": "Välj rätt metod för ditt leende."
+    },
+    {
+      "name": "m1_name",
+      "type": "text",
+      "label": "Metod 1 – namn",
+      "default": "Klinikblekning"
+    },
+    {
+      "name": "m1_badge",
+      "type": "text",
+      "label": "Metod 1 – badge",
+      "default": "Snabbt resultat"
+    },
+    {
+      "name": "m1_time",
+      "type": "text",
+      "label": "Metod 1 – tid",
+      "default": "60–90 min"
+    },
+    {
+      "name": "m1_effect",
+      "type": "text",
+      "label": "Metod 1 – effekt",
+      "default": "Upp till 8 nyanser"
+    },
+    {
+      "name": "m1_desc",
+      "type": "textarea",
+      "label": "Metod 1 – text",
+      "default": "Professionellt gel och LED-ljus ger ett omedelbart, intensivt resultat redan samma dag."
+    },
+    {
+      "name": "m2_name",
+      "type": "text",
+      "label": "Metod 2 – namn",
+      "default": "Hemblekning"
+    },
+    {
+      "name": "m2_badge",
+      "type": "text",
+      "label": "Metod 2 – badge",
+      "default": "Skonsamt"
+    },
+    {
+      "name": "m2_time",
+      "type": "text",
+      "label": "Metod 2 – tid",
+      "default": "2–3 veckor"
+    },
+    {
+      "name": "m2_effect",
+      "type": "text",
+      "label": "Metod 2 – effekt",
+      "default": "4–6 nyanser"
+    },
+    {
+      "name": "m2_desc",
+      "type": "textarea",
+      "label": "Metod 2 – text",
+      "default": "Skräddarsydda skenor och professionellt blekgel — gradvist och skonsamt i din egen takt."
+    },
+    {
+      "name": "m3_name",
+      "type": "text",
+      "label": "Metod 3 – namn",
+      "default": "Kombinationsblekning"
+    },
+    {
+      "name": "m3_badge",
+      "type": "text",
+      "label": "Metod 3 – badge",
+      "default": "Rekommenderas"
+    },
+    {
+      "name": "m3_time",
+      "type": "text",
+      "label": "Metod 3 – tid",
+      "default": "Klinik + hemkit"
+    },
+    {
+      "name": "m3_effect",
+      "type": "text",
+      "label": "Metod 3 – effekt",
+      "default": "Upp till 10 nyanser"
+    },
+    {
+      "name": "m3_desc",
+      "type": "textarea",
+      "label": "Metod 3 – text",
+      "default": "Klinikblekning kombinerat med hemkittet — det bästa och mest långvariga resultatet."
+    }
+  ]
+}

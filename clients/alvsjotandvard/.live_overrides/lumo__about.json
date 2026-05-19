@@ -1,0 +1,31 @@
+{
+  "block_name": "lumo/about",
+  "title": "Om kliniken",
+  "html_template": "<section class=\"about-section section\"> <div class=\"container-wide\"> <div class=\"about-grid\"> <div class=\"about-text\"> <div class=\"eyebrow\" style=\"margin-bottom:16px;\">Om kliniken</div> <h2>{{heading}}</h2> <p class=\"lead\">{{lead_text}}</p> <p>{{body}}</p> <a href=\"/om-oss\" class=\"btn btn-ghost\">Läs mer om oss</a> </div> <div class=\"about-img\"> <img src=\"{{about_image}}\" alt=\"\" style=\"width:100%;height:100%;object-fit:cover;display:block;\"> </div> </div> </div> </section>",
+  "schema": [
+    {
+      "name": "heading",
+      "type": "text",
+      "label": "Rubrik",
+      "default": "Trygghet och kvalitet för ditt leende."
+    },
+    {
+      "name": "lead_text",
+      "type": "textarea",
+      "label": "Ingress",
+      "default": "Vår nyrenoverade och luftiga klinik på Prästgårdsgränd 4 erbjuder en lugn, modern miljö där vi tar hand om dig och din familj med professionalism och värme."
+    },
+    {
+      "name": "body",
+      "type": "textarea",
+      "label": "Brödtext",
+      "default": "För de yngre familjemedlemmarna har vi även Älvsjö Pedodonti, en specialistenhet för barn och unga upp till 23 år. Vi är anslutna till Försäkringskassan och erbjuder räntefri delbetalning."
+    },
+    {
+      "name": "about_image",
+      "type": "image",
+      "label": "Bild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/undersok.jpg"
+    }
+  ]
+}

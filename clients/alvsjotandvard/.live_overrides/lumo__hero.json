@@ -1,0 +1,73 @@
+{
+  "block_name": "lumo/hero",
+  "title": "Hero",
+  "html_template": "<section class=\"hero-bleed\"><!-- HERO-EARLY-START --><script>/* hero-load-anim disabled */</script><!-- HERO-EARLY-END --> <div class=\"hb-bg\" style=\"background-image:url('{{site_url}}/wp-content/uploads/2026/05/startsida.jpg');\"></div> <video class=\"hb-bg-video hb-bg-video--desktop\" autoplay muted loop playsinline oncanplay=\"this.playbackRate=0.75\"> <source src=\"{{hero_video_desktop_webm}}\" type=\"video/webm\"> <source src=\"{{hero_video_desktop}}\" type=\"video/mp4\"> </video> <video class=\"hb-bg-video hb-bg-video--mobile\" autoplay muted loop playsinline oncanplay=\"this.playbackRate=0.75\"> <source src=\"{{hero_video_mobile_webm}}\" type=\"video/webm\"> <source src=\"{{hero_video_mobile}}\" type=\"video/mp4\"> </video> <div class=\"hb-overlay\"></div> <div class=\"hb-top\"> <div class=\"hb-top-inner\"> <span class=\"hb-top-left\">{{eyebrow}}</span> </div> <div class=\"hb-top-medals hb-medals-desktop\"> <a href=\"https://www.tandlakare.se/klinik/stockholm/alvsjo-tandvard/\" target=\"_blank\" rel=\"noopener\" class=\"hb-medal-link\"> <img src=\"{{site_url}}/wp-content/uploads/2026/05/medal_gold-2025.webp\" alt=\"Rekommenderad klinik 2025 – Tandläkare.se\"> </a> </div> </div> <div class=\"hb-content container-wide\"> <div class=\"hb-left\"> <h1 class=\"hb-headline\">Trygg tandvård.<br><span class=\"hb-headline-accent\">Hela familjen.</span></h1> <p class=\"hb-ingress\">{{ingress}}</p> </div> <div class=\"hb-right\"> <div class=\"hb-stats hb-stats-mobile\"> <div><span class=\"hb-stat-lbl\">{{stat_1_text}}</span></div> <div><span class=\"hb-stat-lbl\">{{stat_2_text}}</span></div> <div><span class=\"hb-stat-lbl\">{{stat_3_text}}</span></div> <div><span class=\"hb-stat-lbl\">{{stat_4_text}}</span></div> </div> <div class=\"hb-medals hb-medals-mobile hb-medals-mobile-corner\"> <a href=\"https://www.tandlakare.se/klinik/stockholm/alvsjo-tandvard/\" target=\"_blank\" rel=\"noopener\" class=\"hb-medal-link\"> <img src=\"{{site_url}}/wp-content/uploads/2026/05/medal_gold-2025.webp\" alt=\"Rekommenderad klinik 2025 – Tandläkare.se\"> </a> </div> <div class=\"hb-buttons\"> <a href=\"#tdl-booking-widget\" class=\"btn btn-light btn-lg\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M16 2v4M8 2v4M3 10h18\"/></svg>Boka tid</a> <a href=\"tel:+46812854555\" class=\"btn btn-lg hb-ring\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z\"/></svg>Ring oss</a> </div> <div class=\"hb-bottom-row\"> <div class=\"hb-review-widget\">[trustindex data-widget-id=0771e9d71a88743f97661278b10]</div> <img class=\"hb-region-badge\" src=\"{{site_url}}/wp-content/uploads/2026/05/Pa-uppdrag-av_vit-300x77-1.png\" alt=\"På uppdrag av Region Stockholm\"> </div> </div> </div> <div class=\"hb-stats hb-stats-desktop container-wide\"> <div><span class=\"hb-stat-lbl\">{{stat_1_text}}</span></div> <div><span class=\"hb-stat-lbl\">{{stat_2_text}}</span></div> <div><span class=\"hb-stat-lbl\">{{stat_3_text}}</span></div> <div><span class=\"hb-stat-lbl\">{{stat_4_text}}</span></div> </div> <button class=\"hb-bg-toggle\" id=\"hb-bg-toggle\" data-tip=\"Demo-video — i produktion byts denna ut mot en skräddarsydd film som passar kliniken perfekt.\">◼ Bild</button> <script> (function(){ var hero = document.querySelector('.hero-bleed'); var btn = document.getElementById('hb-bg-toggle'); var mode = 'image'; var locked = false; function apply(m){ hero.classList.toggle('hero-bg-video', m==='video'); btn.textContent = m==='video' ? '◼ Bild' : '▶ Video'; } function pulse(){ btn.classList.remove('hb-pulse'); void btn.offsetWidth; btn.classList.add('hb-pulse'); } apply(mode); setTimeout(function(){ pulse(); setInterval(pulse, 5000); }, 1200); btn.addEventListener('click', function(){ if(locked) return; mode = mode==='video' ? 'image' : 'video'; localStorage.setItem('heroBg', mode); apply(mode); if(mode==='video'){ locked=true; setTimeout(function(){ locked=false; }, 600); } }); })(); </script> <!-- HERO-REVEAL-START --><script>/* hero-load-anim disabled\n(function(){\n  var hero = document.querySelector('.hero-bleed');\n  var content = hero ? hero.querySelector('.hb-content') : null;\n  var top = hero ? hero.querySelector('.hb-top') : null;\n\n  if (content) {\n    content.style.opacity = '0';\n    content.style.transform = 'translateY(18px)';\n    content.style.transition = 'opacity 0.6s ease, transform 0.6s ease';\n  }\n  if (top) {\n    top.style.opacity = '0';\n    top.style.transition = 'opacity 0.5s ease';\n  }\n\n  var bgEl = hero ? hero.querySelector('.hb-bg') : null;\n  var bgUrl = bgEl ? bgEl.style.backgroundImage.replace(/url\\(['\"]?|['\"]?\\)/g, '') : '';\n\n  function reveal() {\n    document.body.style.opacity = '1';\n    setTimeout(function() {\n      if (content) { content.style.opacity = '1'; content.style.transform = 'translateY(0)'; }\n      if (top) top.style.opacity = '1';\n    }, 200);\n  }\n\n  var fallback = setTimeout(reveal, 3000);\n\n  if (bgUrl) {\n    var img = new Image();\n    img.onload = function() { clearTimeout(fallback); reveal(); };\n    img.onerror = function() { clearTimeout(fallback); reveal(); };\n    img.src = bgUrl;\n  } else {\n    window.addEventListener('load', function() { clearTimeout(fallback); reveal(); });\n  }\n})();\n*/</script><!-- HERO-REVEAL-END --></section>",
+  "schema": [
+    {
+      "name": "hero_image",
+      "type": "image",
+      "label": "Bakgrundsbild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/hero-1.jpg"
+    },
+    {
+      "name": "hero_video_desktop",
+      "type": "text",
+      "label": "Bakgrundsvideo desktop — MP4-URL",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4"
+    },
+    {
+      "name": "hero_video_desktop_webm",
+      "type": "text",
+      "label": "Bakgrundsvideo desktop — WebM-URL",
+      "default": ""
+    },
+    {
+      "name": "hero_video_mobile",
+      "type": "text",
+      "label": "Bakgrundsvideo mobil — MP4-URL",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4"
+    },
+    {
+      "name": "hero_video_mobile_webm",
+      "type": "text",
+      "label": "Bakgrundsvideo mobil — WebM-URL",
+      "default": ""
+    },
+    {
+      "name": "eyebrow",
+      "type": "text",
+      "label": "Etikett",
+      "default": "Modern tandvård · 2 min från pendeln · Älvsjö"
+    },
+    {
+      "name": "ingress",
+      "type": "textarea",
+      "label": "Ingress",
+      "default": "Från första undersökningen till implantat och Invisalign — en nyrenoverad klinik mitt i Älvsjö där varje besök är utformat för att du ska känna dig lugn och omhändertagen."
+    },
+    {
+      "name": "stat_1_text",
+      "type": "text",
+      "label": "USP 1",
+      "default": "Gratis för barn t.o.m. 19"
+    },
+    {
+      "name": "stat_2_text",
+      "type": "text",
+      "label": "USP 2",
+      "default": "Akut hjälp redan idag"
+    },
+    {
+      "name": "stat_3_text",
+      "type": "text",
+      "label": "USP 3",
+      "default": "Öppet 6 dagar i veckan"
+    },
+    {
+      "name": "stat_4_text",
+      "type": "text",
+      "label": "USP 4",
+      "default": "Räntefri delbetalning"
+    }
+  ]
+}

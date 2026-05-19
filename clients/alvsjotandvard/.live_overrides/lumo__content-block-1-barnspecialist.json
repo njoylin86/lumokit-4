@@ -1,0 +1,43 @@
+{
+  "block_name": "lumo/content-block-1-barnspecialist",
+  "title": "Innehållsblock – Barnspecialist",
+  "html_template": "<section class=\"cb-section cb-section--treatment cb-section--pedodonti\" style=\"background:var(--white);\"> <div class=\"container-wide\"> <div class=\"cb-grid cb-grid--normal\"> <div class=\"cb-text\"> <div class=\"eyebrow\" style=\"margin-bottom:16px;\">Älvsjö Pedodonti</div> <h2 style=\"font-family:var(--font-serif);font-weight:500;font-size:clamp(28px,2.6vw,40px);line-height:1.15;letter-spacing:-0.02em;color:var(--ink-700);margin:0 0 24px;\">{{h2}}</h2> <div style=\"font-family:var(--font-sans);font-size:16px;line-height:1.7;color:var(--fg);\">{{body}}</div> <div style=\"margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;\"> <a href=\"{{cta_link}}\" class=\"btn btn-primary\">{{cta_text}}</a> </div> </div> <div class=\"cb-img\"> <img src=\"{{site_url}}/wp-content/uploads/2026/05/barn-1.jpg\" alt=\"Barn hos tandläkaren — barnvänlig tandvård\" style=\"width:100%;height:100%;object-fit:cover;display:block;\"> </div> </div> </div> </section>",
+  "schema": [
+    {
+      "name": "image",
+      "type": "image",
+      "label": "Bild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/barn-1.jpg"
+    },
+    {
+      "name": "eyebrow",
+      "type": "text",
+      "label": "Etikett",
+      "default": "Älvsjö Pedodonti"
+    },
+    {
+      "name": "h2",
+      "type": "text",
+      "label": "Rubrik",
+      "default": "Anpassad specialistvård med omtanke."
+    },
+    {
+      "name": "body",
+      "type": "textarea",
+      "label": "Brödtext (HTML tillåten)",
+      "default": "<p>Älvsjö Pedodonti är vår specialistklinik för <strong>barn och unga upp till 23 års ålder</strong>. Vi arbetar på uppdrag av Region Stockholm och tar emot remisser via Muntra för att säkerställa expertis och trygg vård för ditt barn.</p><p>För en trygg upplevelse erbjuder vi <strong>lustgas, lugnande medel (Midazolam) och i särskilda fall narkosbehandling</strong>. Tandvård är alltid <strong>gratis för barn och ungdomar upp till 19 år</strong>.</p>"
+    },
+    {
+      "name": "cta_text",
+      "type": "text",
+      "label": "CTA-text",
+      "default": "Skicka remiss"
+    },
+    {
+      "name": "cta_link",
+      "type": "url",
+      "label": "CTA-länk",
+      "default": "/remiss-2"
+    }
+  ]
+}

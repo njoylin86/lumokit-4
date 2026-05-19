@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Hero Mobil — Experiment</title>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+/* ── Experiment: välj variant med knapparna nedan ── */
+
+/* VARIANT A — bild under texten (default desktop = oförändrat) */
+.hero-variant .th-right-mobile { display: none; }
+
+/* VARIANT B — bild under texten på mobil */
+body.variant-b .hero-variant .th-right-mobile {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background-size: cover;
+  background-position: center;
+  filter: saturate(0.9);
+  margin-top: 24px;
+}
+
+/* VARIANT C — bild ovanför texten, fullbredd med scrim */
+body.variant-c .hero-variant {
+  background: var(--ink-700) !important;
+  position: relative;
+  overflow: hidden;
+}
+body.variant-c .hero-variant .th-bg-mobile {
+  display: block !important;
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.25;
+  filter: saturate(0.7);
+}
+body.variant-c .hero-variant h1 { color: var(--white) !important; }
+body.variant-c .hero-variant .th-lead { color: rgba(255,255,255,0.75) !important; }
+body.variant-c .hero-variant .th-bullet-text { color: rgba(255,255,255,0.85) !important; }
+body.variant-c .hero-variant .th-border-top { border-color: rgba(255,255,255,0.2) !important; }
+body.variant-c .hero-variant .eyebrow { color: var(--sage-300) !important; }
+
+/* VARIANT D — kompakt bild-thumbnail bredvid rubriken */
+body.variant-d .hero-variant .th-thumb {
+  display: block !important;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+  filter: saturate(0.9);
+  border: 3px solid var(--white);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+body.variant-d .hero-variant .th-title-row {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+/* Gemensamt: dölj desktop-bilden på mobil i alla varianter utom A */
+@media (max-width: 900px) {
+  body:not(.variant-a) .hero-variant .th-right { display: none !important; }
+  .th-bg-mobile { display: none; }
+  .th-thumb { display: none; }
+  .th-title-row { display: block; }
+}
+
+/* Switcher-panel */
+.switcher {
+  position: fixed; top: 16px; right: 16px; z-index: 999;
+  display: flex; flex-direction: column; gap: 8px;
+  background: var(--ink-700); padding: 16px; border-radius: 4px;
+}
+.switcher button {
+  font-family: var(--font-sans); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  background: transparent; color: rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.2); padding: 8px 14px;
+  cursor: pointer; border-radius: 2px; text-align: left;
+}
+.switcher button.active { background: var(--sage-600); color: var(--white); border-color: var(--sage-600); }
+.switcher label { font-size: 9px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 4px; }
+</style>
+</head>
+<body class="variant-a">
+
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="components.jsx"></script>
+
+<script type="text/babel">
+
+const IMG = 'img/t-implantat.jpg';
+const eyebrow = 'N° 02 — Tandimplantat';
+const title = <>Permanenta tänder. <em style={{fontStyle:'italic',color:'var(--sage-600)',fontWeight:300}}>För livet.</em></>;
+const ingress = 'Ett tandimplantat är den mest naturliga ersättningen för en förlorad tand — det ser ut, känns och fungerar precis som din egna tand.';
+const bullets = ['3D-planering med CBCT', 'Specialistteam på plats', 'Räntefri delbetalning', 'Livslång hållbarhet'];
+const stat = { label: 'Lyckad integrering', value: '96 %', sub: 'efter 10 år — meta-analys av 18 kliniska studier.' };
+
+function ExperimentHero() {
+  return (
+    <section className="hero-variant" style={{
+      background: 'var(--cream)',
+      borderBottom: '1px solid var(--border)',
+      overflow: 'hidden',
+      position: 'relative',
+    }}>
+      {/* Bakgrundsbild för variant C */}
+      <div className="th-bg-mobile" style={{ backgroundImage: `url(${IMG})` }} />
+
+      <div className="container-wide" style={{ position:'relative', zIndex:1, paddingTop: 40, paddingBottom: 40 }}>
+        <div className="eyebrow" style={{ marginBottom: 20, color: 'var(--sage-600)' }}>{eyebrow}</div>
+
+        <div style={{
+          display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 64,
+          alignItems: 'stretch', minHeight: 500,
+        }}>
+          {/* LEFT */}
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+
+            {/* Rubrikrad — variant D lägger in thumbnail här */}
+            <div className="th-title-row">
+              <div className="th-thumb" style={{ backgroundImage: `url(${IMG})` }} />
+              <h1 style={{
+                fontFamily: 'var(--font-serif)', fontWeight: 300,
+                fontSize: 'clamp(44px, 5.5vw, 96px)', lineHeight: 0.95,
+                letterSpacing: '-0.035em', color: 'var(--ink-700)',
+                maxWidth: '14ch', marginTop: 0,
+              }}>{title}</h1>
+            </div>
+
+            <div>
+              <p className="lead th-lead" style={{ maxWidth: '44ch', marginBottom: 24, color: 'var(--ink-500)', fontSize: 17 }}>
+                {ingress}
+              </p>
+
+              {/* Variant B — bild under ingress, ovanför bullets */}
+              <div
+                className="th-right-mobile"
+                style={{ backgroundImage: `url(${IMG})` }}
+              />
+
+              <div className="th-border-top" style={{
+                display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px 24px',
+                paddingTop: 20, marginBottom: 28,
+                borderTop: '1px solid var(--border)',
+              }}>
+                {bullets.map((b, i) => (
+                  <div key={i} style={{ display: 'flex', alignItems: 'baseline', gap: 10, fontSize: 13, fontWeight: 500 }}>
+                    <span style={{ fontSize: 10, color: 'var(--sage-600)', letterSpacing: '0.14em', flexShrink: 0 }}>0{i+1}</span>
+                    <span className="th-bullet-text" style={{ color: 'var(--ink-600)' }}>{b}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ display: 'flex', gap: 12 }}>
+                <a href="#" className="btn btn-primary">Boka tid</a>
+                <a href="tel:+46812854555" className="btn btn-ghost">Ring oss</a>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT — desktop-bild (döljs på mobil i variant B/C/D) */}
+          <div className="th-right" style={{ position: 'relative' }}>
+            <div style={{
+              position: 'absolute', inset: 0,
+              backgroundImage: `url(${IMG})`,
+              backgroundSize: 'cover', backgroundPosition: 'center',
+              filter: 'saturate(0.9)',
+            }} />
+            <div style={{
+              position: 'absolute', left: -28, bottom: 28,
+              background: 'var(--ink-700)', color: 'var(--white)',
+              padding: '24px 28px', maxWidth: 260,
+              boxShadow: '0 24px 60px rgba(0,0,0,0.18)',
+            }}>
+              <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--sage-300)', marginBottom: 10 }}>{stat.label}</div>
+              <div style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, fontSize: 'clamp(40px,4vw,56px)', lineHeight: 0.95, letterSpacing: '-0.03em', marginBottom: 8 }}>{stat.value}</div>
+              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.7)', lineHeight: 1.5 }}>{stat.sub}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<ExperimentHero />);
+</script>
+
+<!-- Variant-switcher -->
+<div class="switcher">
+  <label>Mobil-variant</label>
+  <button class="active" onclick="setVariant('a', this)">A — Ingen bild (nu)</button>
+  <button onclick="setVariant('b', this)">B — Bild under ingress</button>
+  <button onclick="setVariant('c', this)">C — Bakgrundsbild + scrim</button>
+  <button onclick="setVariant('d', this)">D — Cirkel-thumbnail</button>
+</div>
+
+<script>
+function setVariant(v, btn) {
+  document.body.className = 'variant-' + v;
+  document.querySelectorAll('.switcher button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+
+</body>
+</html>

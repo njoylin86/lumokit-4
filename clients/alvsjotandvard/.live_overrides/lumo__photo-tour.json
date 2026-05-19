@@ -1,0 +1,73 @@
+{
+  "block_name": "lumo/photo-tour",
+  "title": "Fotogalleri – kliniken",
+  "html_template": "<section class=\"photo-tour section\"> <div class=\"container-wide\"> <div class=\"pt-hdr\"> <div> <div class=\"eyebrow\" style=\"margin-bottom:16px;\">Klinikens lokaler</div> <h2>{{heading}}</h2> </div> </div> <div class=\"pt-grid\"> <div class=\"pt-tile\" style=\"grid-column:span 7;grid-row:span 3;\"> <div class=\"pt-tile-bg\" style=\"background-image:url({{pt_tile_1_image}});\"></div> <div class=\"pt-overlay\"></div> <div class=\"pt-label\">{{pt_tile_1_label}}</div> </div> <div class=\"pt-tile\" style=\"grid-column:span 5;grid-row:span 2;\"> <div class=\"pt-tile-bg\" style=\"background-image:url({{pt_tile_2_image}});\"></div> <div class=\"pt-overlay\"></div> <div class=\"pt-label\">{{pt_tile_2_label}}</div> </div> <div class=\"pt-tile\" style=\"grid-column:span 5;grid-row:span 1;\"> <div class=\"pt-tile-bg\" style=\"background-image:url({{pt_tile_3_image}});\"></div> <div class=\"pt-overlay\"></div> <div class=\"pt-label\">{{pt_tile_3_label}}</div> </div> <div class=\"pt-tile\" style=\"grid-column:span 5;grid-row:span 2;\"> <div class=\"pt-tile-bg\" style=\"background-image:url({{pt_tile_4_image}});\"></div> <div class=\"pt-overlay\"></div> <div class=\"pt-label\">{{pt_tile_4_label}}</div> </div> <div class=\"pt-tile\" style=\"grid-column:span 7;grid-row:span 2;\"> <div class=\"pt-tile-bg\" style=\"background-image:url({{pt_tile_5_image}});\"></div> <div class=\"pt-overlay\"></div> <div class=\"pt-label\">{{pt_tile_5_label}}</div> </div></div> </div> </section>",
+  "schema": [
+    {
+      "name": "heading",
+      "type": "text",
+      "label": "Rubrik",
+      "default": "14 behandlingsrum. 1 200 m² över två våningar."
+    },
+    {
+      "name": "pt_tile_1_image",
+      "type": "image",
+      "label": "Receptionen – bild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/reception.jpg"
+    },
+    {
+      "name": "pt_tile_1_label",
+      "type": "text",
+      "label": "Receptionen – text",
+      "default": "Receptionen"
+    },
+    {
+      "name": "pt_tile_2_image",
+      "type": "image",
+      "label": "Behandlingsrum 04 – bild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/clinic-room-1.jpg"
+    },
+    {
+      "name": "pt_tile_2_label",
+      "type": "text",
+      "label": "Behandlingsrum 04 – text",
+      "default": "Behandlingsrum 04"
+    },
+    {
+      "name": "pt_tile_3_image",
+      "type": "image",
+      "label": "Röntgenavdelning – bild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/intraoral-rontgen.jpg"
+    },
+    {
+      "name": "pt_tile_3_label",
+      "type": "text",
+      "label": "Röntgenavdelning – text",
+      "default": "Röntgenavdelning"
+    },
+    {
+      "name": "pt_tile_4_image",
+      "type": "image",
+      "label": "Sterilcentral – bild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/clinic-detail-1.jpg"
+    },
+    {
+      "name": "pt_tile_4_label",
+      "type": "text",
+      "label": "Sterilcentral – text",
+      "default": "Sterilcentral"
+    },
+    {
+      "name": "pt_tile_5_image",
+      "type": "image",
+      "label": "Operationsrum – bild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/clinic-room-2.jpg"
+    },
+    {
+      "name": "pt_tile_5_label",
+      "type": "text",
+      "label": "Operationsrum – text",
+      "default": "Operationsrum"
+    }
+  ]
+}

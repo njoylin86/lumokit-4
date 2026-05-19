@@ -1,0 +1,55 @@
+{
+  "block_name": "lumo/fact-strip-barnspecialist",
+  "title": "Fact Strip – Barnspecialist",
+  "html_template": "<section class=\"fs2-section\"><style>.fs2-section{background:#fffdfd63;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}.fs2-grid{display:grid;grid-template-columns:repeat(4,1fr);}.fs2-item{padding:32px 28px;border-right:1px solid var(--border);}.fs2-item:last-child{border-right:none;}.fs2-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;}.fs2-icon{color:var(--blush-500);flex-shrink:0;}.fs2-val{font-family:var(--font-sans);font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--blush-600);}.fs2-desc{font-family:var(--font-sans);font-size:14px;line-height:1.65;color:var(--ink-500);margin:0;}@media(max-width:900px){.fs2-grid{grid-template-columns:1fr 1fr;}.fs2-item{border-bottom:1px solid var(--border);}.fs2-item:nth-child(2n){border-right:none;}.fs2-item:nth-last-child(-n+2){border-bottom:none;}}@media(max-width:600px){.fs2-grid{grid-template-columns:1fr;}.fs2-item{border-right:none!important;border-bottom:1px solid var(--border);}.fs2-item:nth-last-child(-n+2){border-bottom:1px solid var(--border);}.fs2-item:last-child{border-bottom:none;}}</style><div class=\"container-wide\"><div class=\"fs2-grid\"><div class=\"fs2-item\"><div class=\"fs2-head\"><svg class=\"fs2-icon\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg><span class=\"fs2-val\">{{val_1}}</span></div><p class=\"fs2-desc\">{{label_1}}</p></div><div class=\"fs2-item\"><div class=\"fs2-head\"><svg class=\"fs2-icon\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg><span class=\"fs2-val\">{{val_2}}</span></div><p class=\"fs2-desc\">{{label_2}}</p></div><div class=\"fs2-item\"><div class=\"fs2-head\"><svg class=\"fs2-icon\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg><span class=\"fs2-val\">{{val_3}}</span></div><p class=\"fs2-desc\">{{label_3}}</p></div><div class=\"fs2-item\"><div class=\"fs2-head\"><svg class=\"fs2-icon\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg><span class=\"fs2-val\">{{val_4}}</span></div><p class=\"fs2-desc\">{{label_4}}</p></div></div></div></section>",
+  "schema": [
+    {
+      "name": "val_1",
+      "type": "text",
+      "label": "Fakt 1 – värde",
+      "default": "19 år"
+    },
+    {
+      "name": "label_1",
+      "type": "text",
+      "label": "Fakt 1 – text",
+      "default": "Gratis tandvård för barn och unga upp till 19 år."
+    },
+    {
+      "name": "val_2",
+      "type": "text",
+      "label": "Fakt 2 – värde",
+      "default": "23 år"
+    },
+    {
+      "name": "label_2",
+      "type": "text",
+      "label": "Fakt 2 – text",
+      "default": "Specialistvård via Älvsjö Pedodonti upp till 23 år."
+    },
+    {
+      "name": "val_3",
+      "type": "text",
+      "label": "Fakt 3 – värde",
+      "default": "Region"
+    },
+    {
+      "name": "label_3",
+      "type": "text",
+      "label": "Fakt 3 – text",
+      "default": "Vi arbetar på uppdrag av Region Stockholm."
+    },
+    {
+      "name": "val_4",
+      "type": "text",
+      "label": "Fakt 4 – värde",
+      "default": "Muntra"
+    },
+    {
+      "name": "label_4",
+      "type": "text",
+      "label": "Fakt 4 – text",
+      "default": "Vi tar emot remisser via Muntra."
+    }
+  ]
+}

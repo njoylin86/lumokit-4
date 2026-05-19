@@ -1,0 +1,481 @@
+{
+  "block_name": "lumo/treatment-stepper",
+  "title": "Behandlingssteg (premium)",
+  "html_template": "<section id=\"behandlingsstepper\" class=\"ts-section\"><style> .ts-section { background:#d8f0f8; padding: var(--space-9) 0; border-top:1px solid var(--blush-200); border-bottom:1px solid var(--blush-200); scroll-margin-top: -78px; } .ts-header { display:grid; grid-template-columns:1fr auto; align-items:end; gap:32px; margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid var(--blush-200); } .ts-eyebrow-row { display:flex; align-items:center; flex-wrap:wrap; gap:6px 0; margin-bottom:12px; } .ts-header-meta { max-width:34ch; text-align:right; margin:0; color:var(--fg-muted); } .ts-premium-note { font-size:10px; color:var(--fg-subtle); font-style:italic; letter-spacing:.02em; line-height:1.4; flex-basis:100%; margin:6px 0 0 0; } .ts-rail { display:grid; grid-template-columns:repeat(5,1fr); gap:0; position:relative; margin-bottom:var(--space-5); } .ts-rail::before { content:''; position:absolute; left:10%; right:10%; top:24px; height:1px; background:var(--border); z-index:0; } .ts-step { display:flex; flex-direction:column; align-items:center; gap:10px; cursor:pointer; position:relative; z-index:1; background:#d8f0f8; padding:0 6px; } .ts-step-circle { width:48px; height:48px; border-radius:50%; background:var(--white); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:var(--font-sans); font-size:15px; font-weight:500; color:var(--fg-muted); transition:all var(--dur-fast) var(--ease-standard); } .ts-step.is-active .ts-step-circle { background:var(--ink-700); border-color:var(--ink-700); color:var(--white); } .ts-step.is-done .ts-step-circle { background:var(--white); border-color:var(--ink-700); color:var(--ink-700); } .ts-step:hover:not(.is-active) .ts-step-circle { border-color:var(--ink-500); } .ts-step-label { font-size:14px; font-weight:500; color:var(--fg-strong); text-align:center; } .ts-step.is-active .ts-step-label { color:var(--ink-700); } .ts-step-meta { font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--fg-subtle); } .ts-card { background:var(--white); border:1px solid var(--border); box-shadow:var(--shadow-md); display:grid; grid-template-columns:1fr 1.6fr; gap:0; overflow:hidden; } .ts-card-left { padding:clamp(28px, 3.5vw, 44px); border-right:1px solid var(--border); display:flex; flex-direction:column; gap:var(--space-3); } .ts-card-number { font-family:var(--font-serif); font-size:64px; line-height:1; color:var(--blush-400); font-style:italic; font-weight:400; } .ts-card-eyebrow { font-size:var(--fs-eyebrow); text-transform:uppercase; letter-spacing:var(--tracking-eyebrow); font-weight:500; color:var(--fg-muted); margin-top:var(--space-3); } .ts-card-title { font-family:var(--font-serif); font-weight:400; font-size:24px; line-height:1.2; color:var(--fg-strong); margin:0; } .ts-card-pill { display:inline-flex; align-items:center; gap:6px; padding:5px 10px; background:var(--blush-50); border:1px solid var(--blush-200); border-radius:999px; color:var(--blush-600); font-size:10px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; align-self:flex-start; margin-top:var(--space-3); } .ts-card-pill::before { content:'+'; font-weight:700; } .ts-card-right { padding:clamp(28px, 3.5vw, 44px); display:flex; flex-direction:column; gap:var(--space-5); } .ts-card-lead { color:var(--ink-500); font-size:var(--fs-lead); line-height:1.6; margin:0; } .ts-card-cols { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-6); padding-top:var(--space-3); border-top:1px solid var(--blush-200); } .ts-card-col-label { font-size:9px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--blush-600); margin-bottom:var(--space-3); } .ts-card-col-list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; } .ts-card-col-list li { font-size:13px; line-height:1.5; color:var(--ink-500); padding-left:14px; position:relative; } .ts-card-col-list li::before { content:'—'; position:absolute; left:0; color:var(--blush-400); } .ts-card-footer { grid-column:1 / -1; border-top:1px solid var(--border); padding:var(--space-4) clamp(28px, 3.5vw, 44px); display:flex; justify-content:space-between; align-items:center; } .ts-nav-btn { background:none; border:none; padding:0; font-family:var(--font-sans); font-size:13px; color:var(--fg-muted); cursor:pointer; letter-spacing:.02em; transition:color var(--dur-fast) var(--ease-standard); } .ts-nav-btn:hover:not(:disabled) { color:var(--fg-strong); } .ts-nav-btn:disabled { color:var(--ink-100); cursor:not-allowed; } .ts-mobile { display:none; flex-direction:column; gap:8px; } .ts-acc { background:var(--white); border:1px solid var(--border); overflow:hidden; } .ts-acc-head { width:100%; display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:center; padding:14px 16px; background:none; border:none; cursor:pointer; text-align:left; font-family:var(--font-sans); } .ts-acc-num { width:32px; height:32px; border-radius:50%; background:var(--white); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:500; color:var(--fg-muted); } .ts-acc.is-open .ts-acc-num { background:var(--ink-700); border-color:var(--ink-700); color:var(--white); } .ts-acc-titles { display:flex; flex-direction:column; gap:2px; min-width:0; } .ts-acc-title { font-size:14px; font-weight:500; color:var(--fg-strong); line-height:1.3; } .ts-acc-meta { font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--fg-subtle); } .ts-acc-chev { width:16px; height:16px; color:var(--fg-subtle); transition:transform var(--dur-fast) var(--ease-standard); flex-shrink:0; } .ts-acc.is-open .ts-acc-chev { transform:rotate(180deg); } .ts-acc-body { display:none; padding:0 16px 18px 16px; border-top:1px solid var(--border); } .ts-acc.is-open .ts-acc-body { display:block; } .ts-acc-lead { color:var(--ink-500); font-size:14px; line-height:1.6; margin:14px 0 var(--space-4) 0; } .ts-acc-col { margin-bottom:var(--space-4); } .ts-acc-col:last-child { margin-bottom:0; } .ts-bottom { margin-top:var(--space-7); padding-top:var(--space-5); border-top:1px solid var(--border); display:grid; grid-template-columns:1fr auto; gap:var(--space-5); align-items:center; } .ts-bottom-text { max-width:48ch; color:var(--fg-muted); font-size:14px; margin:0; } .ts-bottom-ctas { display:flex; gap:var(--space-2); } @media (max-width:900px) { .ts-header { grid-template-columns:1fr; align-items:start; gap:14px; margin-bottom:0; padding-bottom:0; border-bottom:0; } .ts-header-meta { display:none; } .ts-rail, .ts-card { display:none; } .ts-mobile { display:flex; margin-top:24px; } .ts-bottom { grid-template-columns:1fr; } .ts-bottom-ctas { flex-direction:column; } .ts-bottom-ctas .btn { width:100%; justify-content:center; } } </style><div class=\"container-wide\"><div class=\"ts-header\"><div><div class=\"ts-eyebrow-row\"><span class=\"eyebrow\">{{eyebrow}}</span><span class=\"lumo-premium-badge\" onclick=\"lumoToggle(this)\"><span class=\"lumo-premium-dot\"></span><span class=\"lumo-mode-lbl\">Premium</span><div class=\"lumo-tooltip\"><div class=\"lumo-tt-title\">Varför Premium?</div><ul class=\"lumo-tt-list\"><li>Patienten ser hela behandlingsförloppet i en överblick</li><li>Tydlighet minskar oro och frågor inför första besöket</li><li>Skapar förtroende för komplexa behandlingar som implantat</li><li>Färre &quot;vad händer härnäst?&quot;-samtal till receptionen</li></ul><div class=\"lumo-tt-note\">Steg och innehåll anpassas per behandling.</div></div></span><span class=\"ts-premium-note\">{{disclaimer_note}}</span></div><h2 style=\"max-width:22ch;\">{{heading}}</h2></div><p class=\"ts-header-meta\">{{subtext}}</p></div><div data-treatment-stepper><div class=\"ts-rail\" data-ts-rail></div><div class=\"ts-card\" data-ts-card></div><div class=\"ts-mobile\" data-ts-mobile></div><script type=\"application/json\" data-ts-config>{\"steps\":[{\"label\":\"{{s1_label}}\",\"duration\":\"{{s1_duration}}\",\"durationFull\":\"{{s1_duration_full}}\",\"eyebrow\":\"{{s1_eyebrow}}\",\"title\":\"{{s1_title}}\",\"desc\":\"{{s1_desc}}\",\"leftLabel\":\"{{s1_left_label}}\",\"leftItems\":[\"{{s1_left_1}}\",\"{{s1_left_2}}\",\"{{s1_left_3}}\"],\"rightLabel\":\"{{s1_right_label}}\",\"rightItems\":[\"{{s1_right_1}}\",\"{{s1_right_2}}\",\"{{s1_right_3}}\"]},{\"label\":\"{{s2_label}}\",\"duration\":\"{{s2_duration}}\",\"durationFull\":\"{{s2_duration_full}}\",\"eyebrow\":\"{{s2_eyebrow}}\",\"title\":\"{{s2_title}}\",\"desc\":\"{{s2_desc}}\",\"leftLabel\":\"{{s2_left_label}}\",\"leftItems\":[\"{{s2_left_1}}\",\"{{s2_left_2}}\",\"{{s2_left_3}}\"],\"rightLabel\":\"{{s2_right_label}}\",\"rightItems\":[\"{{s2_right_1}}\",\"{{s2_right_2}}\",\"{{s2_right_3}}\"]},{\"label\":\"{{s3_label}}\",\"duration\":\"{{s3_duration}}\",\"durationFull\":\"{{s3_duration_full}}\",\"eyebrow\":\"{{s3_eyebrow}}\",\"title\":\"{{s3_title}}\",\"desc\":\"{{s3_desc}}\",\"leftLabel\":\"{{s3_left_label}}\",\"leftItems\":[\"{{s3_left_1}}\",\"{{s3_left_2}}\",\"{{s3_left_3}}\"],\"rightLabel\":\"{{s3_right_label}}\",\"rightItems\":[\"{{s3_right_1}}\",\"{{s3_right_2}}\",\"{{s3_right_3}}\"]},{\"label\":\"{{s4_label}}\",\"duration\":\"{{s4_duration}}\",\"durationFull\":\"{{s4_duration_full}}\",\"eyebrow\":\"{{s4_eyebrow}}\",\"title\":\"{{s4_title}}\",\"desc\":\"{{s4_desc}}\",\"leftLabel\":\"{{s4_left_label}}\",\"leftItems\":[\"{{s4_left_1}}\",\"{{s4_left_2}}\",\"{{s4_left_3}}\"],\"rightLabel\":\"{{s4_right_label}}\",\"rightItems\":[\"{{s4_right_1}}\",\"{{s4_right_2}}\",\"{{s4_right_3}}\"]},{\"label\":\"{{s5_label}}\",\"duration\":\"{{s5_duration}}\",\"durationFull\":\"{{s5_duration_full}}\",\"eyebrow\":\"{{s5_eyebrow}}\",\"title\":\"{{s5_title}}\",\"desc\":\"{{s5_desc}}\",\"leftLabel\":\"{{s5_left_label}}\",\"leftItems\":[\"{{s5_left_1}}\",\"{{s5_left_2}}\",\"{{s5_left_3}}\"],\"rightLabel\":\"{{s5_right_label}}\",\"rightItems\":[\"{{s5_right_1}}\",\"{{s5_right_2}}\",\"{{s5_right_3}}\"]}]}</script></div><div class=\"ts-bottom\"><p class=\"ts-bottom-text\">{{bottom_text}}</p><div class=\"ts-bottom-ctas\"><a href=\"{{cta_1_link}}\" class=\"btn btn-ghost btn-sm\">{{cta_1_text}}</a><a href=\"{{cta_2_link}}\" class=\"btn btn-primary btn-sm\">{{cta_2_text}}</a></div></div></div><script> (function(){ /* Treatment Stepper — vanilla JS. Inga // kommentarer. */ var root = document.querySelector('[data-treatment-stepper]'); if (!root) return; if (root.dataset.tsReady === '1') return; root.dataset.tsReady = '1'; var cfgEl = root.querySelector('script[type=\"application/json\"][data-ts-config]'); if (!cfgEl) return; var CFG; try { CFG = JSON.parse(cfgEl.textContent); } catch (e) { return; } var STEPS = CFG.steps || []; if (!STEPS.length) return; var section = root.closest('.ts-section') || root; var rail = root.querySelector('[data-ts-rail]'); var card = root.querySelector('[data-ts-card]'); var mobile = root.querySelector('[data-ts-mobile]'); var state = { active: 0, mobileCollapsed: false }; function getHeaderOffset() { var el = document.querySelector('.site-header'); if (!el) return 0; var cs = window.getComputedStyle(el); if (cs.position === 'fixed' || cs.position === 'sticky') { return el.getBoundingClientRect().height; } return 0; } function centerWidget() { var isMobile = window.matchMedia('(max-width: 900px)').matches; var openRow = mobile && mobile.children[state.active]; var target = isMobile ? (openRow || mobile) : section; var rect = target.getBoundingClientRect(); var vh = window.innerHeight || document.documentElement.clientHeight; var pageY = window.pageYOffset || document.documentElement.scrollTop || 0; var headerH = getHeaderOffset(); var gap = 16; var top; if (isMobile) { top = pageY + rect.top - headerH - gap; } else { var avail = vh - headerH; var snapAdjust = 50; top = pageY + rect.top - headerH - Math.max(gap, (avail - rect.height) / 2) + snapAdjust; } top = Math.max(0, top); try { window.scrollTo({ top: top, behavior: 'smooth' }); } catch (e) { window.scrollTo(0, top); } } function esc(s) { return String(s == null ? '' : s) .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') .replace(/\"/g, '&quot;').replace(/'/g, '&#39;'); } function pad2(n) { return n < 10 ? '0' + n : '' + n; } function renderRail() { if (!rail) return; rail.innerHTML = STEPS.map(function(s, i){ var cls = 'ts-step'; if (i === state.active) cls += ' is-active'; else if (i < state.active) cls += ' is-done'; return '<button type=\"button\" class=\"' + cls + '\" data-ts-goto=\"' + i + '\">' + '<div class=\"ts-step-circle\">' + (i + 1) + '</div>' + '<div class=\"ts-step-label\">' + esc(s.label) + '</div>' + '<div class=\"ts-step-meta\">' + esc(s.duration) + '</div>' + '</button>'; }).join(''); } function renderListItems(items) { return (items || []).map(function(t){ return '<li>' + esc(t) + '</li>'; }).join(''); } function renderCard() { if (!card) return; var s = STEPS[state.active]; var idx = state.active; var isLast = idx === STEPS.length - 1; var isFirst = idx === 0; card.innerHTML = '<div class=\"ts-card-left\">' + '<div class=\"ts-card-number\">' + pad2(idx + 1) + '</div>' + '<div class=\"ts-card-eyebrow\">' + esc(s.eyebrow) + '</div>' + '<h3 class=\"ts-card-title\">' + esc(s.title) + '</h3>' + '<span class=\"ts-card-pill\">' + esc(s.durationFull) + '</span>' + '</div>' + '<div class=\"ts-card-right\">' + '<p class=\"ts-card-lead\">' + esc(s.desc) + '</p>' + '<div class=\"ts-card-cols\">' + '<div><div class=\"ts-card-col-label\">' + esc(s.leftLabel) + '</div>' + '<ul class=\"ts-card-col-list\">' + renderListItems(s.leftItems) + '</ul></div>' + '<div><div class=\"ts-card-col-label\">' + esc(s.rightLabel) + '</div>' + '<ul class=\"ts-card-col-list\">' + renderListItems(s.rightItems) + '</ul></div>' + '</div></div>' + '<div class=\"ts-card-footer\">' + '<button type=\"button\" class=\"ts-nav-btn\" data-ts-prev ' + (isFirst ? 'disabled' : '') + '>← Föregående steg</button>' + '<button type=\"button\" class=\"ts-nav-btn\" data-ts-next ' + (isLast ? 'disabled' : '') + '>' + (isLast ? 'Klart' : 'Nästa steg →') + '</button>' + '</div>'; } function renderMobile() { if (!mobile) return; mobile.innerHTML = STEPS.map(function(s, i){ var open = i === state.active && !state.mobileCollapsed; var cls = 'ts-acc' + (open ? ' is-open' : ''); var body = open ? '<div class=\"ts-acc-body\">' + '<p class=\"ts-acc-lead\">' + esc(s.desc) + '</p>' + '<div class=\"ts-acc-col\"><div class=\"ts-card-col-label\">' + esc(s.leftLabel) + '</div>' + '<ul class=\"ts-card-col-list\">' + renderListItems(s.leftItems) + '</ul></div>' + '<div class=\"ts-acc-col\"><div class=\"ts-card-col-label\">' + esc(s.rightLabel) + '</div>' + '<ul class=\"ts-card-col-list\">' + renderListItems(s.rightItems) + '</ul></div>' + '</div>' : ''; return '<div class=\"' + cls + '\">' + '<button type=\"button\" class=\"ts-acc-head\" data-ts-goto=\"' + i + '\">' + '<div class=\"ts-acc-num\">' + (i + 1) + '</div>' + '<div class=\"ts-acc-titles\">' + '<div class=\"ts-acc-title\">' + esc(s.title) + '</div>' + '<div class=\"ts-acc-meta\">' + esc(s.durationFull) + '</div>' + '</div>' + '<svg class=\"ts-acc-chev\" viewBox=\"0 0 16 16\" fill=\"none\"><path d=\"M4 6L8 10L12 6\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>' + '</button>' + body + '</div>'; }).join(''); } function setActive(i) { if (i < 0 || i >= STEPS.length) return; state.active = i; renderRail(); renderCard(); renderMobile(); } function onClick(e) { var goto = e.target.closest('[data-ts-goto]'); if (goto) { var idx = parseInt(goto.getAttribute('data-ts-goto'), 10); var isMobile = window.matchMedia('(max-width: 900px)').matches; if (isMobile && idx === state.active) { state.mobileCollapsed = !state.mobileCollapsed; renderMobile(); if (!state.mobileCollapsed) requestAnimationFrame(centerWidget); } else { state.mobileCollapsed = false; setActive(idx); requestAnimationFrame(centerWidget); } return; } if (e.target.closest('[data-ts-next]')) { state.mobileCollapsed = false; setActive(state.active + 1); requestAnimationFrame(centerWidget); return; } if (e.target.closest('[data-ts-prev]')) { state.mobileCollapsed = false; setActive(state.active - 1); requestAnimationFrame(centerWidget); return; } } root.addEventListener('click', onClick); renderRail(); renderCard(); renderMobile(); })(); </script></section>",
+  "schema": [
+    {
+      "name": "eyebrow",
+      "type": "text",
+      "label": "Etikett",
+      "default": "Behandlingsplan"
+    },
+    {
+      "name": "disclaimer_note",
+      "type": "text",
+      "label": "Disclaimer vid Premium-badge",
+      "default": "* ev. implementationskostnader kan förekomma"
+    },
+    {
+      "name": "heading",
+      "type": "text",
+      "label": "Rubrik",
+      "default": "Så går implantat till hos oss."
+    },
+    {
+      "name": "subtext",
+      "type": "textarea",
+      "label": "Undertext (höger)",
+      "default": "Fem steg över 3–6 månader. Du vet exakt vad som händer, när — och varför."
+    },
+    {
+      "name": "bottom_text",
+      "type": "textarea",
+      "label": "Bottom CTA-text",
+      "default": "Osäker på om implantat är rätt för dig? Boka konsultation från 199 kr — vi tar 3D-röntgen och går igenom dina förutsättningar utan förpliktelser till fortsatt behandling."
+    },
+    {
+      "name": "cta_1_text",
+      "type": "text",
+      "label": "Bottom CTA 1 text",
+      "default": "Ring kliniken"
+    },
+    {
+      "name": "cta_1_link",
+      "type": "url",
+      "label": "Bottom CTA 1 länk",
+      "default": "tel:0812854555"
+    },
+    {
+      "name": "cta_2_text",
+      "type": "text",
+      "label": "Bottom CTA 2 text",
+      "default": "Boka konsultation"
+    },
+    {
+      "name": "cta_2_link",
+      "type": "url",
+      "label": "Bottom CTA 2 länk",
+      "default": "#tdl-booking-widget"
+    },
+    {
+      "name": "s1_label",
+      "type": "text",
+      "label": "Steg 1 – kort label",
+      "default": "Konsultation"
+    },
+    {
+      "name": "s1_duration",
+      "type": "text",
+      "label": "Steg 1 – tid kort",
+      "default": "45–60 min"
+    },
+    {
+      "name": "s1_duration_full",
+      "type": "text",
+      "label": "Steg 1 – tid lång",
+      "default": "Ca 45–60 minuter"
+    },
+    {
+      "name": "s1_eyebrow",
+      "type": "text",
+      "label": "Steg 1 – eyebrow",
+      "default": "Steg 01 — Bedömning"
+    },
+    {
+      "name": "s1_title",
+      "type": "text",
+      "label": "Steg 1 – titel",
+      "default": "Konsultation & 3D-röntgen"
+    },
+    {
+      "name": "s1_desc",
+      "type": "textarea",
+      "label": "Steg 1 – beskrivning",
+      "default": "Du träffar vårt erfarna specialistteam med hundratals genomförda implantat. Vi tar 3D/CBCT-röntgen på plats — utan remiss till röntgenklinik — som visar käkbenets struktur i tre dimensioner. Så vi kan planera placeringen med precision och säkerhet."
+    },
+    {
+      "name": "s1_left_label",
+      "type": "text",
+      "label": "Steg 1 – vänster rubrik",
+      "default": "Du upplever"
+    },
+    {
+      "name": "s1_left_1",
+      "type": "text",
+      "label": "Steg 1 – vänster pkt 1",
+      "default": "Ca 45–60 minuter avsatt tid."
+    },
+    {
+      "name": "s1_left_2",
+      "type": "text",
+      "label": "Steg 1 – vänster pkt 2",
+      "default": "Smärtfri 3D-röntgen — ingen bedövning behövs."
+    },
+    {
+      "name": "s1_left_3",
+      "type": "text",
+      "label": "Steg 1 – vänster pkt 3",
+      "default": "Tid för dina frågor — inga dumma frågor."
+    },
+    {
+      "name": "s1_right_label",
+      "type": "text",
+      "label": "Steg 1 – höger rubrik",
+      "default": "Vi gör"
+    },
+    {
+      "name": "s1_right_1",
+      "type": "text",
+      "label": "Steg 1 – höger pkt 1",
+      "default": "Kartlägger benstruktur och tandhälsa."
+    },
+    {
+      "name": "s1_right_2",
+      "type": "text",
+      "label": "Steg 1 – höger pkt 2",
+      "default": "Bedömer förutsättningar för implantat."
+    },
+    {
+      "name": "s1_right_3",
+      "type": "text",
+      "label": "Steg 1 – höger pkt 3",
+      "default": "Diskuterar tidsplan och förväntningar."
+    },
+    {
+      "name": "s2_label",
+      "type": "text",
+      "label": "Steg 2 – kort label",
+      "default": "Behandlingsplan"
+    },
+    {
+      "name": "s2_duration",
+      "type": "text",
+      "label": "Steg 2 – tid kort",
+      "default": "1 vecka"
+    },
+    {
+      "name": "s2_duration_full",
+      "type": "text",
+      "label": "Steg 2 – tid lång",
+      "default": "Inom 1 vecka"
+    },
+    {
+      "name": "s2_eyebrow",
+      "type": "text",
+      "label": "Steg 2 – eyebrow",
+      "default": "Steg 02 — Plan & offert"
+    },
+    {
+      "name": "s2_title",
+      "type": "text",
+      "label": "Steg 2 – titel",
+      "default": "Detaljerad plan, offert & finansiering"
+    },
+    {
+      "name": "s2_desc",
+      "type": "textarea",
+      "label": "Steg 2 – beskrivning",
+      "default": "Du får en skriftlig behandlingsplan med exakt prisuppgift, tidsplan och alla alternativ. Vi går igenom planen tillsammans och svarar på alla frågor. Räntefri delbetalning erbjuds vid behov."
+    },
+    {
+      "name": "s2_left_label",
+      "type": "text",
+      "label": "Steg 2 – vänster rubrik",
+      "default": "Du upplever"
+    },
+    {
+      "name": "s2_left_1",
+      "type": "text",
+      "label": "Steg 2 – vänster pkt 1",
+      "default": "Skriftlig behandlingsplan med pris."
+    },
+    {
+      "name": "s2_left_2",
+      "type": "text",
+      "label": "Steg 2 – vänster pkt 2",
+      "default": "Lugn betänketid — ingen säljpress."
+    },
+    {
+      "name": "s2_left_3",
+      "type": "text",
+      "label": "Steg 2 – vänster pkt 3",
+      "default": "Räntefri finansiering om du vill."
+    },
+    {
+      "name": "s2_right_label",
+      "type": "text",
+      "label": "Steg 2 – höger rubrik",
+      "default": "Vi gör"
+    },
+    {
+      "name": "s2_right_1",
+      "type": "text",
+      "label": "Steg 2 – höger pkt 1",
+      "default": "Skräddarsyr planen efter ditt fall."
+    },
+    {
+      "name": "s2_right_2",
+      "type": "text",
+      "label": "Steg 2 – höger pkt 2",
+      "default": "Förbereder material och team."
+    },
+    {
+      "name": "s2_right_3",
+      "type": "text",
+      "label": "Steg 2 – höger pkt 3",
+      "default": "Bokar tid som passar dig."
+    },
+    {
+      "name": "s3_label",
+      "type": "text",
+      "label": "Steg 3 – kort label",
+      "default": "Operation"
+    },
+    {
+      "name": "s3_duration",
+      "type": "text",
+      "label": "Steg 3 – tid kort",
+      "default": "60–90 min"
+    },
+    {
+      "name": "s3_duration_full",
+      "type": "text",
+      "label": "Steg 3 – tid lång",
+      "default": "Ca 60–90 minuter"
+    },
+    {
+      "name": "s3_eyebrow",
+      "type": "text",
+      "label": "Steg 3 – eyebrow",
+      "default": "Steg 03 — Implantatoperation"
+    },
+    {
+      "name": "s3_title",
+      "type": "text",
+      "label": "Steg 3 – titel",
+      "default": "Implantatet sätts in"
+    },
+    {
+      "name": "s3_desc",
+      "type": "textarea",
+      "label": "Steg 3 – beskrivning",
+      "default": "Under lokalbedövning placeras en titanskruv i käkbenet. Operationen är väl beprövad och utförs av specialister med lång erfarenhet. De flesta beskriver det som lugnt och smärtfritt — mild ömhet och svullnad kan förekomma 1–3 dagar, men de flesta är tillbaka på jobbet dagen efter."
+    },
+    {
+      "name": "s3_left_label",
+      "type": "text",
+      "label": "Steg 3 – vänster rubrik",
+      "default": "Du upplever"
+    },
+    {
+      "name": "s3_left_1",
+      "type": "text",
+      "label": "Steg 3 – vänster pkt 1",
+      "default": "Lokalbedövning — du är vaken men känner ingenting."
+    },
+    {
+      "name": "s3_left_2",
+      "type": "text",
+      "label": "Steg 3 – vänster pkt 2",
+      "default": "Lugnande medicin kan diskuteras vid behov."
+    },
+    {
+      "name": "s3_left_3",
+      "type": "text",
+      "label": "Steg 3 – vänster pkt 3",
+      "default": "Hem samma dag — vila resten av dagen."
+    },
+    {
+      "name": "s3_right_label",
+      "type": "text",
+      "label": "Steg 3 – höger rubrik",
+      "default": "Vi gör"
+    },
+    {
+      "name": "s3_right_1",
+      "type": "text",
+      "label": "Steg 3 – höger pkt 1",
+      "default": "Placerar titanskruven med digital precision."
+    },
+    {
+      "name": "s3_right_2",
+      "type": "text",
+      "label": "Steg 3 – höger pkt 2",
+      "default": "Eftervårdsanvisningar muntligt och skriftligt."
+    },
+    {
+      "name": "s3_right_3",
+      "type": "text",
+      "label": "Steg 3 – höger pkt 3",
+      "default": "Bokar uppföljningskontroller under läkningen."
+    },
+    {
+      "name": "s4_label",
+      "type": "text",
+      "label": "Steg 4 – kort label",
+      "default": "Läkning"
+    },
+    {
+      "name": "s4_duration",
+      "type": "text",
+      "label": "Steg 4 – tid kort",
+      "default": "3–6 mån"
+    },
+    {
+      "name": "s4_duration_full",
+      "type": "text",
+      "label": "Steg 4 – tid lång",
+      "default": "3 till 6 månader"
+    },
+    {
+      "name": "s4_eyebrow",
+      "type": "text",
+      "label": "Steg 4 – eyebrow",
+      "default": "Steg 04 — Osseointegration"
+    },
+    {
+      "name": "s4_title",
+      "type": "text",
+      "label": "Steg 4 – titel",
+      "default": "Käkbenet växer fast runt implantatet"
+    },
+    {
+      "name": "s4_desc",
+      "type": "textarea",
+      "label": "Steg 4 – beskrivning",
+      "default": "Under läkningsperioden växer benvävnaden ihop med titanskruven — en process som kallas osseointegration. Du har en tillfällig provisorisk lösning så du aldrig är utan tänder. Vi följer upp med kontroller."
+    },
+    {
+      "name": "s4_left_label",
+      "type": "text",
+      "label": "Steg 4 – vänster rubrik",
+      "default": "Du upplever"
+    },
+    {
+      "name": "s4_left_1",
+      "type": "text",
+      "label": "Steg 4 – vänster pkt 1",
+      "default": "Tillfällig krona eller protes under tiden."
+    },
+    {
+      "name": "s4_left_2",
+      "type": "text",
+      "label": "Steg 4 – vänster pkt 2",
+      "default": "Vanlig tandborstning — som vanligt."
+    },
+    {
+      "name": "s4_left_3",
+      "type": "text",
+      "label": "Steg 4 – vänster pkt 3",
+      "default": "Inga ingrepp under läkningsperioden."
+    },
+    {
+      "name": "s4_right_label",
+      "type": "text",
+      "label": "Steg 4 – höger rubrik",
+      "default": "Vi gör"
+    },
+    {
+      "name": "s4_right_1",
+      "type": "text",
+      "label": "Steg 4 – höger pkt 1",
+      "default": "Regelbundna uppföljningskontroller under läkningen."
+    },
+    {
+      "name": "s4_right_2",
+      "type": "text",
+      "label": "Steg 4 – höger pkt 2",
+      "default": "Bevakar att osseointegrationen fortskrider."
+    },
+    {
+      "name": "s4_right_3",
+      "type": "text",
+      "label": "Steg 4 – höger pkt 3",
+      "default": "Förbereder den slutliga kronan."
+    },
+    {
+      "name": "s5_label",
+      "type": "text",
+      "label": "Steg 5 – kort label",
+      "default": "Slutlig krona"
+    },
+    {
+      "name": "s5_duration",
+      "type": "text",
+      "label": "Steg 5 – tid kort",
+      "default": "Ca 30 min"
+    },
+    {
+      "name": "s5_duration_full",
+      "type": "text",
+      "label": "Steg 5 – tid lång",
+      "default": "Cirka 30 minuter"
+    },
+    {
+      "name": "s5_eyebrow",
+      "type": "text",
+      "label": "Steg 5 – eyebrow",
+      "default": "Steg 05 — Färdig behandling"
+    },
+    {
+      "name": "s5_title",
+      "type": "text",
+      "label": "Steg 5 – titel",
+      "default": "Den slutliga kronan sätts på"
+    },
+    {
+      "name": "s5_desc",
+      "type": "textarea",
+      "label": "Steg 5 – beskrivning",
+      "default": "När implantatet är fullt integrerat fäster vi den permanenta kronan — specialtillverkad efter dina egna tänder i färg och form. Du går ut med en helt naturlig tand som du kan tugga, le och tala med precis som vanligt."
+    },
+    {
+      "name": "s5_left_label",
+      "type": "text",
+      "label": "Steg 5 – vänster rubrik",
+      "default": "Du upplever"
+    },
+    {
+      "name": "s5_left_1",
+      "type": "text",
+      "label": "Steg 5 – vänster pkt 1",
+      "default": "Ca 30 minuter — snabbt och smärtfritt."
+    },
+    {
+      "name": "s5_left_2",
+      "type": "text",
+      "label": "Steg 5 – vänster pkt 2",
+      "default": "Naturligt utseende — matchar dina egna tänder."
+    },
+    {
+      "name": "s5_left_3",
+      "type": "text",
+      "label": "Steg 5 – vänster pkt 3",
+      "default": "Full funktion direkt."
+    },
+    {
+      "name": "s5_right_label",
+      "type": "text",
+      "label": "Steg 5 – höger rubrik",
+      "default": "Vi gör"
+    },
+    {
+      "name": "s5_right_1",
+      "type": "text",
+      "label": "Steg 5 – höger pkt 1",
+      "default": "Färgmatchning mot dina andra tänder."
+    },
+    {
+      "name": "s5_right_2",
+      "type": "text",
+      "label": "Steg 5 – höger pkt 2",
+      "default": "Bett-justering för optimal funktion."
+    },
+    {
+      "name": "s5_right_3",
+      "type": "text",
+      "label": "Steg 5 – höger pkt 3",
+      "default": "Bokar in årlig kontroll."
+    }
+  ]
+}

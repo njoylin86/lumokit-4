@@ -1,0 +1,199 @@
+{
+  "block_name": "lumo/treatments-grid",
+  "title": "Behandlingar – grid",
+  "html_template": "<section class=\"treatments-section section\"> <div class=\"container-wide\"> <div class=\"treatments-hdr\"> <div> <div class=\"eyebrow\">Behandlingar</div> <h2>Ett komplett utbud, under ett tak.</h2> </div> <div class=\"treatments-hdr-meta\"> <p>Från regelbunden tandvård till specialistbehandlingar — alltid utförda på plats av våra egna tandläkare.</p> <a href=\"#tdl-booking-widget\" class=\"treatments-hdr-link\">Till bokningskalendern →</a> </div> </div> <div class=\"treatments-grid\"> <a href=\"{{card_1_url}}\" class=\"treatment-card\"> <div class=\"tc-bg\" style=\"background-image:url({{card_1_image}});\"></div> <div class=\"tc-overlay\"></div> <div class=\"tc-body\"> <div class=\"tc-top\"> <div class=\"tc-count\">{{card_1_count}}</div> <div class=\"tc-badge\" data-clinic-status><span class=\"tc-badge-dot\"></span><span data-clinic-status-label>·</span></div> </div> <div><div class=\"tc-name\">{{card_1_name}}</div></div> </div> </a> <a href=\"{{card_2_url}}\" class=\"treatment-card\"> <div class=\"tc-bg\" style=\"background-image:url({{site_url}}/wp-content/uploads/2026/05/implantat-1-1.jpg);\"></div> <div class=\"tc-overlay\"></div> <div class=\"tc-body\"> <div class=\"tc-top\"> <div class=\"tc-count\">{{card_2_count}}</div> </div> <div><div class=\"tc-name\">{{card_2_name}}</div></div> </div> </a> <a href=\"{{card_3_url}}\" class=\"treatment-card\"> <div class=\"tc-bg\" style=\"background-image:url({{site_url}}/wp-content/uploads/2026/05/karies-v4.jpg);\"></div> <div class=\"tc-overlay\"></div> <div class=\"tc-body\"> <div class=\"tc-top\"> <div class=\"tc-count\">{{card_3_count}}</div> </div> <div><div class=\"tc-name\">{{card_3_name}}</div></div> </div> </a> <a href=\"{{card_4_url}}\" class=\"treatment-card\"> <div class=\"tc-bg\" style=\"background-image:url({{card_4_image}});\"></div> <div class=\"tc-overlay\"></div> <div class=\"tc-body\"> <div class=\"tc-top\"> <div class=\"tc-count\">{{card_4_count}}</div> </div> <div><div class=\"tc-name\">{{card_4_name}}</div></div> </div> </a> <a href=\"{{card_5_url}}\" class=\"treatment-card\"> <div class=\"tc-bg\" style=\"background-image:url({{card_5_image}});\"></div> <div class=\"tc-overlay\"></div> <div class=\"tc-body\"> <div class=\"tc-top\"> <div class=\"tc-count\">{{card_5_count}}</div> </div> <div><div class=\"tc-name\">{{card_5_name}}</div></div> </div> </a> <a href=\"{{card_6_url}}\" class=\"treatment-card\"> <div class=\"tc-bg\" style=\"background-image:url({{card_6_image}});\"></div> <div class=\"tc-overlay\"></div> <div class=\"tc-body\"> <div class=\"tc-top\"> <div class=\"tc-count\">{{card_6_count}}</div> </div> <div><div class=\"tc-name\">{{card_6_name}}</div></div> </div> </a> <a href=\"{{card_7_url}}\" class=\"treatment-card\"> <div class=\"tc-bg\" style=\"background-image:url({{site_url}}/wp-content/uploads/2026/05/tandhygienist-v9.jpg);\"></div> <div class=\"tc-overlay\"></div> <div class=\"tc-body\"> <div class=\"tc-top\"> <div class=\"tc-count\">{{card_7_count}}</div> </div> <div><div class=\"tc-name\">{{card_7_name}}</div></div> </div> </a> <a href=\"{{card_8_url}}\" class=\"treatment-card\"> <div class=\"tc-bg\" style=\"background-image:url({{card_8_image}});\"></div> <div class=\"tc-overlay\"></div> <div class=\"tc-body\"> <div class=\"tc-top\"> <div class=\"tc-count\">{{card_8_count}}</div> </div> <div><div class=\"tc-name\">{{card_8_name}}</div></div> </div> </a></div> </div> </section> <script> (function(){ var DAYS = ['mån','tis','ons','tor','fre','lör']; var HOURS = {1:[420,1200],2:[420,1200],3:[420,1200],4:[420,1200],5:[420,1020],6:[540,900]}; /* Mån-Tor 07-20, Fre 07-17, Lör 09-15, Sön stängt. Minuter sedan midnatt. */ function nowStockholm(){ try { var fmt = new Intl.DateTimeFormat('en-US',{timeZone:'Europe/Stockholm',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false}); var parts = {}; fmt.formatToParts(new Date()).forEach(function(p){ parts[p.type] = p.value; }); var wkMap = {Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}; var day = wkMap[parts.weekday]; var hour = parseInt(parts.hour,10); if (hour === 24) hour = 0; var min = hour*60 + parseInt(parts.minute,10); return { day: day, min: min }; } catch(e) { return null; } } function nextOpen(day, mins){ for(var i=0;i<7;i++){ var d = (day+i)%7; var h = HOURS[d]; if(!h) continue; if(i===0){ if(mins < h[0]) return { day: d, min: h[0], today: true }; continue; } return { day: d, min: h[0], today: false }; } return null; } function fmt(min){ var h=Math.floor(min/60), m=min%60; return (h<10?'0':'')+h+':'+(m<10?'0':'')+m; } function update(){ var t = nowStockholm(); if(!t) return; var h = HOURS[t.day]; var isOpen = false; if (h) { if (t.min >= h[0]) { if (t.min < h[1]) { isOpen = true; } } } document.querySelectorAll('[data-clinic-status]').forEach(function(el){ var lbl = el.querySelector('[data-clinic-status-label]'); if(isOpen){ el.classList.remove('is-closed'); if(lbl) lbl.textContent = 'Öppet nu'; } else { var n = nextOpen(t.day, t.min); el.classList.add('is-closed'); if(lbl){ if(n){ lbl.innerHTML = n.today ? ('Öppnar<br>' + fmt(n.min)) : ('Öppnar ' + DAYS[n.day-1] + '<br>' + fmt(n.min)); } else { lbl.textContent = 'Stängt'; } } } }); } if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',update); else update(); setInterval(update, 60000); })(); </script> <style>.tc-badge.is-closed{background:rgba(60,60,60,.92);}.tc-badge.is-closed .tc-badge-dot{background:#9a9a9a;}</style>",
+  "schema": [
+    {
+      "name": "card_1_name",
+      "type": "text",
+      "label": "Kort 1 – namn",
+      "default": "Akuttandvård"
+    },
+    {
+      "name": "card_1_count",
+      "type": "text",
+      "label": "Kort 1 – kategori",
+      "default": "Tider samma dag"
+    },
+    {
+      "name": "card_1_image",
+      "type": "image",
+      "label": "Kort 1 – bild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/akuttandvard.jpg"
+    },
+    {
+      "name": "card_1_url",
+      "type": "url",
+      "label": "Kort 1 – länk",
+      "default": "/akut-tandvard"
+    },
+    {
+      "name": "card_2_name",
+      "type": "text",
+      "label": "Kort 2 – namn",
+      "default": "Implantat"
+    },
+    {
+      "name": "card_2_count",
+      "type": "text",
+      "label": "Kort 2 – kategori",
+      "default": "Specialistteam"
+    },
+    {
+      "name": "card_2_image",
+      "type": "image",
+      "label": "Kort 2 – bild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/implantat-1-1.jpg"
+    },
+    {
+      "name": "card_2_url",
+      "type": "url",
+      "label": "Kort 2 – länk",
+      "default": "/implantat"
+    },
+    {
+      "name": "card_3_name",
+      "type": "text",
+      "label": "Kort 3 – namn",
+      "default": "Karies / Hål i tanden"
+    },
+    {
+      "name": "card_3_count",
+      "type": "text",
+      "label": "Kort 3 – kategori",
+      "default": "Allmäntandvård"
+    },
+    {
+      "name": "card_3_image",
+      "type": "image",
+      "label": "Kort 3 – bild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/karies-v4.jpg"
+    },
+    {
+      "name": "card_3_url",
+      "type": "url",
+      "label": "Kort 3 – länk",
+      "default": "/karies-hal-i-tanden"
+    },
+    {
+      "name": "card_4_name",
+      "type": "text",
+      "label": "Kort 4 – namn",
+      "default": "Tandblekning"
+    },
+    {
+      "name": "card_4_count",
+      "type": "text",
+      "label": "Kort 4 – kategori",
+      "default": "Klinik & hemma"
+    },
+    {
+      "name": "card_4_image",
+      "type": "image",
+      "label": "Kort 4 – bild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/tandblekning.jpg"
+    },
+    {
+      "name": "card_4_url",
+      "type": "url",
+      "label": "Kort 4 – länk",
+      "default": "/tandblekning"
+    },
+    {
+      "name": "card_5_name",
+      "type": "text",
+      "label": "Kort 5 – namn",
+      "default": "Tandfasader / Veneers"
+    },
+    {
+      "name": "card_5_count",
+      "type": "text",
+      "label": "Kort 5 – kategori",
+      "default": "Estetisk tandvård"
+    },
+    {
+      "name": "card_5_image",
+      "type": "image",
+      "label": "Kort 5 – bild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/tandfasader-veneers.jpg"
+    },
+    {
+      "name": "card_5_url",
+      "type": "url",
+      "label": "Kort 5 – länk",
+      "default": "/tandfasader-veneers"
+    },
+    {
+      "name": "card_6_name",
+      "type": "text",
+      "label": "Kort 6 – namn",
+      "default": "Tandreglering"
+    },
+    {
+      "name": "card_6_count",
+      "type": "text",
+      "label": "Kort 6 – kategori",
+      "default": "Invisalign"
+    },
+    {
+      "name": "card_6_image",
+      "type": "image",
+      "label": "Kort 6 – bild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/tandreglering.jpg"
+    },
+    {
+      "name": "card_6_url",
+      "type": "url",
+      "label": "Kort 6 – länk",
+      "default": "/tandreglering-stockholm"
+    },
+    {
+      "name": "card_7_name",
+      "type": "text",
+      "label": "Kort 7 – namn",
+      "default": "Tandsten / Tandhygienist"
+    },
+    {
+      "name": "card_7_count",
+      "type": "text",
+      "label": "Kort 7 – kategori",
+      "default": "Förebyggande vård"
+    },
+    {
+      "name": "card_7_image",
+      "type": "image",
+      "label": "Kort 7 – bild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/tandhygienist-v9.jpg"
+    },
+    {
+      "name": "card_7_url",
+      "type": "url",
+      "label": "Kort 7 – länk",
+      "default": "/tandsten-tandhygienist"
+    },
+    {
+      "name": "card_8_name",
+      "type": "text",
+      "label": "Kort 8 – namn",
+      "default": "Tandvårdsrädsla"
+    },
+    {
+      "name": "card_8_count",
+      "type": "text",
+      "label": "Kort 8 – kategori",
+      "default": "Lugnande vård"
+    },
+    {
+      "name": "card_8_image",
+      "type": "image",
+      "label": "Kort 8 – bild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/tandvardsradslatandlakarskrack.jpg"
+    },
+    {
+      "name": "card_8_url",
+      "type": "url",
+      "label": "Kort 8 – länk",
+      "default": "/tandvardsradsla"
+    }
+  ]
+}

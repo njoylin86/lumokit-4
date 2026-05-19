@@ -1,0 +1,349 @@
+{
+  "block_name": "lumo/fear-matcher",
+  "title": "Trygghetsmatchning (premium)",
+  "html_template": "<section id=\"trygghetsmatchning\" class=\"fm-section\"><style> .fm-section { background:#d8f0f8; padding: var(--space-9) 0; border-top:1px solid var(--blush-200); border-bottom:1px solid var(--blush-200); scroll-margin-top: -78px; } .fm-header { display:grid; grid-template-columns:1fr auto; align-items:end; gap:32px; margin-bottom:48px; padding-bottom:28px; border-bottom:1px solid var(--blush-200); } .fm-eyebrow-row { display:flex; align-items:center; flex-wrap:wrap; gap:6px 0; margin-bottom:12px; } .fm-header-meta { max-width:36ch; text-align:right; margin:0; color:var(--fg-muted); } .fm-grid { display:grid; grid-template-columns:1fr 1.15fr; gap:80px; align-items:unset; } .fm-left { position:sticky; top:120px; } .fm-left-lead { color:var(--ink-500); font-size:var(--fs-lead); line-height:1.55; margin-bottom:var(--space-6); max-width:40ch; } .fm-trust { display:flex; flex-direction:column; gap:var(--space-3); margin-bottom:var(--space-6); } .fm-trust-item { display:flex; align-items:flex-start; gap:var(--space-3); } .fm-trust-dot { width:6px; height:6px; border-radius:50%; background:var(--blush-400); flex-shrink:0; margin-top:6px; } .fm-trust-title { font-size:var(--fs-small); font-weight:500; color:var(--fg-strong); margin-bottom:2px; } .fm-trust-desc { font-size:var(--fs-tiny); color:var(--fg-subtle); } .fm-card { background:var(--white); border:1px solid var(--border); box-shadow:var(--shadow-md); padding:clamp(28px, 4vw, 44px); } .fm-progress { margin-bottom:var(--space-6); } .fm-progress-meta { display:flex; justify-content:space-between; margin-bottom:var(--space-2); } .fm-progress-track { height:2px; background:var(--border); } .fm-progress-fill { height:100%; background:var(--blush-400); transition:width .4s var(--ease-standard); } .fm-q-title { font-family:var(--font-serif); font-weight:400; font-size:var(--fs-h3); letter-spacing:var(--tracking-tight); color:var(--fg-strong); margin-bottom:var(--space-3); line-height:1.2; } .fm-q-sub { color:var(--fg-muted); font-size:var(--fs-small); margin-bottom:var(--space-5); } .fm-yn { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-3); margin-bottom:var(--space-5); } .fm-yn-btn { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:var(--space-5) var(--space-4); background:var(--white); border:1px solid var(--border); cursor:pointer; font-family:var(--font-sans); transition:all var(--dur-fast) var(--ease-standard); min-height:96px; } .fm-yn-btn:hover { border-color:var(--blush-400); background:var(--blush-50); } .fm-yn-btn.is-sel { border-color:var(--ink-700); background:var(--ink-700); color:var(--white); } .fm-yn-icon { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:1.5px solid var(--border-strong); color:var(--fg-muted); transition:all var(--dur-fast) var(--ease-standard); } .fm-yn-btn.is-sel .fm-yn-icon { border-color:var(--white); background:var(--white); color:var(--ink-700); } .fm-yn-label { font-size:15px; font-weight:500; letter-spacing:.02em; } .fm-yn-sub { font-size:11px; color:var(--fg-subtle); letter-spacing:.04em; } .fm-yn-btn.is-sel .fm-yn-sub { color:rgba(255,255,255,.65); } .fm-next-btn { width:100%; justify-content:center; } .fm-next-btn.is-disabled { background:var(--blush-100); color:var(--blush-300); cursor:not-allowed; border-color:transparent; } .fm-card-footer { display:flex; justify-content:space-between; align-items:center; padding-top:var(--space-4); border-top:1px solid var(--blush-200); margin-top:var(--space-5); } .fm-link-btn { background:none; border:none; padding:0; font-family:var(--font-sans); font-size:var(--fs-tiny); color:var(--fg-subtle); cursor:pointer; letter-spacing:.04em; transition:color var(--dur-fast) var(--ease-standard); } .fm-link-btn:hover:not(:disabled) { color:var(--fg-muted); } .fm-link-btn:disabled { color:var(--ink-100); cursor:not-allowed; } .fm-result-eyebrow-row { display:flex; align-items:center; gap:12px; margin-bottom:var(--space-3); } .fm-result-eyebrow { font-size:var(--fs-eyebrow); text-transform:uppercase; letter-spacing:var(--tracking-eyebrow); font-weight:500; color:var(--blush-600); } .fm-result-divider { flex:1; height:1px; background:var(--border); } .fm-result-title { font-family:var(--font-serif); font-weight:400; font-size:32px; line-height:1.15; letter-spacing:-.02em; color:var(--fg-strong); margin-bottom:var(--space-3); } .fm-result-lead { color:var(--ink-500); font-size:var(--fs-lead); line-height:1.55; margin-bottom:var(--space-5); } .fm-package { background:var(--blush-50); border:1px solid var(--blush-200); padding:var(--space-5); margin-bottom:var(--space-5); } .fm-package-label { font-size:9px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--blush-600); margin-bottom:var(--space-3); } .fm-package-list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:var(--space-3); } .fm-package-list li { display:flex; gap:10px; align-items:flex-start; font-size:14px; line-height:1.5; color:var(--ink-500); } .fm-package-check { width:18px; height:18px; border-radius:50%; background:var(--blush-300); flex-shrink:0; margin-top:2px; display:flex; align-items:center; justify-content:center; } .fm-actions { display:flex; flex-direction:column; gap:var(--space-2); } .fm-actions .btn { width:100%; justify-content:center; } .fm-restart-row { margin-top:var(--space-5); padding-top:var(--space-5); border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; } .fm-analyzing { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:var(--space-9) 0; gap:var(--space-5); } .fm-dots { display:flex; gap:7px; } .fm-dots span { width:6px; height:6px; border-radius:50%; background:var(--blush-400); animation:fm-dot-bounce 1.2s ease-in-out infinite; } .fm-dots span:nth-child(2) { animation-delay:.16s; } .fm-dots span:nth-child(3) { animation-delay:.32s; } @keyframes fm-dot-bounce { 0%,80%,100% { transform:translateY(0); opacity:.25; } 40% { transform:translateY(-5px); opacity:1; } } @keyframes fm-q-enter { from { opacity:0; transform:translateX(18px); } to { opacity:1; transform:translateX(0); } } @keyframes fm-result-enter { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } } .fm-q-slide { animation:fm-q-enter .28s var(--ease-standard) both; } .fm-result-reveal { animation:fm-result-enter .36s var(--ease-standard) both; } .fm-premium-note { font-size:10px; color:var(--fg-subtle); font-style:italic; letter-spacing:.02em; line-height:1.4; flex-basis:100%; margin:6px 0 0 0; } @media (max-width:900px) { .fm-header { grid-template-columns:1fr; align-items:start; gap:16px; margin-bottom:0; padding-bottom:0; border-bottom:0; } .fm-header-meta { display:none; } .fm-grid { margin-top:24px; } .fm-grid { grid-template-columns:1fr; gap:40px; } .fm-left { position:static; } .fm-yn { grid-template-columns:1fr; } } </style><div class=\"container-wide\"><div class=\"fm-header\"><div><div class=\"fm-eyebrow-row\"><span class=\"eyebrow\">{{eyebrow}}</span><span class=\"lumo-premium-badge\" onclick=\"lumoToggle(this)\"><span class=\"lumo-premium-dot\"></span><span class=\"lumo-mode-lbl\">Premium</span><div class=\"lumo-tooltip\"><div class=\"lumo-tt-title\">Varför Premium?</div><ul class=\"lumo-tt-list\"><li>Patienter med tandvårdsrädsla får ett tryggt första steg</li><li>Personifierad rekommendation — utan att de behöver ringa</li><li>Färre avhopp — fler vågar boka konsultation</li><li>Visar att kliniken förstår just deras situation</li></ul><div class=\"lumo-tt-note\">Frågor och paket anpassas helt efter er klinik.</div></div></span><span class=\"fm-premium-note\">{{disclaimer_note}}</span></div><h2 style=\"max-width:22ch;\">{{heading}}</h2></div><p class=\"fm-header-meta\">{{subtext}}</p></div><div class=\"fm-grid\"><div class=\"fm-left\"><p class=\"fm-left-lead\">{{lead}}</p><div class=\"fm-trust\"><div class=\"fm-trust-item\"><div class=\"fm-trust-dot\"></div><div><div class=\"fm-trust-title\">{{trust_1_title}}</div><div class=\"fm-trust-desc\">{{trust_1_desc}}</div></div></div><div class=\"fm-trust-item\"><div class=\"fm-trust-dot\"></div><div><div class=\"fm-trust-title\">{{trust_2_title}}</div><div class=\"fm-trust-desc\">{{trust_2_desc}}</div></div></div><div class=\"fm-trust-item\"><div class=\"fm-trust-dot\"></div><div><div class=\"fm-trust-title\">{{trust_3_title}}</div><div class=\"fm-trust-desc\">{{trust_3_desc}}</div></div></div></div></div><div class=\"fm-card\" data-fear-matcher><script type=\"application/json\" data-fm-config>{\"analysing_label\":\"{{analysing_label}}\",\"caveat\":\"{{matching_caveat}}\",\"default_persona\":\"stegforsteg\",\"match_rules\":\"aterstart>=3|anxiolytika>=2|stegforsteg>=2|anxiolytika>=1\",\"questions\":[{\"id\":\"needles\",\"text\":\"{{q1_text}}\",\"sub\":\"{{q1_sub}}\",\"weights\":{\"anxiolytika\":2}},{\"id\":\"drill\",\"text\":\"{{q2_text}}\",\"sub\":\"{{q2_sub}}\",\"weights\":{\"anxiolytika\":1}},{\"id\":\"control\",\"text\":\"{{q3_text}}\",\"sub\":\"{{q3_sub}}\",\"weights\":{\"stegforsteg\":2}},{\"id\":\"longtime\",\"text\":\"{{q4_text}}\",\"sub\":\"{{q4_sub}}\",\"weights\":{\"aterstart\":3}}],\"personas\":{\"anxiolytika\":{\"eyebrow\":\"{{p1_eyebrow}}\",\"title\":\"{{p1_title}}\",\"lead\":\"{{p1_lead}}\",\"list_label\":\"{{p1_list_label}}\",\"list\":[\"{{p1_item_1}}\",\"{{p1_item_2}}\",\"{{p1_item_3}}\",\"{{p1_item_4}}\"],\"cta_primary_text\":\"{{p1_cta_primary_text}}\",\"cta_primary_link\":\"{{p1_cta_primary_link}}\",\"cta_secondary_text\":\"{{p1_cta_secondary_text}}\",\"cta_secondary_link\":\"{{p1_cta_secondary_link}}\"},\"stegforsteg\":{\"eyebrow\":\"{{p2_eyebrow}}\",\"title\":\"{{p2_title}}\",\"lead\":\"{{p2_lead}}\",\"list_label\":\"{{p2_list_label}}\",\"list\":[\"{{p2_item_1}}\",\"{{p2_item_2}}\",\"{{p2_item_3}}\",\"{{p2_item_4}}\"],\"cta_primary_text\":\"{{p2_cta_primary_text}}\",\"cta_primary_link\":\"{{p2_cta_primary_link}}\",\"cta_secondary_text\":\"{{p2_cta_secondary_text}}\",\"cta_secondary_link\":\"{{p2_cta_secondary_link}}\"},\"aterstart\":{\"eyebrow\":\"{{p3_eyebrow}}\",\"title\":\"{{p3_title}}\",\"lead\":\"{{p3_lead}}\",\"list_label\":\"{{p3_list_label}}\",\"list\":[\"{{p3_item_1}}\",\"{{p3_item_2}}\",\"{{p3_item_3}}\",\"{{p3_item_4}}\"],\"cta_primary_text\":\"{{p3_cta_primary_text}}\",\"cta_primary_link\":\"{{p3_cta_primary_link}}\",\"cta_secondary_text\":\"{{p3_cta_secondary_text}}\",\"cta_secondary_link\":\"{{p3_cta_secondary_link}}\"}}}</script></div></div></div><script> (function(){ /* Fear Matcher — vanilla JS state-machine. Inga // kommentarer. */ var root = document.querySelector('[data-fear-matcher]'); if (!root) return; if (root.dataset.fmReady === '1') return; root.dataset.fmReady = '1'; var cfgEl = root.querySelector('script[type=\"application/json\"][data-fm-config]'); if (!cfgEl) return; var CFG; try { CFG = JSON.parse(cfgEl.textContent); } catch (e) { return; } var QUESTIONS = CFG.questions || []; var PERSONAS = CFG.personas || {}; var ANALYSING_LABEL = CFG.analysing_label || 'Matchar dig med rätt paket'; var CAVEAT_TEXT = CFG.caveat || ''; var MATCH_RULES = CFG.match_rules || 'aterstart>=3|anxiolytika>=2|stegforsteg>=2|anxiolytika>=1'; var DEFAULT_PERSONA = CFG.default_persona || 'stegforsteg'; var state = { step: 0, answers: {}, selected: null, analysing: false, result: null }; var section = root.closest('.fm-section') || root; function getHeaderOffset() { var candidates = ['.site-header', 'header.site-header', '#site-header', '.lumo-header', 'header[role=\"banner\"]', 'body > header']; for (var i = 0; i < candidates.length; i++) { var el = document.querySelector(candidates[i]); if (!el) continue; var cs = window.getComputedStyle(el); if (cs.position === 'fixed' || cs.position === 'sticky') { return el.getBoundingClientRect().height; } } return 0; } function centerWidget() { var isMobile = window.matchMedia('(max-width: 900px)').matches; var target = (state.result || isMobile) ? root : section; var rect = target.getBoundingClientRect(); var vh = window.innerHeight || document.documentElement.clientHeight; var pageY = window.pageYOffset || document.documentElement.scrollTop || 0; var headerH = getHeaderOffset(); var gap = 16; var snapAdjust = 50; var top; if (isMobile) { top = pageY + rect.top - headerH - gap + snapAdjust; } else { var avail = vh - headerH; top = pageY + rect.top - headerH - Math.max(gap, (avail - rect.height) / 2) + snapAdjust; } top = Math.max(0, top); try { window.scrollTo({ top: top, behavior: 'smooth' }); } catch (e) { window.scrollTo(0, top); } } root.addEventListener('click', function(){ /* defer one frame so re-rendered DOM is measured */ requestAnimationFrame(function(){ centerWidget(); }); }); function matchPersona(answers) { var scores = {}; Object.keys(PERSONAS).forEach(function(k){ scores[k] = 0; }); QUESTIONS.forEach(function(q){ if (answers[q.id] !== 'yes') return; Object.keys(q.weights || {}).forEach(function(k){ scores[k] = (scores[k] || 0) + q.weights[k]; }); }); var rules = MATCH_RULES.split('|'); for (var i = 0; i < rules.length; i++) { var m = rules[i].match(/^(\\w+)\\s*>=\\s*(\\d+)$/); if (!m) continue; if ((scores[m[1]] || 0) >= parseInt(m[2], 10)) return m[1]; } return DEFAULT_PERSONA || Object.keys(PERSONAS)[0]; } function esc(s) { return String(s == null ? '' : s) .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') .replace(/\"/g, '&quot;').replace(/'/g, '&#39;'); } function render() { var totalSteps = QUESTIONS.length; if (state.analysing) { root.innerHTML = '<div class=\"fm-analyzing\">' + '<div class=\"fm-dots\"><span></span><span></span><span></span></div>' + '<p class=\"tiny\" style=\"letter-spacing:0.1em;\">' + esc(ANALYSING_LABEL) + '</p>' + '</div>'; return; } if (state.result) { var p = PERSONAS[state.result]; if (!p) { state.result = null; state.step = 0; render(); return; } var listItems = (p.list || []).map(function(t){ return '<li><div class=\"fm-package-check\">' + '<svg width=\"9\" height=\"7\" viewBox=\"0 0 9 7\" fill=\"none\">' + '<path d=\"M1 3.5L3 5.5L8 1\" stroke=\"white\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>' + '</svg></div>' + esc(t) + '</li>'; }).join(''); var html = '<div class=\"fm-result-reveal\">' + '<div class=\"fm-result-eyebrow-row\">' + '<span class=\"fm-result-eyebrow\">' + esc(p.eyebrow) + '</span>' + '<div class=\"fm-result-divider\"></div>' + '</div>' + '<h3 class=\"fm-result-title\">' + esc(p.title) + '</h3>' + '<p class=\"fm-result-lead\">' + esc(p.lead) + '</p>' + '<div class=\"fm-package\">' + '<div class=\"fm-package-label\">' + esc(p.list_label) + '</div>' + '<ul class=\"fm-package-list\">' + listItems + '</ul>' + '</div>' + '<div class=\"fm-actions\">' + '<a href=\"' + esc(p.cta_primary_link) + '\" class=\"btn btn-sm btn-primary\">' + esc(p.cta_primary_text) + '</a>' + '<a href=\"' + esc(p.cta_secondary_link) + '\" class=\"btn btn-sm btn-ghost\">' + esc(p.cta_secondary_text) + '</a>' + '</div>' + '<div class=\"fm-restart-row\">' + '<p class=\"tiny\" style=\"color:var(--fg-subtle);max-width:26ch;\">' + esc(CAVEAT_TEXT) + '</p>' + '<button class=\"fm-link-btn\" data-fm-restart>← Gör om matchningen</button>' + '</div>' + '</div>'; root.innerHTML = html; bindResult(); return; } var q = QUESTIONS[state.step]; var pct = Math.round((state.step / totalSteps) * 100); var isLast = state.step === totalSteps - 1; var canNext = state.selected !== null; var yn = ['yes', 'no'].map(function(v){ var label = v === 'yes' ? 'Ja' : 'Nej'; var sub = v === 'yes' ? 'stämmer in på mig' : 'stämmer inte'; var icon = v === 'yes' ? '<svg width=\"14\" height=\"11\" viewBox=\"0 0 14 11\" fill=\"none\"><path d=\"M1.5 5.5L5 9L12.5 1.5\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>' : '<svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" fill=\"none\"><path d=\"M2 2L12 12M12 2L2 12\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\"/></svg>'; var sel = state.selected === v ? ' is-sel' : ''; return '<button class=\"fm-yn-btn' + sel + '\" data-fm-answer=\"' + v + '\">' + '<div class=\"fm-yn-icon\">' + icon + '</div>' + '<div class=\"fm-yn-label\">' + label + '</div>' + '<div class=\"fm-yn-sub\">' + sub + '</div>' + '</button>'; }).join(''); root.innerHTML = '<div class=\"fm-progress\">' + '<div class=\"fm-progress-meta\">' + '<span class=\"tiny\">Fråga ' + (state.step + 1) + ' av ' + totalSteps + '</span>' + '<span class=\"tiny\">' + pct + '%</span>' + '</div>' + '<div class=\"fm-progress-track\">' + '<div class=\"fm-progress-fill\" style=\"width:' + pct + '%;\"></div>' + '</div>' + '</div>' + '<div class=\"fm-q-slide\" data-fm-step=\"' + state.step + '\">' + '<h3 class=\"fm-q-title\">' + esc(q.text) + '</h3>' + '<p class=\"fm-q-sub\">' + esc(q.sub) + '</p>' + '<div class=\"fm-yn\">' + yn + '</div>' + '<button class=\"btn btn-sm fm-next-btn ' + (canNext ? 'btn-primary' : 'is-disabled') + '\" data-fm-next>' + (isLast ? 'Se min matchning' : 'Nästa fråga') + '</button>' + '<div class=\"fm-card-footer\">' + '<button class=\"fm-link-btn\" data-fm-back ' + (state.step === 0 ? 'disabled' : '') + '>← Föregående fråga</button>' + '<button class=\"fm-link-btn\" data-fm-restart ' + (state.step === 0 ? 'disabled' : '') + '>Börja om</button>' + '</div>' + '</div>'; bindQuestion(); } function bindQuestion() { root.querySelectorAll('[data-fm-answer]').forEach(function(btn){ btn.addEventListener('click', function(){ state.selected = btn.getAttribute('data-fm-answer'); render(); }); }); var nextBtn = root.querySelector('[data-fm-next]'); if (nextBtn) nextBtn.addEventListener('click', function(){ if (state.selected == null) return; var q = QUESTIONS[state.step]; state.answers[q.id] = state.selected; if (state.step === QUESTIONS.length - 1) { state.analysing = true; render(); setTimeout(function(){ state.analysing = false; state.result = matchPersona(state.answers); render(); }, 1100); } else { state.step++; state.selected = null; render(); } }); var backBtn = root.querySelector('[data-fm-back]'); if (backBtn) backBtn.addEventListener('click', function(){ if (state.step === 0) return; state.step--; var prevQ = QUESTIONS[state.step]; state.selected = state.answers[prevQ.id] || null; render(); }); var restartBtn = root.querySelector('[data-fm-restart]'); if (restartBtn) restartBtn.addEventListener('click', resetState); } function bindResult() { var restartBtn = root.querySelector('[data-fm-restart]'); if (restartBtn) restartBtn.addEventListener('click', resetState); } function resetState() { state = { step: 0, answers: {}, selected: null, analysing: false, result: null }; render(); } render(); })(); </script></section>",
+  "schema": [
+    {
+      "name": "eyebrow",
+      "type": "text",
+      "label": "Etikett",
+      "default": "Trygghetsmatchning"
+    },
+    {
+      "name": "disclaimer_note",
+      "type": "text",
+      "label": "Disclaimer vid Premium-badge",
+      "default": "* ev. implementationskostnader kan förekomma"
+    },
+    {
+      "name": "heading",
+      "type": "text",
+      "label": "Rubrik",
+      "default": "Hitta rätt sätt att börja igen."
+    },
+    {
+      "name": "subtext",
+      "type": "textarea",
+      "label": "Undertext",
+      "default": "Fyra frågor om vad som känns svårt — så föreslår vi det paket som passar dig bäst."
+    },
+    {
+      "name": "lead",
+      "type": "textarea",
+      "label": "Lead-text vänsterspalt",
+      "default": "Vi möter dagligen patienter med tandvårdsrädsla — från mild oro till svår fobi. Beroende på vad som triggar din rädsla finns olika vägar in: lugnande medicin, steg-för-steg-bemötande eller ett återstart-besök helt utan ingrepp."
+    },
+    {
+      "name": "trust_1_title",
+      "type": "text",
+      "label": "Trust-punkt 1 rubrik",
+      "default": "Inga rätt eller fel svar"
+    },
+    {
+      "name": "trust_1_desc",
+      "type": "text",
+      "label": "Trust-punkt 1 text",
+      "default": "Det här är en guide, inte en diagnos."
+    },
+    {
+      "name": "trust_2_title",
+      "type": "text",
+      "label": "Trust-punkt 2 rubrik",
+      "default": "Du bestämmer takten"
+    },
+    {
+      "name": "trust_2_desc",
+      "type": "text",
+      "label": "Trust-punkt 2 text",
+      "default": "Du kan alltid byta paket eller pausa."
+    },
+    {
+      "name": "trust_3_title",
+      "type": "text",
+      "label": "Trust-punkt 3 rubrik",
+      "default": "Sparas inte"
+    },
+    {
+      "name": "trust_3_desc",
+      "type": "text",
+      "label": "Trust-punkt 3 text",
+      "default": "Dina svar lämnar inte din webbläsare."
+    },
+    {
+      "name": "analysing_label",
+      "type": "text",
+      "label": "Text under matchning",
+      "default": "Matchar dig med rätt paket"
+    },
+    {
+      "name": "matching_caveat",
+      "type": "textarea",
+      "label": "Disclaimer under resultat",
+      "default": "Matchningen är en vägledning — alla är välkomna oavsett resultat."
+    },
+    {
+      "name": "q1_text",
+      "type": "text",
+      "label": "Fråga 1",
+      "default": "Är du rädd för sprutor eller bedövningsnålar?"
+    },
+    {
+      "name": "q1_sub",
+      "type": "text",
+      "label": "Fråga 1 underrubrik",
+      "default": "Många upplever obehag av nålar — du är inte ensam."
+    },
+    {
+      "name": "q2_text",
+      "type": "text",
+      "label": "Fråga 2",
+      "default": "Är ljud eller känsla av borr ett stort problem?"
+    },
+    {
+      "name": "q2_sub",
+      "type": "text",
+      "label": "Fråga 2 underrubrik",
+      "default": "Borrljudet är en av de vanligaste anledningarna till tandvårdsrädsla."
+    },
+    {
+      "name": "q3_text",
+      "type": "text",
+      "label": "Fråga 3",
+      "default": "Vill du veta exakt vad som händer hela tiden?"
+    },
+    {
+      "name": "q3_sub",
+      "type": "text",
+      "label": "Fråga 3 underrubrik",
+      "default": "Vissa känner trygghet av att förstå varje steg — andra vill bara att det är över."
+    },
+    {
+      "name": "q4_text",
+      "type": "text",
+      "label": "Fråga 4",
+      "default": "Har du undvikit tandläkaren i mer än två år?"
+    },
+    {
+      "name": "q4_sub",
+      "type": "text",
+      "label": "Fråga 4 underrubrik",
+      "default": "Det är vanligare än du tror — och vi möter dig där du är."
+    },
+    {
+      "name": "p1_eyebrow",
+      "type": "text",
+      "label": "Persona 1 etikett",
+      "default": "Rekommenderat paket"
+    },
+    {
+      "name": "p1_title",
+      "type": "text",
+      "label": "Persona 1 titel",
+      "default": "Lugnande medicin vid besöket"
+    },
+    {
+      "name": "p1_lead",
+      "type": "textarea",
+      "label": "Persona 1 lead",
+      "default": "Du beskriver klassiska tecken på behandlingsrädsla där anxiolytika (lugnande läkemedel) kan göra verklig skillnad. Vi diskuterar alltid alternativen i förväg — du vet exakt vad medicinen gör och hur lång tid den verkar."
+    },
+    {
+      "name": "p1_list_label",
+      "type": "text",
+      "label": "Persona 1 listrubrik",
+      "default": "Vad det innebär"
+    },
+    {
+      "name": "p1_item_1",
+      "type": "text",
+      "label": "Persona 1 punkt 1",
+      "default": "Tabletter du tar 30–60 min innan besöket — verkar lugnande utan att söva."
+    },
+    {
+      "name": "p1_item_2",
+      "type": "text",
+      "label": "Persona 1 punkt 2",
+      "default": "Diskuteras alltid med tandläkaren i förväg — inget överraskar dig."
+    },
+    {
+      "name": "p1_item_3",
+      "type": "text",
+      "label": "Persona 1 punkt 3",
+      "default": "Kombineras gärna med extra noggrann topical-bedövning innan injektion."
+    },
+    {
+      "name": "p1_item_4",
+      "type": "text",
+      "label": "Persona 1 punkt 4",
+      "default": "Du behöver sällskap hem — påverkan finns kvar några timmar."
+    },
+    {
+      "name": "p1_cta_primary_text",
+      "type": "text",
+      "label": "Persona 1 primär CTA",
+      "default": "Boka konsultation"
+    },
+    {
+      "name": "p1_cta_primary_link",
+      "type": "url",
+      "label": "Persona 1 primär länk",
+      "default": "#tdl-booking-widget"
+    },
+    {
+      "name": "p1_cta_secondary_text",
+      "type": "text",
+      "label": "Persona 1 sekundär CTA",
+      "default": "Läs om vårt arbetssätt"
+    },
+    {
+      "name": "p1_cta_secondary_link",
+      "type": "url",
+      "label": "Persona 1 sekundär länk",
+      "default": "/tandvardsradsla/"
+    },
+    {
+      "name": "p2_eyebrow",
+      "type": "text",
+      "label": "Persona 2 etikett",
+      "default": "Rekommenderat paket"
+    },
+    {
+      "name": "p2_title",
+      "type": "text",
+      "label": "Persona 2 titel",
+      "default": "Steg-för-steg-tandläkare"
+    },
+    {
+      "name": "p2_lead",
+      "type": "textarea",
+      "label": "Persona 2 lead",
+      "default": "Du vill ha kontroll och förstå exakt vad som händer. Hos oss träffar du en tandläkare som tar tid att förklara varje moment innan vi gör det — och stannar upp så fort du behöver paus eller frågar."
+    },
+    {
+      "name": "p2_list_label",
+      "type": "text",
+      "label": "Persona 2 listrubrik",
+      "default": "Vad det innebär"
+    },
+    {
+      "name": "p2_item_1",
+      "type": "text",
+      "label": "Persona 2 punkt 1",
+      "default": "Genomgång av allt som ska göras innan vi börjar."
+    },
+    {
+      "name": "p2_item_2",
+      "type": "text",
+      "label": "Persona 2 punkt 2",
+      "default": "'Stop-handen' — du höjer handen, vi stannar direkt."
+    },
+    {
+      "name": "p2_item_3",
+      "type": "text",
+      "label": "Persona 2 punkt 3",
+      "default": "Ingen säljpress — du bestämmer när och hur snabbt."
+    },
+    {
+      "name": "p2_item_4",
+      "type": "text",
+      "label": "Persona 2 punkt 4",
+      "default": "Längre tid avsatt än vanlig undersökning."
+    },
+    {
+      "name": "p2_cta_primary_text",
+      "type": "text",
+      "label": "Persona 2 primär CTA",
+      "default": "Boka konsultation utan ingrepp"
+    },
+    {
+      "name": "p2_cta_primary_link",
+      "type": "url",
+      "label": "Persona 2 primär länk",
+      "default": "#tdl-booking-widget"
+    },
+    {
+      "name": "p2_cta_secondary_text",
+      "type": "text",
+      "label": "Persona 2 sekundär CTA",
+      "default": "Läs om vår metod"
+    },
+    {
+      "name": "p2_cta_secondary_link",
+      "type": "url",
+      "label": "Persona 2 sekundär länk",
+      "default": "/tandvardsradsla/"
+    },
+    {
+      "name": "p3_eyebrow",
+      "type": "text",
+      "label": "Persona 3 etikett",
+      "default": "Rekommenderat paket"
+    },
+    {
+      "name": "p3_title",
+      "type": "text",
+      "label": "Persona 3 titel",
+      "default": "Återstart — utan behandling första gången"
+    },
+    {
+      "name": "p3_lead",
+      "type": "textarea",
+      "label": "Persona 3 lead",
+      "default": "Att inte ha gått på flera år är ingenting att skämmas för — det är där vi är specialiserade. Första besöket är samtal och en mjuk undersökning utan ingrepp. Inga föreläsningar, ingen skam — bara en plan framåt."
+    },
+    {
+      "name": "p3_list_label",
+      "type": "text",
+      "label": "Persona 3 listrubrik",
+      "default": "Vad det innebär"
+    },
+    {
+      "name": "p3_item_1",
+      "type": "text",
+      "label": "Persona 3 punkt 1",
+      "default": "Första besöket: bara samtal och ev. en titt — inget mer."
+    },
+    {
+      "name": "p3_item_2",
+      "type": "text",
+      "label": "Persona 3 punkt 2",
+      "default": "Du bestämmer takten på all kommande behandling."
+    },
+    {
+      "name": "p3_item_3",
+      "type": "text",
+      "label": "Persona 3 punkt 3",
+      "default": "Vi börjar med det enklaste, inte det svåraste."
+    },
+    {
+      "name": "p3_item_4",
+      "type": "text",
+      "label": "Persona 3 punkt 4",
+      "default": "Vi avsätter extra tid — ingen tidsstress vid första besöket."
+    },
+    {
+      "name": "p3_cta_primary_text",
+      "type": "text",
+      "label": "Persona 3 primär CTA",
+      "default": "Boka återstart-besök"
+    },
+    {
+      "name": "p3_cta_primary_link",
+      "type": "url",
+      "label": "Persona 3 primär länk",
+      "default": "#tdl-booking-widget"
+    },
+    {
+      "name": "p3_cta_secondary_text",
+      "type": "text",
+      "label": "Persona 3 sekundär CTA",
+      "default": "Läs hur vi jobbar"
+    },
+    {
+      "name": "p3_cta_secondary_link",
+      "type": "url",
+      "label": "Persona 3 sekundär länk",
+      "default": "/tandvardsradsla/"
+    }
+  ]
+}

@@ -1,0 +1,895 @@
+{
+  "block_name": "lumo/cost-calculator",
+  "title": "Prisöversikt (premium)",
+  "html_template": "<section id=\"prisoversikt\" class=\"cc-section\"><style> .cc-section { background:#d8f0f8; padding:var(--space-9) 0; border-top:1px solid var(--blush-200); border-bottom:1px solid var(--blush-200); scroll-margin-top:-78px; } .cc-header { display:grid; grid-template-columns:1fr auto; align-items:end; gap:32px; margin-bottom:48px; padding-bottom:28px; border-bottom:1px solid var(--blush-200); } .cc-eyebrow-row { display:flex; align-items:center; flex-wrap:wrap; gap:6px 0; margin-bottom:12px; } .cc-header-meta { max-width:36ch; text-align:right; margin:0; color:var(--fg-muted); } .cc-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,2.1fr); gap:32px; align-items:start; } .cc-list-label { font-size:10px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--fg-muted); margin-bottom:var(--space-3); } .cc-list { display:flex; flex-direction:column; gap:6px; } .cc-list-btn { display:grid; grid-template-columns:auto 1fr auto; gap:14px; align-items:center; padding:14px 16px; background:var(--white); border:1px solid var(--border); cursor:pointer; text-align:left; font-family:inherit; transition:all var(--dur-fast) var(--ease-standard); } .cc-list-btn:hover { border-color:var(--ink-300); } .cc-list-btn.is-active { background:var(--ink-700); border-color:var(--ink-700); } .cc-list-num { font-family:var(--font-serif); font-style:italic; font-size:13px; color:var(--fg-subtle); min-width:24px; } .cc-list-btn.is-active .cc-list-num { color:var(--blush-300); } .cc-list-body { min-width:0; display:flex; flex-direction:column; gap:2px; } .cc-list-name { font-size:14px; font-weight:500; color:var(--fg-strong); display:block; } .cc-list-meta { font-size:11px; color:var(--fg-subtle); letter-spacing:.02em; display:block; } .cc-list-btn.is-active .cc-list-name { color:var(--white); } .cc-list-btn.is-active .cc-list-meta { color:rgba(255,255,255,.55); } .cc-list-arrow { width:18px; height:18px; color:var(--fg-subtle); opacity:0; transform:translateX(-4px); transition:all var(--dur-fast) var(--ease-standard); } .cc-list-btn.is-active .cc-list-arrow { color:var(--white); opacity:1; transform:translateX(0); } .cc-card { background:var(--white); border:1px solid var(--border); box-shadow:var(--shadow-md); padding:clamp(28px, 3.5vw, 44px); position:sticky; top:120px; align-self:start; min-width:0; } .cc-card-eyebrow { font-size:var(--fs-eyebrow); text-transform:uppercase; letter-spacing:var(--tracking-eyebrow); font-weight:500; color:var(--blush-600); margin-bottom:var(--space-3); } .cc-card-title { font-family:var(--font-serif); font-weight:400; font-size:32px; line-height:1.15; color:var(--fg-strong); letter-spacing:-.02em; margin:0 0 var(--space-3) 0; } .cc-card-desc { color:var(--ink-500); font-size:var(--fs-lead); line-height:1.55; margin:0 0 var(--space-3) 0; } .cc-card-readmore { display:inline-flex; align-items:center; gap:6px; color:var(--blush-600); font-size:13px; font-weight:500; text-decoration:none; margin-bottom:var(--space-6); border-bottom:1px solid transparent; transition:border-color .15s ease; } .cc-card-readmore:hover { border-bottom-color:var(--blush-600); } .cc-prices { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-bottom:var(--space-4); } .cc-price { background:var(--blush-50); border:1px solid var(--blush-100); padding:18px; position:relative; display:flex; flex-direction:column; gap:8px; min-width:0; overflow-wrap:anywhere; word-break:break-word; } .cc-price-label { font-size:9px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--blush-600); } .cc-price-amount { font-family:var(--font-serif); font-weight:400; font-size:22px; line-height:1.15; color:var(--fg-strong); letter-spacing:-.01em; } .cc-price-unit { font-family:var(--font-sans); font-size:11px; color:var(--fg-subtle); margin-left:4px; } .cc-price-note { font-size:11px; line-height:1.5; color:var(--fg-muted); flex:1; } .cc-boka { margin-bottom:var(--space-5); padding:22px 26px; background:var(--ink-700); color:#fff; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; } .cc-boka-text { display:flex; flex-direction:column; gap:4px; min-width:0; } .cc-boka-eyebrow { font-size:10px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.55); } .cc-boka-name { font-family:var(--font-serif); font-weight:400; font-size:20px; line-height:1.2; color:#fff; letter-spacing:-.01em; } .cc-boka-actions { display:flex; gap:10px; flex-wrap:wrap; } .cc-boka-btn { display:inline-flex; align-items:center; gap:6px; padding:10px 20px; font-size:13px; font-weight:500; text-decoration:none; transition:background .15s ease, color .15s ease; } .cc-boka-btn.is-primary { background:#fff; color:var(--ink-700); } .cc-boka-btn.is-primary:hover { background:var(--blush-50); } .cc-boka-btn.is-ghost { background:transparent; color:#fff; border:1px solid rgba(255,255,255,.35); } .cc-boka-btn.is-ghost:hover { border-color:#fff; background:rgba(255,255,255,.08); } @media(max-width:700px){ .cc-boka { flex-direction:column; align-items:stretch; padding:20px; } .cc-boka-actions { width:100%; } .cc-boka-btn { flex:1; justify-content:center; } } .cc-disclaimer { font-size:11px; color:var(--fg-subtle); line-height:1.5; padding-top:var(--space-3); border-top:1px solid var(--blush-200); margin-bottom:var(--space-4); } .cc-card-cta { display:flex; gap:var(--space-2); justify-content:flex-end; } @media (max-width:900px) { .cc-header { grid-template-columns:1fr; align-items:start; gap:14px; margin-bottom:0; padding-bottom:0; border-bottom:0; } .cc-header-meta { display:none; } .cc-grid { margin-top:24px; } .cc-grid { grid-template-columns:1fr; gap:24px; } .cc-prices { grid-template-columns:1fr; } .cc-card { position:static; max-height:none; overflow:visible; } .cc-card-title { font-size:24px; } .cc-card-cta { flex-direction:column; } .cc-card-cta .btn { width:100%; justify-content:center; } } </style><div class=\"container-wide\"><div class=\"cc-header\"><div><div class=\"cc-eyebrow-row\"><span class=\"eyebrow\">{{eyebrow}}</span><span class=\"lumo-premium-badge\" onclick=\"lumoToggle(this)\"><span class=\"lumo-premium-dot\"></span><span class=\"lumo-mode-lbl\">Premium</span><div class=\"lumo-tooltip\"><div class=\"lumo-tt-title\">Varför Premium?</div><ul class=\"lumo-tt-list\"><li>Patienter ser exakta priser innan de bokar — bygger förtroende</li><li>Färre samtal till receptionen om &quot;vad kostar...?&quot;</li><li>Sätter er tandvård i kontext mot räntefri delbetalning &amp; statligt stöd</li><li>Sticker ut mot konkurrenter som döljer priser</li></ul><div class=\"lumo-tt-note\">Behandlingar och prisspann anpassas helt efter kliniken.</div></div></span></div><h2 style=\"max-width:22ch;\">{{heading}}</h2></div><p class=\"cc-header-meta\">{{subtext}}</p></div><div data-cost-calc><div class=\"cc-grid\"><div><div class=\"cc-list-label\">{{list_label}}</div><div class=\"cc-list\" data-cc-list></div></div><div class=\"cc-card\" data-cc-card></div></div><script type=\"application/json\" data-cc-config>{\"label_kontant\":\"{{label_kontant}}\",\"label_frisktandvard\":\"{{label_frisktandvard}}\",\"label_tandvardsstod\":\"{{label_tandvardsstod}}\",\"disclaimer\":\"{{disclaimer}}\",\"boka_eyebrow\":\"{{boka_eyebrow}}\",\"cta_1_text\":\"{{cta_1_text}}\",\"cta_1_link\":\"{{cta_1_link}}\",\"cta_2_text\":\"{{cta_2_text}}\",\"cta_2_link\":\"{{cta_2_link}}\",\"treatments\":[{\"slug\":\"{{t1_slug}}\",\"name\":\"{{t1_name}}\",\"meta\":\"{{t1_meta}}\",\"eyebrow\":\"{{t1_eyebrow}}\",\"desc\":\"{{t1_desc}}\",\"link\":\"{{t1_link}}\",\"kontant\":{\"amount\":\"{{t1_k_amount}}\",\"note\":\"{{t1_k_note}}\",\"recommended\":{{t1_k_rec}},\"cta_text\":\"Boka\",\"cta_link\":\"#tdl-booking-widget\"},\"frisktandvard\":{\"amount\":\"{{t1_f_amount}}\",\"note\":\"{{t1_f_note}}\",\"recommended\":{{t1_f_rec}},\"cta_text\":\"Läs mer\",\"cta_link\":\"/rantefritt/\"},\"tandvardsstod\":{\"amount\":\"{{t1_s_amount}}\",\"note\":\"{{t1_s_note}}\",\"recommended\":{{t1_s_rec}},\"cta_text\":\"Läs om tandvårdsstöd\",\"cta_link\":\"/om-oss/#tandvardsstod\"}},{\"slug\":\"{{t2_slug}}\",\"name\":\"{{t2_name}}\",\"meta\":\"{{t2_meta}}\",\"eyebrow\":\"{{t2_eyebrow}}\",\"desc\":\"{{t2_desc}}\",\"link\":\"{{t2_link}}\",\"kontant\":{\"amount\":\"{{t2_k_amount}}\",\"note\":\"{{t2_k_note}}\",\"recommended\":{{t2_k_rec}},\"cta_text\":\"Boka\",\"cta_link\":\"#tdl-booking-widget\"},\"frisktandvard\":{\"amount\":\"{{t2_f_amount}}\",\"note\":\"{{t2_f_note}}\",\"recommended\":{{t2_f_rec}},\"cta_text\":\"Läs mer\",\"cta_link\":\"/rantefritt/\"},\"tandvardsstod\":{\"amount\":\"{{t2_s_amount}}\",\"note\":\"{{t2_s_note}}\",\"recommended\":{{t2_s_rec}},\"cta_text\":\"Läs om tandvårdsstöd\",\"cta_link\":\"/om-oss/#tandvardsstod\"}},{\"slug\":\"{{t3_slug}}\",\"name\":\"{{t3_name}}\",\"meta\":\"{{t3_meta}}\",\"eyebrow\":\"{{t3_eyebrow}}\",\"desc\":\"{{t3_desc}}\",\"link\":\"{{t3_link}}\",\"kontant\":{\"amount\":\"{{t3_k_amount}}\",\"note\":\"{{t3_k_note}}\",\"recommended\":{{t3_k_rec}},\"cta_text\":\"Boka\",\"cta_link\":\"#tdl-booking-widget\"},\"frisktandvard\":{\"amount\":\"{{t3_f_amount}}\",\"note\":\"{{t3_f_note}}\",\"recommended\":{{t3_f_rec}},\"cta_text\":\"Läs mer\",\"cta_link\":\"/rantefritt/\"},\"tandvardsstod\":{\"amount\":\"{{t3_s_amount}}\",\"note\":\"{{t3_s_note}}\",\"recommended\":{{t3_s_rec}},\"cta_text\":\"Läs om tandvårdsstöd\",\"cta_link\":\"/om-oss/#tandvardsstod\"}},{\"slug\":\"{{t4_slug}}\",\"name\":\"{{t4_name}}\",\"meta\":\"{{t4_meta}}\",\"eyebrow\":\"{{t4_eyebrow}}\",\"desc\":\"{{t4_desc}}\",\"link\":\"{{t4_link}}\",\"kontant\":{\"amount\":\"{{t4_k_amount}}\",\"note\":\"{{t4_k_note}}\",\"recommended\":{{t4_k_rec}},\"cta_text\":\"Boka\",\"cta_link\":\"#tdl-booking-widget\"},\"frisktandvard\":{\"amount\":\"{{t4_f_amount}}\",\"note\":\"{{t4_f_note}}\",\"recommended\":{{t4_f_rec}},\"cta_text\":\"Läs mer\",\"cta_link\":\"/rantefritt/\"},\"tandvardsstod\":{\"amount\":\"{{t4_s_amount}}\",\"note\":\"{{t4_s_note}}\",\"recommended\":{{t4_s_rec}},\"cta_text\":\"Läs om tandvårdsstöd\",\"cta_link\":\"/om-oss/#tandvardsstod\"}},{\"slug\":\"{{t5_slug}}\",\"name\":\"{{t5_name}}\",\"meta\":\"{{t5_meta}}\",\"eyebrow\":\"{{t5_eyebrow}}\",\"desc\":\"{{t5_desc}}\",\"link\":\"{{t5_link}}\",\"kontant\":{\"amount\":\"{{t5_k_amount}}\",\"note\":\"{{t5_k_note}}\",\"recommended\":{{t5_k_rec}},\"cta_text\":\"Boka\",\"cta_link\":\"#tdl-booking-widget\"},\"frisktandvard\":{\"amount\":\"{{t5_f_amount}}\",\"note\":\"{{t5_f_note}}\",\"recommended\":{{t5_f_rec}},\"cta_text\":\"Läs mer\",\"cta_link\":\"/rantefritt/\"},\"tandvardsstod\":{\"amount\":\"{{t5_s_amount}}\",\"note\":\"{{t5_s_note}}\",\"recommended\":{{t5_s_rec}},\"cta_text\":\"Läs om tandvårdsstöd\",\"cta_link\":\"/om-oss/#tandvardsstod\"}},{\"slug\":\"{{t6_slug}}\",\"name\":\"{{t6_name}}\",\"meta\":\"{{t6_meta}}\",\"eyebrow\":\"{{t6_eyebrow}}\",\"desc\":\"{{t6_desc}}\",\"link\":\"{{t6_link}}\",\"kontant\":{\"amount\":\"{{t6_k_amount}}\",\"note\":\"{{t6_k_note}}\",\"recommended\":{{t6_k_rec}},\"cta_text\":\"Boka\",\"cta_link\":\"#tdl-booking-widget\"},\"frisktandvard\":{\"amount\":\"{{t6_f_amount}}\",\"note\":\"{{t6_f_note}}\",\"recommended\":{{t6_f_rec}},\"cta_text\":\"Läs mer\",\"cta_link\":\"/rantefritt/\"},\"tandvardsstod\":{\"amount\":\"{{t6_s_amount}}\",\"note\":\"{{t6_s_note}}\",\"recommended\":{{t6_s_rec}},\"cta_text\":\"Läs om tandvårdsstöd\",\"cta_link\":\"/om-oss/#tandvardsstod\"}},{\"slug\":\"{{t7_slug}}\",\"name\":\"{{t7_name}}\",\"meta\":\"{{t7_meta}}\",\"eyebrow\":\"{{t7_eyebrow}}\",\"desc\":\"{{t7_desc}}\",\"link\":\"{{t7_link}}\",\"kontant\":{\"amount\":\"{{t7_k_amount}}\",\"note\":\"{{t7_k_note}}\",\"recommended\":{{t7_k_rec}},\"cta_text\":\"Boka\",\"cta_link\":\"#tdl-booking-widget\"},\"frisktandvard\":{\"amount\":\"{{t7_f_amount}}\",\"note\":\"{{t7_f_note}}\",\"recommended\":{{t7_f_rec}},\"cta_text\":\"Läs mer\",\"cta_link\":\"/rantefritt/\"},\"tandvardsstod\":{\"amount\":\"{{t7_s_amount}}\",\"note\":\"{{t7_s_note}}\",\"recommended\":{{t7_s_rec}},\"cta_text\":\"Läs om tandvårdsstöd\",\"cta_link\":\"/om-oss/#tandvardsstod\"}},{\"slug\":\"{{t8_slug}}\",\"name\":\"{{t8_name}}\",\"meta\":\"{{t8_meta}}\",\"eyebrow\":\"{{t8_eyebrow}}\",\"desc\":\"{{t8_desc}}\",\"link\":\"{{t8_link}}\",\"kontant\":{\"amount\":\"{{t8_k_amount}}\",\"note\":\"{{t8_k_note}}\",\"recommended\":{{t8_k_rec}},\"cta_text\":\"Boka\",\"cta_link\":\"#tdl-booking-widget\"},\"frisktandvard\":{\"amount\":\"{{t8_f_amount}}\",\"note\":\"{{t8_f_note}}\",\"recommended\":{{t8_f_rec}},\"cta_text\":\"Läs mer\",\"cta_link\":\"/rantefritt/\"},\"tandvardsstod\":{\"amount\":\"{{t8_s_amount}}\",\"note\":\"{{t8_s_note}}\",\"recommended\":{{t8_s_rec}},\"cta_text\":\"Läs om tandvårdsstöd\",\"cta_link\":\"/om-oss/#tandvardsstod\"}},{\"slug\":\"{{t9_slug}}\",\"name\":\"{{t9_name}}\",\"meta\":\"{{t9_meta}}\",\"eyebrow\":\"{{t9_eyebrow}}\",\"desc\":\"{{t9_desc}}\",\"link\":\"{{t9_link}}\",\"kontant\":{\"amount\":\"{{t9_k_amount}}\",\"note\":\"{{t9_k_note}}\",\"recommended\":{{t9_k_rec}},\"cta_text\":\"Boka\",\"cta_link\":\"#tdl-booking-widget\"},\"frisktandvard\":{\"amount\":\"{{t9_f_amount}}\",\"note\":\"{{t9_f_note}}\",\"recommended\":{{t9_f_rec}},\"cta_text\":\"Läs mer\",\"cta_link\":\"/rantefritt/\"},\"tandvardsstod\":{\"amount\":\"{{t9_s_amount}}\",\"note\":\"{{t9_s_note}}\",\"recommended\":{{t9_s_rec}},\"cta_text\":\"Läs om tandvårdsstöd\",\"cta_link\":\"/om-oss/#tandvardsstod\"}}]}</script></div></div><script> (function(){ /* Cost Calculator — vanilla JS. Inga // kommentarer. */ var root = document.querySelector('[data-cost-calc]'); if (!root) return; if (root.dataset.ccReady === '1') return; root.dataset.ccReady = '1'; var cfgEl = root.querySelector('script[type=\"application/json\"][data-cc-config]'); if (!cfgEl) return; var CFG; try { CFG = JSON.parse(cfgEl.textContent); } catch (e) { return; } var TREATMENTS = CFG.treatments || []; if (!TREATMENTS.length) return; var section = root.closest('.cc-section') || root; var listEl = root.querySelector('[data-cc-list]'); var cardEl = root.querySelector('[data-cc-card]'); var state = { active: 0 }; function getHeaderOffset() { var el = document.querySelector('.site-header'); if (!el) return 0; var cs = window.getComputedStyle(el); if (cs.position === 'fixed' || cs.position === 'sticky') { return el.getBoundingClientRect().height; } return 0; } function centerWidget() { var target = cardEl; if (!target) return; var rect = target.getBoundingClientRect(); var vh = window.innerHeight || document.documentElement.clientHeight; var pageY = window.pageYOffset || document.documentElement.scrollTop || 0; var headerH = getHeaderOffset(); var avail = vh - headerH; /* Centrera kortet vertikalt i tillgängligt utrymme under headern */ var top = pageY + rect.top - headerH - Math.max(0, (avail - rect.height) / 2); top = Math.max(0, top); try { window.scrollTo({ top: top, behavior: 'smooth' }); } catch (e) { window.scrollTo(0, top); } } function esc(s) { return String(s == null ? '' : s) .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') .replace(/\"/g, '&quot;').replace(/'/g, '&#39;'); } function pad2(n) { return n < 10 ? '0' + n : '' + n; } function renderList() { if (!listEl) return; listEl.innerHTML = TREATMENTS.map(function(t, i){ var cls = 'cc-list-btn' + (i === state.active ? ' is-active' : ''); return '<button type=\"button\" class=\"' + cls + '\" data-cc-goto=\"' + i + '\">' + '<span class=\"cc-list-num\">' + pad2(i + 1) + '</span>' + '<span class=\"cc-list-body\">' + '<span class=\"cc-list-name\">' + esc(t.name) + '</span>' + '<span class=\"cc-list-meta\">' + esc(t.meta) + '</span>' + '</span>' + '<svg class=\"cc-list-arrow\" viewBox=\"0 0 18 18\" fill=\"none\"><path d=\"M4 9h10M10 4l5 5-5 5\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>' + '</button>'; }).join(''); } function priceCard(label, p) { if (!p) return ''; var amount = String(p.amount || ''); var match = amount.match(/^(.+?)(\\s*kr)$/); var amountHtml = match ? esc(match[1]) + '<span class=\"cc-price-unit\">' + esc(match[2].trim()) + '</span>' : esc(amount); return '<div class=\"cc-price\">' + '<div class=\"cc-price-label\">' + esc(label) + '</div>' + '<div class=\"cc-price-amount\">' + amountHtml + '</div>' + '<div class=\"cc-price-note\">' + esc(p.note) + '</div>' + '</div>'; } function renderCard() { if (!cardEl) return; var t = TREATMENTS[state.active]; cardEl.innerHTML = '<div class=\"cc-card-eyebrow\">' + esc(t.eyebrow) + '</div>' + '<h3 class=\"cc-card-title\">' + esc(t.name) + '</h3>' + '<p class=\"cc-card-desc\">' + esc(t.desc) + '</p>' + (t.link ? '<a class=\"cc-card-readmore\" href=\"' + esc(t.link) + '\">Läs mer <svg width=\"11\" height=\"11\" viewBox=\"0 0 11 11\" fill=\"none\"><path d=\"M1 5.5h9M6 1l4.5 4.5L6 10\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></a>' : '') + '<div class=\"cc-prices\">' + priceCard(CFG.label_kontant || 'Kontant', t.kontant) + priceCard(CFG.label_frisktandvard || 'Frisktandvård', t.frisktandvard) + priceCard(CFG.label_tandvardsstod || 'Tandvårdsstöd', t.tandvardsstod) + '</div>' + '<div class=\"cc-boka\">' + '<div class=\"cc-boka-text\">' + '<div class=\"cc-boka-eyebrow\">' + esc(CFG.boka_eyebrow || 'Klar att boka?') + '</div>' + '<div class=\"cc-boka-name\">' + esc(t.name) + '</div>' + '</div>' + '<div class=\"cc-boka-actions\">' + '<a href=\"' + esc(CFG.cta_1_link || '') + '\" class=\"cc-boka-btn is-ghost\">' + esc(CFG.cta_1_text || '') + '</a>' + '<a href=\"' + esc(CFG.cta_2_link || '') + '\" class=\"cc-boka-btn is-primary\">' + esc(CFG.cta_2_text || '') + ' <svg width=\"11\" height=\"11\" viewBox=\"0 0 11 11\" fill=\"none\"><path d=\"M1 5.5h9M6 1l4.5 4.5L6 10\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></a>' + '</div>' + '</div>' + '<p class=\"cc-disclaimer\">' + esc(CFG.disclaimer || '') + '</p>'; } function setActive(i) { if (i < 0 || i >= TREATMENTS.length) return; state.active = i; renderList(); renderCard(); } root.addEventListener('click', function(e){ var goto = e.target.closest('[data-cc-goto]'); if (goto) { setActive(parseInt(goto.getAttribute('data-cc-goto'), 10)); requestAnimationFrame(centerWidget); } }); renderList(); renderCard(); })(); </script></section>",
+  "schema": [
+    {
+      "name": "eyebrow",
+      "type": "text",
+      "label": "Etikett",
+      "default": "Prisöversikt"
+    },
+    {
+      "name": "heading",
+      "type": "text",
+      "label": "Rubrik",
+      "default": "Transparenta priser — vi följer Folktandvårdens prislista."
+    },
+    {
+      "name": "subtext",
+      "type": "textarea",
+      "label": "Undertext (höger)",
+      "default": "Jämför direktbetalning, räntefri delbetalning eller efter statligt tandvårdsstöd. Vi följer Folktandvårdens prislista och är knutna till Försäkringskassan — högkostnadsskydd och tandvårdsbidrag dras automatiskt vid besöket."
+    },
+    {
+      "name": "list_label",
+      "type": "text",
+      "label": "Lista-rubrik",
+      "default": "Välj behandling"
+    },
+    {
+      "name": "label_kontant",
+      "type": "text",
+      "label": "Kolumn 1 – etikett",
+      "default": "Direktbetalning"
+    },
+    {
+      "name": "label_frisktandvard",
+      "type": "text",
+      "label": "Kolumn 2 – etikett",
+      "default": "Räntefri (12 mån)"
+    },
+    {
+      "name": "label_tandvardsstod",
+      "type": "text",
+      "label": "Kolumn 3 – etikett",
+      "default": "Tandvårdsstöd"
+    },
+    {
+      "name": "disclaimer",
+      "type": "textarea",
+      "label": "Disclaimer under priserna",
+      "default": "Vi följer Folktandvårdens prislista. Listade priser är riktvärden — exakt pris får du efter undersökning och behandlingsplan, utan kostnad och utan förpliktelser. Räntefri delbetalning sker via Resurs Bank (godkänd kreditprövning). Subventionsbelopp baseras på Tandvårds- och läkemedelsförmånsverkets (TLV) referenspriser."
+    },
+    {
+      "name": "boka_eyebrow",
+      "type": "text",
+      "label": "Boka-block – eyebrow",
+      "default": "Klar att boka?"
+    },
+    {
+      "name": "cta_1_text",
+      "type": "text",
+      "label": "CTA 1 text",
+      "default": "Ring kliniken"
+    },
+    {
+      "name": "cta_1_link",
+      "type": "url",
+      "label": "CTA 1 länk",
+      "default": "tel:0812854555"
+    },
+    {
+      "name": "cta_2_text",
+      "type": "text",
+      "label": "CTA 2 text",
+      "default": "Boka tid"
+    },
+    {
+      "name": "cta_2_link",
+      "type": "url",
+      "label": "CTA 2 länk",
+      "default": "#tdl-booking-widget"
+    },
+    {
+      "name": "t1_slug",
+      "type": "text",
+      "label": "Behandling 1 – slug",
+      "default": "undersokning"
+    },
+    {
+      "name": "t1_name",
+      "type": "text",
+      "label": "Behandling 1 – namn",
+      "default": "Undersökning + röntgen"
+    },
+    {
+      "name": "t1_meta",
+      "type": "text",
+      "label": "Behandling 1 – meta",
+      "default": "Bastandvård · 30–45 min"
+    },
+    {
+      "name": "t1_eyebrow",
+      "type": "text",
+      "label": "Behandling 1 – eyebrow",
+      "default": "N° 01 · Undersökning"
+    },
+    {
+      "name": "t1_desc",
+      "type": "textarea",
+      "label": "Behandling 1 – beskrivning",
+      "default": "Helhetskoll av tänder och tandkött, intraoral röntgen och en mjuk hygienistgenomgång. Det här är grunden — alla nya patienter börjar här."
+    },
+    {
+      "name": "t1_link",
+      "type": "url",
+      "label": "Behandling 1 – läs mer-länk",
+      "default": "/akut-tandvard/"
+    },
+    {
+      "name": "t1_k_amount",
+      "type": "text",
+      "label": "Behandling 1 – Direktbetalning pris",
+      "default": "1 080 kr"
+    },
+    {
+      "name": "t1_k_note",
+      "type": "textarea",
+      "label": "Behandling 1 – Direktbetalning info",
+      "default": "Pris före tandvårdsbidrag. Akut undersökning: 575 kr (nya patienter 440 kr)."
+    },
+    {
+      "name": "t1_k_rec",
+      "type": "text",
+      "label": "Behandling 1 – Direktbetalning bäst värde (true/false)",
+      "default": "false"
+    },
+    {
+      "name": "t1_f_amount",
+      "type": "text",
+      "label": "Behandling 1 – Frisktandvård pris",
+      "default": "Ej aktuellt"
+    },
+    {
+      "name": "t1_f_note",
+      "type": "textarea",
+      "label": "Behandling 1 – Frisktandvård info",
+      "default": "Enkelbesök betalas direkt vid besöket."
+    },
+    {
+      "name": "t1_f_rec",
+      "type": "text",
+      "label": "Behandling 1 – Frisktandvård bäst värde",
+      "default": "false"
+    },
+    {
+      "name": "t1_s_amount",
+      "type": "text",
+      "label": "Behandling 1 – Tandvårdsstöd pris",
+      "default": "Från ~780 kr"
+    },
+    {
+      "name": "t1_s_note",
+      "type": "textarea",
+      "label": "Behandling 1 – Tandvårdsstöd info",
+      "default": "Efter Allmänt tandvårdsbidrag (ATB 600 kr/år för 24–29 år & 65+, övriga 300 kr)."
+    },
+    {
+      "name": "t1_s_rec",
+      "type": "text",
+      "label": "Behandling 1 – Tandvårdsstöd bäst värde",
+      "default": "true"
+    },
+    {
+      "name": "t2_slug",
+      "type": "text",
+      "label": "Behandling 2 – slug",
+      "default": "tandsten"
+    },
+    {
+      "name": "t2_name",
+      "type": "text",
+      "label": "Behandling 2 – namn",
+      "default": "Tandsten & hygienist"
+    },
+    {
+      "name": "t2_meta",
+      "type": "text",
+      "label": "Behandling 2 – meta",
+      "default": "Tandhygienist · 45–60 min"
+    },
+    {
+      "name": "t2_eyebrow",
+      "type": "text",
+      "label": "Behandling 2 – eyebrow",
+      "default": "N° 02 · Hygienistbesök"
+    },
+    {
+      "name": "t2_desc",
+      "type": "textarea",
+      "label": "Behandling 2 – beskrivning",
+      "default": "Skonsam borttagning av tandsten och beläggningar, polering och personliga råd om hemvård. Förebygger karies och tandköttsbesvär."
+    },
+    {
+      "name": "t2_link",
+      "type": "url",
+      "label": "Behandling 2 – läs mer-länk",
+      "default": "/tandsten-tandhygienist/"
+    },
+    {
+      "name": "t2_k_amount",
+      "type": "text",
+      "label": "Behandling 2 – Direktbetalning pris",
+      "default": "Från 845 kr"
+    },
+    {
+      "name": "t2_k_note",
+      "type": "textarea",
+      "label": "Behandling 2 – Direktbetalning info",
+      "default": "Pris varierar med tandstensmängd och behandlingsomfattning."
+    },
+    {
+      "name": "t2_k_rec",
+      "type": "text",
+      "label": "Behandling 2 – Direktbetalning bäst värde (true/false)",
+      "default": "true"
+    },
+    {
+      "name": "t2_f_amount",
+      "type": "text",
+      "label": "Behandling 2 – Frisktandvård pris",
+      "default": "Vid större paket"
+    },
+    {
+      "name": "t2_f_note",
+      "type": "textarea",
+      "label": "Behandling 2 – Frisktandvård info",
+      "default": "Vid omfattande hygienistpaket: räntefri delbetalning upp till 12 månader."
+    },
+    {
+      "name": "t2_f_rec",
+      "type": "text",
+      "label": "Behandling 2 – Frisktandvård bäst värde",
+      "default": "false"
+    },
+    {
+      "name": "t2_s_amount",
+      "type": "text",
+      "label": "Behandling 2 – Tandvårdsstöd pris",
+      "default": "Via ATB"
+    },
+    {
+      "name": "t2_s_note",
+      "type": "textarea",
+      "label": "Behandling 2 – Tandvårdsstöd info",
+      "default": "Allmänt tandvårdsbidrag kan användas mot besöket."
+    },
+    {
+      "name": "t2_s_rec",
+      "type": "text",
+      "label": "Behandling 2 – Tandvårdsstöd bäst värde",
+      "default": "false"
+    },
+    {
+      "name": "t3_slug",
+      "type": "text",
+      "label": "Behandling 3 – slug",
+      "default": "karies"
+    },
+    {
+      "name": "t3_name",
+      "type": "text",
+      "label": "Behandling 3 – namn",
+      "default": "Lagning (karies)"
+    },
+    {
+      "name": "t3_meta",
+      "type": "text",
+      "label": "Behandling 3 – meta",
+      "default": "Allmäntandvård · per yta"
+    },
+    {
+      "name": "t3_eyebrow",
+      "type": "text",
+      "label": "Behandling 3 – eyebrow",
+      "default": "N° 03 · Karies-behandling"
+    },
+    {
+      "name": "t3_desc",
+      "type": "textarea",
+      "label": "Behandling 3 – beskrivning",
+      "default": "Modern komposit-lagning som matchas i färg mot din egen tand. Smärtfri behandling under lokalbedövning."
+    },
+    {
+      "name": "t3_link",
+      "type": "url",
+      "label": "Behandling 3 – läs mer-länk",
+      "default": "/karies-hal-i-tanden/"
+    },
+    {
+      "name": "t3_k_amount",
+      "type": "text",
+      "label": "Behandling 3 – Direktbetalning pris",
+      "default": "Enligt prislista"
+    },
+    {
+      "name": "t3_k_note",
+      "type": "textarea",
+      "label": "Behandling 3 – Direktbetalning info",
+      "default": "Vi följer Folktandvårdens prislista. Pris per tand-yta — varierar med lagningens storlek och placering."
+    },
+    {
+      "name": "t3_k_rec",
+      "type": "text",
+      "label": "Behandling 3 – Direktbetalning bäst värde (true/false)",
+      "default": "true"
+    },
+    {
+      "name": "t3_f_amount",
+      "type": "text",
+      "label": "Behandling 3 – Frisktandvård pris",
+      "default": "Vid större paket"
+    },
+    {
+      "name": "t3_f_note",
+      "type": "textarea",
+      "label": "Behandling 3 – Frisktandvård info",
+      "default": "Vid omfattande behandlingsplan: räntefri delbetalning upp till 12 månader."
+    },
+    {
+      "name": "t3_f_rec",
+      "type": "text",
+      "label": "Behandling 3 – Frisktandvård bäst värde",
+      "default": "false"
+    },
+    {
+      "name": "t3_s_amount",
+      "type": "text",
+      "label": "Behandling 3 – Tandvårdsstöd pris",
+      "default": "Vid större behandling"
+    },
+    {
+      "name": "t3_s_note",
+      "type": "textarea",
+      "label": "Behandling 3 – Tandvårdsstöd info",
+      "default": "Högkostnadsskyddet (50 % efter 3 000 kr) träder in om du har mer tandvård samma 12-månadersperiod."
+    },
+    {
+      "name": "t3_s_rec",
+      "type": "text",
+      "label": "Behandling 3 – Tandvårdsstöd bäst värde",
+      "default": "false"
+    },
+    {
+      "name": "t4_slug",
+      "type": "text",
+      "label": "Behandling 4 – slug",
+      "default": "akut"
+    },
+    {
+      "name": "t4_name",
+      "type": "text",
+      "label": "Behandling 4 – namn",
+      "default": "Akut tandvärk"
+    },
+    {
+      "name": "t4_meta",
+      "type": "text",
+      "label": "Behandling 4 – meta",
+      "default": "Akut · samma dag"
+    },
+    {
+      "name": "t4_eyebrow",
+      "type": "text",
+      "label": "Behandling 4 – eyebrow",
+      "default": "N° 04 · Akutbesök"
+    },
+    {
+      "name": "t4_desc",
+      "type": "textarea",
+      "label": "Behandling 4 – beskrivning",
+      "default": "Du får tid samma dag vid akut värk eller skada. Vi gör smärtlindring direkt och planerar fortsatt behandling."
+    },
+    {
+      "name": "t4_link",
+      "type": "url",
+      "label": "Behandling 4 – läs mer-länk",
+      "default": "/akut-tandvard/"
+    },
+    {
+      "name": "t4_k_amount",
+      "type": "text",
+      "label": "Behandling 4 – Direktbetalning pris",
+      "default": "575 kr"
+    },
+    {
+      "name": "t4_k_note",
+      "type": "textarea",
+      "label": "Behandling 4 – Direktbetalning info",
+      "default": "Akut undersökning. Nya patienter: 440 kr. Eventuell behandling enligt Folktandvårdens prislista."
+    },
+    {
+      "name": "t4_k_rec",
+      "type": "text",
+      "label": "Behandling 4 – Direktbetalning bäst värde (true/false)",
+      "default": "true"
+    },
+    {
+      "name": "t4_f_amount",
+      "type": "text",
+      "label": "Behandling 4 – Frisktandvård pris",
+      "default": "Vid större paket"
+    },
+    {
+      "name": "t4_f_note",
+      "type": "textarea",
+      "label": "Behandling 4 – Frisktandvård info",
+      "default": "Vid större eftervård (rotbehandling, krona): räntefri delbetalning upp till 12 månader."
+    },
+    {
+      "name": "t4_f_rec",
+      "type": "text",
+      "label": "Behandling 4 – Frisktandvård bäst värde",
+      "default": "false"
+    },
+    {
+      "name": "t4_s_amount",
+      "type": "text",
+      "label": "Behandling 4 – Tandvårdsstöd pris",
+      "default": "Vid större behandling"
+    },
+    {
+      "name": "t4_s_note",
+      "type": "textarea",
+      "label": "Behandling 4 – Tandvårdsstöd info",
+      "default": "Vid omfattande akutvård kan högkostnadsskyddet träda in."
+    },
+    {
+      "name": "t4_s_rec",
+      "type": "text",
+      "label": "Behandling 4 – Tandvårdsstöd bäst värde",
+      "default": "false"
+    },
+    {
+      "name": "t5_slug",
+      "type": "text",
+      "label": "Behandling 5 – slug",
+      "default": "tandblekning"
+    },
+    {
+      "name": "t5_name",
+      "type": "text",
+      "label": "Behandling 5 – namn",
+      "default": "Tandblekning"
+    },
+    {
+      "name": "t5_meta",
+      "type": "text",
+      "label": "Behandling 5 – meta",
+      "default": "Estetik · klinikbehandling"
+    },
+    {
+      "name": "t5_eyebrow",
+      "type": "text",
+      "label": "Behandling 5 – eyebrow",
+      "default": "N° 05 · Estetisk tandvård"
+    },
+    {
+      "name": "t5_desc",
+      "type": "textarea",
+      "label": "Behandling 5 – beskrivning",
+      "default": "Professionell klinikblekning med skonsamma metoder. Konsultation och undersökning krävs innan behandling."
+    },
+    {
+      "name": "t5_link",
+      "type": "url",
+      "label": "Behandling 5 – läs mer-länk",
+      "default": "/tandblekning/"
+    },
+    {
+      "name": "t5_k_amount",
+      "type": "text",
+      "label": "Behandling 5 – Direktbetalning pris",
+      "default": "3 500 kr"
+    },
+    {
+      "name": "t5_k_note",
+      "type": "textarea",
+      "label": "Behandling 5 – Direktbetalning info",
+      "default": "Klinikblekning. Konsultation: 300 kr. Föregås av undersökning för att säkerställa att tänderna är friska."
+    },
+    {
+      "name": "t5_k_rec",
+      "type": "text",
+      "label": "Behandling 5 – Direktbetalning bäst värde (true/false)",
+      "default": "true"
+    },
+    {
+      "name": "t5_f_amount",
+      "type": "text",
+      "label": "Behandling 5 – Frisktandvård pris",
+      "default": "Räntefri delbetalning"
+    },
+    {
+      "name": "t5_f_note",
+      "type": "textarea",
+      "label": "Behandling 5 – Frisktandvård info",
+      "default": "Räntefri delbetalning upp till 12 månader med Resurs Bank (godkänd kreditprövning)."
+    },
+    {
+      "name": "t5_f_rec",
+      "type": "text",
+      "label": "Behandling 5 – Frisktandvård bäst värde",
+      "default": "false"
+    },
+    {
+      "name": "t5_s_amount",
+      "type": "text",
+      "label": "Behandling 5 – Tandvårdsstöd pris",
+      "default": "Ingår ej"
+    },
+    {
+      "name": "t5_s_note",
+      "type": "textarea",
+      "label": "Behandling 5 – Tandvårdsstöd info",
+      "default": "Estetisk tandvård omfattas inte av statligt tandvårdsstöd."
+    },
+    {
+      "name": "t5_s_rec",
+      "type": "text",
+      "label": "Behandling 5 – Tandvårdsstöd bäst värde",
+      "default": "false"
+    },
+    {
+      "name": "t6_slug",
+      "type": "text",
+      "label": "Behandling 6 – slug",
+      "default": "veneers"
+    },
+    {
+      "name": "t6_name",
+      "type": "text",
+      "label": "Behandling 6 – namn",
+      "default": "Tandfasader (veneers)"
+    },
+    {
+      "name": "t6_meta",
+      "type": "text",
+      "label": "Behandling 6 – meta",
+      "default": "Estetik · per tand"
+    },
+    {
+      "name": "t6_eyebrow",
+      "type": "text",
+      "label": "Behandling 6 – eyebrow",
+      "default": "N° 06 · Tandfasader"
+    },
+    {
+      "name": "t6_desc",
+      "type": "textarea",
+      "label": "Behandling 6 – beskrivning",
+      "default": "Tunna porslinsfasader som transformerar ditt leende. Skräddarsys efter dina egna tänder i färg och form."
+    },
+    {
+      "name": "t6_link",
+      "type": "url",
+      "label": "Behandling 6 – läs mer-länk",
+      "default": "/tandfasader-veneers/"
+    },
+    {
+      "name": "t6_k_amount",
+      "type": "text",
+      "label": "Behandling 6 – Direktbetalning pris",
+      "default": "Pris efter konsultation"
+    },
+    {
+      "name": "t6_k_note",
+      "type": "textarea",
+      "label": "Behandling 6 – Direktbetalning info",
+      "default": "Skräddarsys per tand. Exakt pris ges efter konsultation och bedömning av antal tänder."
+    },
+    {
+      "name": "t6_k_rec",
+      "type": "text",
+      "label": "Behandling 6 – Direktbetalning bäst värde (true/false)",
+      "default": "true"
+    },
+    {
+      "name": "t6_f_amount",
+      "type": "text",
+      "label": "Behandling 6 – Frisktandvård pris",
+      "default": "Räntefri delbetalning"
+    },
+    {
+      "name": "t6_f_note",
+      "type": "textarea",
+      "label": "Behandling 6 – Frisktandvård info",
+      "default": "Räntefri delbetalning upp till 12 månader med Resurs Bank (godkänd kreditprövning)."
+    },
+    {
+      "name": "t6_f_rec",
+      "type": "text",
+      "label": "Behandling 6 – Frisktandvård bäst värde",
+      "default": "false"
+    },
+    {
+      "name": "t6_s_amount",
+      "type": "text",
+      "label": "Behandling 6 – Tandvårdsstöd pris",
+      "default": "Ingår ej"
+    },
+    {
+      "name": "t6_s_note",
+      "type": "textarea",
+      "label": "Behandling 6 – Tandvårdsstöd info",
+      "default": "Veneers räknas som estetisk tandvård utan statligt stöd."
+    },
+    {
+      "name": "t6_s_rec",
+      "type": "text",
+      "label": "Behandling 6 – Tandvårdsstöd bäst värde",
+      "default": "false"
+    },
+    {
+      "name": "t7_slug",
+      "type": "text",
+      "label": "Behandling 7 – slug",
+      "default": "tandreglering"
+    },
+    {
+      "name": "t7_name",
+      "type": "text",
+      "label": "Behandling 7 – namn",
+      "default": "Tandreglering (Invisalign)"
+    },
+    {
+      "name": "t7_meta",
+      "type": "text",
+      "label": "Behandling 7 – meta",
+      "default": "Ortodonti · 6–18 mån"
+    },
+    {
+      "name": "t7_eyebrow",
+      "type": "text",
+      "label": "Behandling 7 – eyebrow",
+      "default": "N° 07 · Tandreglering"
+    },
+    {
+      "name": "t7_desc",
+      "type": "textarea",
+      "label": "Behandling 7 – beskrivning",
+      "default": "Osynliga skenor som rätar dina tänder utan brackets. Resultatet kommer gradvis och syns knappt under behandlingen."
+    },
+    {
+      "name": "t7_link",
+      "type": "url",
+      "label": "Behandling 7 – läs mer-länk",
+      "default": "/tandreglering-stockholm/"
+    },
+    {
+      "name": "t7_k_amount",
+      "type": "text",
+      "label": "Behandling 7 – Direktbetalning pris",
+      "default": "Pris efter konsultation"
+    },
+    {
+      "name": "t7_k_note",
+      "type": "textarea",
+      "label": "Behandling 7 – Direktbetalning info",
+      "default": "Total kostnad beror på komplexitet och behandlingslängd — bedöms vid konsultation."
+    },
+    {
+      "name": "t7_k_rec",
+      "type": "text",
+      "label": "Behandling 7 – Direktbetalning bäst värde (true/false)",
+      "default": "false"
+    },
+    {
+      "name": "t7_f_amount",
+      "type": "text",
+      "label": "Behandling 7 – Frisktandvård pris",
+      "default": "Räntefri delbetalning"
+    },
+    {
+      "name": "t7_f_note",
+      "type": "textarea",
+      "label": "Behandling 7 – Frisktandvård info",
+      "default": "Räntefri delbetalning upp till 12 månader med Resurs Bank (godkänd kreditprövning)."
+    },
+    {
+      "name": "t7_f_rec",
+      "type": "text",
+      "label": "Behandling 7 – Frisktandvård bäst värde",
+      "default": "true"
+    },
+    {
+      "name": "t7_s_amount",
+      "type": "text",
+      "label": "Behandling 7 – Tandvårdsstöd pris",
+      "default": "Ingår ej för vuxna"
+    },
+    {
+      "name": "t7_s_note",
+      "type": "textarea",
+      "label": "Behandling 7 – Tandvårdsstöd info",
+      "default": "Statligt stöd finns endast för barn och unga i särskilda fall."
+    },
+    {
+      "name": "t7_s_rec",
+      "type": "text",
+      "label": "Behandling 7 – Tandvårdsstöd bäst värde",
+      "default": "false"
+    },
+    {
+      "name": "t8_slug",
+      "type": "text",
+      "label": "Behandling 8 – slug",
+      "default": "tandvardsradsla"
+    },
+    {
+      "name": "t8_name",
+      "type": "text",
+      "label": "Behandling 8 – namn",
+      "default": "Tandvårdsrädsla-paket"
+    },
+    {
+      "name": "t8_meta",
+      "type": "text",
+      "label": "Behandling 8 – meta",
+      "default": "Trygghet · lustgas, samtal"
+    },
+    {
+      "name": "t8_eyebrow",
+      "type": "text",
+      "label": "Behandling 8 – eyebrow",
+      "default": "N° 08 · Tandvårdsrädsla"
+    },
+    {
+      "name": "t8_desc",
+      "type": "textarea",
+      "label": "Behandling 8 – beskrivning",
+      "default": "Lugn miljö, extra tid och lustgas vid behov. Vi har också en psykoterapeut på kliniken för samtalsterapi."
+    },
+    {
+      "name": "t8_link",
+      "type": "url",
+      "label": "Behandling 8 – läs mer-länk",
+      "default": "/tandvardsradsla/"
+    },
+    {
+      "name": "t8_k_amount",
+      "type": "text",
+      "label": "Behandling 8 – Direktbetalning pris",
+      "default": "Pris efter besök"
+    },
+    {
+      "name": "t8_k_note",
+      "type": "textarea",
+      "label": "Behandling 8 – Direktbetalning info",
+      "default": "Behandlingspris enligt Folktandvårdens prislista. Samtalsterapi: 800 kr per 60 min. Lustgas och förlängd tid kan tillkomma."
+    },
+    {
+      "name": "t8_k_rec",
+      "type": "text",
+      "label": "Behandling 8 – Direktbetalning bäst värde (true/false)",
+      "default": "true"
+    },
+    {
+      "name": "t8_f_amount",
+      "type": "text",
+      "label": "Behandling 8 – Frisktandvård pris",
+      "default": "Vid större paket"
+    },
+    {
+      "name": "t8_f_note",
+      "type": "textarea",
+      "label": "Behandling 8 – Frisktandvård info",
+      "default": "Vid större behandlingsplan: räntefri delbetalning upp till 12 månader."
+    },
+    {
+      "name": "t8_f_rec",
+      "type": "text",
+      "label": "Behandling 8 – Frisktandvård bäst värde",
+      "default": "false"
+    },
+    {
+      "name": "t8_s_amount",
+      "type": "text",
+      "label": "Behandling 8 – Tandvårdsstöd pris",
+      "default": "Vid F-tandvård"
+    },
+    {
+      "name": "t8_s_note",
+      "type": "textarea",
+      "label": "Behandling 8 – Tandvårdsstöd info",
+      "default": "Vid sjukdomstillstånd som ger rätt till F-tandvård betalar du sjukvårdsavgift istället (50–400 kr per besök)."
+    },
+    {
+      "name": "t8_s_rec",
+      "type": "text",
+      "label": "Behandling 8 – Tandvårdsstöd bäst värde",
+      "default": "false"
+    },
+    {
+      "name": "t9_slug",
+      "type": "text",
+      "label": "Behandling 9 – slug",
+      "default": "implantat"
+    },
+    {
+      "name": "t9_name",
+      "type": "text",
+      "label": "Behandling 9 – namn",
+      "default": "Implantat"
+    },
+    {
+      "name": "t9_meta",
+      "type": "text",
+      "label": "Behandling 9 – meta",
+      "default": "Kirurgi · per tand · 4–6 mån"
+    },
+    {
+      "name": "t9_eyebrow",
+      "type": "text",
+      "label": "Behandling 9 – eyebrow",
+      "default": "N° 09 · Implantat"
+    },
+    {
+      "name": "t9_desc",
+      "type": "textarea",
+      "label": "Behandling 9 – beskrivning",
+      "default": "Komplett ersättning för förlorad tand — titanrot + krona. Funktion och utseende identiskt med en egen tand."
+    },
+    {
+      "name": "t9_link",
+      "type": "url",
+      "label": "Behandling 9 – läs mer-länk",
+      "default": "/implantat/"
+    },
+    {
+      "name": "t9_k_amount",
+      "type": "text",
+      "label": "Behandling 9 – Direktbetalning pris",
+      "default": "Pris efter konsultation"
+    },
+    {
+      "name": "t9_k_note",
+      "type": "textarea",
+      "label": "Behandling 9 – Direktbetalning info",
+      "default": "Konsultation och kontroll: 199 kr. Total kostnad bedöms efter CBCT-röntgen och behandlingsplan."
+    },
+    {
+      "name": "t9_k_rec",
+      "type": "text",
+      "label": "Behandling 9 – Direktbetalning bäst värde (true/false)",
+      "default": "false"
+    },
+    {
+      "name": "t9_f_amount",
+      "type": "text",
+      "label": "Behandling 9 – Frisktandvård pris",
+      "default": "Räntefri delbetalning"
+    },
+    {
+      "name": "t9_f_note",
+      "type": "textarea",
+      "label": "Behandling 9 – Frisktandvård info",
+      "default": "Räntefri delbetalning upp till 12 månader med Resurs Bank (godkänd kreditprövning)."
+    },
+    {
+      "name": "t9_f_rec",
+      "type": "text",
+      "label": "Behandling 9 – Frisktandvård bäst värde",
+      "default": "false"
+    },
+    {
+      "name": "t9_s_amount",
+      "type": "text",
+      "label": "Behandling 9 – Tandvårdsstöd pris",
+      "default": "Stöd via högkostnadsskyddet"
+    },
+    {
+      "name": "t9_s_note",
+      "type": "textarea",
+      "label": "Behandling 9 – Tandvårdsstöd info",
+      "default": "Implantat omfattas av statligt tandvårdsstöd — 50 % på 3 000–15 000 kr och 85 % över 15 000 kr av TLV:s referenspris."
+    },
+    {
+      "name": "t9_s_rec",
+      "type": "text",
+      "label": "Behandling 9 – Tandvårdsstöd bäst värde",
+      "default": "true"
+    }
+  ]
+}

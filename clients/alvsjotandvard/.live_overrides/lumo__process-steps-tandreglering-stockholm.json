@@ -1,0 +1,67 @@
+{
+  "block_name": "lumo/process-steps-tandreglering-stockholm",
+  "title": "Behandlingssteg – Tandreglering",
+  "html_template": "<section class=\"process-steps\" style=\"background:#fafafabd;\"> <div class=\"container-wide\"> <div class=\"ps-header\"> <div class=\"eyebrow\" style=\"margin-bottom:16px;\">{{eyebrow}}</div> <h2>{{heading}}</h2> </div> <div class=\"ps-grid ps-grid--4\"> <article class=\"ps-step\"> <div class=\"ps-num\">01</div> <h3>{{step_1_title}}</h3> <p>{{step_1_desc}}</p> </article> <article class=\"ps-step\"> <div class=\"ps-num\">02</div> <h3>{{step_2_title}}</h3> <p>{{step_2_desc}}</p> </article> <article class=\"ps-step\"> <div class=\"ps-num\">03</div> <h3>{{step_3_title}}</h3> <p>{{step_3_desc}}</p> </article> <article class=\"ps-step\"> <div class=\"ps-num\">04</div> <h3>{{step_4_title}}</h3> <p>{{step_4_desc}}</p> </article> </div> </div> </section>",
+  "schema": [
+    {
+      "name": "eyebrow",
+      "type": "text",
+      "label": "Etikett",
+      "default": "Behandlingens gång"
+    },
+    {
+      "name": "heading",
+      "type": "text",
+      "label": "Rubrik",
+      "default": "Från digital scan till stabilt leende."
+    },
+    {
+      "name": "step_1_title",
+      "type": "text",
+      "label": "Steg 1 – titel",
+      "default": "Digital scanning"
+    },
+    {
+      "name": "step_1_desc",
+      "type": "textarea",
+      "label": "Steg 1 – text",
+      "default": "Digitalt 3D-avtryck — ingen mesig massa. Du ser din behandlingsplan och slutresultatet direkt på skärmen."
+    },
+    {
+      "name": "step_2_title",
+      "type": "text",
+      "label": "Steg 2 – titel",
+      "default": "Individuella skenor"
+    },
+    {
+      "name": "step_2_desc",
+      "type": "textarea",
+      "label": "Steg 2 – text",
+      "default": "Dina transparenta skenor tillverkas skräddarsydda av Invisalign. Du byter skenpar var 1–2 vecka."
+    },
+    {
+      "name": "step_3_title",
+      "type": "text",
+      "label": "Steg 3 – titel",
+      "default": "Regelbundna kontroller"
+    },
+    {
+      "name": "step_3_desc",
+      "type": "textarea",
+      "label": "Steg 3 – text",
+      "default": "Vi följer upp var 6–8 vecka. De flesta kontrollbesök är korta och problemfria."
+    },
+    {
+      "name": "step_4_title",
+      "type": "text",
+      "label": "Steg 4 – titel",
+      "default": "Retention"
+    },
+    {
+      "name": "step_4_desc",
+      "type": "textarea",
+      "label": "Steg 4 – text",
+      "default": "En tunn, permanent retainstång bakom tänderna håller ditt resultat för livet."
+    }
+  ]
+}

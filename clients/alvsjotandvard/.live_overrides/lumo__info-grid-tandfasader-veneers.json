@@ -1,0 +1,91 @@
+{
+  "block_name": "lumo/info-grid-tandfasader-veneers",
+  "title": "Info-grid – Tandfasader / Veneers",
+  "html_template": "<section class=\"ig-section\" style=\"background:#fafafabd;\"> <div class=\"container-wide\"> <div class=\"ig-hdr\"><div class=\"eyebrow\" style=\"margin-bottom:16px;\">{{eyebrow}}</div><h2 class=\"ig-heading\">{{heading}}</h2></div> <div class=\"ig-grid ig-grid--3\"> <article style=\"background:var(--white);padding:40px 32px;display:flex;flex-direction:column;gap:12px;\"><h3 style=\"font-family:var(--font-serif);font-weight:400;font-size:24px;line-height:1.2;letter-spacing:-0.02em;color:var(--ink-700);margin:0;\">{{title_1}}</h3><p style=\"font-size:14px;line-height:1.65;color:var(--ink-500);margin:0;\">{{desc_1}}</p></article><article style=\"background:var(--white);padding:40px 32px;display:flex;flex-direction:column;gap:12px;\"><h3 style=\"font-family:var(--font-serif);font-weight:400;font-size:24px;line-height:1.2;letter-spacing:-0.02em;color:var(--ink-700);margin:0;\">{{title_2}}</h3><p style=\"font-size:14px;line-height:1.65;color:var(--ink-500);margin:0;\">{{desc_2}}</p></article><article style=\"background:var(--white);padding:40px 32px;display:flex;flex-direction:column;gap:12px;\"><h3 style=\"font-family:var(--font-serif);font-weight:400;font-size:24px;line-height:1.2;letter-spacing:-0.02em;color:var(--ink-700);margin:0;\">{{title_3}}</h3><p style=\"font-size:14px;line-height:1.65;color:var(--ink-500);margin:0;\">{{desc_3}}</p></article><article style=\"background:var(--white);padding:40px 32px;display:flex;flex-direction:column;gap:12px;\"><h3 style=\"font-family:var(--font-serif);font-weight:400;font-size:24px;line-height:1.2;letter-spacing:-0.02em;color:var(--ink-700);margin:0;\">{{title_4}}</h3><p style=\"font-size:14px;line-height:1.65;color:var(--ink-500);margin:0;\">{{desc_4}}</p></article><article style=\"background:var(--white);padding:40px 32px;display:flex;flex-direction:column;gap:12px;\"><h3 style=\"font-family:var(--font-serif);font-weight:400;font-size:24px;line-height:1.2;letter-spacing:-0.02em;color:var(--ink-700);margin:0;\">{{title_5}}</h3><p style=\"font-size:14px;line-height:1.65;color:var(--ink-500);margin:0;\">{{desc_5}}</p></article><article style=\"background:var(--white);padding:40px 32px;display:flex;flex-direction:column;gap:12px;\"><h3 style=\"font-family:var(--font-serif);font-weight:400;font-size:24px;line-height:1.2;letter-spacing:-0.02em;color:var(--ink-700);margin:0;\">{{title_6}}</h3><p style=\"font-size:14px;line-height:1.65;color:var(--ink-500);margin:0;\">{{desc_6}}</p></article> </div> </div> </section>",
+  "schema": [
+    {
+      "name": "eyebrow",
+      "type": "text",
+      "label": "Etikett",
+      "default": "När är tandfasader rätt?"
+    },
+    {
+      "name": "heading",
+      "type": "text",
+      "label": "Rubrik",
+      "default": "Sex vanliga indikationer för veneers."
+    },
+    {
+      "name": "title_1",
+      "type": "text",
+      "label": "Punkt 1 – titel",
+      "default": "Missfärgade tänder"
+    },
+    {
+      "name": "desc_1",
+      "type": "textarea",
+      "label": "Punkt 1 – beskrivning",
+      "default": "Permanenta fläckar som inte svarar på blekning — porslin ger en vit, jämn yta för livet."
+    },
+    {
+      "name": "title_2",
+      "type": "text",
+      "label": "Punkt 2 – titel",
+      "default": "Mellanrum"
+    },
+    {
+      "name": "desc_2",
+      "type": "textarea",
+      "label": "Punkt 2 – beskrivning",
+      "default": "Diasteman som stör leendets harmoni — korrigeras utan tandreglering."
+    },
+    {
+      "name": "title_3",
+      "type": "text",
+      "label": "Punkt 3 – titel",
+      "default": "Ojämna tänder"
+    },
+    {
+      "name": "desc_3",
+      "type": "textarea",
+      "label": "Punkt 3 – beskrivning",
+      "default": "Längd- och formskillnader som skapar ett obalanserat leende åtgärdas på ett besök."
+    },
+    {
+      "name": "title_4",
+      "type": "text",
+      "label": "Punkt 4 – titel",
+      "default": "Slitna tänder"
+    },
+    {
+      "name": "desc_4",
+      "type": "textarea",
+      "label": "Punkt 4 – beskrivning",
+      "default": "Förkortade tänder från bruxism eller åldrande återfår form, längd och estetik."
+    },
+    {
+      "name": "title_5",
+      "type": "text",
+      "label": "Punkt 5 – titel",
+      "default": "Lätta skevheter"
+    },
+    {
+      "name": "desc_5",
+      "type": "textarea",
+      "label": "Punkt 5 – beskrivning",
+      "default": "Roterade eller oregelbundna tänder kan korrigeras optiskt — utan byglar."
+    },
+    {
+      "name": "title_6",
+      "type": "text",
+      "label": "Punkt 6 – titel",
+      "default": "Smile design"
+    },
+    {
+      "name": "desc_6",
+      "type": "textarea",
+      "label": "Punkt 6 – beskrivning",
+      "default": "Du vill designa ett helt nytt leende från grunden — form, färg och symmetri."
+    }
+  ]
+}

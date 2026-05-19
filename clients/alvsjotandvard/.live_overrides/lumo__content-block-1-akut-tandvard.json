@@ -1,0 +1,43 @@
+{
+  "block_name": "lumo/content-block-1-akut-tandvard",
+  "title": "Innehållsblock – Akuttandvård",
+  "html_template": "<section class=\"cb-section cb-section--treatment\" style=\"background:var(--white);\"> <div class=\"container-wide\"> <div class=\"cb-grid cb-grid--normal\"> <div class=\"cb-text\"> <div class=\"eyebrow\" style=\"margin-bottom:16px;\">Vad vi gör</div> <h2 style=\"font-family:var(--font-serif);font-weight:500;font-size:clamp(28px,2.6vw,40px);line-height:1.15;letter-spacing:-0.02em;color:var(--ink-700);margin:0 0 24px;\">{{h2}}</h2> <div style=\"font-family:var(--font-sans);font-size:16px;line-height:1.7;color:var(--fg);\">{{body}}</div> <div style=\"margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;\"> <a href=\"{{cta_link}}\" class=\"btn btn-primary\">{{cta_text}}</a> </div> </div> <div class=\"cb-img\"> <img src=\"{{site_url}}/wp-content/uploads/2026/05/clinic-1.jpg\" alt=\"Kliniken på Älvsjö Tandvård\" style=\"width:100%;height:100%;object-fit:cover;display:block;\"> </div> </div> </div> </section>",
+  "schema": [
+    {
+      "name": "image",
+      "type": "image",
+      "label": "Bild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/clinic-1.jpg"
+    },
+    {
+      "name": "eyebrow",
+      "type": "text",
+      "label": "Etikett",
+      "default": "Vad vi gör"
+    },
+    {
+      "name": "h2",
+      "type": "text",
+      "label": "Rubrik",
+      "default": "Vi lindrar din akuta smärta — och åtgärdar problemet."
+    },
+    {
+      "name": "body",
+      "type": "textarea",
+      "label": "Brödtext (HTML tillåten)",
+      "default": "<p>Akut tandvärk, en skadad tand eller en fyllning som lossnat — situationer som kräver snabb åtgärd. Att dröja med att söka vård kan förvärra problemet och leda till mer komplexa behandlingar.</p><p>Hos Älvsjö Tandvård möter vi dagligen patienter med akuta besvär: <strong>kraftig tandvärk, sprucken eller bruten tand, en tand som slagits loss, förlorade fyllningar eller kronor, samt svullnader och infektioner</strong> i munnen.</p><p>Vårt mål är inte bara att lindra din smärta utan att direkt påbörja den behandling som behövs.</p>"
+    },
+    {
+      "name": "cta_text",
+      "type": "text",
+      "label": "CTA-text",
+      "default": "Boka akuttid"
+    },
+    {
+      "name": "cta_link",
+      "type": "url",
+      "label": "CTA-länk",
+      "default": "#tdl-booking-widget"
+    }
+  ]
+}

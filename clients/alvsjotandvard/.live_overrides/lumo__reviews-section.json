@@ -1,0 +1,13 @@
+{
+  "block_name": "lumo/reviews-section",
+  "title": "Recensioner",
+  "html_template": "<section class=\"reviews-section section\"> <div class=\"container-wide\"> <div class=\"reviews-hdr\"> <div> <div class=\"eyebrow\">Patientomdömen</div> <h2>{{heading}}</h2> </div> </div> <div class=\"reviews-widget-wrap\">{{site_reviews_testimonials}}</div> </div> </section>",
+  "schema": [
+    {
+      "name": "heading",
+      "type": "text",
+      "label": "Rubrik",
+      "default": "<span style=\"font-style:italic;\">Tusentals</span> nöjda patienter i Stockholm."
+    }
+  ]
+}

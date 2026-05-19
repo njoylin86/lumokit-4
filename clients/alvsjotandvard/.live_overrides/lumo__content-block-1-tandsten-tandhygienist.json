@@ -1,0 +1,43 @@
+{
+  "block_name": "lumo/content-block-1-tandsten-tandhygienist",
+  "title": "Innehållsblock – Tandsten / Tandhygienist",
+  "html_template": "<section class=\"cb-section cb-section--treatment\" style=\"background:var(--white);\"> <div class=\"container-wide\"> <div class=\"cb-grid cb-grid--normal\"> <div class=\"cb-text\"> <div class=\"eyebrow\" style=\"margin-bottom:16px;\">Behandlingen</div> <h2 style=\"font-family:var(--font-serif);font-weight:500;font-size:clamp(28px,2.6vw,40px);line-height:1.15;letter-spacing:-0.02em;color:var(--ink-700);margin:0 0 24px;\">{{h2}}</h2> <div style=\"font-family:var(--font-sans);font-size:16px;line-height:1.7;color:var(--fg);\">{{body}}</div> <div style=\"margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;\"> <a href=\"{{cta_link}}\" class=\"btn btn-primary\">{{cta_text}}</a> </div> </div> <div class=\"cb-img\"> <img src=\"{{site_url}}/wp-content/uploads/2026/05/clinic-room-2.jpg\" alt=\"Modern tandläkarutrustning\" style=\"width:100%;height:100%;object-fit:cover;display:block;\"> </div> </div> </div> </section>",
+  "schema": [
+    {
+      "name": "image",
+      "type": "image",
+      "label": "Bild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/clinic-room-2.jpg"
+    },
+    {
+      "name": "eyebrow",
+      "type": "text",
+      "label": "Etikett",
+      "default": "Behandlingen"
+    },
+    {
+      "name": "h2",
+      "type": "text",
+      "label": "Rubrik",
+      "default": "Professionell rengöring — grunden för friska tänder."
+    },
+    {
+      "name": "body",
+      "type": "textarea",
+      "label": "Brödtext (HTML tillåten)",
+      "default": "<p>Tandsten bildas av plack som mineraliserats och sitter fast på tänderna — det går inte att borsta bort hemma. Regelbunden tandhygienistbehandling är det mest effektiva sättet att förebygga karies, tandlossning och dålig andedräkt.</p><p>Våra <strong>erfarna tandhygienister</strong> använder ultraljudsrengöring och handinstrument för en grundlig rensning, följt av polering och en individuell genomgång av din hemvårdsrutin. Besöket tar 45–60 minuter och är odramatiskt.</p>"
+    },
+    {
+      "name": "cta_text",
+      "type": "text",
+      "label": "CTA-text",
+      "default": "Boka tandhygienistbesök"
+    },
+    {
+      "name": "cta_link",
+      "type": "url",
+      "label": "CTA-länk",
+      "default": "#tdl-booking-widget"
+    }
+  ]
+}

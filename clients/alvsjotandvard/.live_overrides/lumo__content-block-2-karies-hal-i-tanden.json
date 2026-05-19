@@ -1,0 +1,43 @@
+{
+  "block_name": "lumo/content-block-2-karies-hal-i-tanden",
+  "title": "Innehållsblock (speglat) – Karies / Hål i tanden",
+  "html_template": "<section class=\"cb-section\" style=\"background:var(--cream);\"> <div class=\"container-wide\"> <div class=\"cb-grid cb-grid--mirror\"> <div class=\"cb-text\"> <div class=\"eyebrow\" style=\"margin-bottom:16px;\">{{eyebrow}}</div> <h2 style=\"font-family:var(--font-serif);font-weight:500;font-size:clamp(28px,2.6vw,40px);line-height:1.15;letter-spacing:-0.02em;color:var(--ink-700);margin:0 0 24px;\">{{h2}}</h2> <div style=\"font-family:var(--font-sans);font-size:16px;line-height:1.7;color:var(--fg);\">{{body}}</div> <div style=\"margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;\"> <a href=\"{{cta_link}}\" class=\"btn btn-primary\">{{cta_text}}</a> </div> </div> <div class=\"cb-img\"> <img src=\"{{site_url}}/wp-content/uploads/2026/05/karies-3.jpg\" alt=\"Tandläkarutrustning för kariesbehandling\" style=\"width:100%;height:100%;object-fit:cover;display:block;\"> </div> </div> </div> </section>",
+  "schema": [
+    {
+      "name": "image",
+      "type": "image",
+      "label": "Bild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/utrustning.jpg"
+    },
+    {
+      "name": "eyebrow",
+      "type": "text",
+      "label": "Etikett",
+      "default": "Förebyggande vård"
+    },
+    {
+      "name": "h2",
+      "type": "text",
+      "label": "Rubrik",
+      "default": "Förebygg karies — med rätt daglig rutin."
+    },
+    {
+      "name": "body",
+      "type": "textarea",
+      "label": "Brödtext (HTML tillåten)",
+      "default": "<p>Den bästa behandlingen mot karies är att förebygga den. Med rätt rutin kan du drastiskt minska risken för nya hål — och hålla dina tänder friska längre.</p><ul style='padding-left:0;list-style:none;display:flex;flex-direction:column;gap:12px;margin:12px 0 0;'><li style='display:flex;gap:12px;'>→<span><strong>Borsta 2 gånger/dag</strong> med fluortandkräm (1 450 ppm).</span></li><li style='display:flex;gap:12px;'>→<span><strong>Använd tandstickor eller tandtråd</strong> varje kväll — mellanrum är kariesrisk nr 1.</span></li><li style='display:flex;gap:12px;'>→<span><strong>Begränsa söta drycker</strong> — det är frekvensen av socker, inte mängden, som skadar.</span></li><li style='display:flex;gap:12px;'>→<span><strong>Regelbundna kontroller</strong> — tidig diagnos är alltid billigare behandling.</span></li></ul>"
+    },
+    {
+      "name": "cta_text",
+      "type": "text",
+      "label": "CTA-text",
+      "default": "Boka undersökning"
+    },
+    {
+      "name": "cta_link",
+      "type": "url",
+      "label": "CTA-länk",
+      "default": "#tdl-booking-widget"
+    }
+  ]
+}

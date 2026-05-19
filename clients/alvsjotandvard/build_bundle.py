@@ -7,7 +7,10 @@ Output: clients/alvsjotandvard/bundle.json
 
 Usage:
   python3 clients/alvsjotandvard/build_bundle.py
-  python3 tools/build_all.py clients/alvsjotandvard/bundle.json --production
+  python3 tools/build_all.py clients/alvsjotandvard/bundle.json --production --only lumo/<komp> --dry-run
+  python3 tools/build_all.py clients/alvsjotandvard/bundle.json --production --only lumo/<komp>
+
+Se CLAUDE.md → Push-protokoll. Aldrig kör build_all.py utan --only på produktion.
 """
 
 from __future__ import annotations
@@ -751,6 +754,7 @@ html.header-light .site-header .logo img { filter: drop-shadow(0 1px 4px rgba(0,
   .site-header .sh-inner { padding: 0 20px; }
   .site-header .logo img { height: 44px; }
   .hero-bleed { min-height: calc(100vh - 56px); }
+  .hero-bleed .hb-bg { background-position: calc(50% - 200px) center; }
   .hero-bleed .hb-content { padding-top: 80px; padding-bottom: 48px; gap: 48px; padding-left: 24px; padding-right: 24px; min-height: calc(100vh - 56px); }
   .hero-bleed .hb-headline { font-size: clamp(44px, 11vw, 56px); margin-bottom: 28px; }
   .hero-bleed .hb-ingress { font-size: 16px; line-height: 1.65; margin-bottom: 12px; }
@@ -1221,7 +1225,7 @@ html.header-light .site-header .logo img { filter: drop-shadow(0 1px 4px rgba(0,
 # ---------------------------------------------------------------------------
 # Behandlingar som är aktiva (publika). Övriga sätts till draft i WP.
 # ---------------------------------------------------------------------------
-BASE_IMG = "https://swordfish.templweb.com/wp-content/uploads/2026/05/"
+BASE_IMG = "{{site_url}}/wp-content/uploads/2026/05/"
 
 ALL_TREATMENT_SLUGS: set[str] = {
     "akut-tandvard",
@@ -1645,11 +1649,11 @@ KONTAKT_CTA_DATA = {
 }
 
 PARTNERS = [
-    {"name": "Nattvandrarna",           "url": "https://swordfish.templweb.com/wp-content/uploads/2026/05/Rund-Banner_2_SKS2025-1-300x300-1.png",   "round": True,  "natural": False, "link": "https://nattvandrarna.se/"},
-    {"name": "Region Stockholm",        "url": "https://swordfish.templweb.com/wp-content/uploads/2026/05/Pa-uppdrag-av_vit-300x77-1.png",           "round": False, "natural": False, "link": "https://www.vardguiden.se/"},
-    {"name": "Älvsjö Pedodonti",        "url": "https://swordfish.templweb.com/wp-content/uploads/2026/05/Pedodonti-logo-2023-v2-300x106-1.png",     "round": False, "natural": False, "link": "https://www.alvsjotandvard.se/barnspecialist/"},
-    {"name": "UNICEF",                  "url": "https://swordfish.templweb.com/wp-content/uploads/2026/05/alvsjo-tandvard-unicef2025.jpg",            "round": False, "natural": True,  "link": "https://unicef.se/"},
-    {"name": "Älvsjö AIK",              "url": "https://swordfish.templweb.com/wp-content/uploads/2026/05/alvsjo_aik_emblem_fotboll_vit-text-liten.png", "round": False, "natural": True, "link": "http://alvsjoaik.se"},
+    {"name": "Nattvandrarna",           "url": "{{site_url}}/wp-content/uploads/2026/05/Rund-Banner_2_SKS2025-1-300x300-1.png",   "round": True,  "natural": False, "link": "https://nattvandrarna.se/"},
+    {"name": "Region Stockholm",        "url": "{{site_url}}/wp-content/uploads/2026/05/Pa-uppdrag-av_vit-300x77-1.png",           "round": False, "natural": False, "link": "https://www.vardguiden.se/"},
+    {"name": "Älvsjö Pedodonti",        "url": "{{site_url}}/wp-content/uploads/2026/05/Pedodonti-logo-2023-v2-300x106-1.png",     "round": False, "natural": False, "link": "/pedodonti/"},
+    {"name": "UNICEF",                  "url": "{{site_url}}/wp-content/uploads/2026/05/alvsjo-tandvard-unicef2025.jpg",            "round": False, "natural": True,  "link": "https://unicef.se/"},
+    {"name": "Älvsjö AIK",              "url": "{{site_url}}/wp-content/uploads/2026/05/alvsjo_aik_emblem_fotboll_vit-text-liten.png", "round": False, "natural": True, "link": "http://alvsjoaik.se"},
 ]
 
 
@@ -1916,7 +1920,7 @@ document.addEventListener('submit',function(e){
 def build_hero() -> dict:
     html = """
 <section class="hero-bleed">
-  <div class="hb-bg" style="background-image:url('{{hero_image}}');"></div>
+  <div class="hb-bg" style="background-image:url('{{site_url}}/wp-content/uploads/2026/05/startsida.jpg');"></div>
   <video class="hb-bg-video hb-bg-video--desktop" autoplay muted loop playsinline oncanplay="this.playbackRate=0.75">
     <source src="{{hero_video_desktop_webm}}" type="video/webm">
     <source src="{{hero_video_desktop}}" type="video/mp4">
@@ -1933,7 +1937,7 @@ def build_hero() -> dict:
     </div>
     <div class="hb-top-medals hb-medals-desktop">
       <a href="https://www.tandlakare.se/klinik/stockholm/alvsjo-tandvard/" target="_blank" rel="noopener" class="hb-medal-link">
-        <img src="https://swordfish.templweb.com/wp-content/uploads/2026/05/medal_gold-2025.webp" alt="Rekommenderad klinik 2025 – Tandläkare.se">
+        <img src="{{site_url}}/wp-content/uploads/2026/05/medal_gold-2025.webp" alt="Rekommenderad klinik 2025 – Tandläkare.se">
       </a>
     </div>
   </div>
@@ -1952,7 +1956,7 @@ def build_hero() -> dict:
       </div>
       <div class="hb-medals hb-medals-mobile hb-medals-mobile-corner">
         <a href="https://www.tandlakare.se/klinik/stockholm/alvsjo-tandvard/" target="_blank" rel="noopener" class="hb-medal-link">
-          <img src="https://swordfish.templweb.com/wp-content/uploads/2026/05/medal_gold-2025.webp" alt="Rekommenderad klinik 2025 – Tandläkare.se">
+          <img src="{{site_url}}/wp-content/uploads/2026/05/medal_gold-2025.webp" alt="Rekommenderad klinik 2025 – Tandläkare.se">
         </a>
       </div>
       <a href="#tdl-booking-widget" class="btn btn-light btn-lg" style="width:100%;">Boka tid online</a>
@@ -2001,10 +2005,10 @@ def build_hero() -> dict:
         "title": "Hero",
         "html_template": collapse(html),
         "schema": [
-            {"name": "hero_image",         "type": "image", "label": "Bakgrundsbild",               "default": "https://swordfish.templweb.com/wp-content/uploads/2026/05/hero-1.jpg"},
-            {"name": "hero_video_desktop",      "type": "text", "label": "Bakgrundsvideo desktop — MP4-URL", "default": "https://swordfish.templweb.com/wp-content/uploads/2026/05/video_mp_.mp4"},
+            {"name": "hero_image",         "type": "image", "label": "Bakgrundsbild",               "default": "{{site_url}}/wp-content/uploads/2026/05/hero-1.jpg"},
+            {"name": "hero_video_desktop",      "type": "text", "label": "Bakgrundsvideo desktop — MP4-URL", "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4"},
             {"name": "hero_video_desktop_webm", "type": "text", "label": "Bakgrundsvideo desktop — WebM-URL", "default": ""},
-            {"name": "hero_video_mobile",       "type": "text", "label": "Bakgrundsvideo mobil — MP4-URL",    "default": "https://swordfish.templweb.com/wp-content/uploads/2026/05/video_mp_.mp4"},
+            {"name": "hero_video_mobile",       "type": "text", "label": "Bakgrundsvideo mobil — MP4-URL",    "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4"},
             {"name": "hero_video_mobile_webm",  "type": "text", "label": "Bakgrundsvideo mobil — WebM-URL",  "default": ""},
             {"name": "eyebrow",     "type": "text",     "label": "Etikett",       "default": "Modern tandvård · 2 min från pendeln · Älvsjö"},
             {"name": "ingress",     "type": "textarea", "label": "Ingress",       "default": "Från första undersökningen till implantat och Invisalign — en nyrenoverad klinik mitt i Älvsjö där varje besök är utformat för att du ska känna dig lugn och omhändertagen."},
@@ -2020,11 +2024,11 @@ def build_treatments_grid() -> dict:
     TREATMENTS = [
         ("Akuttandvård",            "Tider samma dag",    True,  "/akut-tandvard",           "akuttandvard.jpg"),
         ("Implantat",               "Specialistteam",     False, "/implantat",               "implantat.jpg"),
-        ("Karies / Hål i tanden",   "Allmäntandvård",     False, "/karies-hal-i-tanden",     "karieshal-i-tanden.jpg"),
+        ("Karies / Hål i tanden",   "Allmäntandvård",     False, "/karies-hal-i-tanden",     "karies-v4.jpg"),
         ("Tandblekning",            "Klinik & hemma",     False, "/tandblekning",             "tandblekning.jpg"),
         ("Tandfasader / Veneers",   "Estetisk tandvård",  False, "/tandfasader-veneers",      "tandfasader-veneers.jpg"),
         ("Tandreglering",           "Invisalign",         False, "/tandreglering-stockholm",  "tandreglering.jpg"),
-        ("Tandsten / Tandhygienist","Förebyggande vård",  False, "/tandsten-tandhygienist",   "tandstentandhygienist.jpg"),
+        ("Tandsten / Tandhygienist","Förebyggande vård",  False, "/tandsten-tandhygienist",   "tandhygienist-v9.jpg"),
         ("Tandvårdsrädsla",         "Lugnande vård",      False, "/tandvardsradsla",          "tandvardsradslatandlakarskrack.jpg"),
     ]
 
@@ -2036,7 +2040,7 @@ def build_treatments_grid() -> dict:
         )
         cards_html += f"""
 <a href="{{{{card_{i}_url}}}}" class="treatment-card">
-  <div class="tc-bg" style="background-image:url({{{{card_{i}_image}}}});"></div>
+  <div class="tc-bg" style="background-image:url({BASE_IMG}{img});"></div>
   <div class="tc-overlay"></div>
   <div class="tc-body">
     <div class="tc-top">
@@ -2194,7 +2198,7 @@ def build_about() -> dict:
             {"name": "body", "type": "textarea", "label": "Brödtext",
              "default": "För de yngre familjemedlemmarna har vi även Älvsjö Pedodonti, en specialistenhet för barn och unga upp till 23 år. Vi är anslutna till Försäkringskassan och erbjuder räntefri delbetalning."},
             {"name": "about_image", "type": "image", "label": "Bild",
-             "default": "https://swordfish.templweb.com/wp-content/uploads/2026/05/undersok.jpg"},
+             "default": "{{site_url}}/wp-content/uploads/2026/05/undersok.jpg"},
         ],
     }
 
@@ -3395,7 +3399,7 @@ def build_payment_calculator() -> dict:
   <div id="pmc-body">
     <div class="pmc-grid">
       <div>
-        <img src="https://swordfish.templweb.com/wp-content/uploads/2026/05/reception.jpg" alt="" style="width:100%;height:260px;object-fit:cover;border-radius:var(--radius-md);margin-bottom:28px;">
+        <img src="{{site_url}}/wp-content/uploads/2026/05/reception.jpg" alt="" style="width:100%;height:260px;object-fit:cover;border-radius:var(--radius-md);margin-bottom:28px;">
         <div style="font-size:15px;color:var(--ink-500);line-height:1.7;">
           <p>På Älvsjö Tandvård erbjuder vi <strong>räntefri delbetalning</strong> i upp till 12 månader via <strong>Resurs Bank</strong> — utan extraavgift. Du sprider kostnaden över tid och får den vård du behöver, när du behöver den.</p>
           <p style="margin-top:16px;">Vår reception hjälper dig med ansökan och att hitta rätt upplägg — allt ordnas direkt på plats, förutsatt godkänd kreditprövning.</p>
@@ -3446,7 +3450,7 @@ def build_payment_calculator() -> dict:
           </div>
           <a href="tel:08-12854555" class="btn btn-primary" style="margin-top:32px;background:var(--ink-700);color:var(--white);border-color:var(--ink-700);">Ring oss</a>
         </div>
-        <div style="display:flex;align-items:center;"><img src="https://swordfish.templweb.com/wp-content/uploads/2026/05/reception.jpg" alt="" style="width:100%;height:340px;object-fit:cover;border-radius:var(--radius-md);"></div>
+        <div style="display:flex;align-items:center;"><img src="{{site_url}}/wp-content/uploads/2026/05/reception.jpg" alt="" style="width:100%;height:340px;object-fit:cover;border-radius:var(--radius-md);"></div>
       </div>
     </div>
   </div>
@@ -4393,7 +4397,7 @@ def build_site(bases: dict) -> tuple[list, list]:
         "lumo/cost-calculator",
         "lumo/reviews-section",
         add("content-block-1", "hem", {
-            "image":    "https://swordfish.templweb.com/wp-content/uploads/2026/05/undersok.jpg",
+            "image":    "{{site_url}}/wp-content/uploads/2026/05/undersok.jpg",
             "eyebrow":  "03 / Om kliniken",
             "h2":       "Trygghet och kvalitet för ditt leende.",
             "body":     "<p>Vår nyrenoverade och luftiga klinik på Prästgårdsgränd 4 erbjuder en lugn, modern miljö där vi tar hand om dig och din familj med professionalism och värme.</p><p>För de yngre familjemedlemmarna har vi även <strong>Älvsjö Pedodonti</strong>, en specialistenhet för barn och unga upp till 23 år. Vi är anslutna till Försäkringskassan och erbjuder räntefri delbetalning.</p>",
@@ -4412,7 +4416,7 @@ def build_site(bases: dict) -> tuple[list, list]:
         "lumo/site-header",
         "lumo/page-hero-info",
         add("content-block-1", "om-oss", {
-            "image":    "https://swordfish.templweb.com/wp-content/uploads/2026/05/reception.jpg",
+            "image":    "{{site_url}}/wp-content/uploads/2026/05/reception.jpg",
             "eyebrow": "Vårt uppdrag",
             "h2": "Din tandhälsa — vårt uppdrag, din trygghet.",
             "body": "<p>På Älvsjö Tandvård är vår vision att erbjuda en tandvårdsupplevelse där du känner dig helt trygg och sedd, oavsett ditt behov. Vår <strong>nyrenoverade klinik</strong> på Prästgårdsgränd 4, bara ett stenkast från Älvsjö pendeltågsstation, är designad för att vara ljus, luftig och tillgänglig — med hiss för din bekvämlighet.</p><p>Hos oss hittar du ett brett spektrum av tandvårdstjänster, från <strong>allmäntandvård och förebyggande vård</strong> för hela familjen, till mer avancerade behandlingar som <strong>tandimplantat</strong> och <strong>osynlig tandreglering med Invisalign</strong>. Vi är anslutna till Försäkringskassan och erbjuder räntefri delbetalning.</p>",
@@ -4704,7 +4708,7 @@ def build_site(bases: dict) -> tuple[list, list]:
         "lumo/page-hero-barnspecialist",
         "lumo/fact-strip-barnspecialist",
         add("content-block-1", "barnspecialist", {
-            "image":    "https://swordfish.templweb.com/wp-content/uploads/2026/05/barn-1.jpg",
+            "image":    "{{site_url}}/wp-content/uploads/2026/05/barn-1.jpg",
             "eyebrow": "Älvsjö Pedodonti",
             "h2":      "Anpassad specialistvård med omtanke.",
             "body":    "<p>Älvsjö Pedodonti är vår specialistklinik för <strong>barn och unga upp till 23 års ålder</strong>. Vi arbetar på uppdrag av Region Stockholm och tar emot remisser via Muntra för att säkerställa expertis och trygg vård för ditt barn.</p><p>För en trygg upplevelse erbjuder vi <strong>lustgas, lugnande medel (Midazolam) och i särskilda fall narkosbehandling</strong>. Tandvård är alltid <strong>gratis för barn och ungdomar upp till 19 år</strong>.</p>",
@@ -4893,6 +4897,30 @@ def main() -> None:
             {"label": "Hjälp oss bli bäst",     "url": "/om-oss/#hjalp-oss-bli-bast",  "parent": "Om oss"},
         ],
     }
+
+    # Applicera .live_overrides/ — pinnar specifika komponenter till deras live-version.
+    # Används när source-funktionerna driftat från live och vi vill behålla live som truth.
+    # Filer: clients/alvsjotandvard/.live_overrides/<block_name med / → __>.json
+    # Radera en override-fil för att återgå till funktions-genererad version.
+    overrides_dir = CLIENT_DIR / ".live_overrides"
+    if overrides_dir.exists():
+        overrides_loaded = 0
+        for ov_file in overrides_dir.glob("*.json"):
+            try:
+                ov = json.loads(ov_file.read_text(encoding="utf-8"))
+            except Exception as e:
+                print(f"  [WARN] Kunde inte läsa {ov_file.name}: {e}")
+                continue
+            ov_name = ov.get("block_name")
+            if not ov_name:
+                continue
+            for i, c in enumerate(bundle["components"]):
+                if c["block_name"] == ov_name:
+                    bundle["components"][i] = ov
+                    overrides_loaded += 1
+                    break
+        if overrides_loaded:
+            print(f"[OVERRIDES] Applicerade {overrides_loaded} live-overrides från .live_overrides/")
 
     OUT_FILE.write_text(json.dumps(bundle, indent=2, ensure_ascii=False), encoding="utf-8")
     size = OUT_FILE.stat().st_size

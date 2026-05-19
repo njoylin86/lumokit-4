@@ -1,0 +1,79 @@
+{
+  "block_name": "lumo/page-hero-info-rantefritt",
+  "title": "Page Hero – Info (delad mall) – Räntefritt",
+  "html_template": "<section class=\"page-hero\"> <div class=\"container-wide\"> <div class=\"eyebrow\" style=\"margin-bottom:32px;color:var(--sage-600);\">{{eyebrow}}</div> <div class=\"ph-grid\"> <h1>{{title}}<br><em>{{title_italic}}</em></h1> <div class=\"ph-right\"> <p class=\"lead ph-lead\">{{ingress}}</p> <div class=\"ph-bullets\"> <div class=\"ph-bullet\"><span class=\"ph-num\">01</span>{{bullet_1}}</div> <div class=\"ph-bullet\"><span class=\"ph-num\">02</span>{{bullet_2}}</div> <div class=\"ph-bullet\"><span class=\"ph-num\">03</span>{{bullet_3}}</div> <div class=\"ph-bullet\"><span class=\"ph-num\">04</span>{{bullet_4}}</div> </div> <div style=\"display:flex;gap:12px;flex-wrap:wrap;\"> <a href=\"{{cta_1_href}}\" class=\"btn btn-primary btn-lg\">{{cta_1_text}}</a> <a href=\"{{cta_2_href}}\" class=\"btn btn-ghost btn-lg\">{{cta_2_text}}</a> </div> </div> </div> </div> </section>",
+  "schema": [
+    {
+      "name": "eyebrow",
+      "type": "text",
+      "label": "Etikett",
+      "default": "Räntefri delbetalning"
+    },
+    {
+      "name": "title",
+      "type": "text",
+      "label": "Rubrik",
+      "default": "Tandvård"
+    },
+    {
+      "name": "title_italic",
+      "type": "text",
+      "label": "Rubrik (kursiv del)",
+      "default": "utan ekonomisk oro."
+    },
+    {
+      "name": "ingress",
+      "type": "textarea",
+      "label": "Ingress",
+      "default": "För en smidigare ekonomisk planering av din tandvård — vi hjälper dig att dela upp betalningen räntefritt, så du kan fokusera på ditt välmående och ditt leende."
+    },
+    {
+      "name": "bullet_1",
+      "type": "text",
+      "label": "Punkt 1",
+      "default": "Dela upp kostnaden"
+    },
+    {
+      "name": "bullet_2",
+      "type": "text",
+      "label": "Punkt 2",
+      "default": "Räntefri delbetalning"
+    },
+    {
+      "name": "bullet_3",
+      "type": "text",
+      "label": "Punkt 3",
+      "default": "Upp till 12 månader"
+    },
+    {
+      "name": "bullet_4",
+      "type": "text",
+      "label": "Punkt 4",
+      "default": "Hjälp med ansökan"
+    },
+    {
+      "name": "cta_1_text",
+      "type": "text",
+      "label": "Knapp 1 – text",
+      "default": "Boka tid"
+    },
+    {
+      "name": "cta_1_href",
+      "type": "text",
+      "label": "Knapp 1 – länk",
+      "default": "#tdl-booking-widget"
+    },
+    {
+      "name": "cta_2_text",
+      "type": "text",
+      "label": "Knapp 2 – text",
+      "default": "Ring oss"
+    },
+    {
+      "name": "cta_2_href",
+      "type": "text",
+      "label": "Knapp 2 – länk",
+      "default": "tel:08-12 85 45 55"
+    }
+  ]
+}

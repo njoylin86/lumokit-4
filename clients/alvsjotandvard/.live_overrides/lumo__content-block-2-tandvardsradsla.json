@@ -1,0 +1,43 @@
+{
+  "block_name": "lumo/content-block-2-tandvardsradsla",
+  "title": "Innehållsblock (speglat) – Tandvårdsrädsla",
+  "html_template": "<section class=\"cb-section\" style=\"background:var(--cream);\"> <div class=\"container-wide\"> <div class=\"cb-grid cb-grid--mirror\"> <div class=\"cb-text\"> <div class=\"eyebrow\" style=\"margin-bottom:16px;\">{{eyebrow}}</div> <h2 style=\"font-family:var(--font-serif);font-weight:500;font-size:clamp(28px,2.6vw,40px);line-height:1.15;letter-spacing:-0.02em;color:var(--ink-700);margin:0 0 24px;\">{{h2}}</h2> <div style=\"font-family:var(--font-sans);font-size:16px;line-height:1.7;color:var(--fg);\">{{body}}</div> <div style=\"margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;\"> <a href=\"{{cta_link}}\" class=\"btn btn-primary\">{{cta_text}}</a> </div> </div> <div class=\"cb-img\"> <img src=\"{{site_url}}/wp-content/uploads/2026/05/tandlakarskrack-v2.jpg\" alt=\"Person med knutna händer i tandläkarstolen – vi förstår tandvårdsrädsla\" style=\"width:100%;height:100%;object-fit:cover;display:block;\"> </div> </div> </div> </section>",
+  "schema": [
+    {
+      "name": "image",
+      "type": "image",
+      "label": "Bild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/tandlakarskrack-v2.jpg"
+    },
+    {
+      "name": "eyebrow",
+      "type": "text",
+      "label": "Etikett",
+      "default": "Kliniken"
+    },
+    {
+      "name": "h2",
+      "type": "text",
+      "label": "Rubrik",
+      "default": "En miljö designad för att lugna."
+    },
+    {
+      "name": "body",
+      "type": "textarea",
+      "label": "Brödtext (HTML tillåten)",
+      "default": "<p>Vår klinik på Prästgårdsgränd 4 är designad med rädda patienter i åtanke — ljus, luftig och utan den stela klinikkänslan. Ingen väntsal fylld med obekväma intryck, inget onödigt prat om ingrepp.</p><p>Vi arbetar alltid med <strong>lugnande musik, anpassat ljus och en tydlig, lugn kommunikationsstil</strong>. Många av våra patienter med tandvårdsrädsla berättar att bara <em>miljön</em> gör halva jobbet för dem.</p>"
+    },
+    {
+      "name": "cta_text",
+      "type": "text",
+      "label": "CTA-text",
+      "default": "Ta det första steget"
+    },
+    {
+      "name": "cta_link",
+      "type": "url",
+      "label": "CTA-länk",
+      "default": "tel:+46812854555"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "block_name": "lumo/content-block-2-tandblekning",
+  "title": "Innehållsblock (speglat) – Tandblekning",
+  "html_template": "<section class=\"cb-section\" style=\"background:var(--cream);\"> <div class=\"container-wide\"> <div class=\"cb-grid cb-grid--mirror\"> <div class=\"cb-text\"> <div class=\"eyebrow\" style=\"margin-bottom:16px;\">{{eyebrow}}</div> <h2 style=\"font-family:var(--font-serif);font-weight:500;font-size:clamp(28px,2.6vw,40px);line-height:1.15;letter-spacing:-0.02em;color:var(--ink-700);margin:0 0 24px;\">{{h2}}</h2> <div style=\"font-family:var(--font-sans);font-size:16px;line-height:1.7;color:var(--fg);\">{{body}}</div> <div style=\"margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;\"> <a href=\"{{cta_link}}\" class=\"btn btn-primary\">{{cta_text}}</a> </div> </div> <div class=\"cb-img\"> <img src=\"{{site_url}}/wp-content/uploads/2026/05/tandblekning.jpg\" alt=\"Eftervård tandblekning — Älvsjö Tandvård\" style=\"width:100%;height:100%;object-fit:cover;display:block;\"> </div> </div> </div> </section>",
+  "schema": [
+    {
+      "name": "image",
+      "type": "image",
+      "label": "Bild",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/clinic-room-1.jpg"
+    },
+    {
+      "name": "eyebrow",
+      "type": "text",
+      "label": "Etikett",
+      "default": "Eftervård"
+    },
+    {
+      "name": "h2",
+      "type": "text",
+      "label": "Rubrik",
+      "default": "Håll resultatet längre — enkla tips."
+    },
+    {
+      "name": "body",
+      "type": "textarea",
+      "label": "Brödtext (HTML tillåten)",
+      "default": "<p>Med rätt eftervård håller ditt blekningsresultat avsevärt längre. Tänderna är lite mer öppna de första 48 timmarna efter blekning — undvik mat och dryck som färgar.</p><ul style='padding-left:0;list-style:none;display:flex;flex-direction:column;gap:12px;margin:12px 0 0;'><li style='display:flex;gap:12px;'>→<span><strong>Undvik kaffe, te, rödvin</strong> de första 48 timmarna efter blekning.</span></li><li style='display:flex;gap:12px;'>→<span><strong>Borsta med fluortandkräm</strong> — stärker emaljen och reducerar känslighet.</span></li><li style='display:flex;gap:12px;'>→<span><strong>Uppfräschning med hemblekning</strong> var 6–12 månader förlänger resultatet markant.</span></li><li style='display:flex;gap:12px;'>→<span><strong>Regelbundna kontroller</strong> håller tänderna vita och friska längre.</span></li></ul>"
+    },
+    {
+      "name": "cta_text",
+      "type": "text",
+      "label": "CTA-text",
+      "default": "Boka blekningskonsultation"
+    },
+    {
+      "name": "cta_link",
+      "type": "url",
+      "label": "CTA-länk",
+      "default": "#tdl-booking-widget"
+    }
+  ]
+}

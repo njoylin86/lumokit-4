@@ -1,0 +1,398 @@
+{
+  "block_name": "lumo/team",
+  "title": "Team",
+  "html_template": "<section class=\"team-section section\" id=\"team\"> <div class=\"container-wide\"> <div class=\"team-hdr\"> <div> <div class=\"eyebrow\" style=\"margin-bottom:16px;\">Teamet</div> <h2>Erfarna och engagerade — för ditt leende.</h2> </div> <div class=\"team-hdr-right\"> <p>Tandläkare, tandhygienister och tandsköterskor som brinner för din munhälsa. Vi vidareutbildar oss kontinuerligt och möter dig alltid med tid, lugn och förståelse.</p> </div> </div> <div class=\"team-grid\"> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_1_photo}});\"></div> <div> <div class=\"team-name\">{{member_1_name}}</div> <div class=\"team-role\">{{member_1_role}}</div> </div> </article> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_2_photo}});\"></div> <div> <div class=\"team-name\">{{member_2_name}}</div> <div class=\"team-role\">{{member_2_role}}</div> </div> </article> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_3_photo}});\"></div> <div> <div class=\"team-name\">{{member_3_name}}</div> <div class=\"team-role\">{{member_3_role}}</div> </div> </article> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_4_photo}});\"></div> <div> <div class=\"team-name\">{{member_4_name}}</div> <div class=\"team-role\">{{member_4_role}}</div> </div> </article> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_5_photo}});\"></div> <div> <div class=\"team-name\">{{member_5_name}}</div> <div class=\"team-role\">{{member_5_role}}</div> </div> </article> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_6_photo}});\"></div> <div> <div class=\"team-name\">{{member_6_name}}</div> <div class=\"team-role\">{{member_6_role}}</div> </div> </article> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_7_photo}});\"></div> <div> <div class=\"team-name\">{{member_7_name}}</div> <div class=\"team-role\">{{member_7_role}}</div> </div> </article> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_8_photo}});\"></div> <div> <div class=\"team-name\">{{member_8_name}}</div> <div class=\"team-role\">{{member_8_role}}</div> </div> </article> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_9_photo}});\"></div> <div> <div class=\"team-name\">{{member_9_name}}</div> <div class=\"team-role\">{{member_9_role}}</div> </div> </article> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_10_photo}});\"></div> <div> <div class=\"team-name\">{{member_10_name}}</div> <div class=\"team-role\">{{member_10_role}}</div> </div> </article> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_11_photo}});\"></div> <div> <div class=\"team-name\">{{member_11_name}}</div> <div class=\"team-role\">{{member_11_role}}</div> </div> </article> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_12_photo}});\"></div> <div> <div class=\"team-name\">{{member_12_name}}</div> <div class=\"team-role\">{{member_12_role}}</div> </div> </article> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_13_photo}});\"></div> <div> <div class=\"team-name\">{{member_13_name}}</div> <div class=\"team-role\">{{member_13_role}}</div> </div> </article> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_14_photo}});\"></div> <div> <div class=\"team-name\">{{member_14_name}}</div> <div class=\"team-role\">{{member_14_role}}</div> </div> </article> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_15_photo}});\"></div> <div> <div class=\"team-name\">{{member_15_name}}</div> <div class=\"team-role\">{{member_15_role}}</div> </div> </article> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_16_photo}});\"></div> <div> <div class=\"team-name\">{{member_16_name}}</div> <div class=\"team-role\">{{member_16_role}}</div> </div> </article> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_17_photo}});\"></div> <div> <div class=\"team-name\">{{member_17_name}}</div> <div class=\"team-role\">{{member_17_role}}</div> </div> </article> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_18_photo}});\"></div> <div> <div class=\"team-name\">{{member_18_name}}</div> <div class=\"team-role\">{{member_18_role}}</div> </div> </article> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_19_photo}});\"></div> <div> <div class=\"team-name\">{{member_19_name}}</div> <div class=\"team-role\">{{member_19_role}}</div> </div> </article> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_20_photo}});\"></div> <div> <div class=\"team-name\">{{member_20_name}}</div> <div class=\"team-role\">{{member_20_role}}</div> </div> </article> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_21_photo}});\"></div> <div> <div class=\"team-name\">{{member_21_name}}</div> <div class=\"team-role\">{{member_21_role}}</div> </div> </article> <article class=\"team-member\"> <div class=\"team-photo\" style=\"background-image:url({{member_22_photo}});\"></div> <div> <div class=\"team-name\">{{member_22_name}}</div> <div class=\"team-role\">{{member_22_role}}</div> </div> </article></div> </div> </section>",
+  "schema": [
+    {
+      "name": "member_1_name",
+      "type": "text",
+      "label": "Person 1 – namn",
+      "default": "Adel"
+    },
+    {
+      "name": "member_1_role",
+      "type": "text",
+      "label": "Person 1 – roll",
+      "default": "VD · Tandhygienist"
+    },
+    {
+      "name": "member_1_photo",
+      "type": "image",
+      "label": "Person 1 – foto",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/staff-adel.jpg"
+    },
+    {
+      "name": "member_2_name",
+      "type": "text",
+      "label": "Person 2 – namn",
+      "default": "Aslan"
+    },
+    {
+      "name": "member_2_role",
+      "type": "text",
+      "label": "Person 2 – roll",
+      "default": "Tandläkare"
+    },
+    {
+      "name": "member_2_photo",
+      "type": "image",
+      "label": "Person 2 – foto",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/staff-aslan.jpg"
+    },
+    {
+      "name": "member_3_name",
+      "type": "text",
+      "label": "Person 3 – namn",
+      "default": "Mike"
+    },
+    {
+      "name": "member_3_role",
+      "type": "text",
+      "label": "Person 3 – roll",
+      "default": "Tandläkare"
+    },
+    {
+      "name": "member_3_photo",
+      "type": "image",
+      "label": "Person 3 – foto",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/staff-mike.jpg"
+    },
+    {
+      "name": "member_4_name",
+      "type": "text",
+      "label": "Person 4 – namn",
+      "default": "Ghiyas"
+    },
+    {
+      "name": "member_4_role",
+      "type": "text",
+      "label": "Person 4 – roll",
+      "default": "Tandläkare"
+    },
+    {
+      "name": "member_4_photo",
+      "type": "image",
+      "label": "Person 4 – foto",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/staff-ghiyas.jpg"
+    },
+    {
+      "name": "member_5_name",
+      "type": "text",
+      "label": "Person 5 – namn",
+      "default": "Airo"
+    },
+    {
+      "name": "member_5_role",
+      "type": "text",
+      "label": "Person 5 – roll",
+      "default": "Tandläkare"
+    },
+    {
+      "name": "member_5_photo",
+      "type": "image",
+      "label": "Person 5 – foto",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/staff-airo.jpg"
+    },
+    {
+      "name": "member_6_name",
+      "type": "text",
+      "label": "Person 6 – namn",
+      "default": "Bindu"
+    },
+    {
+      "name": "member_6_role",
+      "type": "text",
+      "label": "Person 6 – roll",
+      "default": "Tandläkare"
+    },
+    {
+      "name": "member_6_photo",
+      "type": "image",
+      "label": "Person 6 – foto",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/staff-bindu.jpg"
+    },
+    {
+      "name": "member_7_name",
+      "type": "text",
+      "label": "Person 7 – namn",
+      "default": "Ashfa"
+    },
+    {
+      "name": "member_7_role",
+      "type": "text",
+      "label": "Person 7 – roll",
+      "default": "Tandläkare"
+    },
+    {
+      "name": "member_7_photo",
+      "type": "image",
+      "label": "Person 7 – foto",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/staff-ashfa.jpg"
+    },
+    {
+      "name": "member_8_name",
+      "type": "text",
+      "label": "Person 8 – namn",
+      "default": "Aleksandra"
+    },
+    {
+      "name": "member_8_role",
+      "type": "text",
+      "label": "Person 8 – roll",
+      "default": "Tandläkare"
+    },
+    {
+      "name": "member_8_photo",
+      "type": "image",
+      "label": "Person 8 – foto",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/staff-aleksandra.jpg"
+    },
+    {
+      "name": "member_9_name",
+      "type": "text",
+      "label": "Person 9 – namn",
+      "default": "Arezoo"
+    },
+    {
+      "name": "member_9_role",
+      "type": "text",
+      "label": "Person 9 – roll",
+      "default": "Tandläkare"
+    },
+    {
+      "name": "member_9_photo",
+      "type": "image",
+      "label": "Person 9 – foto",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/staff-arezoo.jpg"
+    },
+    {
+      "name": "member_10_name",
+      "type": "text",
+      "label": "Person 10 – namn",
+      "default": "Loren"
+    },
+    {
+      "name": "member_10_role",
+      "type": "text",
+      "label": "Person 10 – roll",
+      "default": "Tandläkare"
+    },
+    {
+      "name": "member_10_photo",
+      "type": "image",
+      "label": "Person 10 – foto",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/staff-loren.jpg"
+    },
+    {
+      "name": "member_11_name",
+      "type": "text",
+      "label": "Person 11 – namn",
+      "default": "Marcel"
+    },
+    {
+      "name": "member_11_role",
+      "type": "text",
+      "label": "Person 11 – roll",
+      "default": "Tandläkare"
+    },
+    {
+      "name": "member_11_photo",
+      "type": "image",
+      "label": "Person 11 – foto",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/staff-marcel.jpg"
+    },
+    {
+      "name": "member_12_name",
+      "type": "text",
+      "label": "Person 12 – namn",
+      "default": "Ahmed"
+    },
+    {
+      "name": "member_12_role",
+      "type": "text",
+      "label": "Person 12 – roll",
+      "default": "Tandhygienist"
+    },
+    {
+      "name": "member_12_photo",
+      "type": "image",
+      "label": "Person 12 – foto",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/staff-ahmed.jpg"
+    },
+    {
+      "name": "member_13_name",
+      "type": "text",
+      "label": "Person 13 – namn",
+      "default": "Sibel"
+    },
+    {
+      "name": "member_13_role",
+      "type": "text",
+      "label": "Person 13 – roll",
+      "default": "Reception · Tandhygienist"
+    },
+    {
+      "name": "member_13_photo",
+      "type": "image",
+      "label": "Person 13 – foto",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/staff-sibel.jpg"
+    },
+    {
+      "name": "member_14_name",
+      "type": "text",
+      "label": "Person 14 – namn",
+      "default": "Badeel"
+    },
+    {
+      "name": "member_14_role",
+      "type": "text",
+      "label": "Person 14 – roll",
+      "default": "Tandsköterska"
+    },
+    {
+      "name": "member_14_photo",
+      "type": "image",
+      "label": "Person 14 – foto",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/staff-badeel.jpg"
+    },
+    {
+      "name": "member_15_name",
+      "type": "text",
+      "label": "Person 15 – namn",
+      "default": "Evin"
+    },
+    {
+      "name": "member_15_role",
+      "type": "text",
+      "label": "Person 15 – roll",
+      "default": "Tandsköterska"
+    },
+    {
+      "name": "member_15_photo",
+      "type": "image",
+      "label": "Person 15 – foto",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/staff-evin.jpg"
+    },
+    {
+      "name": "member_16_name",
+      "type": "text",
+      "label": "Person 16 – namn",
+      "default": "Erika"
+    },
+    {
+      "name": "member_16_role",
+      "type": "text",
+      "label": "Person 16 – roll",
+      "default": "Tandsköterska"
+    },
+    {
+      "name": "member_16_photo",
+      "type": "image",
+      "label": "Person 16 – foto",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/staff-erika.jpg"
+    },
+    {
+      "name": "member_17_name",
+      "type": "text",
+      "label": "Person 17 – namn",
+      "default": "Maxim"
+    },
+    {
+      "name": "member_17_role",
+      "type": "text",
+      "label": "Person 17 – roll",
+      "default": "Ekonomi"
+    },
+    {
+      "name": "member_17_photo",
+      "type": "image",
+      "label": "Person 17 – foto",
+      "default": "{{site_url}}/wp-content/uploads/2026/05/staff-maxim.jpg"
+    },
+    {
+      "name": "member_18_name",
+      "type": "text",
+      "label": "Person 18 – namn",
+      "default": ""
+    },
+    {
+      "name": "member_18_role",
+      "type": "text",
+      "label": "Person 18 – roll",
+      "default": ""
+    },
+    {
+      "name": "member_18_photo",
+      "type": "image",
+      "label": "Person 18 – foto"
+    },
+    {
+      "name": "member_19_name",
+      "type": "text",
+      "label": "Person 19 – namn",
+      "default": ""
+    },
+    {
+      "name": "member_19_role",
+      "type": "text",
+      "label": "Person 19 – roll",
+      "default": ""
+    },
+    {
+      "name": "member_19_photo",
+      "type": "image",
+      "label": "Person 19 – foto"
+    },
+    {
+      "name": "member_20_name",
+      "type": "text",
+      "label": "Person 20 – namn",
+      "default": ""
+    },
+    {
+      "name": "member_20_role",
+      "type": "text",
+      "label": "Person 20 – roll",
+      "default": ""
+    },
+    {
+      "name": "member_20_photo",
+      "type": "image",
+      "label": "Person 20 – foto"
+    },
+    {
+      "name": "member_21_name",
+      "type": "text",
+      "label": "Person 21 – namn",
+      "default": ""
+    },
+    {
+      "name": "member_21_role",
+      "type": "text",
+      "label": "Person 21 – roll",
+      "default": ""
+    },
+    {
+      "name": "member_21_photo",
+      "type": "image",
+      "label": "Person 21 – foto"
+    },
+    {
+      "name": "member_22_name",
+      "type": "text",
+      "label": "Person 22 – namn",
+      "default": ""
+    },
+    {
+      "name": "member_22_role",
+      "type": "text",
+      "label": "Person 22 – roll",
+      "default": ""
+    },
+    {
+      "name": "member_22_photo",
+      "type": "image",
+      "label": "Person 22 – foto"
+    }
+  ]
+}
