@@ -1423,6 +1423,11 @@ function lumokit_get_global_replacements() {
 
 	$replacements = [];
 
+	// {{site_url}} — resolves to the current WP home URL (no trailing slash).
+	// Adapts automatically when WP-domänen ändras (t.ex. när test → produktion).
+	// Använd för bilder, OG-tags och structured data så de inte hårdkodas mot en miljö.
+	$replacements['{{site_url}}'] = rtrim( home_url(), '/' );
+
 	if ( function_exists( 'get_field' ) ) {
 		foreach ( $acf_fields as $field ) {
 			$value = get_field( $field, 'option' );
@@ -1771,6 +1776,19 @@ function lumokit_inject_booking_head() {
 	  };
 	</script>
 	<?php
+}
+
+add_action( 'wp_head', 'lumokit_output_canonical', 1 );
+
+function lumokit_output_canonical() {
+	// Auto-canonical för alla singular-sidor (pages/posts).
+	// Anpassar sig automatiskt när WP-domänen ändras.
+	if ( is_singular() ) {
+		$url = get_permalink();
+		if ( $url ) {
+			echo '<link rel="canonical" href="' . esc_url( $url ) . '" />' . "\n";
+		}
+	}
 }
 
 add_action( 'wp_head', 'lumokit_output_styles' );
