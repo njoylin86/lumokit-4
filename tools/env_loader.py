@@ -31,16 +31,25 @@ def _explicit_env_flag() -> Path | None:
 
 def _client_env_from_bundle() -> Path | None:
     """
-    Scan sys.argv for a bundle path and resolve clients/<client>/.env.
+    Scan sys.argv for a client identifier and resolve clients/<client>/.env.
 
     Recognises:
-      clients/<client>/bundle.json     — new standard
+      --client <name>                  — explicit flag
+      clients/<client>/bundle.json     — new standard (any path with this prefix)
       .tmp/<client>_bundle.json        — legacy
     """
+    # --client <name>
+    for i, arg in enumerate(sys.argv[1:], start=1):
+        if arg == "--client" and i + 1 < len(sys.argv):
+            client_name = sys.argv[i + 1]
+            candidate = ROOT / "clients" / client_name / ".env"
+            if candidate.exists():
+                return candidate
+
     for arg in sys.argv[1:]:
         p = Path(arg)
         parts = p.parts
-        # New standard: clients/<client>/bundle.json
+        # New standard: clients/<client>/bundle.json (or any path beneath clients/<x>/)
         if "clients" in parts:
             idx = list(parts).index("clients")
             if idx + 1 < len(parts):

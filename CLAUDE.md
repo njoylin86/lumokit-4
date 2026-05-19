@@ -117,6 +117,48 @@ Verktygskedja för nya klienter:
 - `tools/build_all.py --only ...` — skarpt
 - `clients/<klient>/.last_pushed_components.json` — auto-uppdaterad 3-way baseline
 
+## Innehållsändringar — KRITISK REGEL (admin-editing får ALDRIG brytas)
+
+När du ändrar **innehåll** på en komponent (text, bild, länkar, URL:er), MÅSTE du göra det så att klientens redigerings-möjlighet i WP-admin förblir intakt.
+
+**Tre-lager-systemet (alla tre behövs):**
+
+| Lager | Vad uppdateras | Verktyg |
+|---|---|---|
+| 1. Bridge schema | Fält-definitioner + defaults | `build_all.py --only <block>` |
+| 2. **Page ACF-data** | Det som faktiskt renderas på existerande sidor | **`tools/sync_block_acf.py`** |
+| 3. Page post_content | Sidans block-struktur | `--overwrite-content --keep-pages` (bredd-verktyg) |
+
+**Varför lager 2 alltid behövs:** Bridge bakar schema-defaults in i blockets `data`-attribut vid sid-skapande (`lumokit_build_page`). Vid render läses ALLTID från denna baked-data — det finns INGEN fallback till schema-default vid render. Så en uppdaterad schema-default påverkar bara nyskapade sidor, inte existerande.
+
+**Workflow vid bild-byte (eller annan content-ändring):**
+
+```bash
+# 1. Ladda upp eventuell ny asset (skip om bara textändring)
+python3 tools/upload_media.py --dir <single-file-folder> --production
+
+# 2. Uppdatera source + override
+#    - clients/<klient>/build_bundle.py
+#    - clients/<klient>/.live_overrides/<block>.json (schema default)
+
+# 3. Pusha komponent (schema)
+python3 tools/build_all.py clients/<klient>/bundle.json --production --only <block> --dry-run
+python3 tools/build_all.py clients/<klient>/bundle.json --production --only <block>
+
+# 4. Synka ACF-data på existerande sidor (utan att röra annat)
+python3 tools/sync_block_acf.py --client <klient> --block <block> --page <slug> --field <name> --production --dry-run
+python3 tools/sync_block_acf.py --client <klient> --block <block> --page <slug> --field <name> --production
+```
+
+**FÖRBJUDET:**
+- ❌ Hårdkoda en URL/text direkt i `html_template` om motsvarande schema-fält finns. Det bryter Gutenberg-blocket i admin (svart ruta) och disconnect:ar ACF-fältet.
+- ❌ Hoppa över lager 2 — då uppdateras inte sidor som redan har blocket instanstierat.
+- ❌ Använda `--overwrite-content` utan `--keep-pages` för punkt-ändringar — det skriver över för bred yta.
+
+**Undantag — statiska assets:** Medaljer, badges, logos som ALDRIG ska kunna ändras av klienten — hårdkoda dem direkt i template UTAN motsvarande schema-fält. Då finns ingen ACF-koppling att bryta.
+
+**Verifiera efter content-byte:** (1) frontend visar nytt innehåll, (2) WP-admin → sidan → blocket → ACF-fält visar SAMMA värde som frontend, (3) Gutenberg-editorn renderar blocket utan svart ruta.
+
 ## Klient-tiers — KRITISK REGEL för nya klienter
 LumoKit har två baseline-tiers. Varje ny klient utgår från en av dessa, inte från scratch.
 

@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // Single source of truth for bridge version. Bumped by tools/release.py.
-define( 'LUMOKIT_BRIDGE_VERSION', '1.0.0' );
+define( 'LUMOKIT_BRIDGE_VERSION', '1.1.0' );
 
 define( 'LUMOKIT_OPTION_KEY', 'lumokit_components' );
 
@@ -139,6 +139,14 @@ function lumokit_register_routes() {
 			'methods'             => WP_REST_Server::CREATABLE,
 			'callback'            => 'lumokit_handle_contact',
 			'permission_callback' => '__return_true',
+		],
+	] );
+
+	register_rest_route( 'lumokit/v1', '/sync-block-acf', [
+		[
+			'methods'             => WP_REST_Server::CREATABLE,
+			'callback'            => 'lumokit_sync_block_acf',
+			'permission_callback' => 'lumokit_auth_check',
 		],
 	] );
 
@@ -492,6 +500,168 @@ function lumokit_build_page( WP_REST_Request $request ) {
 		'page_url' => get_permalink( $page_id ),
 		'edit_url' => admin_url( 'post.php?post=' . $page_id . '&action=edit' ),
 		'message'  => 'Page ' . $action . ' with ' . count( $block_names ) . ' block(s).',
+	] );
+}
+
+/**
+ * POST /wp-json/lumokit/v1/sync-block-acf
+ *
+ * Updates ACF data on existing block instances without touching the page's
+ * block structure or other blocks' data. Use this when a component's schema
+ * default has been updated and existing pages need to pick up the new value.
+ *
+ * Body:
+ *   block_name:  string   — e.g. "lumo/hero"
+ *   page_slugs:  string[] — optional. If omitted, all pages containing the block are updated.
+ *   fields:      object   — {field_name: new_value}. For image fields, value is a URL
+ *                          (resolved to attachment ID server-side) or a numeric attachment ID.
+ *   dry_run:     bool     — optional. If true, returns what would change without writing.
+ */
+function lumokit_sync_block_acf( WP_REST_Request $request ) {
+	$body = $request->get_json_params();
+
+	$block_name = $body['block_name'] ?? '';
+	$page_slugs = $body['page_slugs'] ?? null;
+	$fields     = $body['fields']     ?? [];
+	$dry_run    = ! empty( $body['dry_run'] );
+
+	if ( empty( $block_name ) || ! is_array( $fields ) || empty( $fields ) ) {
+		return new WP_Error( 'missing_field', 'Required: block_name, fields (non-empty object).', [ 'status' => 400 ] );
+	}
+
+	$short_name = 'acf/' . lumokit_block_short_name( $block_name );
+
+	// Resolve target pages
+	$pages = [];
+	if ( is_array( $page_slugs ) && ! empty( $page_slugs ) ) {
+		foreach ( $page_slugs as $slug ) {
+			$slug = sanitize_title( $slug );
+			$p = get_page_by_path( $slug, OBJECT, 'page' );
+			if ( $p ) {
+				$pages[] = $p;
+			}
+		}
+	} else {
+		// Scan all pages for the block marker. Cheap LIKE search on post_content.
+		global $wpdb;
+		$like = '%' . $wpdb->esc_like( '<!-- wp:' . $short_name ) . '%';
+		$ids  = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT ID FROM {$wpdb->posts} WHERE post_type = 'page' AND post_status = 'publish' AND post_content LIKE %s",
+				$like
+			)
+		);
+		foreach ( $ids as $id ) {
+			$pages[] = get_post( (int) $id );
+		}
+	}
+
+	// Identify which fields are image-typed for this block (need URL → attachment ID conversion)
+	$components = get_option( LUMOKIT_OPTION_KEY, [] );
+	$schema     = $components[ $block_name ]['schema'] ?? [];
+	$image_fields = [];
+	foreach ( $schema as $field_def ) {
+		if ( ( $field_def['type'] ?? '' ) === 'image' ) {
+			$image_fields[ sanitize_key( $field_def['name'] ) ] = true;
+		}
+	}
+
+	// Pre-resolve image URLs to attachment IDs (or leave numeric IDs as-is)
+	$resolved_fields = [];
+	$unresolved      = [];
+	foreach ( $fields as $name => $value ) {
+		$name = sanitize_key( $name );
+		if ( isset( $image_fields[ $name ] ) ) {
+			if ( is_numeric( $value ) ) {
+				$resolved_fields[ $name ] = (int) $value;
+			} elseif ( is_string( $value ) && filter_var( $value, FILTER_VALIDATE_URL ) ) {
+				$attachment_id = attachment_url_to_postid( $value );
+				if ( $attachment_id ) {
+					$resolved_fields[ $name ] = $attachment_id;
+				} else {
+					$unresolved[ $name ] = $value;
+				}
+			} else {
+				$unresolved[ $name ] = $value;
+			}
+		} else {
+			$resolved_fields[ $name ] = $value;
+		}
+	}
+
+	$updated = [];
+	$skipped = [];
+
+	foreach ( $pages as $page ) {
+		$blocks       = parse_blocks( $page->post_content );
+		$changed      = false;
+		$fields_done  = [];
+		$blocks_count = 0;
+
+		$walk = function ( &$blocks_ref ) use ( &$walk, &$changed, &$fields_done, &$blocks_count, $short_name, $resolved_fields ) {
+			foreach ( $blocks_ref as &$block ) {
+				if ( ( $block['blockName'] ?? '' ) === $short_name ) {
+					$blocks_count++;
+					if ( ! isset( $block['attrs']['data'] ) || ! is_array( $block['attrs']['data'] ) ) {
+						$block['attrs']['data'] = [];
+					}
+					foreach ( $resolved_fields as $name => $new_value ) {
+						$old = $block['attrs']['data'][ $name ] ?? null;
+						if ( $old != $new_value ) {
+							$block['attrs']['data'][ $name ] = $new_value;
+							$changed = true;
+							$fields_done[ $name ] = true;
+						}
+					}
+				}
+				if ( ! empty( $block['innerBlocks'] ) ) {
+					$walk( $block['innerBlocks'] );
+				}
+			}
+			unset( $block );
+		};
+		$walk( $blocks );
+
+		if ( $blocks_count === 0 ) {
+			$skipped[] = [ 'slug' => $page->post_name, 'reason' => 'block_not_found' ];
+			continue;
+		}
+
+		if ( ! $changed ) {
+			$skipped[] = [ 'slug' => $page->post_name, 'reason' => 'no_changes', 'blocks' => $blocks_count ];
+			continue;
+		}
+
+		$entry = [
+			'slug'           => $page->post_name,
+			'page_id'        => $page->ID,
+			'blocks_updated' => $blocks_count,
+			'fields_updated' => array_keys( $fields_done ),
+		];
+
+		if ( ! $dry_run ) {
+			$new_content = serialize_blocks( $blocks );
+			$res = wp_update_post( [
+				'ID'           => $page->ID,
+				'post_content' => $new_content,
+			], true );
+			if ( is_wp_error( $res ) ) {
+				$entry['error'] = $res->get_error_message();
+			}
+		} else {
+			$entry['dry_run'] = true;
+		}
+
+		$updated[] = $entry;
+	}
+
+	return rest_ensure_response( [
+		'success'    => true,
+		'block_name' => $block_name,
+		'dry_run'    => $dry_run,
+		'updated'    => $updated,
+		'skipped'    => $skipped,
+		'unresolved' => (object) $unresolved,
 	] );
 }
 
