@@ -103,6 +103,7 @@ def validate_component(component: dict) -> tuple[list[str], list[str]]:
     # Mustache / schema alignment
     # Global Bridge variables — resolved at render time, never part of component schema.
     GLOBAL_VARS = {
+        "site_url",
         "site_phone", "site_email", "site_address", "site_company_name",
         "site_reviews_score", "site_reviews_testimonials", "site_booking_api_key",
         "site_booking_cta_link", "site_booking_widget_id", "site_trustindex_script",

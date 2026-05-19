@@ -26,9 +26,16 @@ python3 tools/upload_media.py --dir clients/patricia-teles/content/image --manif
 # 2. Generera bundle från innehåll + manifest
 python3 clients/patricia-teles/build_bundle.py
 
-# 3. Pusha bundle till WP
-python3 tools/build_all.py clients/patricia-teles/bundle.json
+# 3. Pusha — alltid --only för enskilda komponenter, --dry-run först
+python3 tools/build_all.py clients/patricia-teles/bundle.json --only lumo/<komp> --dry-run
+python3 tools/build_all.py clients/patricia-teles/bundle.json --only lumo/<komp>
 ```
+
+**Innan första push i ny session, eller efter backup-restore:**
+```bash
+python3 tools/snapshot_live.py --client patricia-teles
+```
+Se [CLAUDE.md → Push-protokoll](../../CLAUDE.md) för fullständiga regler.
 
 ## Widgets (sätts i WP Admin → LumoKit → Inställningar)
 - `site_reviews_score` = `[trustindex data-widget-id=4f20a8970e226793fc16fb72bda]`

@@ -14,8 +14,9 @@ You operate strictly within the WAT framework. Probabilistic AI (you) handles re
 **Layer 1: Workflows (The Instructions)**
 - Markdown SOPs stored in `workflows/` (or referenced below in this document).
 - Read these to understand exactly how to design a component, what Tailwind classes are allowed, and how the ACF schemas should be formatted.
-- `workflows/build_site_structure.md` — **Start here for any new client build.** Covers: brief → component audit → page spec → `build_site.py`.
-- `workflows/design_engine_prd.md` — Component design from screenshots. Called as a sub-step by `build_site_structure.md` when new components are needed.
+- `workflows/new_client.md` — **End-to-end SOP för ny klient.** Från avtals-signering till lansering + klient-överlämning. 8 faser. Använd som master-flöde — pekar till alla relevanta memory-regler per steg.
+- `workflows/build_site_structure.md` — Detaljerad design-fas (brief → komponent-audit → page-spec → `build_site.py`). Använd som komplement till `new_client.md`.
+- `workflows/design_engine_prd.md` — Komponent-design från screenshots. Sub-step när nya komponenter behövs.
 
 **Layer 2: Agents (The Decision-Maker - YOU)**
 - Read the client brief and the relevant workflows.
@@ -86,6 +87,105 @@ Varje klient har sin **egna** `.tmp/`-mapp under `clients/<name>/.tmp/`. Kliente
 - **Kompilering:** `python3 tools/build_all.py clients/<klient>/bundle.json` — scratch skrivs automatiskt till `clients/<klient>/.tmp/`
 - **`compile_tailwind.py` utan argument** är VARNING-läge — använd aldrig i produktion
 - **Root `.tmp/`** är legacy — använd inte för nya klientbuilds
+
+## Push-protokoll — KRITISK REGEL (gäller alla klienter)
+**Live WP är auktoritär. Källkoden får aldrig skriva över live utan explicit intention.**
+
+Bakgrund: 2026-05-18 skrev en oavsiktlig full-bundle-push över 16+ direkt-patchade komponenter på alvsjotandvard. Räddades med backup-restore. Skydden nedan är obligatoriska i ALLA klient-pushar.
+
+**Claude pushar — inte användaren.** Följande gäller mig i varje session:
+
+1. **Alltid `--only <namn>` vid push.** Aldrig bred deploy.
+   ```bash
+   python3 tools/build_all.py clients/<klient>/bundle.json --production --only lumo/hero
+   ```
+2. **Alltid `--dry-run` först på produktion.** Visa output, vänta på OK från användaren, sen kör skarpt.
+3. **Efter backup-restore eller manuell WP-ändring** → kör `snapshot_live.py` FÖRST:
+   ```bash
+   python3 tools/snapshot_live.py --client <klient> --production
+   ```
+4. **Aldrig `--force-overwrite-drift` eller `--skip-drift-check`** utan att användaren explicit godkänt det efter att ha sett drift-rapporten.
+5. **Om drift-check aborterar** → fråga användaren vad som ska göras. Anta aldrig att forcering är säkert.
+
+**Pull före patch:** Innan du editar en komponent vars source kan vara stale: kör `tools/pull_from_wp.py lumo/<komp> --save --client <klient>` och baka in resultatet i source. Annars riskerar du att pusha en stale version.
+
+**`push_to_wp.py` varnar** om payload skiljer från `bundle.json` — det betyder att din patch kommer skrivas över nästa gång bundle pushas. Lyft in patchen i source eller använd `build_all.py --only` istället.
+
+Verktygskedja för nya klienter:
+- `tools/snapshot_live.py` — etablera baseline (kör efter restore)
+- `tools/build_all.py --only ... --dry-run` — test
+- `tools/build_all.py --only ...` — skarpt
+- `clients/<klient>/.last_pushed_components.json` — auto-uppdaterad 3-way baseline
+
+## Klient-tiers — KRITISK REGEL för nya klienter
+LumoKit har två baseline-tiers. Varje ny klient utgår från en av dessa, inte från scratch.
+
+**BASIC** = `clients/patricia-teles/`
+- Standard LumoKit-sajt: hero, header, footer, treatments-grid, content-blocks, faq, contact-panel, reviews, map
+- Det här är vad "en typisk LumoKit-sajt" ser ut som
+- Använd som baseline för normala kund-paket
+
+**Universellt:** Alla sidor ramas in av `lumo/site-header` (överst) och `lumo/site-footer` (nederst) — samma komponent på alla sidor, inte per-page-varianter. Nedan listas bara det page-specifika innehållet däremellan.
+
+**BASIC-tier sidstruktur (4 sidmallar):**
+
+| Sidmall | Content-flöde (mellan header/footer) | Hero-delning |
+|---|---|---|
+| **Hem** (`/hem`) | hero → intro → treatments-grid → content-block-1 → reviews-section → contact-panel | Egen `hero-hem` |
+| **Behandling** (× N — t.ex. `/invisalign`, `/akuttandvard`) | hero → intro → content-block-1 → content-block-2 → faq → contact-panel | Delar `hero-treatment` (per-slug varianter via make_variant) |
+| **Om oss** (`/om-oss`) | hero → intro → content-block-1 → content-block-2 → text-blocks → map-section → contact-panel | Delar template med Kontakt |
+| **Kontakt** (`/kontakt`) | hero → contact-panel-with-form → map-section | Delar template med Om oss |
+
+**Regel:** Alla behandlingar har samma struktur och ordning. Lägg aldrig till en behandling med annan layout — då bryts mönstret och make_variant-flödet (per `feedback_shared_block_content_loss`).
+
+**PREMIUM-tier sidstruktur (6 mönster — alvsjotandvard):**
+
+| Mönster | Sidor | Content-flöde |
+|---|---|---|
+| **Hem** | `/hem` | hero → treatments-grid → cost-calculator → reviews → cb-1 → emergency-banner → team → photo-tour |
+| **Om oss (utbyggd)** | `/om-oss` | page-hero → cb-1 → text-blocks → team → tandvardsstod → organisation → cta-strip → map → arbeta-med-oss → feedback-form |
+| **Behandling — standard** | `/karies`, `/tandblekning`, `/tandfasader`, `/tandsten` | treatment-hero → info-grid → cb-1 → cb-2 → cta-strip → faq |
+| **Behandling + premium-widget** | `/implantat`, `/tandreglering`, `/tandvardsradsla` | treatment-hero → info-grid → cb-1 → **\<premium-widget\>** → cb-2 → cta-strip → faq |
+| **Behandling — Akut (full premium)** | `/akut-tandvard` | emergency-strip → treatment-hero → dental-triage-widget → cb-1 → process-steps → cb-2 → price-row → cta-strip → faq |
+| **Specialsidor** | `/pedodonti`, `/rantefritt`, `/kontakt`, `/remiss-2` | Page-specific layouts med dedikerade widgets |
+
+**Premium-widget per behandling:** Implantat → `treatment-stepper`, Tandreglering → `process-steps`, Tandvårdsrädsla → `fear-matcher`, Akut → `dental-triage-widget` + `process-steps`. Räntefritt-sidan → `payment-calculator`.
+
+**PREMIUM** = `clients/alvsjotandvard/`
+- Allt i BASIC + premium-features-suite (`fear-matcher`, `treatment-stepper`, `cost-calculator`, `payment-calculator`, `dental-triage-widget`, `remiss-widget`)
+- Plus avancerade hero (video-toggle, region-badge, multiple medaljer, Ring-knapp), `process-steps`, `cta-strip`, `info-grid`, m.fl.
+- Premium-features är **extra kostnad** per `feedback_premium_features_scope.md` — använd inte automatiskt
+
+**Vid ny klient — Claude måste alltid fråga vilken tier** innan jag börjar kopiera. Default är BASIC om kunden inte uttryckligen betalt för premium-paket.
+
+Workflow:
+```bash
+# BASIC (vanligaste fallet):
+cp -r clients/patricia-teles clients/<ny-kund>
+
+# PREMIUM (bara om kunden köpt premium):
+cp -r clients/alvsjotandvard clients/<ny-kund>
+
+# Sen: ändra .env, brand-färger, content, design-system, slugs, etc.
+```
+
+Aldrig blanda — premium-komponenter ska inte krypa in i en basic-sajt utan att kunden betalat för dem.
+
+**Design ÄR ALLTID UNIK per klient.** Baseline-kopiering ärver bara struktur (sidmallar, block-flöde, ACF, backend). Design (färger, typografi, layout-detaljer, visuell stil) MÅSTE bytas ut. Aldrig leverera två sajter som ser ut likadant. Se `feedback_design_uniqueness`.
+
+**ACF-schemas är kontrakt.** Fält-namn (`name`) får aldrig ändras efter att en komponent har data — kundens innehåll försvinner då. `label` får ändras. Default-värden är bara admin-UX, inte runtime-enforcement. Bilder hårdkodas i template, inte via schema default. Se `feedback_acf_field_principles`.
+
+**ALLT användarsynligt innehåll i en sektion SKA vara redigerbart via ACF.** Headlines, eyebrows, ingress, knapptexter, länktexter, USP-punchlines, FAQ-rader, stats — alla texter exponeras som ACF-fält. Undantag: HTML-struktur, CSS-klasser, brand-identitet (logo, site-namn — använd `{{site_*}}` globals), bilder (hårdkodas men alt-text är ACF). Aldrig anta att en text är "design-fast" — kunden ska kunna ändra utan att be om hjälp.
+
+**ALLA komponenter ska vara fullt mobile-responsiva.** Mobile-first är default — designa för mobil först, bygg upp till tablet/desktop. Brytpunkter: mobil ≤600px, tablet 601–900px, desktop ≥901px. Hamburger vid ≤900px. Granska ALLTID mobil + tablet + desktop, inte bara desktop. Se `feedback_mobile_responsive`.
+
+**Tillgänglighet (WCAG 2.1 AA) är default.** Lagkrav i SE/EU. Kontrast ≥4.5:1, synliga focus-states, keyboard-navigation, ARIA-labels, `lang="sv"`, reduced-motion-respekt. Lighthouse a11y-score ≥90 vid lansering. Se `feedback_accessibility_wcag`.
+
+**SEO-grunder på plats per sida.** Title + meta description + OG-tags + structured data (LocalBusiness eller relevant typ) + canonical + sitemap. H1 endast en gång. Se `feedback_seo_basics`.
+
+**GDPR + cookies obligatoriskt.** Cookie-banner med samtycke (default CookieYes), 3rd party scripts (Trustindex, analytics) blockerade tills accept, integritetspolicy + cookie-policy publicerade och länkade i footer. Se `feedback_gdpr_cookies`.
+
+**Lansering = pre-flight-checklista.** Aldrig deploya till live utan att gå igenom `feedback_launch_checklist` (funktion, innehåll, SEO, teknik, prestanda, a11y, mobil, GDPR, backup).
 
 ## Mission Statement
 Your job is to read instructions, design beautiful Tailwind components, output precise JSON schemas, call the right tools to compile/push, and build bulletproof WordPress sites. Keep it reliable and structured.

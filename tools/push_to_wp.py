@@ -55,6 +55,40 @@ def check_env_guard(allow_production: bool) -> None:
         print(f"[WARN] Pushing to PRODUCTION: {WP_URL}")
 
 
+def warn_if_drift_against_bundle(block_name: str, payload_html: str, payload_path: Path) -> None:
+    """Varna om det finns en bundle.json som har en annan version av denna komponent.
+    Förhindrar mönstret: direkt-patcha live → bundle blir stale → nästa rebuild överskriver patchen."""
+    # Leta uppåt efter en bundle.json (clients/<name>/bundle.json eller .tmp-syskon)
+    candidates = []
+    for parent in payload_path.resolve().parents:
+        for name in ("bundle.json",):
+            cand = parent / name
+            if cand.exists():
+                candidates.append(cand)
+        if (parent / "clients").exists():
+            break
+    if not candidates:
+        return
+    bundle_path = candidates[0]
+    try:
+        bundle = json.loads(bundle_path.read_text(encoding="utf-8"))
+    except Exception:
+        return
+    for c in bundle.get("components", []):
+        if c.get("block_name") == block_name:
+            bundle_html = (c.get("html_template") or "").strip()
+            if bundle_html != payload_html.strip():
+                print()
+                print(f"  [DRIFT-WARNING] {block_name} skiljer sig från bundle.json:")
+                print(f"                  bundle ({bundle_path.relative_to(ROOT)}): {len(bundle_html)} bytes")
+                print(f"                  payload (denna push):                    {len(payload_html.strip())} bytes")
+                print(f"                  Om bundle pushas via build_all.py senare skrivs denna patch ÖVER.")
+                print(f"                  → Uppdatera bundle/source så patchen finns i båda lägena, eller")
+                print(f"                  → Använd build_all.py --only {block_name} istället för push_to_wp.py.")
+                print()
+            return
+
+
 def push(payload_path: str, allow_production: bool = False) -> None:
     check_env_guard(allow_production)
 
@@ -72,6 +106,9 @@ def push(payload_path: str, allow_production: bool = False) -> None:
     if missing:
         print(f"[ERROR] Payload missing required fields: {missing}")
         sys.exit(1)
+
+    # Drift-warning mot bundle.json (om en sådan finns)
+    warn_if_drift_against_bundle(payload["block_name"], payload.get("html_template", ""), path)
 
     # --- Send POST request (with retry) ----------------------------------
     print(f"[INFO] Pushing '{payload['block_name']}' to {ENDPOINT} ...")

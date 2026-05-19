@@ -26,9 +26,16 @@ python3 tools/upload_media.py --dir clients/ostra-bageriet/content/image --manif
 # 2. Generera bundle från innehåll + manifest
 python3 clients/ostra-bageriet/build_bundle.py
 
-# 3. Pusha bundle till WP
-python3 tools/build_all.py clients/ostra-bageriet/bundle.json
+# 3. Pusha — alltid --only för enskilda komponenter, --dry-run först
+python3 tools/build_all.py clients/ostra-bageriet/bundle.json --only lumo/<komp> --dry-run
+python3 tools/build_all.py clients/ostra-bageriet/bundle.json --only lumo/<komp>
 ```
+
+**Innan första push i ny session, eller efter backup-restore:**
+```bash
+python3 tools/snapshot_live.py --client ostra-bageriet
+```
+Se [CLAUDE.md → Push-protokoll](../../CLAUDE.md) för fullständiga regler.
 
 ## Widgets
 <!-- Fyll i när WP Admin → LumoKit → Inställningar är konfigurerat -->

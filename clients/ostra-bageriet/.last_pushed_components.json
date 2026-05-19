@@ -1,0 +1,3067 @@
+{
+  "lumo/ob-catering-packages": {
+    "block_name": "lumo/ob-catering-packages",
+    "html_template": "<style>.ob-packages{padding:20px 28px 80px;}.ob-packages-inner{max-width:1100px;margin:0 auto;}.ob-pkg-eyebrow{font-family:var(--ob-font-sans);font-size:12px;font-weight:600;letter-spacing:0.20em;text-transform:uppercase;color:var(--ob-saffran-500);margin-bottom:12px;}.ob-pkg-title{font-family:var(--ob-font-display);font-weight:700;font-size:clamp(36px,5vw,64px);line-height:1.0;letter-spacing:-0.02em;color:var(--ob-ink);text-wrap:balance;margin-bottom:10px;}.ob-pkg-title-hand{font-family:var(--ob-font-hand);font-weight:700;font-size:clamp(34px,4.5vw,58px);color:var(--ob-skog-500);display:block;line-height:1.05;}.ob-pkg-lede{font-family:var(--ob-font-sans);font-size:16px;line-height:1.6;color:var(--ob-ink-2);max-width:600px;margin-bottom:48px;text-wrap:pretty;}.ob-pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}.ob-pkg-card{background:var(--ob-paper);border:1px solid var(--ob-border);border-radius:var(--ob-r-lg);overflow:hidden;box-shadow:var(--ob-shadow-1);display:flex;flex-direction:column;transition:transform 180ms,box-shadow 180ms;}.ob-pkg-card:hover{transform:translateY(-3px);box-shadow:var(--ob-shadow-2);}.ob-pkg-card-img{height:200px;background-size:cover;background-position:center;}.ob-pkg-card-body{padding:24px;flex:1;display:flex;flex-direction:column;}.ob-pkg-card-eyebrow{font-family:var(--ob-font-sans);font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--ob-saffran-500);margin-bottom:8px;}.ob-pkg-card-title{font-family:var(--ob-font-display);font-weight:600;font-size:22px;color:var(--ob-ink);line-height:1.15;margin-bottom:8px;}.ob-pkg-card-desc{font-family:var(--ob-font-sans);font-size:14px;line-height:1.55;color:var(--ob-ink-2);flex:1;margin-bottom:16px;}.ob-pkg-includes{list-style:none;display:flex;flex-direction:column;gap:5px;margin-bottom:20px;}.ob-pkg-includes li{font-family:var(--ob-font-sans);font-size:13px;color:var(--ob-ink-2);display:flex;align-items:center;gap:8px;}.ob-pkg-includes li::before{content:\"\";display:inline-block;width:14px;height:14px;flex-shrink:0;background:var(--ob-skog-100) url(\"data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.5 7.2l2 2.2L10.5 4.8' stroke='%233F6E36' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\") no-repeat center/contain;border-radius:50%;}.ob-pkg-price-row{display:flex;align-items:baseline;gap:4px;margin-bottom:18px;}.ob-pkg-price{font-family:var(--ob-font-sans);font-weight:700;font-size:26px;color:var(--ob-ink);font-feature-settings:\"tnum\" 1;}.ob-pkg-price-unit{font-family:var(--ob-font-sans);font-size:14px;color:var(--ob-ink-3);}.ob-pkg-min{font-size:12px;color:var(--ob-ink-3);margin-bottom:16px;}.ob-btn-green-sm{background:var(--ob-skog-500);color:var(--ob-cream);padding:12px 22px;border-radius:var(--ob-r-pill);font-family:var(--ob-font-sans);font-weight:600;font-size:14px;display:inline-block;text-align:center;transition:background 150ms,transform 150ms;}.ob-btn-green-sm:hover{background:var(--ob-skog-600);transform:translateY(-1px);}.ob-pkg-popular{background:var(--ob-saffran-400);color:#fff;border:2px solid var(--ob-saffran-400);}.ob-pkg-popular .ob-pkg-card-eyebrow{color:rgba(255,255,255,0.75);}.ob-pkg-popular .ob-pkg-card-title{color:#fff;}.ob-pkg-popular .ob-pkg-card-desc{color:rgba(255,255,255,0.80);}.ob-pkg-popular .ob-pkg-includes li{color:rgba(255,255,255,0.85);}.ob-pkg-popular .ob-pkg-includes li::before{background-color:rgba(255,255,255,0.25);background-image:url(\"data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.5 7.2l2 2.2L10.5 4.8' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\");}.ob-pkg-popular .ob-pkg-price{color:#fff;}.ob-pkg-popular .ob-pkg-price-unit{color:rgba(255,255,255,0.70);}.ob-pkg-popular .ob-pkg-min{color:rgba(255,255,255,0.55);}.ob-pkg-popular-badge{display:inline-block;background:rgba(255,255,255,0.22);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 10px;border-radius:var(--ob-r-pill);margin-bottom:8px;width:fit-content;}.ob-pkg-popular .ob-btn-green-sm{background:#fff;color:var(--ob-saffran-500);}.ob-pkg-popular .ob-btn-green-sm:hover{background:var(--ob-cream);}@media(max-width:860px){.ob-pkg-grid{grid-template-columns:1fr 1fr;}}@media(max-width:580px){.ob-pkg-grid{grid-template-columns:1fr;}.ob-packages{padding:20px 20px 60px;}}</style><section id='paket' class='ob-packages'><div class='ob-packages-inner'><p class='ob-pkg-eyebrow'>{{section_eyebrow}}</p><h2 class='ob-pkg-title'>{{section_title}}<br><span class='ob-pkg-title-hand'>{{section_title_hand}}</span></h2><p class='ob-pkg-lede'>{{section_lede}}</p><div class='ob-pkg-grid'><div class='ob-pkg-card'><div class='ob-pkg-card-img' style='background-image:url({{pkg_1_image}})'></div><div class='ob-pkg-card-body'><p class='ob-pkg-card-eyebrow'>{{pkg_1_eyebrow}}</p><h3 class='ob-pkg-card-title'>{{pkg_1_title}}</h3><p class='ob-pkg-card-desc'>{{pkg_1_desc}}</p><ul class='ob-pkg-includes'><li>Färskbakade frallor &amp; giffel</li><li>Hemkokt sylt + smör</li><li>Kalkon, ost, sallad</li><li>Juice + kaffe i termos</li></ul><div class='ob-pkg-price-row'><span class='ob-pkg-price'>{{pkg_1_price}}</span><span class='ob-pkg-price-unit'>/ person</span></div><p class='ob-pkg-min'>{{pkg_1_min}}</p><a href='#offert' class='ob-btn-green-sm'>{{pkg_1_btn}}</a></div></div><div class='ob-pkg-card ob-pkg-popular'><div class='ob-pkg-card-img' style='background-image:url({{pkg_2_image}})'></div><div class='ob-pkg-card-body'><span class='ob-pkg-popular-badge'>Mest beställda</span><p class='ob-pkg-card-eyebrow'>{{pkg_2_eyebrow}}</p><h3 class='ob-pkg-card-title'>{{pkg_2_title}}</h3><p class='ob-pkg-card-desc'>{{pkg_2_desc}}</p><ul class='ob-pkg-includes'><li>4 sorters smörgåsar</li><li>Hemgjord basilika- &amp; tomatpesto</li><li>Sallad + chips</li><li>Vatten + läsk tillval</li></ul><div class='ob-pkg-price-row'><span class='ob-pkg-price'>{{pkg_2_price}}</span><span class='ob-pkg-price-unit'>/ person</span></div><p class='ob-pkg-min'>{{pkg_2_min}}</p><a href='#offert' class='ob-btn-green-sm'>{{pkg_2_btn}}</a></div></div><div class='ob-pkg-card'><div class='ob-pkg-card-img' style='background-image:url({{pkg_3_image}})'></div><div class='ob-pkg-card-body'><p class='ob-pkg-card-eyebrow'>{{pkg_3_eyebrow}}</p><h3 class='ob-pkg-card-title'>{{pkg_3_title}}</h3><p class='ob-pkg-card-desc'>{{pkg_3_desc}}</p><ul class='ob-pkg-includes'><li>Hummus, paprikaröra, labneh</li><li>Falafel, halloumi, vinbladsdolmar</li><li>Bulgur + bröd</li><li>Sötsaker &amp; baklava</li></ul><div class='ob-pkg-price-row'><span class='ob-pkg-price'>{{pkg_3_price}}</span><span class='ob-pkg-price-unit'>/ person</span></div><p class='ob-pkg-min'>{{pkg_3_min}}</p><a href='#offert' class='ob-btn-green-sm'>{{pkg_3_btn}}</a></div></div></div></div></section>",
+    "schema": [
+      {
+        "default": "Cateringpaket",
+        "label": "Etikett",
+        "name": "section_eyebrow",
+        "type": "text"
+      },
+      {
+        "default": "Välj ditt paket.",
+        "label": "Rubrik",
+        "name": "section_title",
+        "type": "text"
+      },
+      {
+        "default": "Eller bygg ett eget.",
+        "label": "Rubrik handstil",
+        "name": "section_title_hand",
+        "type": "text"
+      },
+      {
+        "default": "Tre färdiga paket — frukost, lunch och bjudning. Alla inkluderar leverans inom city. Minsta beställning 8 personer.",
+        "label": "Ingress",
+        "name": "section_lede",
+        "type": "textarea"
+      },
+      {
+        "default": "https://rivy.templweb.com/wp-content/uploads/2026/04/breads.jpg",
+        "label": "Paket 1 — bild",
+        "name": "pkg_1_image",
+        "type": "image"
+      },
+      {
+        "default": "Frukost",
+        "label": "Paket 1 — etikett",
+        "name": "pkg_1_eyebrow",
+        "type": "text"
+      },
+      {
+        "default": "Frukost & frallor",
+        "label": "Paket 1 — titel",
+        "name": "pkg_1_title",
+        "type": "text"
+      },
+      {
+        "default": "Perfekt för morgonmöten. Varmt bröd, pålägg och kaffe i termos levererat 07:30.",
+        "label": "Paket 1 — beskrivning",
+        "name": "pkg_1_desc",
+        "type": "textarea"
+      },
+      {
+        "default": "85:-",
+        "label": "Paket 1 — pris",
+        "name": "pkg_1_price",
+        "type": "text"
+      },
+      {
+        "default": "Min. 8 pers · leverans 07:30–09:00",
+        "label": "Paket 1 — minimiorder",
+        "name": "pkg_1_min",
+        "type": "text"
+      },
+      {
+        "default": "Beställ frukost →",
+        "label": "Paket 1 — knapptext",
+        "name": "pkg_1_btn",
+        "type": "text"
+      },
+      {
+        "default": "https://rivy.templweb.com/wp-content/uploads/2026/04/baguette-salami.jpg",
+        "label": "Paket 2 — bild",
+        "name": "pkg_2_image",
+        "type": "image"
+      },
+      {
+        "default": "Lunch",
+        "label": "Paket 2 — etikett",
+        "name": "pkg_2_eyebrow",
+        "type": "text"
+      },
+      {
+        "default": "Italienska smörgåsar",
+        "label": "Paket 2 — titel",
+        "name": "pkg_2_title",
+        "type": "text"
+      },
+      {
+        "default": "Östras signaturlunch. Prosciutto, mortadella, salami och vegetariskt — allt med hemgjord pesto.",
+        "label": "Paket 2 — beskrivning",
+        "name": "pkg_2_desc",
+        "type": "textarea"
+      },
+      {
+        "default": "120:-",
+        "label": "Paket 2 — pris",
+        "name": "pkg_2_price",
+        "type": "text"
+      },
+      {
+        "default": "Min. 8 pers · leverans 11:00–13:00",
+        "label": "Paket 2 — minimiorder",
+        "name": "pkg_2_min",
+        "type": "text"
+      },
+      {
+        "default": "Beställ lunch →",
+        "label": "Paket 2 — knapptext",
+        "name": "pkg_2_btn",
+        "type": "text"
+      },
+      {
+        "default": "https://rivy.templweb.com/wp-content/uploads/2026/05/meze-platter.png",
+        "label": "Paket 3 — bild",
+        "name": "pkg_3_image",
+        "type": "image"
+      },
+      {
+        "default": "Bjudning",
+        "label": "Paket 3 — etikett",
+        "name": "pkg_3_eyebrow",
+        "type": "text"
+      },
+      {
+        "default": "Mezetallrik",
+        "label": "Paket 3 — titel",
+        "name": "pkg_3_title",
+        "type": "text"
+      },
+      {
+        "default": "För after-work, kick-off och kundmöten. Orientaliska smaker, vackert upplagt.",
+        "label": "Paket 3 — beskrivning",
+        "name": "pkg_3_desc",
+        "type": "textarea"
+      },
+      {
+        "default": "165:-",
+        "label": "Paket 3 — pris",
+        "name": "pkg_3_price",
+        "type": "text"
+      },
+      {
+        "default": "Min. 10 pers · leverans efter överenskommelse",
+        "label": "Paket 3 — minimiorder",
+        "name": "pkg_3_min",
+        "type": "text"
+      },
+      {
+        "default": "Beställ mezetallrik →",
+        "label": "Paket 3 — knapptext",
+        "name": "pkg_3_btn",
+        "type": "text"
+      }
+    ],
+    "title": "Östra Bageriet — Cateringpaket"
+  },
+  "lumo/ob-catering-preview": {
+    "block_name": "lumo/ob-catering-preview",
+    "html_template": "<style>.ob-catering-preview{padding:80px 20px;}.ob-catering-preview-inner{max-width:1320px;margin:0 auto;}.ob-section-header{margin-bottom:40px;}.ob-section-eyebrow{font-family:var(--ob-font-sans);font-size:12px;font-weight:600;letter-spacing:0.20em;text-transform:uppercase;color:var(--ob-saffran-500);margin-bottom:12px;}.ob-section-title{font-family:var(--ob-font-display);font-weight:700;font-size:clamp(32px,4vw,56px);line-height:1.05;letter-spacing:-0.015em;color:var(--ob-ink);text-wrap:balance;}.ob-section-title .ob-hand-accent{font-style:italic;color:var(--ob-skog-500);}.ob-section-lede{font-family:var(--ob-font-sans);font-size:17px;line-height:1.6;color:var(--ob-ink-2);max-width:560px;margin-top:12px;}.ob-catering-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}.ob-catering-card{background:var(--ob-paper);border:1px solid var(--ob-border);border-radius:var(--ob-r-lg);overflow:hidden;box-shadow:var(--ob-shadow-2);transition:transform 260ms cubic-bezier(0.22,0.61,0.36,1),box-shadow 260ms;text-decoration:none;display:block;color:var(--ob-fg);}.ob-catering-card:hover{transform:translateY(-5px);box-shadow:var(--ob-shadow-3);}.ob-catering-card-img{height:200px;background-size:cover;background-position:center;}.ob-catering-card-body{padding:24px;}.ob-catering-card-eyebrow{font-family:var(--ob-font-sans);font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--ob-saffran-500);margin-bottom:6px;}.ob-catering-card-title{font-family:var(--ob-font-display);font-weight:600;font-size:22px;line-height:1.15;color:var(--ob-ink);margin-bottom:8px;}.ob-catering-card-desc{font-family:var(--ob-font-sans);font-size:14px;line-height:1.55;color:var(--ob-ink-2);}.ob-catering-card-price-row{display:flex;align-items:baseline;gap:5px;padding-top:14px;margin-top:14px;border-top:1px dashed var(--ob-border);}.ob-catering-card-price{font-family:var(--ob-font-sans);font-weight:700;font-size:20px;font-feature-settings:\"tnum\" 1;color:var(--ob-ink);}.ob-catering-card-unit{font-size:13px;color:var(--ob-ink-3);}.ob-catering-cta{margin-top:36px;}.ob-btn-green{background:var(--ob-skog-500);color:var(--ob-cream);padding:14px 28px;border-radius:var(--ob-r-pill);font-family:var(--ob-font-sans);font-weight:600;font-size:15px;display:inline-block;transition:background 150ms,transform 150ms;box-shadow:0 6px 20px -6px rgba(63,110,54,0.38);}.ob-btn-green:hover{background:var(--ob-skog-600);transform:translateY(-1px);}@media(max-width:860px){.ob-catering-cards{grid-template-columns:1fr;max-width:440px;}}@media(max-width:600px){.ob-catering-preview{padding:60px 12px;}}</style><section class='ob-catering-preview'><div class='ob-catering-preview-inner'><div class='ob-section-header'><p class='ob-section-eyebrow'>{{section_eyebrow}}</p><h2 class='ob-section-title'>{{section_title}}<br><span class='ob-hand-accent'>{{section_title_hand}}</span></h2><p class='ob-section-lede'>{{section_lede}}</p></div><div class='ob-catering-cards'><a href='/catering/' class='ob-catering-card'><div class='ob-catering-card-img' style='background-image:url({{card_1_image}})' ></div><div class='ob-catering-card-body'><p class='ob-catering-card-eyebrow'>{{card_1_eyebrow}}</p><h3 class='ob-catering-card-title'>{{card_1_title}}</h3><p class='ob-catering-card-desc'>{{card_1_desc}}</p><div class='ob-catering-card-price-row'><span class='ob-catering-card-price'>{{card_1_price}}</span><span class='ob-catering-card-unit'>/ person</span></div></div></a><a href='/catering/' class='ob-catering-card'><div class='ob-catering-card-img' style='background-image:url({{card_2_image}})' ></div><div class='ob-catering-card-body'><p class='ob-catering-card-eyebrow'>{{card_2_eyebrow}}</p><h3 class='ob-catering-card-title'>{{card_2_title}}</h3><p class='ob-catering-card-desc'>{{card_2_desc}}</p><div class='ob-catering-card-price-row'><span class='ob-catering-card-price'>{{card_2_price}}</span><span class='ob-catering-card-unit'>/ person</span></div></div></a><a href='/catering/' class='ob-catering-card'><div class='ob-catering-card-img' style='background-image:url({{card_3_image}})' ></div><div class='ob-catering-card-body'><p class='ob-catering-card-eyebrow'>{{card_3_eyebrow}}</p><h3 class='ob-catering-card-title'>{{card_3_title}}</h3><p class='ob-catering-card-desc'>{{card_3_desc}}</p><div class='ob-catering-card-price-row'><span class='ob-catering-card-price'>{{card_3_price}}</span><span class='ob-catering-card-unit'>/ person</span></div></div></a></div><div class='ob-catering-cta'><a href='{{cta_url}}' class='ob-btn-green'>{{cta_text}}</a></div></div></section>",
+    "schema": [
+      {
+        "default": "Catering",
+        "label": "Sektion — etikett",
+        "name": "section_eyebrow",
+        "type": "text"
+      },
+      {
+        "default": "Mat till mötet,",
+        "label": "Sektion — rubrik",
+        "name": "section_title",
+        "type": "text"
+      },
+      {
+        "default": "lunchen och festen.",
+        "label": "Sektion — handstil",
+        "name": "section_title_hand",
+        "type": "text"
+      },
+      {
+        "default": "Vi caterar till kontor i centrala Stockholm. Beställ senast 24h i förväg — vi packar och levererar.",
+        "label": "Sektion — ingress",
+        "name": "section_lede",
+        "type": "textarea"
+      },
+      {
+        "default": "Se alla cateringpaket →",
+        "label": "CTA-text",
+        "name": "cta_text",
+        "type": "text"
+      },
+      {
+        "default": "/catering/",
+        "label": "CTA-länk",
+        "name": "cta_url",
+        "type": "url"
+      },
+      {
+        "default": "https://rivy.templweb.com/wp-content/uploads/2026/04/breads.jpg",
+        "label": "Kort 1 — bild",
+        "name": "card_1_image",
+        "type": "image"
+      },
+      {
+        "default": "Frukost",
+        "label": "Kort 1 — etikett",
+        "name": "card_1_eyebrow",
+        "type": "text"
+      },
+      {
+        "default": "Frukost & frallor",
+        "label": "Kort 1 — titel",
+        "name": "card_1_title",
+        "type": "text"
+      },
+      {
+        "default": "Färskbakat bröd, frallor, giffel, hemkokt sylt, juice och kaffe i termos. Levereras 07:30.",
+        "label": "Kort 1 — beskrivning",
+        "name": "card_1_desc",
+        "type": "textarea"
+      },
+      {
+        "default": "85:-",
+        "label": "Kort 1 — pris",
+        "name": "card_1_price",
+        "type": "text"
+      },
+      {
+        "default": "https://rivy.templweb.com/wp-content/uploads/2026/04/baguette-salami.jpg",
+        "label": "Kort 2 — bild",
+        "name": "card_2_image",
+        "type": "image"
+      },
+      {
+        "default": "Lunch",
+        "label": "Kort 2 — etikett",
+        "name": "card_2_eyebrow",
+        "type": "text"
+      },
+      {
+        "default": "Italienska smörgåsar",
+        "label": "Kort 2 — titel",
+        "name": "card_2_title",
+        "type": "text"
+      },
+      {
+        "default": "Prosciutto, mortadella, salami, vegetariskt — packade med Östras pesto vid sidan.",
+        "label": "Kort 2 — beskrivning",
+        "name": "card_2_desc",
+        "type": "textarea"
+      },
+      {
+        "default": "120:-",
+        "label": "Kort 2 — pris",
+        "name": "card_2_price",
+        "type": "text"
+      },
+      {
+        "default": "https://rivy.templweb.com/wp-content/uploads/2026/05/meze-platter.png",
+        "label": "Kort 3 — bild",
+        "name": "card_3_image",
+        "type": "image"
+      },
+      {
+        "default": "Bjudning",
+        "label": "Kort 3 — etikett",
+        "name": "card_3_eyebrow",
+        "type": "text"
+      },
+      {
+        "default": "Mezetallrik",
+        "label": "Kort 3 — titel",
+        "name": "card_3_title",
+        "type": "text"
+      },
+      {
+        "default": "Hummus, paprikaröra, labneh, vinbladsdolmar, falafel, halloumi, bulgur.",
+        "label": "Kort 3 — beskrivning",
+        "name": "card_3_desc",
+        "type": "textarea"
+      },
+      {
+        "default": "165:-",
+        "label": "Kort 3 — pris",
+        "name": "card_3_price",
+        "type": "text"
+      }
+    ],
+    "title": "Östra Bageriet — Catering Preview"
+  },
+  "lumo/ob-food-grid": {
+    "block_name": "lumo/ob-food-grid",
+    "html_template": "<style>.ob-food-grid{max-width:1320px;margin:0 auto;padding:0 20px 60px;display:grid;grid-template-columns:1.3fr 1fr 1fr;grid-template-rows:300px 300px;gap:12px;}.ob-food-tile{position:relative;border-radius:var(--ob-r-lg);overflow:hidden;background-size:cover;background-position:center;}.ob-food-tile:first-child{grid-row:1/3;}.ob-food-tile-scrim{position:absolute;inset:0;background:linear-gradient(0deg,rgba(26,22,17,0.88) 0%,rgba(26,22,17,0.70) 25%,rgba(26,22,17,0) 55%);}.ob-food-tile-caption{position:absolute;left:20px;right:20px;bottom:20px;color:#fff;}.ob-food-tile-eyebrow{font-family:var(--ob-font-sans);font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--ob-saffran-200);margin-bottom:5px;}.ob-food-tile-name{font-family:var(--ob-font-display);font-weight:600;font-size:clamp(18px,2vw,26px);line-height:1.1;text-wrap:balance;}@media(max-width:860px){.ob-food-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}.ob-food-tile:first-child{grid-row:auto;}.ob-food-tile{height:220px;}}@media(max-width:480px){.ob-food-grid{grid-template-columns:1fr;padding:0 12px 48px;}.ob-food-tile,.ob-food-tile:first-child{height:240px;}}</style><div class=\"ob-food-grid\"><div class='ob-food-tile' style='background-image:url({{tile_1_image}})'><div class='ob-food-tile-scrim'></div><div class='ob-food-tile-caption'><p class='ob-food-tile-eyebrow'>{{tile_1_eyebrow}}</p><p class='ob-food-tile-name'>{{tile_1_name}}</p></div></div><div class='ob-food-tile' style='background-image:url({{tile_2_image}})'><div class='ob-food-tile-scrim'></div><div class='ob-food-tile-caption'><p class='ob-food-tile-eyebrow'>{{tile_2_eyebrow}}</p><p class='ob-food-tile-name'>{{tile_2_name}}</p></div></div><div class='ob-food-tile' style='background-image:url({{tile_3_image}})'><div class='ob-food-tile-scrim'></div><div class='ob-food-tile-caption'><p class='ob-food-tile-eyebrow'>{{tile_3_eyebrow}}</p><p class='ob-food-tile-name'>{{tile_3_name}}</p></div></div><div class='ob-food-tile' style='background-image:url({{tile_4_image}})'><div class='ob-food-tile-scrim'></div><div class='ob-food-tile-caption'><p class='ob-food-tile-eyebrow'>{{tile_4_eyebrow}}</p><p class='ob-food-tile-name'>{{tile_4_name}}</p></div></div><div class='ob-food-tile' style='background-image:url({{tile_5_image}})'><div class='ob-food-tile-scrim'></div><div class='ob-food-tile-caption'><p class='ob-food-tile-eyebrow'>{{tile_5_eyebrow}}</p><p class='ob-food-tile-name'>{{tile_5_name}}</p></div></div></div>",
+    "schema": [
+      {
+        "default": "https://rivy.templweb.com/wp-content/uploads/2026/04/kycklingsallad-overhead.jpg",
+        "label": "Bild 1",
+        "name": "tile_1_image",
+        "type": "image"
+      },
+      {
+        "default": "Signaturrätt",
+        "label": "Kategori 1",
+        "name": "tile_1_eyebrow",
+        "type": "text"
+      },
+      {
+        "default": "Hälsosallad med kyckling & bulgur.",
+        "label": "Namn 1",
+        "name": "tile_1_name",
+        "type": "text"
+      },
+      {
+        "default": "https://rivy.templweb.com/wp-content/uploads/2026/04/kanelbulle-fikabord.jpg",
+        "label": "Bild 2",
+        "name": "tile_2_image",
+        "type": "image"
+      },
+      {
+        "default": "Bakverk",
+        "label": "Kategori 2",
+        "name": "tile_2_eyebrow",
+        "type": "text"
+      },
+      {
+        "default": "Kanelbulle, nybakad varje morgon.",
+        "label": "Namn 2",
+        "name": "tile_2_name",
+        "type": "text"
+      },
+      {
+        "default": "https://rivy.templweb.com/wp-content/uploads/2026/04/baguette-salami.jpg",
+        "label": "Bild 3",
+        "name": "tile_3_image",
+        "type": "image"
+      },
+      {
+        "default": "Smörgåsar",
+        "label": "Kategori 3",
+        "name": "tile_3_eyebrow",
+        "type": "text"
+      },
+      {
+        "default": "Sub med salami, ost & grönsaker.",
+        "label": "Namn 3",
+        "name": "tile_3_name",
+        "type": "text"
+      },
+      {
+        "default": "https://rivy.templweb.com/wp-content/uploads/2026/04/latte-ros.jpg",
+        "label": "Bild 4",
+        "name": "tile_4_image",
+        "type": "image"
+      },
+      {
+        "default": "Kafé",
+        "label": "Kategori 4",
+        "name": "tile_4_eyebrow",
+        "type": "text"
+      },
+      {
+        "default": "Latte med latte art & hemgjord choklad.",
+        "label": "Namn 4",
+        "name": "tile_4_name",
+        "type": "text"
+      },
+      {
+        "default": "https://rivy.templweb.com/wp-content/uploads/2026/05/meze-platter.png",
+        "label": "Bild 5",
+        "name": "tile_5_image",
+        "type": "image"
+      },
+      {
+        "default": "Catering",
+        "label": "Kategori 5",
+        "name": "tile_5_eyebrow",
+        "type": "text"
+      },
+      {
+        "default": "Mezetallrik för hela kontoret.",
+        "label": "Namn 5",
+        "name": "tile_5_name",
+        "type": "text"
+      }
+    ],
+    "title": "Östra Bageriet — Food Grid"
+  },
+  "lumo/ob-hero": {
+    "block_name": "lumo/ob-hero",
+    "html_template": "<style>.ob-hero-wrap{padding:10px 10px 0;max-width:1320px;margin:0 auto;}.ob-hero{position:relative;border-radius:var(--ob-r-xl);overflow:hidden;min-height:620px;display:flex;align-items:flex-end;}@media(max-width:860px){.ob-hero{min-height:520px;border-radius:var(--ob-r-lg);}}@media(max-width:480px){.ob-hero{min-height:0;}.ob-hero-wrap{padding:8px 8px 0;}}.ob-hero-stamp{position:absolute;right:28px;bottom:28px;z-index:1;height:60px;width:auto;filter:grayscale(1) brightness(0) sepia(0.4) opacity(0.9);pointer-events:none;}@media(max-width:600px){.ob-hero-stamp{height:44px;right:18px;bottom:18px;}}.ob-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center 30%;}.ob-hero-scrim{position:absolute;inset:0;background:linear-gradient(105deg,rgba(26,22,17,0.78) 0%,rgba(26,22,17,0.50) 45%,rgba(26,22,17,0.05) 80%);}.ob-hero-content{position:relative;z-index:1;display:flex;flex-direction:column;padding:120px 52px 52px;max-width:780px;width:100%;}@media(max-width:600px){.ob-hero-content{padding:80px 24px 40px;}}.ob-hero-eyebrow{font-family:var(--ob-font-sans);font-size:12px;font-weight:600;letter-spacing:0.20em;text-transform:uppercase;color:var(--ob-saffran-300);margin-bottom:14px;}.ob-hero-title-serif{font-family:var(--ob-font-display);font-weight:700;font-size:clamp(44px,6.5vw,88px);line-height:1.0;letter-spacing:-0.02em;color:#fff;text-wrap:balance;}.ob-hero-title-hand{font-family:var(--ob-font-hand);font-weight:700;font-size:clamp(46px,6.2vw,80px);line-height:1.0;color:var(--ob-saffran-300);display:block;margin-top:-4px;}.ob-hero-lede{font-family:var(--ob-font-sans);font-size:clamp(15px,1.6vw,17px);line-height:1.55;color:rgba(251,246,236,0.80);max-width:480px;margin-top:18px;text-wrap:pretty;}.ob-hero-punchlines{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:28px;}@media(max-width:600px){.ob-hero-punchlines{flex-direction:column;gap:10px;}}.ob-hero-punchline{display:flex;align-items:center;gap:7px;font-family:var(--ob-font-sans);font-size:13.5px;font-weight:500;color:rgba(251,246,236,0.88);}.ob-hero-ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px;}@media(max-width:480px){.ob-hero-ctas{flex-direction:column;gap:8px;}.ob-btn-orange,.ob-btn-outline-white{text-align:center;padding:13px 20px;font-size:14px;}}.ob-btn-orange{background:var(--ob-saffran-400);color:#fff;padding:14px 26px;border-radius:var(--ob-r-pill);font-family:var(--ob-font-sans);font-weight:600;font-size:15px;box-shadow:var(--ob-shadow-warm);transition:background 150ms,transform 150ms;display:inline-block;}.ob-btn-orange:hover{background:var(--ob-saffran-500);transform:translateY(-1px);}.ob-btn-outline-white{background:rgba(255,255,255,0.10);color:#fff;border:1.5px solid rgba(255,255,255,0.50);padding:13px 24px;border-radius:var(--ob-r-pill);font-family:var(--ob-font-sans);font-weight:600;font-size:15px;backdrop-filter:blur(8px);transition:background 150ms;display:inline-block;}.ob-btn-outline-white:hover{background:rgba(255,255,255,0.20);}.ob-hero-fresh-note{margin-top:24px;font-family:var(--ob-font-hand);font-weight:600;font-size:clamp(20px,2.4vw,28px);color:var(--ob-saffran-300);line-height:1.2;}</style><div class='ob-hero-wrap'><section class='ob-hero' aria-label='Välkommen till {{site_name}}'><div class='ob-hero-bg' style='background-image:url({{background_image}})' role='img' aria-label='{{bg_alt}}'></div><div class='ob-hero-scrim' aria-hidden='true'></div><img src='{{logo_url}}' class='ob-hero-stamp' alt=''><div class='ob-hero-content'><p class='ob-hero-eyebrow'>{{eyebrow}}</p><h1><span class='ob-hero-title-serif'>{{title_serif}}</span><span class='ob-hero-title-hand'>{{title_hand}}</span></h1><p class='ob-hero-lede'>{{lede}}</p><div class='ob-hero-punchlines'><div class='ob-hero-punchline'><svg width='16' height='16' viewBox='0 0 16 16' fill='none' aria-hidden='true'><circle cx='8' cy='8' r='8' fill='var(--ob-saffran-400)' opacity='0.3'/><path d='M4.5 8.2l2.3 2.5L11.5 5.8' stroke='var(--ob-saffran-200)' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>{{punchline_1}}</div><div class='ob-hero-punchline'><svg width='16' height='16' viewBox='0 0 16 16' fill='none' aria-hidden='true'><circle cx='8' cy='8' r='8' fill='var(--ob-saffran-400)' opacity='0.3'/><path d='M4.5 8.2l2.3 2.5L11.5 5.8' stroke='var(--ob-saffran-200)' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>{{punchline_2}}</div><div class='ob-hero-punchline'><svg width='16' height='16' viewBox='0 0 16 16' fill='none' aria-hidden='true'><circle cx='8' cy='8' r='8' fill='var(--ob-saffran-400)' opacity='0.3'/><path d='M4.5 8.2l2.3 2.5L11.5 5.8' stroke='var(--ob-saffran-200)' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>{{punchline_3}}</div><div class='ob-hero-punchline'><svg width='16' height='16' viewBox='0 0 16 16' fill='none' aria-hidden='true'><circle cx='8' cy='8' r='8' fill='var(--ob-saffran-400)' opacity='0.3'/><path d='M4.5 8.2l2.3 2.5L11.5 5.8' stroke='var(--ob-saffran-200)' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>{{punchline_4}}</div></div><div class='ob-hero-ctas'><a href='{{cta1_url}}' class='ob-btn-orange'>{{cta1_text}}</a><a href='{{cta2_url}}' class='ob-btn-outline-white'>{{cta2_text}}</a></div><p class='ob-hero-fresh-note'>{{fresh_note}}</p></div></section></div>",
+    "schema": [
+      {
+        "default": "https://rivy.templweb.com/wp-content/uploads/2026/04/hero-brod-korg.jpg",
+        "label": "Bakgrundsbild",
+        "name": "background_image",
+        "type": "image"
+      },
+      {
+        "default": "https://rivy.templweb.com/wp-content/uploads/2026/04/logo.png",
+        "label": "Logotyp (stämpel)",
+        "name": "logo_url",
+        "type": "image"
+      },
+      {
+        "default": "Östra Bageriet",
+        "label": "Företagsnamn",
+        "name": "site_name",
+        "type": "text"
+      },
+      {
+        "default": "Färsk mat från Östra Bageriet",
+        "label": "Bildbeskrivning (alt)",
+        "name": "bg_alt",
+        "type": "text"
+      },
+      {
+        "default": "Östra Station · Sedan 1996",
+        "label": "Etikett",
+        "name": "eyebrow",
+        "type": "text"
+      },
+      {
+        "default": "Bakat på morgonen.",
+        "label": "Rubrik (serif)",
+        "name": "title_serif",
+        "type": "text"
+      },
+      {
+        "default": "Serverat hela dagen.",
+        "label": "Rubrik (handstil)",
+        "name": "title_hand",
+        "type": "text"
+      },
+      {
+        "default": "Smörgåsar, sallader och bakverk med svenska rötter och orientalisk kärlek.",
+        "label": "Ingress",
+        "name": "lede",
+        "type": "textarea"
+      },
+      {
+        "default": "Över 2 miljoner smörgåsar sålda",
+        "label": "USP 1",
+        "name": "punchline_1",
+        "type": "text"
+      },
+      {
+        "default": "Handgjorda bakverk varje morgon",
+        "label": "USP 2",
+        "name": "punchline_2",
+        "type": "text"
+      },
+      {
+        "default": "Catering för kontor & event",
+        "label": "USP 3",
+        "name": "punchline_3",
+        "type": "text"
+      },
+      {
+        "default": "Studentrabatt alltid",
+        "label": "USP 4",
+        "name": "punchline_4",
+        "type": "text"
+      },
+      {
+        "default": "Se dagens meny →",
+        "label": "Knapp 1 text",
+        "name": "cta1_text",
+        "type": "text"
+      },
+      {
+        "default": "/meny/",
+        "label": "Knapp 1 länk",
+        "name": "cta1_url",
+        "type": "url"
+      },
+      {
+        "default": "Beställ catering",
+        "label": "Knapp 2 text",
+        "name": "cta2_text",
+        "type": "text"
+      },
+      {
+        "default": "/catering/",
+        "label": "Knapp 2 länk",
+        "name": "cta2_url",
+        "type": "url"
+      },
+      {
+        "default": "Färskt idag — varma frallor kl 09:00",
+        "label": "Färsk-notering",
+        "name": "fresh_note",
+        "type": "text"
+      }
+    ],
+    "title": "Östra Bageriet — Hero"
+  },
+  "lumo/ob-how-it-works": {
+    "block_name": "lumo/ob-how-it-works",
+    "html_template": "<style>.ob-how{background:var(--ob-cream-2);padding:80px 28px;border-top:1px solid var(--ob-border);border-bottom:1px solid var(--ob-border);}.ob-how-inner{max-width:1100px;margin:0 auto;}.ob-how-header{margin-bottom:44px;}.ob-how-eyebrow{font-family:var(--ob-font-sans);font-size:12px;font-weight:600;letter-spacing:0.20em;text-transform:uppercase;color:var(--ob-saffran-500);margin-bottom:12px;}.ob-how-title{font-family:var(--ob-font-display);font-weight:700;font-size:clamp(32px,4vw,52px);line-height:1.05;letter-spacing:-0.015em;color:var(--ob-ink);}.ob-how-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;}.ob-how-step{display:flex;flex-direction:column;gap:12px;}.ob-how-step-num{font-family:var(--ob-font-display);font-weight:700;font-size:48px;color:var(--ob-skog-100);line-height:1;letter-spacing:-0.03em;}.ob-how-step-title{font-family:var(--ob-font-display);font-weight:600;font-size:18px;color:var(--ob-ink);line-height:1.2;}.ob-how-step-desc{font-family:var(--ob-font-sans);font-size:14px;line-height:1.55;color:var(--ob-ink-2);}@media(max-width:800px){.ob-how-steps{grid-template-columns:1fr 1fr;}}@media(max-width:480px){.ob-how-steps{grid-template-columns:1fr;}.ob-how{padding:60px 20px;}}</style><section class='ob-how'><div class='ob-how-inner'><div class='ob-how-header'><p class='ob-how-eyebrow'>{{eyebrow}}</p><h2 class='ob-how-title'>{{title}}</h2></div><div class='ob-how-steps'><div class='ob-how-step'><span class='ob-how-step-num'>01</span><h3 class='ob-how-step-title'>{{step_1_title}}</h3><p class='ob-how-step-desc'>{{step_1_desc}}</p></div><div class='ob-how-step'><span class='ob-how-step-num'>02</span><h3 class='ob-how-step-title'>{{step_2_title}}</h3><p class='ob-how-step-desc'>{{step_2_desc}}</p></div><div class='ob-how-step'><span class='ob-how-step-num'>03</span><h3 class='ob-how-step-title'>{{step_3_title}}</h3><p class='ob-how-step-desc'>{{step_3_desc}}</p></div><div class='ob-how-step'><span class='ob-how-step-num'>04</span><h3 class='ob-how-step-title'>{{step_4_title}}</h3><p class='ob-how-step-desc'>{{step_4_desc}}</p></div></div></div></section>",
+    "schema": [
+      {
+        "default": "Hur det fungerar",
+        "label": "Etikett",
+        "name": "eyebrow",
+        "type": "text"
+      },
+      {
+        "default": "Enkelt från start till servering.",
+        "label": "Rubrik",
+        "name": "title",
+        "type": "text"
+      },
+      {
+        "default": "Fyll i offertformuläret",
+        "label": "Steg 1 — titel",
+        "name": "step_1_title",
+        "type": "text"
+      },
+      {
+        "default": "Välj paket, antal personer, datum och ange eventuella allergier nedan. Tar 60 sekunder.",
+        "label": "Steg 1 — beskrivning",
+        "name": "step_1_desc",
+        "type": "textarea"
+      },
+      {
+        "default": "Vi bekräftar inom 2h",
+        "label": "Steg 2 — titel",
+        "name": "step_2_title",
+        "type": "text"
+      },
+      {
+        "default": "Faraj eller teamet kontaktar dig direkt via email. Pris, leveranstid och eventuella frågor löses.",
+        "label": "Steg 2 — beskrivning",
+        "name": "step_2_desc",
+        "type": "textarea"
+      },
+      {
+        "default": "Vi lagar och packar",
+        "label": "Steg 3 — titel",
+        "name": "step_3_title",
+        "type": "text"
+      },
+      {
+        "default": "Allt tillagas på morgonen på plats i Östra Station — färskt och hanterat med omsorg.",
+        "label": "Steg 3 — beskrivning",
+        "name": "step_3_desc",
+        "type": "textarea"
+      },
+      {
+        "default": "Leverans till er dörr",
+        "label": "Steg 4 — titel",
+        "name": "step_4_title",
+        "type": "text"
+      },
+      {
+        "default": "Vi kör ut till er adress och ni tar emot — allt färdigt att ställas fram. Ni sköter resten.",
+        "label": "Steg 4 — beskrivning",
+        "name": "step_4_desc",
+        "type": "textarea"
+      }
+    ],
+    "title": "Östra Bageriet — Hur det fungerar"
+  },
+  "lumo/ob-manifesto": {
+    "block_name": "lumo/ob-manifesto",
+    "html_template": "<style>.ob-manifesto{background:var(--ob-stone-900);padding:100px 28px;position:relative;overflow:hidden;}.ob-manifesto::before{content:\"\";position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 30% 50%,rgba(216,107,15,0.12) 0%,transparent 65%);pointer-events:none;}.ob-manifesto-inner{max-width:960px;margin:0 auto;text-align:center;position:relative;}.ob-manifesto-eyebrow{font-family:var(--ob-font-sans);font-size:12px;font-weight:600;letter-spacing:0.20em;text-transform:uppercase;color:var(--ob-saffran-300);margin-bottom:20px;}.ob-manifesto-quote{font-family:var(--ob-font-display);font-weight:500;font-style:italic;font-size:clamp(28px,4.2vw,56px);line-height:1.2;color:var(--ob-cream);text-wrap:balance;}.ob-manifesto-hand{font-family:var(--ob-font-hand);font-size:clamp(24px,3vw,38px);color:var(--ob-saffran-300);margin-top:8px;display:block;}.ob-manifesto-attr{font-family:var(--ob-font-sans);font-size:13px;color:rgba(251,246,236,0.45);margin-top:24px;letter-spacing:0.05em;}@media(max-width:600px){.ob-manifesto{padding:72px 20px;}}</style><section class='ob-manifesto'><div class='ob-manifesto-inner'><p class='ob-manifesto-eyebrow'>{{eyebrow}}</p><blockquote><p class='ob-manifesto-quote'>{{quote}}</p><span class='ob-manifesto-hand'>{{hand_text}}</span></blockquote><p class='ob-manifesto-attr'>{{attribution}}</p></div></section>",
+    "schema": [
+      {
+        "default": "Vad vi tror på",
+        "label": "Etikett",
+        "name": "eyebrow",
+        "type": "text"
+      },
+      {
+        "default": "\"Bröd ska bakas på morgonen. Pesto ska göras för hand. Och en macka ska kosta vad den kostar —",
+        "label": "Citat",
+        "name": "quote",
+        "type": "textarea"
+      },
+      {
+        "default": "fast student får alltid lägre pris.\"",
+        "label": "Handstil-avslutning",
+        "name": "hand_text",
+        "type": "text"
+      },
+      {
+        "default": "— Faraj, bagare sedan 1996",
+        "label": "Attribution",
+        "name": "attribution",
+        "type": "text"
+      }
+    ],
+    "title": "Östra Bageriet — Manifesto"
+  },
+  "lumo/ob-menu-brod": {
+    "block_name": "lumo/ob-menu-brod",
+    "html_template": "<style>.ob-menu-section{padding:64px 28px;scroll-margin-top:138px;}.ob-menu-section.ob-alt{background:var(--ob-cream-2);}.ob-menu-section-inner{max-width:1100px;margin:0 auto;}.ob-menu-section-eyebrow{font-family:var(--ob-font-sans);font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--ob-saffran-500);margin-bottom:8px;}.ob-menu-section-title{font-family:var(--ob-font-display);font-weight:600;font-size:clamp(30px,4.2vw,56px);line-height:1.05;letter-spacing:-0.012em;color:var(--ob-ink);text-wrap:balance;margin-bottom:4px;}.ob-menu-section-meta{font-family:var(--ob-font-sans);font-size:13px;color:var(--ob-ink-3);margin-top:24px;margin-bottom:4px;text-align:right;}.ob-menu-row{display:flex;align-items:flex-start;gap:16px;padding:18px 0;border-bottom:1px dashed var(--ob-border);}.ob-menu-row:last-child{border-bottom:none;}.ob-menu-row-info{flex:1;}.ob-menu-row-name{font-family:var(--ob-font-display);font-weight:600;font-size:20px;color:var(--ob-ink);line-height:1.2;}.ob-menu-row-desc{font-family:var(--ob-font-sans);font-size:14px;color:var(--ob-ink-2);margin-top:3px;max-width:560px;line-height:1.5;}.ob-menu-row-price{font-family:var(--ob-font-sans);font-weight:700;font-size:15px;color:var(--ob-ink);white-space:nowrap;flex-shrink:0;padding-top:2px;}.ob-menu-row-price .ob-stu{font-weight:400;color:var(--ob-ink-3);}.ob-tag{display:inline-block;padding:2px 9px;border-radius:var(--ob-r-pill);font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-left:7px;vertical-align:middle;}.ob-tag-vegan,.ob-tag-veg{background:var(--ob-skog-100);color:var(--ob-skog-700);}.ob-tag-gluten{background:transparent;color:var(--ob-skog-600);border:1px solid var(--ob-skog-300);}.ob-tag-fresh{background:var(--ob-saffran-100);color:var(--ob-saffran-600);}.ob-menu-subsection{font-family:var(--ob-font-sans);font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--ob-ink-3);margin:28px 0 4px;padding-bottom:8px;border-bottom:2px solid var(--ob-border);}.ob-menu-row[data-name='']{display:none;}</style><section class='ob-menu-section' id='brod'><div class='ob-menu-section-inner'><p class='ob-menu-section-eyebrow'>Bröd &amp; smörgåsar</p><h2 class='ob-menu-section-title'>{{section_title}}</h2><p class='ob-menu-section-meta'><span style='font-weight:700;'>Ordinarie</span> / Student</p><div class='ob-menu-row' data-name='{{item_1_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_1_name}}<span class='ob-tag ob-tag-fresh'>Nybakat</span></div><p class='ob-menu-row-desc'>{{item_1_desc}}</p></div><div class='ob-menu-row-price'>{{item_1_price_ord}}:- <span class='ob-stu'>/ {{item_1_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_2_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_2_name}}</div><p class='ob-menu-row-desc'>{{item_2_desc}}</p></div><div class='ob-menu-row-price'>{{item_2_price_ord}}:- <span class='ob-stu'>/ {{item_2_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_3_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_3_name}}</div><p class='ob-menu-row-desc'>{{item_3_desc}}</p></div><div class='ob-menu-row-price'>{{item_3_price_ord}}:- <span class='ob-stu'>/ {{item_3_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_4_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_4_name}}</div><p class='ob-menu-row-desc'>{{item_4_desc}}</p></div><div class='ob-menu-row-price'>{{item_4_price_ord}}:- <span class='ob-stu'>/ {{item_4_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_5_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_5_name}}</div><p class='ob-menu-row-desc'>{{item_5_desc}}</p></div><div class='ob-menu-row-price'>{{item_5_price_ord}}:- <span class='ob-stu'>/ {{item_5_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_6_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_6_name}}<span class='ob-tag ob-tag-vegan'>Vegan</span></div><p class='ob-menu-row-desc'>{{item_6_desc}}</p></div><div class='ob-menu-row-price'>{{item_6_price_ord}}:- <span class='ob-stu'>/ {{item_6_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_7_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_7_name}}<span class='ob-tag ob-tag-gluten'>Glutenfri</span></div><p class='ob-menu-row-desc'>{{item_7_desc}}</p></div><div class='ob-menu-row-price'>{{item_7_price_ord}}:- <span class='ob-stu'>/ {{item_7_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_8_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_8_name}}</div><p class='ob-menu-row-desc'>{{item_8_desc}}</p></div><div class='ob-menu-row-price'>{{item_8_price_ord}}:- <span class='ob-stu'>/ {{item_8_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_9_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_9_name}}</div><p class='ob-menu-row-desc'>{{item_9_desc}}</p></div><div class='ob-menu-row-price'>{{item_9_price_ord}}:- <span class='ob-stu'>/ {{item_9_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_10_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_10_name}}</div><p class='ob-menu-row-desc'>{{item_10_desc}}</p></div><div class='ob-menu-row-price'>{{item_10_price_ord}}:- <span class='ob-stu'>/ {{item_10_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_11_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_11_name}}</div><p class='ob-menu-row-desc'>{{item_11_desc}}</p></div><div class='ob-menu-row-price'>{{item_11_price_ord}}:- <span class='ob-stu'>/ {{item_11_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_12_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_12_name}}</div><p class='ob-menu-row-desc'>{{item_12_desc}}</p></div><div class='ob-menu-row-price'>{{item_12_price_ord}}:- <span class='ob-stu'>/ {{item_12_price_stu}}:-</span></div></div></div></section>",
+    "schema": [
+      {
+        "label": "Sektionsrubrik",
+        "name": "section_title",
+        "type": "text"
+      },
+      {
+        "label": "Namn",
+        "name": "item_1_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_1_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_1_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_1_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_2_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_2_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_2_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_2_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_3_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_3_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_3_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_3_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_4_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_4_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_4_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_4_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_5_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_5_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_5_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_5_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_6_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_6_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_6_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_6_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_7_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_7_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_7_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_7_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_8_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_8_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_8_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_8_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_9_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_9_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_9_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_9_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_10_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_10_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_10_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_10_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_11_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_11_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_11_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_11_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_12_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_12_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_12_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_12_price_stu",
+        "type": "text",
+        "width": 50
+      }
+    ],
+    "title": "Östra Bageriet — Meny: Bröd & smörgåsar"
+  },
+  "lumo/ob-menu-drycker": {
+    "block_name": "lumo/ob-menu-drycker",
+    "html_template": "<style>.ob-menu-section{padding:64px 28px;scroll-margin-top:138px;}.ob-menu-section.ob-alt{background:var(--ob-cream-2);}.ob-menu-section-inner{max-width:1100px;margin:0 auto;}.ob-menu-section-eyebrow{font-family:var(--ob-font-sans);font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--ob-saffran-500);margin-bottom:8px;}.ob-menu-section-title{font-family:var(--ob-font-display);font-weight:600;font-size:clamp(30px,4.2vw,56px);line-height:1.05;letter-spacing:-0.012em;color:var(--ob-ink);text-wrap:balance;margin-bottom:4px;}.ob-menu-section-meta{font-family:var(--ob-font-sans);font-size:13px;color:var(--ob-ink-3);margin-top:24px;margin-bottom:4px;text-align:right;}.ob-menu-row{display:flex;align-items:flex-start;gap:16px;padding:18px 0;border-bottom:1px dashed var(--ob-border);}.ob-menu-row:last-child{border-bottom:none;}.ob-menu-row-info{flex:1;}.ob-menu-row-name{font-family:var(--ob-font-display);font-weight:600;font-size:20px;color:var(--ob-ink);line-height:1.2;}.ob-menu-row-desc{font-family:var(--ob-font-sans);font-size:14px;color:var(--ob-ink-2);margin-top:3px;max-width:560px;line-height:1.5;}.ob-menu-row-price{font-family:var(--ob-font-sans);font-weight:700;font-size:15px;color:var(--ob-ink);white-space:nowrap;flex-shrink:0;padding-top:2px;}.ob-menu-row-price .ob-stu{font-weight:400;color:var(--ob-ink-3);}.ob-tag{display:inline-block;padding:2px 9px;border-radius:var(--ob-r-pill);font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-left:7px;vertical-align:middle;}.ob-tag-vegan,.ob-tag-veg{background:var(--ob-skog-100);color:var(--ob-skog-700);}.ob-tag-gluten{background:transparent;color:var(--ob-skog-600);border:1px solid var(--ob-skog-300);}.ob-tag-fresh{background:var(--ob-saffran-100);color:var(--ob-saffran-600);}.ob-menu-subsection{font-family:var(--ob-font-sans);font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--ob-ink-3);margin:28px 0 4px;padding-bottom:8px;border-bottom:2px solid var(--ob-border);}.ob-menu-row[data-name='']{display:none;}</style><section class='ob-menu-section ob-alt' id='drycker'><div class='ob-menu-section-inner'><p class='ob-menu-section-eyebrow'>Drycker</p><h2 class='ob-menu-section-title'>{{section_title}}</h2><p class='ob-menu-section-meta'><span style='font-weight:700;'>Ordinarie</span> / Student</p><div class='ob-menu-row' data-name='{{item_1_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_1_name}}</div><p class='ob-menu-row-desc'>{{item_1_desc}}</p></div><div class='ob-menu-row-price'>{{item_1_price_ord}}:- <span class='ob-stu'>/ {{item_1_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_2_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_2_name}}</div><p class='ob-menu-row-desc'>{{item_2_desc}}</p></div><div class='ob-menu-row-price'>{{item_2_price_ord}}:- <span class='ob-stu'>/ {{item_2_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_3_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_3_name}}</div><p class='ob-menu-row-desc'>{{item_3_desc}}</p></div><div class='ob-menu-row-price'>{{item_3_price_ord}}:- <span class='ob-stu'>/ {{item_3_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_4_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_4_name}}</div><p class='ob-menu-row-desc'>{{item_4_desc}}</p></div><div class='ob-menu-row-price'>{{item_4_price_ord}}:- <span class='ob-stu'>/ {{item_4_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_5_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_5_name}}</div><p class='ob-menu-row-desc'>{{item_5_desc}}</p></div><div class='ob-menu-row-price'>{{item_5_price_ord}}:- <span class='ob-stu'>/ {{item_5_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_6_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_6_name}}</div><p class='ob-menu-row-desc'>{{item_6_desc}}</p></div><div class='ob-menu-row-price'>{{item_6_price_ord}}:- <span class='ob-stu'>/ {{item_6_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_7_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_7_name}}</div><p class='ob-menu-row-desc'>{{item_7_desc}}</p></div><div class='ob-menu-row-price'>{{item_7_price_ord}}:- <span class='ob-stu'>/ {{item_7_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_8_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_8_name}}</div><p class='ob-menu-row-desc'>{{item_8_desc}}</p></div><div class='ob-menu-row-price'>{{item_8_price_ord}}:- <span class='ob-stu'>/ {{item_8_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_9_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_9_name}}</div><p class='ob-menu-row-desc'>{{item_9_desc}}</p></div><div class='ob-menu-row-price'>{{item_9_price_ord}}:- <span class='ob-stu'>/ {{item_9_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_10_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_10_name}}</div><p class='ob-menu-row-desc'>{{item_10_desc}}</p></div><div class='ob-menu-row-price'>{{item_10_price_ord}}:- <span class='ob-stu'>/ {{item_10_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_11_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_11_name}}</div><p class='ob-menu-row-desc'>{{item_11_desc}}</p></div><div class='ob-menu-row-price'>{{item_11_price_ord}}:- <span class='ob-stu'>/ {{item_11_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_12_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_12_name}}</div><p class='ob-menu-row-desc'>{{item_12_desc}}</p></div><div class='ob-menu-row-price'>{{item_12_price_ord}}:- <span class='ob-stu'>/ {{item_12_price_stu}}:-</span></div></div><p class='ob-menu-subsection'>Varma drycker</p><div class='ob-menu-row' data-name='{{item_13_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_13_name}}</div><p class='ob-menu-row-desc'>{{item_13_desc}}</p></div><div class='ob-menu-row-price'>{{item_13_price_ord}}:- <span class='ob-stu'>/ {{item_13_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_14_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_14_name}}</div><p class='ob-menu-row-desc'>{{item_14_desc}}</p></div><div class='ob-menu-row-price'>{{item_14_price_ord}}:- <span class='ob-stu'>/ {{item_14_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_15_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_15_name}}</div><p class='ob-menu-row-desc'>{{item_15_desc}}</p></div><div class='ob-menu-row-price'>{{item_15_price_ord}}:- <span class='ob-stu'>/ {{item_15_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_16_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_16_name}}</div><p class='ob-menu-row-desc'>{{item_16_desc}}</p></div><div class='ob-menu-row-price'>{{item_16_price_ord}}:- <span class='ob-stu'>/ {{item_16_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_17_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_17_name}}</div><p class='ob-menu-row-desc'>{{item_17_desc}}</p></div><div class='ob-menu-row-price'>{{item_17_price_ord}}:- <span class='ob-stu'>/ {{item_17_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_18_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_18_name}}</div><p class='ob-menu-row-desc'>{{item_18_desc}}</p></div><div class='ob-menu-row-price'>{{item_18_price_ord}}:- <span class='ob-stu'>/ {{item_18_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_19_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_19_name}}</div><p class='ob-menu-row-desc'>{{item_19_desc}}</p></div><div class='ob-menu-row-price'>{{item_19_price_ord}}:- <span class='ob-stu'>/ {{item_19_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_20_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_20_name}}</div><p class='ob-menu-row-desc'>{{item_20_desc}}</p></div><div class='ob-menu-row-price'>{{item_20_price_ord}}:- <span class='ob-stu'>/ {{item_20_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_21_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_21_name}}</div><p class='ob-menu-row-desc'>{{item_21_desc}}</p></div><div class='ob-menu-row-price'>{{item_21_price_ord}}:- <span class='ob-stu'>/ {{item_21_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_22_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_22_name}}</div><p class='ob-menu-row-desc'>{{item_22_desc}}</p></div><div class='ob-menu-row-price'>{{item_22_price_ord}}:- <span class='ob-stu'>/ {{item_22_price_stu}}:-</span></div></div></div></section>",
+    "schema": [
+      {
+        "label": "Sektionsrubrik",
+        "name": "section_title",
+        "type": "text"
+      },
+      {
+        "label": "Namn",
+        "name": "item_1_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_1_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_1_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_1_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_2_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_2_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_2_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_2_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_3_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_3_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_3_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_3_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_4_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_4_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_4_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_4_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_5_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_5_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_5_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_5_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_6_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_6_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_6_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_6_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_7_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_7_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_7_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_7_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_8_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_8_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_8_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_8_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_9_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_9_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_9_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_9_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_10_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_10_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_10_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_10_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_11_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_11_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_11_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_11_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_12_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_12_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_12_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_12_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_13_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_13_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_13_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_13_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_14_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_14_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_14_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_14_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_15_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_15_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_15_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_15_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_16_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_16_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_16_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_16_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_17_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_17_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_17_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_17_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_18_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_18_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_18_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_18_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_19_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_19_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_19_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_19_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_20_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_20_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_20_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_20_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_21_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_21_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_21_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_21_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_22_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_22_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_22_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_22_price_stu",
+        "type": "text",
+        "width": 50
+      }
+    ],
+    "title": "Östra Bageriet — Meny: Drycker"
+  },
+  "lumo/ob-menu-italienska": {
+    "block_name": "lumo/ob-menu-italienska",
+    "html_template": "<style>.ob-menu-section{padding:64px 28px;scroll-margin-top:138px;}.ob-menu-section.ob-alt{background:var(--ob-cream-2);}.ob-menu-section-inner{max-width:1100px;margin:0 auto;}.ob-menu-section-eyebrow{font-family:var(--ob-font-sans);font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--ob-saffran-500);margin-bottom:8px;}.ob-menu-section-title{font-family:var(--ob-font-display);font-weight:600;font-size:clamp(30px,4.2vw,56px);line-height:1.05;letter-spacing:-0.012em;color:var(--ob-ink);text-wrap:balance;margin-bottom:4px;}.ob-menu-section-meta{font-family:var(--ob-font-sans);font-size:13px;color:var(--ob-ink-3);margin-top:24px;margin-bottom:4px;text-align:right;}.ob-menu-row{display:flex;align-items:flex-start;gap:16px;padding:18px 0;border-bottom:1px dashed var(--ob-border);}.ob-menu-row:last-child{border-bottom:none;}.ob-menu-row-info{flex:1;}.ob-menu-row-name{font-family:var(--ob-font-display);font-weight:600;font-size:20px;color:var(--ob-ink);line-height:1.2;}.ob-menu-row-desc{font-family:var(--ob-font-sans);font-size:14px;color:var(--ob-ink-2);margin-top:3px;max-width:560px;line-height:1.5;}.ob-menu-row-price{font-family:var(--ob-font-sans);font-weight:700;font-size:15px;color:var(--ob-ink);white-space:nowrap;flex-shrink:0;padding-top:2px;}.ob-menu-row-price .ob-stu{font-weight:400;color:var(--ob-ink-3);}.ob-tag{display:inline-block;padding:2px 9px;border-radius:var(--ob-r-pill);font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-left:7px;vertical-align:middle;}.ob-tag-vegan,.ob-tag-veg{background:var(--ob-skog-100);color:var(--ob-skog-700);}.ob-tag-gluten{background:transparent;color:var(--ob-skog-600);border:1px solid var(--ob-skog-300);}.ob-tag-fresh{background:var(--ob-saffran-100);color:var(--ob-saffran-600);}.ob-menu-subsection{font-family:var(--ob-font-sans);font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--ob-ink-3);margin:28px 0 4px;padding-bottom:8px;border-bottom:2px solid var(--ob-border);}.ob-menu-row[data-name='']{display:none;}</style><section class='ob-menu-section ob-alt' id='italienska'><div class='ob-menu-section-inner'><p class='ob-menu-section-eyebrow'>Italienska smörgåsar</p><h2 class='ob-menu-section-title'>{{section_title}}</h2><p class='ob-menu-section-meta'><span style='font-weight:700;'>Ordinarie</span> / Student</p><div class='ob-menu-row' data-name='{{item_1_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_1_name}}<span class='ob-tag ob-tag-veg'>Vegetarisk</span></div><p class='ob-menu-row-desc'>{{item_1_desc}}</p></div><div class='ob-menu-row-price'>{{item_1_price_ord}}:- <span class='ob-stu'>/ {{item_1_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_2_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_2_name}}</div><p class='ob-menu-row-desc'>{{item_2_desc}}</p></div><div class='ob-menu-row-price'>{{item_2_price_ord}}:- <span class='ob-stu'>/ {{item_2_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_3_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_3_name}}</div><p class='ob-menu-row-desc'>{{item_3_desc}}</p></div><div class='ob-menu-row-price'>{{item_3_price_ord}}:- <span class='ob-stu'>/ {{item_3_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_4_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_4_name}}</div><p class='ob-menu-row-desc'>{{item_4_desc}}</p></div><div class='ob-menu-row-price'>{{item_4_price_ord}}:- <span class='ob-stu'>/ {{item_4_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_5_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_5_name}}<span class='ob-tag ob-tag-veg'>Vegetarisk</span></div><p class='ob-menu-row-desc'>{{item_5_desc}}</p></div><div class='ob-menu-row-price'>{{item_5_price_ord}}:- <span class='ob-stu'>/ {{item_5_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_6_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_6_name}}</div><p class='ob-menu-row-desc'>{{item_6_desc}}</p></div><div class='ob-menu-row-price'>{{item_6_price_ord}}:- <span class='ob-stu'>/ {{item_6_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_7_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_7_name}}</div><p class='ob-menu-row-desc'>{{item_7_desc}}</p></div><div class='ob-menu-row-price'>{{item_7_price_ord}}:- <span class='ob-stu'>/ {{item_7_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_8_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_8_name}}</div><p class='ob-menu-row-desc'>{{item_8_desc}}</p></div><div class='ob-menu-row-price'>{{item_8_price_ord}}:- <span class='ob-stu'>/ {{item_8_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_9_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_9_name}}</div><p class='ob-menu-row-desc'>{{item_9_desc}}</p></div><div class='ob-menu-row-price'>{{item_9_price_ord}}:- <span class='ob-stu'>/ {{item_9_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_10_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_10_name}}</div><p class='ob-menu-row-desc'>{{item_10_desc}}</p></div><div class='ob-menu-row-price'>{{item_10_price_ord}}:- <span class='ob-stu'>/ {{item_10_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_11_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_11_name}}</div><p class='ob-menu-row-desc'>{{item_11_desc}}</p></div><div class='ob-menu-row-price'>{{item_11_price_ord}}:- <span class='ob-stu'>/ {{item_11_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_12_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_12_name}}</div><p class='ob-menu-row-desc'>{{item_12_desc}}</p></div><div class='ob-menu-row-price'>{{item_12_price_ord}}:- <span class='ob-stu'>/ {{item_12_price_stu}}:-</span></div></div></div></section>",
+    "schema": [
+      {
+        "label": "Sektionsrubrik",
+        "name": "section_title",
+        "type": "text"
+      },
+      {
+        "label": "Namn",
+        "name": "item_1_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_1_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_1_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_1_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_2_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_2_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_2_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_2_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_3_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_3_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_3_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_3_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_4_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_4_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_4_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_4_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_5_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_5_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_5_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_5_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_6_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_6_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_6_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_6_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_7_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_7_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_7_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_7_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_8_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_8_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_8_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_8_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_9_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_9_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_9_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_9_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_10_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_10_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_10_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_10_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_11_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_11_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_11_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_11_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_12_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_12_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_12_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_12_price_stu",
+        "type": "text",
+        "width": 50
+      }
+    ],
+    "title": "Östra Bageriet — Meny: Italienska sandwich"
+  },
+  "lumo/ob-menu-meza": {
+    "block_name": "lumo/ob-menu-meza",
+    "html_template": "<style>.ob-menu-section{padding:64px 28px;scroll-margin-top:138px;}.ob-menu-section.ob-alt{background:var(--ob-cream-2);}.ob-menu-section-inner{max-width:1100px;margin:0 auto;}.ob-menu-section-eyebrow{font-family:var(--ob-font-sans);font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--ob-saffran-500);margin-bottom:8px;}.ob-menu-section-title{font-family:var(--ob-font-display);font-weight:600;font-size:clamp(30px,4.2vw,56px);line-height:1.05;letter-spacing:-0.012em;color:var(--ob-ink);text-wrap:balance;margin-bottom:4px;}.ob-menu-section-meta{font-family:var(--ob-font-sans);font-size:13px;color:var(--ob-ink-3);margin-top:24px;margin-bottom:4px;text-align:right;}.ob-menu-row{display:flex;align-items:flex-start;gap:16px;padding:18px 0;border-bottom:1px dashed var(--ob-border);}.ob-menu-row:last-child{border-bottom:none;}.ob-menu-row-info{flex:1;}.ob-menu-row-name{font-family:var(--ob-font-display);font-weight:600;font-size:20px;color:var(--ob-ink);line-height:1.2;}.ob-menu-row-desc{font-family:var(--ob-font-sans);font-size:14px;color:var(--ob-ink-2);margin-top:3px;max-width:560px;line-height:1.5;}.ob-menu-row-price{font-family:var(--ob-font-sans);font-weight:700;font-size:15px;color:var(--ob-ink);white-space:nowrap;flex-shrink:0;padding-top:2px;}.ob-menu-row-price .ob-stu{font-weight:400;color:var(--ob-ink-3);}.ob-tag{display:inline-block;padding:2px 9px;border-radius:var(--ob-r-pill);font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-left:7px;vertical-align:middle;}.ob-tag-vegan,.ob-tag-veg{background:var(--ob-skog-100);color:var(--ob-skog-700);}.ob-tag-gluten{background:transparent;color:var(--ob-skog-600);border:1px solid var(--ob-skog-300);}.ob-tag-fresh{background:var(--ob-saffran-100);color:var(--ob-saffran-600);}.ob-menu-subsection{font-family:var(--ob-font-sans);font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--ob-ink-3);margin:28px 0 4px;padding-bottom:8px;border-bottom:2px solid var(--ob-border);}.ob-menu-row[data-name='']{display:none;}</style><section class='ob-menu-section' id='meza'><div class='ob-menu-section-inner'><p class='ob-menu-section-eyebrow'>Meza</p><h2 class='ob-menu-section-title'>{{section_title}}</h2><p class='ob-menu-section-meta'><span style='font-weight:700;'>Ordinarie</span> / Student</p><div class='ob-menu-row' data-name='{{item_1_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_1_name}}<span class='ob-tag ob-tag-veg'>Vegetarisk</span></div><p class='ob-menu-row-desc'>{{item_1_desc}}</p></div><div class='ob-menu-row-price'>{{item_1_price_ord}}:- <span class='ob-stu'>/ {{item_1_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_2_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_2_name}}</div><p class='ob-menu-row-desc'>{{item_2_desc}}</p></div><div class='ob-menu-row-price'>{{item_2_price_ord}}:- <span class='ob-stu'>/ {{item_2_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_3_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_3_name}}</div><p class='ob-menu-row-desc'>{{item_3_desc}}</p></div><div class='ob-menu-row-price'>{{item_3_price_ord}}:- <span class='ob-stu'>/ {{item_3_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_4_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_4_name}}</div><p class='ob-menu-row-desc'>{{item_4_desc}}</p></div><div class='ob-menu-row-price'>{{item_4_price_ord}}:- <span class='ob-stu'>/ {{item_4_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_5_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_5_name}}</div><p class='ob-menu-row-desc'>{{item_5_desc}}</p></div><div class='ob-menu-row-price'>{{item_5_price_ord}}:- <span class='ob-stu'>/ {{item_5_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_6_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_6_name}}</div><p class='ob-menu-row-desc'>{{item_6_desc}}</p></div><div class='ob-menu-row-price'>{{item_6_price_ord}}:- <span class='ob-stu'>/ {{item_6_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_7_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_7_name}}</div><p class='ob-menu-row-desc'>{{item_7_desc}}</p></div><div class='ob-menu-row-price'>{{item_7_price_ord}}:- <span class='ob-stu'>/ {{item_7_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_8_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_8_name}}</div><p class='ob-menu-row-desc'>{{item_8_desc}}</p></div><div class='ob-menu-row-price'>{{item_8_price_ord}}:- <span class='ob-stu'>/ {{item_8_price_stu}}:-</span></div></div></div></section>",
+    "schema": [
+      {
+        "label": "Sektionsrubrik",
+        "name": "section_title",
+        "type": "text"
+      },
+      {
+        "label": "Namn",
+        "name": "item_1_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_1_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_1_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_1_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_2_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_2_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_2_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_2_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_3_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_3_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_3_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_3_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_4_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_4_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_4_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_4_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_5_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_5_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_5_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_5_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_6_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_6_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_6_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_6_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_7_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_7_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_7_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_7_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_8_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_8_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_8_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_8_price_stu",
+        "type": "text",
+        "width": 50
+      }
+    ],
+    "title": "Östra Bageriet — Meny: Meza"
+  },
+  "lumo/ob-menu-sallader": {
+    "block_name": "lumo/ob-menu-sallader",
+    "html_template": "<style>.ob-menu-section{padding:64px 28px;scroll-margin-top:138px;}.ob-menu-section.ob-alt{background:var(--ob-cream-2);}.ob-menu-section-inner{max-width:1100px;margin:0 auto;}.ob-menu-section-eyebrow{font-family:var(--ob-font-sans);font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--ob-saffran-500);margin-bottom:8px;}.ob-menu-section-title{font-family:var(--ob-font-display);font-weight:600;font-size:clamp(30px,4.2vw,56px);line-height:1.05;letter-spacing:-0.012em;color:var(--ob-ink);text-wrap:balance;margin-bottom:4px;}.ob-menu-section-meta{font-family:var(--ob-font-sans);font-size:13px;color:var(--ob-ink-3);margin-top:24px;margin-bottom:4px;text-align:right;}.ob-menu-row{display:flex;align-items:flex-start;gap:16px;padding:18px 0;border-bottom:1px dashed var(--ob-border);}.ob-menu-row:last-child{border-bottom:none;}.ob-menu-row-info{flex:1;}.ob-menu-row-name{font-family:var(--ob-font-display);font-weight:600;font-size:20px;color:var(--ob-ink);line-height:1.2;}.ob-menu-row-desc{font-family:var(--ob-font-sans);font-size:14px;color:var(--ob-ink-2);margin-top:3px;max-width:560px;line-height:1.5;}.ob-menu-row-price{font-family:var(--ob-font-sans);font-weight:700;font-size:15px;color:var(--ob-ink);white-space:nowrap;flex-shrink:0;padding-top:2px;}.ob-menu-row-price .ob-stu{font-weight:400;color:var(--ob-ink-3);}.ob-tag{display:inline-block;padding:2px 9px;border-radius:var(--ob-r-pill);font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-left:7px;vertical-align:middle;}.ob-tag-vegan,.ob-tag-veg{background:var(--ob-skog-100);color:var(--ob-skog-700);}.ob-tag-gluten{background:transparent;color:var(--ob-skog-600);border:1px solid var(--ob-skog-300);}.ob-tag-fresh{background:var(--ob-saffran-100);color:var(--ob-saffran-600);}.ob-menu-subsection{font-family:var(--ob-font-sans);font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--ob-ink-3);margin:28px 0 4px;padding-bottom:8px;border-bottom:2px solid var(--ob-border);}.ob-menu-row[data-name='']{display:none;}</style><section class='ob-menu-section' id='sallader'><div class='ob-menu-section-inner'><p class='ob-menu-section-eyebrow'>Sallader</p><h2 class='ob-menu-section-title'>{{section_title}}</h2><p class='ob-menu-section-meta'><span style='font-weight:700;'>Ordinarie</span> / Student</p><div class='ob-menu-row' data-name='{{item_1_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_1_name}}</div><p class='ob-menu-row-desc'>{{item_1_desc}}</p></div><div class='ob-menu-row-price'>{{item_1_price_ord}}:- <span class='ob-stu'>/ {{item_1_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_2_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_2_name}}</div><p class='ob-menu-row-desc'>{{item_2_desc}}</p></div><div class='ob-menu-row-price'>{{item_2_price_ord}}:- <span class='ob-stu'>/ {{item_2_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_3_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_3_name}}<span class='ob-tag ob-tag-vegan'>Vegan</span></div><p class='ob-menu-row-desc'>{{item_3_desc}}</p></div><div class='ob-menu-row-price'>{{item_3_price_ord}}:- <span class='ob-stu'>/ {{item_3_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_4_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_4_name}}<span class='ob-tag ob-tag-veg'>Vegetarisk</span></div><p class='ob-menu-row-desc'>{{item_4_desc}}</p></div><div class='ob-menu-row-price'>{{item_4_price_ord}}:- <span class='ob-stu'>/ {{item_4_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_5_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_5_name}}</div><p class='ob-menu-row-desc'>{{item_5_desc}}</p></div><div class='ob-menu-row-price'>{{item_5_price_ord}}:- <span class='ob-stu'>/ {{item_5_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_6_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_6_name}}</div><p class='ob-menu-row-desc'>{{item_6_desc}}</p></div><div class='ob-menu-row-price'>{{item_6_price_ord}}:- <span class='ob-stu'>/ {{item_6_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_7_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_7_name}}<span class='ob-tag ob-tag-veg'>Vegetarisk</span></div><p class='ob-menu-row-desc'>{{item_7_desc}}</p></div><div class='ob-menu-row-price'>{{item_7_price_ord}}:- <span class='ob-stu'>/ {{item_7_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_8_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_8_name}}</div><p class='ob-menu-row-desc'>{{item_8_desc}}</p></div><div class='ob-menu-row-price'>{{item_8_price_ord}}:- <span class='ob-stu'>/ {{item_8_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_9_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_9_name}}<span class='ob-tag ob-tag-veg'>Vegetarisk</span></div><p class='ob-menu-row-desc'>{{item_9_desc}}</p></div><div class='ob-menu-row-price'>{{item_9_price_ord}}:- <span class='ob-stu'>/ {{item_9_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_10_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_10_name}}</div><p class='ob-menu-row-desc'>{{item_10_desc}}</p></div><div class='ob-menu-row-price'>{{item_10_price_ord}}:- <span class='ob-stu'>/ {{item_10_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_11_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_11_name}}</div><p class='ob-menu-row-desc'>{{item_11_desc}}</p></div><div class='ob-menu-row-price'>{{item_11_price_ord}}:- <span class='ob-stu'>/ {{item_11_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_12_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_12_name}}</div><p class='ob-menu-row-desc'>{{item_12_desc}}</p></div><div class='ob-menu-row-price'>{{item_12_price_ord}}:- <span class='ob-stu'>/ {{item_12_price_stu}}:-</span></div></div></div></section>",
+    "schema": [
+      {
+        "label": "Sektionsrubrik",
+        "name": "section_title",
+        "type": "text"
+      },
+      {
+        "label": "Namn",
+        "name": "item_1_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_1_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_1_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_1_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_2_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_2_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_2_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_2_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_3_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_3_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_3_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_3_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_4_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_4_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_4_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_4_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_5_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_5_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_5_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_5_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_6_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_6_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_6_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_6_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_7_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_7_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_7_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_7_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_8_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_8_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_8_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_8_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_9_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_9_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_9_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_9_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_10_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_10_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_10_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_10_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_11_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_11_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_11_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_11_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_12_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_12_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_12_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_12_price_stu",
+        "type": "text",
+        "width": 50
+      }
+    ],
+    "title": "Östra Bageriet — Meny: Sallader"
+  },
+  "lumo/ob-menu-section": {
+    "block_name": "lumo/ob-menu-section",
+    "html_template": "<style>.ob-menu-section{padding:64px 28px;scroll-margin-top:138px;}.ob-menu-section.ob-alt{background:var(--ob-cream-2);}.ob-menu-section-inner{max-width:1100px;margin:0 auto;}.ob-menu-section-eyebrow{font-family:var(--ob-font-sans);font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--ob-saffran-500);margin-bottom:8px;}.ob-menu-section-title{font-family:var(--ob-font-display);font-weight:600;font-size:clamp(30px,4.2vw,56px);line-height:1.05;letter-spacing:-0.012em;color:var(--ob-ink);text-wrap:balance;margin-bottom:4px;}.ob-menu-section-meta{font-family:var(--ob-font-sans);font-size:13px;color:var(--ob-ink-3);margin-top:24px;margin-bottom:4px;text-align:right;}.ob-menu-row{display:flex;align-items:flex-start;gap:16px;padding:18px 0;border-bottom:1px dashed var(--ob-border);}.ob-menu-row:last-child{border-bottom:none;}.ob-menu-row-info{flex:1;}.ob-menu-row-name{font-family:var(--ob-font-display);font-weight:600;font-size:20px;color:var(--ob-ink);line-height:1.2;}.ob-menu-row-desc{font-family:var(--ob-font-sans);font-size:14px;color:var(--ob-ink-2);margin-top:3px;max-width:560px;line-height:1.5;}.ob-menu-row-price{font-family:var(--ob-font-sans);font-weight:700;font-size:15px;color:var(--ob-ink);white-space:nowrap;flex-shrink:0;padding-top:2px;font-feature-settings:&quot;tnum&quot; 1;}.ob-menu-row-price .ob-stu{font-weight:400;color:var(--ob-ink-3);}.ob-tag{display:inline-block;padding:2px 9px;border-radius:var(--ob-r-pill);font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-left:7px;vertical-align:middle;}.ob-tag-vegan,.ob-tag-veg{background:var(--ob-skog-100);color:var(--ob-skog-700);}.ob-tag-gluten{background:transparent;color:var(--ob-skog-600);border:1px solid var(--ob-skog-300);}.ob-tag-fresh{background:var(--ob-saffran-100);color:var(--ob-saffran-600);}.ob-menu-subsection{font-family:var(--ob-font-sans);font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--ob-ink-3);margin:28px 0 4px;padding-bottom:8px;border-bottom:2px solid var(--ob-border);}</style><section class='ob-menu-section ' id='brod'><div class='ob-menu-section-inner'><p class='ob-menu-section-eyebrow'>Bröd &amp; smörgåsar</p><h2 class='ob-menu-section-title'>{{section_brod_title}}</h2><p class='ob-menu-section-meta'><span style='font-weight:700;'>Ordinarie</span> / Student</p><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Surdegsbaguette<span class='ob-tag ob-tag-fresh'>Nybakat</span></div><p class='ob-menu-row-desc'>Levereras med valfritt pålägg — ost, ost &amp; skinka, ägg &amp; kaviar, leverpastej.</p></div><div class='ob-menu-row-price'>45:- <span class='ob-stu'>/ 40:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Mörk solrosfralla</div><p class='ob-menu-row-desc'>Bakad samma morgon. Smör eller pålägg på begäran.</p></div><div class='ob-menu-row-price'>35:- <span class='ob-stu'>/ 35:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Giffel</div><p class='ob-menu-row-desc'>Söt giffel, lagom till morgonkaffet.</p></div><div class='ob-menu-row-price'>35:- <span class='ob-stu'>/ 35:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Focaccia</div><p class='ob-menu-row-desc'>Kyckling, mozzarella ost, grönsaker &amp; basilika dressing.</p></div><div class='ob-menu-row-price'>80:- <span class='ob-stu'>/ 70:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Ciabatta</div><p class='ob-menu-row-desc'>Salami, grönsaker, inlagd rödlök, oliver &amp; brieost / mozzarella ost.</p></div><div class='ob-menu-row-price'>70:- <span class='ob-stu'>/ 60:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Vegan smörgås<span class='ob-tag ob-tag-vegan'>Vegan</span></div><p class='ob-menu-row-desc'>Surdegsbröd, hummus, grönsallad, olivolja, morötter, avokado &amp; rostade solfrön.</p></div><div class='ob-menu-row-price'>70:- <span class='ob-stu'>/ 60:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Glutenfri smörgås<span class='ob-tag ob-tag-gluten'>Glutenfri</span></div><p class='ob-menu-row-desc'>Glutenfritt bröd, rökt kalkon, grönsallad, avokado, tomat &amp; basilika dressing.</p></div><div class='ob-menu-row-price'>70:- <span class='ob-stu'>/ 60:-</span></div></div></div></section><section class='ob-menu-section ob-alt' id='italienska'><div class='ob-menu-section-inner'><p class='ob-menu-section-eyebrow'>Italienska sandwich</p><h2 class='ob-menu-section-title'>{{section_italienska_title}}</h2><p class='ob-menu-section-meta'><span style='font-weight:700;'>Ordinarie</span> / Student</p><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Mozzarella<span class='ob-tag ob-tag-veg'>Vegetarisk</span></div><p class='ob-menu-row-desc'>Färska tomater, ruccola &amp; örtpesto.</p></div><div class='ob-menu-row-price'>80:- <span class='ob-stu'>/ 70:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Prosciutto</div><p class='ob-menu-row-desc'>Mozzarella, basilika, soltorkade tomater &amp; örtpesto.</p></div><div class='ob-menu-row-price'>80:- <span class='ob-stu'>/ 70:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Milano salami</div><p class='ob-menu-row-desc'>Mozzarella, ruccola, soltorkade tomater &amp; örtpesto.</p></div><div class='ob-menu-row-price'>80:- <span class='ob-stu'>/ 70:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Mortadella</div><p class='ob-menu-row-desc'>Mozzarella, ruccola, färska tomater &amp; örtpesto.</p></div><div class='ob-menu-row-price'>80:- <span class='ob-stu'>/ 70:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Avokado, ägg &amp; chiliflakes<span class='ob-tag ob-tag-veg'>Vegetarisk</span></div><p class='ob-menu-row-desc'>Färska tomater, ruccola, örtpesto.</p></div><div class='ob-menu-row-price'>80:- <span class='ob-stu'>/ 70:-</span></div></div></div></section><section class='ob-menu-section ' id='sallader'><div class='ob-menu-section-inner'><p class='ob-menu-section-eyebrow'>Sallader</p><h2 class='ob-menu-section-title'>{{section_sallader_title}}</h2><p class='ob-menu-section-meta'><span style='font-weight:700;'>Ordinarie</span> / Student</p><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Hälsosallad med kyckling</div><p class='ob-menu-row-desc'>Grillad kycklingfilé, tomat, hummus, halloumi, grönsallad, lök &amp; vitlökscreme. Inkl. bröd &amp; läsk 33cl.</p></div><div class='ob-menu-row-price'>110:- <span class='ob-stu'>/ 90:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Hälsosallad med räkor</div><p class='ob-menu-row-desc'>Räkor, fetaost, bönor, grönsallad, granatäpple, avokado, citron, ägg &amp; vitlökscreme. Inkl. bröd &amp; läsk 33cl.</p></div><div class='ob-menu-row-price'>120:- <span class='ob-stu'>/ 110:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Vegansallad<span class='ob-tag ob-tag-vegan'>Vegan</span></div><p class='ob-menu-row-desc'>Falafel, kronärtskocka, hummus, grönsallad, vinbladsdolmar, tomat &amp; lök.</p></div><div class='ob-menu-row-price'>110:- <span class='ob-stu'>/ 90:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Vegetarisk sallad<span class='ob-tag ob-tag-veg'>Vegetarisk</span></div><p class='ob-menu-row-desc'>Äkta grekisk fårost &amp; halloumi, paprikaröra, tomat, grönsallad, labneh &amp; oliver.</p></div><div class='ob-menu-row-price'>110:- <span class='ob-stu'>/ 90:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Kyckling med gröna linser</div><p class='ob-menu-row-desc'>Grön hummus &amp; färska grönsaker.</p></div><div class='ob-menu-row-price'>110:- <span class='ob-stu'>/ 90:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Prosciutto med röda linser</div><p class='ob-menu-row-desc'>Mozzarella, röd hummus &amp; färska grönsaker.</p></div><div class='ob-menu-row-price'>110:- <span class='ob-stu'>/ 90:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Falafel med vit ost<span class='ob-tag ob-tag-veg'>Vegetarisk</span></div><p class='ob-menu-row-desc'>Färska grönsaker, tahinesås &amp; quinoa.</p></div><div class='ob-menu-row-price'>110:- <span class='ob-stu'>/ 90:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Quinoa med kyckling</div><p class='ob-menu-row-desc'>Halloumi, färska grönsaker &amp; örtpesto.</p></div><div class='ob-menu-row-price'>110:- <span class='ob-stu'>/ 90:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Potatissallad med quinoa<span class='ob-tag ob-tag-veg'>Vegetarisk</span></div><p class='ob-menu-row-desc'>Små färska potatisar, färska grönsaker &amp; basilika dressing.</p></div><div class='ob-menu-row-price'>110:- <span class='ob-stu'>/ 90:-</span></div></div></div></section><section class='ob-menu-section ob-alt' id='wraps'><div class='ob-menu-section-inner'><p class='ob-menu-section-eyebrow'>Wraps</p><h2 class='ob-menu-section-title'>{{section_wraps_title}}</h2><p class='ob-menu-section-meta'><span style='font-weight:700;'>Ordinarie</span> / Student</p><p class='ob-menu-subsection'>Grillade wraps</p><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Falafel<span class='ob-tag ob-tag-vegan'>Vegan</span></div><p class='ob-menu-row-desc'>Vildgurka, tomat, färsk mynta &amp; tahinisås.</p></div><div class='ob-menu-row-price'>85:- <span class='ob-stu'>/ 75:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Halloumi<span class='ob-tag ob-tag-veg'>Vegetarisk</span></div><p class='ob-menu-row-desc'>Tomat &amp; färsk mynta.</p></div><div class='ob-menu-row-price'>85:- <span class='ob-stu'>/ 75:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Falafel &amp; Halloumi<span class='ob-tag ob-tag-veg'>Vegetarisk</span></div><p class='ob-menu-row-desc'>Vildgurka, tomat, färsk mynta &amp; tahinisås.</p></div><div class='ob-menu-row-price'>85:- <span class='ob-stu'>/ 75:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Kyckling &amp; Halloumi</div><p class='ob-menu-row-desc'>Tomat &amp; färsk mynta.</p></div><div class='ob-menu-row-price'>85:- <span class='ob-stu'>/ 75:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Nöttfärsspettrulle</div><p class='ob-menu-row-desc'>Halloumi, lök, persilja &amp; vitlökscreme.</p></div><div class='ob-menu-row-price'>85:- <span class='ob-stu'>/ 75:-</span></div></div><p class='ob-menu-subsection'>Kalla wraps</p><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Östras Special</div><p class='ob-menu-row-desc'>Kyckling, soya bönor, quinoa, hummus, grönsallad, rödlök &amp; basilika dressing.</p></div><div class='ob-menu-row-price'>85:- <span class='ob-stu'>/ 75:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Kyckling</div><p class='ob-menu-row-desc'>Currymarinerad kyckling, grönsallad, kokt potatis &amp; rostad lök.</p></div><div class='ob-menu-row-price'>85:- <span class='ob-stu'>/ 75:-</span></div></div></div></section><section class='ob-menu-section ' id='meza'><div class='ob-menu-section-inner'><p class='ob-menu-section-eyebrow'>Meza</p><h2 class='ob-menu-section-title'>{{section_meza_title}}</h2><p class='ob-menu-section-meta'><span style='font-weight:700;'>Ordinarie</span> / Student</p><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Mezetallrik (kall)<span class='ob-tag ob-tag-veg'>Vegetarisk</span></div><p class='ob-menu-row-desc'>Auberginröra, paprikaröra, labneh, hummus, vinbladsdolmar, ostrulle / falafel / spenatspiroger &amp; bulgur.</p></div><div class='ob-menu-row-price'>110:- <span class='ob-stu'>/ 90:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Mezetallrik</div><p class='ob-menu-row-desc'>Hummus, tarator (kyckling sesampasta), auberginröra, paprikaröra, kibbe &amp; libanesisk potatissallad / bulgur.</p></div><div class='ob-menu-row-price'>110:- <span class='ob-stu'>/ 90:-</span></div></div></div></section><section class='ob-menu-section ob-alt' id='drycker'><div class='ob-menu-section-inner'><p class='ob-menu-section-eyebrow'>Drycker</p><h2 class='ob-menu-section-title'>{{section_drycker_title}}</h2><p class='ob-menu-section-meta'><span style='font-weight:700;'>Ordinarie</span> / Student</p><p class='ob-menu-subsection'>Östras specialdrycker</p><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Östras mocka</div><p class='ob-menu-row-desc'>Dubbel espresso, ångvispad mjölk, hasselnötssirap &amp; grädde.</p></div><div class='ob-menu-row-price'>35:- <span class='ob-stu'>/ 25:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Caramello</div><p class='ob-menu-row-desc'>Enkel espresso, karamellsirap, ångvispad mjölk, kakao &amp; grädde.</p></div><div class='ob-menu-row-price'>35:- <span class='ob-stu'>/ 25:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Chai latte</div><p class='ob-menu-row-desc'>Chaisirap, ångvispad mjölk &amp; kanel.</p></div><div class='ob-menu-row-price'>35:- <span class='ob-stu'>/ 25:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Macchiato</div><p class='ob-menu-row-desc'>Enkel espresso &amp; ångvispad mjölk.</p></div><div class='ob-menu-row-price'>35:- <span class='ob-stu'>/ 25:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Cortado</div><p class='ob-menu-row-desc'>Dubbel espresso &amp; varm mjölk.</p></div><div class='ob-menu-row-price'>35:- <span class='ob-stu'>/ 25:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Americano</div><p class='ob-menu-row-desc'>Dubbel espresso &amp; hett vatten.</p></div><div class='ob-menu-row-price'>35:- <span class='ob-stu'>/ 25:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Katte latte</div></div><div class='ob-menu-row-price'>35:- <span class='ob-stu'>/ 25:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Laktosfri latte</div></div><div class='ob-menu-row-price'>35:- <span class='ob-stu'>/ 25:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Latte med havremjölk</div></div><div class='ob-menu-row-price'>35:- <span class='ob-stu'>/ 25:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Cappuccino</div></div><div class='ob-menu-row-price'>35:- <span class='ob-stu'>/ 25:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Varm Choklad</div><p class='ob-menu-row-desc'>Mjölk, grädde &amp; chokladsås.</p></div><div class='ob-menu-row-price'>35:- <span class='ob-stu'>/ 25:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Iskaffe / Islatte</div><p class='ob-menu-row-desc'>Iskall version. Med havremjölk på begäran.</p></div><div class='ob-menu-row-price'>35:- <span class='ob-stu'>/ 25:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Juice</div><p class='ob-menu-row-desc'>Färskpressad apelsinjuice.</p></div><div class='ob-menu-row-price'>35:- <span class='ob-stu'>/ 25:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Smoothie<span class='ob-tag ob-tag-veg'>Vegetarisk</span></div><p class='ob-menu-row-desc'>Hallon, blåbär eller mango med vaniljyoghurt.</p></div><div class='ob-menu-row-price'>35:- <span class='ob-stu'>/ 25:-</span></div></div><p class='ob-menu-subsection'>Varma drycker</p><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Kaffe</div></div><div class='ob-menu-row-price'>20:- <span class='ob-stu'>/ 10:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Te / Grön Te</div><p class='ob-menu-row-desc'>Olika smaker.</p></div><div class='ob-menu-row-price'>20:- <span class='ob-stu'>/ 10:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Espresso Enkel</div></div><div class='ob-menu-row-price'>20:- <span class='ob-stu'>/ 20:-</span></div></div><div class='ob-menu-row'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>Espresso Dubbel</div></div><div class='ob-menu-row-price'>25:- <span class='ob-stu'>/ 25:-</span></div></div></div></section>",
+    "schema": [
+      {
+        "default": "Frallor, baguetter, surdeg.",
+        "label": "Sektion 1 — titel",
+        "name": "section_brod_title",
+        "type": "text"
+      },
+      {
+        "default": "Mozzarella, basilika, soltorkat.",
+        "label": "Sektion 2 — titel",
+        "name": "section_italienska_title",
+        "type": "text"
+      },
+      {
+        "default": "Hälsosallader & meze.",
+        "label": "Sektion 3 — titel",
+        "name": "section_sallader_title",
+        "type": "text"
+      },
+      {
+        "default": "Östras specialiteter.",
+        "label": "Sektion 4 — titel",
+        "name": "section_drycker_title",
+        "type": "text"
+      },
+      {
+        "default": "Grillade & kalla wraps.",
+        "label": "Rubrik Wraps",
+        "name": "section_wraps_title",
+        "type": "text"
+      },
+      {
+        "default": "Orientaliska smaker.",
+        "label": "Rubrik Meza",
+        "name": "section_meza_title",
+        "type": "text"
+      }
+    ],
+    "title": "Östra Bageriet — Meny (alla sektioner)"
+  },
+  "lumo/ob-menu-wraps": {
+    "block_name": "lumo/ob-menu-wraps",
+    "html_template": "<style>.ob-menu-section{padding:64px 28px;scroll-margin-top:138px;}.ob-menu-section.ob-alt{background:var(--ob-cream-2);}.ob-menu-section-inner{max-width:1100px;margin:0 auto;}.ob-menu-section-eyebrow{font-family:var(--ob-font-sans);font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--ob-saffran-500);margin-bottom:8px;}.ob-menu-section-title{font-family:var(--ob-font-display);font-weight:600;font-size:clamp(30px,4.2vw,56px);line-height:1.05;letter-spacing:-0.012em;color:var(--ob-ink);text-wrap:balance;margin-bottom:4px;}.ob-menu-section-meta{font-family:var(--ob-font-sans);font-size:13px;color:var(--ob-ink-3);margin-top:24px;margin-bottom:4px;text-align:right;}.ob-menu-row{display:flex;align-items:flex-start;gap:16px;padding:18px 0;border-bottom:1px dashed var(--ob-border);}.ob-menu-row:last-child{border-bottom:none;}.ob-menu-row-info{flex:1;}.ob-menu-row-name{font-family:var(--ob-font-display);font-weight:600;font-size:20px;color:var(--ob-ink);line-height:1.2;}.ob-menu-row-desc{font-family:var(--ob-font-sans);font-size:14px;color:var(--ob-ink-2);margin-top:3px;max-width:560px;line-height:1.5;}.ob-menu-row-price{font-family:var(--ob-font-sans);font-weight:700;font-size:15px;color:var(--ob-ink);white-space:nowrap;flex-shrink:0;padding-top:2px;}.ob-menu-row-price .ob-stu{font-weight:400;color:var(--ob-ink-3);}.ob-tag{display:inline-block;padding:2px 9px;border-radius:var(--ob-r-pill);font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-left:7px;vertical-align:middle;}.ob-tag-vegan,.ob-tag-veg{background:var(--ob-skog-100);color:var(--ob-skog-700);}.ob-tag-gluten{background:transparent;color:var(--ob-skog-600);border:1px solid var(--ob-skog-300);}.ob-tag-fresh{background:var(--ob-saffran-100);color:var(--ob-saffran-600);}.ob-menu-subsection{font-family:var(--ob-font-sans);font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--ob-ink-3);margin:28px 0 4px;padding-bottom:8px;border-bottom:2px solid var(--ob-border);}.ob-menu-row[data-name='']{display:none;}</style><section class='ob-menu-section ob-alt' id='wraps'><div class='ob-menu-section-inner'><p class='ob-menu-section-eyebrow'>Wraps</p><h2 class='ob-menu-section-title'>{{section_title}}</h2><p class='ob-menu-section-meta'><span style='font-weight:700;'>Ordinarie</span> / Student</p><p class='ob-menu-subsection'>Grillade wraps</p><div class='ob-menu-row' data-name='{{item_1_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_1_name}}<span class='ob-tag ob-tag-vegan'>Vegan</span></div><p class='ob-menu-row-desc'>{{item_1_desc}}</p></div><div class='ob-menu-row-price'>{{item_1_price_ord}}:- <span class='ob-stu'>/ {{item_1_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_2_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_2_name}}<span class='ob-tag ob-tag-veg'>Vegetarisk</span></div><p class='ob-menu-row-desc'>{{item_2_desc}}</p></div><div class='ob-menu-row-price'>{{item_2_price_ord}}:- <span class='ob-stu'>/ {{item_2_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_3_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_3_name}}<span class='ob-tag ob-tag-veg'>Vegetarisk</span></div><p class='ob-menu-row-desc'>{{item_3_desc}}</p></div><div class='ob-menu-row-price'>{{item_3_price_ord}}:- <span class='ob-stu'>/ {{item_3_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_4_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_4_name}}</div><p class='ob-menu-row-desc'>{{item_4_desc}}</p></div><div class='ob-menu-row-price'>{{item_4_price_ord}}:- <span class='ob-stu'>/ {{item_4_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_5_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_5_name}}</div><p class='ob-menu-row-desc'>{{item_5_desc}}</p></div><div class='ob-menu-row-price'>{{item_5_price_ord}}:- <span class='ob-stu'>/ {{item_5_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_6_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_6_name}}</div><p class='ob-menu-row-desc'>{{item_6_desc}}</p></div><div class='ob-menu-row-price'>{{item_6_price_ord}}:- <span class='ob-stu'>/ {{item_6_price_stu}}:-</span></div></div><p class='ob-menu-subsection'>Kalla wraps</p><div class='ob-menu-row' data-name='{{item_7_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_7_name}}</div><p class='ob-menu-row-desc'>{{item_7_desc}}</p></div><div class='ob-menu-row-price'>{{item_7_price_ord}}:- <span class='ob-stu'>/ {{item_7_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_8_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_8_name}}</div><p class='ob-menu-row-desc'>{{item_8_desc}}</p></div><div class='ob-menu-row-price'>{{item_8_price_ord}}:- <span class='ob-stu'>/ {{item_8_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_9_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_9_name}}</div><p class='ob-menu-row-desc'>{{item_9_desc}}</p></div><div class='ob-menu-row-price'>{{item_9_price_ord}}:- <span class='ob-stu'>/ {{item_9_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_10_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_10_name}}</div><p class='ob-menu-row-desc'>{{item_10_desc}}</p></div><div class='ob-menu-row-price'>{{item_10_price_ord}}:- <span class='ob-stu'>/ {{item_10_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_11_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_11_name}}</div><p class='ob-menu-row-desc'>{{item_11_desc}}</p></div><div class='ob-menu-row-price'>{{item_11_price_ord}}:- <span class='ob-stu'>/ {{item_11_price_stu}}:-</span></div></div><div class='ob-menu-row' data-name='{{item_12_name}}'><div class='ob-menu-row-info'><div class='ob-menu-row-name'>{{item_12_name}}</div><p class='ob-menu-row-desc'>{{item_12_desc}}</p></div><div class='ob-menu-row-price'>{{item_12_price_ord}}:- <span class='ob-stu'>/ {{item_12_price_stu}}:-</span></div></div></div></section>",
+    "schema": [
+      {
+        "label": "Sektionsrubrik",
+        "name": "section_title",
+        "type": "text"
+      },
+      {
+        "label": "Namn",
+        "name": "item_1_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_1_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_1_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_1_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_2_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_2_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_2_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_2_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_3_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_3_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_3_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_3_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_4_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_4_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_4_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_4_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_5_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_5_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_5_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_5_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_6_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_6_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_6_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_6_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_7_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_7_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_7_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_7_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_8_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_8_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_8_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_8_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_9_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_9_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_9_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_9_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_10_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_10_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_10_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_10_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_11_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_11_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_11_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_11_price_stu",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Namn",
+        "name": "item_12_name",
+        "type": "text"
+      },
+      {
+        "label": "Beskrivning",
+        "name": "item_12_desc",
+        "type": "textarea"
+      },
+      {
+        "label": "Pris ordinarie",
+        "name": "item_12_price_ord",
+        "type": "text",
+        "width": 50
+      },
+      {
+        "label": "Pris student",
+        "name": "item_12_price_stu",
+        "type": "text",
+        "width": 50
+      }
+    ],
+    "title": "Östra Bageriet — Meny: Wraps"
+  },
+  "lumo/ob-offert-form": {
+    "block_name": "lumo/ob-offert-form",
+    "html_template": "<style>.ob-form-section{padding:80px 28px;}.ob-form-inner{max-width:800px;margin:0 auto;}.ob-form-eyebrow{font-family:var(--ob-font-sans);font-size:12px;font-weight:600;letter-spacing:0.20em;text-transform:uppercase;color:var(--ob-saffran-500);margin-bottom:12px;}.ob-form-title{font-family:var(--ob-font-display);font-weight:700;font-size:clamp(32px,4vw,52px);line-height:1.0;letter-spacing:-0.02em;color:var(--ob-ink);text-wrap:balance;margin-bottom:6px;}.ob-form-title-hand{font-family:var(--ob-font-hand);font-weight:700;font-size:clamp(30px,3.8vw,48px);color:var(--ob-skog-500);display:block;line-height:1.05;}.ob-form-lede{font-family:var(--ob-font-sans);font-size:16px;line-height:1.6;color:var(--ob-ink-2);margin-bottom:40px;text-wrap:pretty;}.ob-offert-form{display:flex;flex-direction:column;gap:20px;}.ob-form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}.ob-form-group{display:flex;flex-direction:column;gap:6px;}.ob-form-label{font-family:var(--ob-font-sans);font-size:13px;font-weight:600;color:var(--ob-ink-2);letter-spacing:0.02em;}.ob-form-input,.ob-form-select,.ob-form-textarea{font-family:var(--ob-font-sans);font-size:15px;color:var(--ob-ink);background:var(--ob-paper);border:1.5px solid var(--ob-border);border-radius:var(--ob-r-md);padding:12px 14px;transition:border-color 150ms,box-shadow 150ms;outline:none;width:100%;}.ob-form-input:focus,.ob-form-select:focus,.ob-form-textarea:focus{border-color:var(--ob-skog-400);box-shadow:var(--ob-ring-focus);}.ob-form-textarea{resize:vertical;min-height:110px;}.ob-form-select{appearance:none;cursor:pointer;background-image:url(\"data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%237A6F5F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px;}.ob-form-submit-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:8px;}.ob-btn-submit{background:var(--ob-skog-500);color:var(--ob-cream);padding:15px 32px;border-radius:var(--ob-r-pill);font-family:var(--ob-font-sans);font-weight:600;font-size:16px;border:none;cursor:pointer;box-shadow:0 4px 14px -4px rgba(63,110,54,0.40);transition:background 150ms,transform 150ms;}.ob-btn-submit:hover{background:var(--ob-skog-600);transform:translateY(-1px);}.ob-form-note{font-family:var(--ob-font-sans);font-size:13px;color:var(--ob-ink-3);line-height:1.5;}.ob-form-note strong{color:var(--ob-ink-2);}@media(max-width:600px){.ob-form-row{grid-template-columns:1fr;}.ob-form-section{padding:60px 20px;}}</style><section id='offert' class='ob-form-section'><div class='ob-form-inner'><p class='ob-form-eyebrow'>{{eyebrow}}</p><h2 class='ob-form-title'>{{title}}<br><span class='ob-form-title-hand'>{{title_hand}}</span></h2><p class='ob-form-lede'>{{lede}}</p><form class='ob-offert-form' method='post' action=''><div class='ob-form-row'><div class='ob-form-group'><label class='ob-form-label' for='ob-company'>Företag / organisation</label><input class='ob-form-input' type='text' id='ob-company' name='company' placeholder='Ditt företag AB' required></div><div class='ob-form-group'><label class='ob-form-label' for='ob-contact'>Kontaktperson</label><input class='ob-form-input' type='text' id='ob-contact' name='contact' placeholder='Förnamn Efternamn' required></div></div><div class='ob-form-row'><div class='ob-form-group'><label class='ob-form-label' for='ob-email'>E-post</label><input class='ob-form-input' type='email' id='ob-email' name='email' placeholder='din@email.se' required></div><div class='ob-form-group'><label class='ob-form-label' for='ob-phone'>Telefon (valfritt)</label><input class='ob-form-input' type='tel' id='ob-phone' name='phone' placeholder='07X-XXX XX XX'></div></div><div class='ob-form-row'><div class='ob-form-group'><label class='ob-form-label' for='ob-date'>Datum för leverans</label><input class='ob-form-input' type='date' id='ob-date' name='date' required></div><div class='ob-form-group'><label class='ob-form-label' for='ob-antal'>Antal personer</label><input class='ob-form-input' type='number' id='ob-antal' name='antal' min='8' placeholder='T.ex. 20' required></div></div><div class='ob-form-group'><label class='ob-form-label' for='ob-paket'>Paket</label><select class='ob-form-select' id='ob-paket' name='paket' required><option value='' disabled selected>Välj ett paket…</option><option value='frukost'>Frukost &amp; frallor — 85:- / person</option><option value='lunch'>Italienska smörgåsar — 120:- / person</option><option value='meze'>Mezetallrik — 165:- / person</option><option value='eget'>Skräddarsytt — berätta nedan</option></select></div><div class='ob-form-group'><label class='ob-form-label' for='ob-notes'>Övriga önskemål, allergier eller leveransadress</label><textarea class='ob-form-textarea' id='ob-notes' name='notes' placeholder='T.ex. 3 veganer, 1 glutenintolerant. Leverans till Kungsgatan 28, 111 35 Stockholm.'></textarea></div><div class='ob-form-submit-row'><button type='submit' class='ob-btn-submit'>{{submit_text}}</button><p class='ob-form-note'><strong>{{response_time}}</strong><br>Eller ring <a href='{{phone_href}}' style='color:var(--ob-skog-500);'>{{phone}}</a> direkt.</p></div></form></div></section>",
+    "schema": [
+      {
+        "default": "Begär offert",
+        "label": "Etikett",
+        "name": "eyebrow",
+        "type": "text"
+      },
+      {
+        "default": "Berätta om ert event.",
+        "label": "Rubrik",
+        "name": "title",
+        "type": "text"
+      },
+      {
+        "default": "Vi fixar resten.",
+        "label": "Rubrik handstil",
+        "name": "title_hand",
+        "type": "text"
+      },
+      {
+        "default": "Fyll i formuläret — vi återkommer inom 2 arbetstimmar med bekräftelse och pris. Inga dolda avgifter.",
+        "label": "Ingress",
+        "name": "lede",
+        "type": "textarea"
+      },
+      {
+        "default": "Skicka offertförfrågan →",
+        "label": "Knapptext",
+        "name": "submit_text",
+        "type": "text"
+      },
+      {
+        "default": "Svarstid: under 2h på vardagar.",
+        "label": "Svarstid",
+        "name": "response_time",
+        "type": "text"
+      },
+      {
+        "default": "08-612 50 50",
+        "label": "Telefon",
+        "name": "phone",
+        "type": "text"
+      },
+      {
+        "default": "tel:0861250050",
+        "label": "Telefon href",
+        "name": "phone_href",
+        "type": "url"
+      }
+    ],
+    "title": "Östra Bageriet — Offertformulär"
+  },
+  "lumo/ob-page-hero-photo": {
+    "block_name": "lumo/ob-page-hero-photo",
+    "html_template": "<style>.ob-btn-orange{background:var(--ob-saffran-400);color:#fff;padding:14px 26px;border-radius:var(--ob-r-pill);font-family:var(--ob-font-sans);font-weight:600;font-size:15px;box-shadow:var(--ob-shadow-warm);transition:background 150ms,transform 150ms;display:inline-block;}.ob-btn-orange:hover{background:var(--ob-saffran-500);transform:translateY(-1px);}.ob-btn-outline-white{background:rgba(255,255,255,0.10);color:#fff;border:1.5px solid rgba(255,255,255,0.50);padding:13px 24px;border-radius:var(--ob-r-pill);font-family:var(--ob-font-sans);font-weight:600;font-size:15px;backdrop-filter:blur(8px);transition:background 150ms;display:inline-block;}.ob-btn-outline-white:hover{background:rgba(255,255,255,0.20);}.ob-page-hero-photo-wrap{padding:10px 10px 0;max-width:1320px;margin:0 auto;}.ob-page-hero-photo{position:relative;border-radius:var(--ob-r-xl);overflow:hidden;height:560px;}.ob-page-hero-photo-bg{position:absolute;inset:0;background-size:cover;background-position:center 40%;}.ob-page-hero-photo-scrim{position:absolute;inset:0;background:linear-gradient(105deg,rgba(26,22,17,0.82) 0%,rgba(26,22,17,0.52) 45%,rgba(26,22,17,0.08) 80%);}.ob-page-hero-photo-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:0 52px 52px;max-width:780px;}.ob-page-hero-photo-eyebrow{font-family:var(--ob-font-sans);font-size:12px;font-weight:600;letter-spacing:0.20em;text-transform:uppercase;color:var(--ob-saffran-300);margin-bottom:14px;}.ob-page-hero-photo-title-serif{font-family:var(--ob-font-display);font-weight:700;font-size:clamp(44px,6vw,82px);line-height:1.0;letter-spacing:-0.02em;color:#fff;}.ob-page-hero-photo-title-hand{font-family:var(--ob-font-hand);font-weight:700;font-size:clamp(44px,5.8vw,76px);line-height:1.0;color:var(--ob-saffran-300);display:block;margin-top:-4px;}.ob-page-hero-photo-lede{font-family:var(--ob-font-sans);font-size:clamp(15px,1.6vw,17px);line-height:1.55;color:rgba(251,246,236,0.80);max-width:480px;margin-top:18px;}.ob-page-hero-photo-ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;}.ob-page-hero-photo-stamp{position:absolute;right:28px;bottom:28px;z-index:1;height:60px;width:auto;filter:grayscale(1) brightness(0) sepia(0.4) opacity(0.9);pointer-events:none;}@media(max-width:860px){.ob-page-hero-photo{height:480px;border-radius:var(--ob-r-lg);}.ob-page-hero-photo-content{padding:0 28px 36px;}}@media(max-width:600px){.ob-page-hero-photo-stamp{height:44px;right:18px;bottom:18px;}}@media(max-width:480px){.ob-page-hero-photo{height:400px;}.ob-page-hero-photo-wrap{padding:12px 12px 0;}}</style><div class='ob-page-hero-photo-wrap'><section class='ob-page-hero-photo' aria-label='{{aria_label}}'><div class='ob-page-hero-photo-bg' style='background-image:url({{background_image}})' role='img'></div><div class='ob-page-hero-photo-scrim' aria-hidden='true'></div><img src='{{logo_url}}' class='ob-page-hero-photo-stamp' alt=''><div class='ob-page-hero-photo-content'><p class='ob-page-hero-photo-eyebrow'>{{eyebrow}}</p><h1><span class='ob-page-hero-photo-title-serif'>{{title_serif}}</span><span class='ob-page-hero-photo-title-hand'>{{title_hand}}</span></h1><p class='ob-page-hero-photo-lede'>{{lede}}</p><div class='ob-page-hero-photo-ctas'><a href='{{cta1_url}}' class='ob-btn-orange'>{{cta1_text}}</a><a href='{{cta2_url}}' class='ob-btn-outline-white'>{{cta2_text}}</a></div></div></section></div>",
+    "schema": [
+      {
+        "default": "https://rivy.templweb.com/wp-content/uploads/2026/04/mezzetallrik-kofte.jpg",
+        "label": "Bakgrundsbild",
+        "name": "background_image",
+        "type": "image"
+      },
+      {
+        "default": "https://rivy.templweb.com/wp-content/uploads/2026/04/logo.png",
+        "label": "Logotyp (stämpel)",
+        "name": "logo_url",
+        "type": "image"
+      },
+      {
+        "default": "Catering från Östra Bageriet",
+        "label": "Aria-label",
+        "name": "aria_label",
+        "type": "text"
+      },
+      {
+        "default": "Catering · Stockholm City",
+        "label": "Etikett",
+        "name": "eyebrow",
+        "type": "text"
+      },
+      {
+        "default": "Mat till mötet.",
+        "label": "Rubrik (serif)",
+        "name": "title_serif",
+        "type": "text"
+      },
+      {
+        "default": "Levererat på morgonen.",
+        "label": "Rubrik (handstil)",
+        "name": "title_hand",
+        "type": "text"
+      },
+      {
+        "default": "Frukostmöten, kontorsluncher och heldagsfester. Vi packar, levererar och sköter allt.",
+        "label": "Ingress",
+        "name": "lede",
+        "type": "textarea"
+      },
+      {
+        "default": "Begär offert →",
+        "label": "Knapp 1 text",
+        "name": "cta1_text",
+        "type": "text"
+      },
+      {
+        "default": "#offert",
+        "label": "Knapp 1 länk",
+        "name": "cta1_url",
+        "type": "url"
+      },
+      {
+        "default": "Se paketen",
+        "label": "Knapp 2 text",
+        "name": "cta2_text",
+        "type": "text"
+      },
+      {
+        "default": "#paket",
+        "label": "Knapp 2 länk",
+        "name": "cta2_url",
+        "type": "url"
+      }
+    ],
+    "title": "Östra Bageriet — Catering Hero (Foto)"
+  },
+  "lumo/ob-page-hero-text": {
+    "block_name": "lumo/ob-page-hero-text",
+    "html_template": "<style>.ob-page-hero-text{padding:64px 28px 52px;border-bottom:1px solid var(--ob-border);}.ob-page-hero-text-inner{max-width:1100px;margin:0 auto;}.ob-page-eyebrow{font-family:var(--ob-font-sans);font-size:12px;font-weight:600;letter-spacing:0.20em;text-transform:uppercase;color:var(--ob-saffran-500);margin-bottom:14px;}.ob-page-title{font-family:var(--ob-font-display);font-weight:700;font-size:clamp(48px,7vw,100px);line-height:0.96;letter-spacing:-0.02em;color:var(--ob-ink);text-wrap:balance;}.ob-page-title-hand{font-family:var(--ob-font-hand);font-weight:700;font-size:clamp(46px,6.5vw,86px);color:var(--ob-skog-500);display:block;line-height:1.0;}.ob-page-meta{font-family:var(--ob-font-sans);font-size:14px;color:var(--ob-ink-3);margin-top:20px;}@media(max-width:600px){.ob-page-hero-text{padding:48px 20px 36px;}}.ob-menu-tabs{position:sticky;top:82px;z-index:90;background:rgba(251,246,236,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--ob-border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}.ob-menu-tabs::-webkit-scrollbar{display:none;}.admin-bar .ob-menu-tabs{top:100px;}.ob-menu-tabs-inner{max-width:1100px;margin:0 auto;padding:0 28px;display:flex;min-width:max-content;}.ob-menu-tab{white-space:nowrap;padding:13px 18px;font-family:var(--ob-font-sans);font-size:14px;font-weight:500;color:var(--ob-ink-3);white-space:nowrap;border-bottom:2px solid transparent;transition:color 150ms,border-color 150ms;text-decoration:none;}.ob-menu-tab:hover{color:var(--ob-ink);}.ob-menu-tab.ob-tab-active{color:var(--ob-skog-600);border-bottom-color:var(--ob-skog-500);font-weight:600;}@media(max-width:480px){.ob-menu-tabs-inner{padding:0 16px 0 16px;margin:0;}}</style><section class='ob-page-hero-text'><div class='ob-page-hero-text-inner'><p class='ob-page-eyebrow'>{{eyebrow}}</p><h1 class='ob-page-title'>{{title_serif}}<span class='ob-page-title-hand'>{{title_hand}}</span></h1><p class='ob-page-meta'>{{meta_text}}</p></div></section><nav class='ob-menu-tabs'><div class='ob-menu-tabs-inner'><a href='#brod' class='ob-menu-tab ob-tab-active'>{{tab_1}}</a><a href='#italienska' class='ob-menu-tab'>{{tab_2}}</a><a href='#sallader' class='ob-menu-tab'>{{tab_3}}</a><a href='#wraps' class='ob-menu-tab'>{{tab_4}}</a><a href='#meza' class='ob-menu-tab'>{{tab_5}}</a><a href='#drycker' class='ob-menu-tab'>{{tab_6}}</a></div></nav>\n<script>\n(function(){\n  var tabs = document.querySelectorAll('.ob-menu-tab');\n  var sections = ['brod','italienska','sallader','drycker','wraps','meza'];\n\n  function setActive(id){\n    tabs.forEach(function(t){\n      t.classList.toggle('ob-tab-active', t.getAttribute('href') === '#' + id);\n    });\n  }\n\n  // Click: set active immediately\n  tabs.forEach(function(t){\n    t.addEventListener('click', function(){\n      setActive(this.getAttribute('href').slice(1));\n    });\n  });\n\n  // Scrollspy: update active tab as user scrolls\n  if ('IntersectionObserver' in window){\n    var current = 'brod';\n    var io = new IntersectionObserver(function(entries){\n      entries.forEach(function(e){\n        if(e.isIntersecting){ current = e.target.id; setActive(current); }\n      });\n    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });\n    sections.forEach(function(id){\n      var el = document.getElementById(id);\n      if(el) io.observe(el);\n    });\n  }\n})();\n</script>",
+    "schema": [
+      {
+        "default": "Meny",
+        "label": "Etikett",
+        "name": "eyebrow",
+        "type": "text"
+      },
+      {
+        "default": "Bakat, bryggat,",
+        "label": "Rubrik rad 1",
+        "name": "title_serif",
+        "type": "text"
+      },
+      {
+        "default": "packat. Allt här.",
+        "label": "Rubrik rad 2 (handstil)",
+        "name": "title_hand",
+        "type": "text"
+      },
+      {
+        "default": "Studentpris mot leg. · 3:- serveringsavgift · alla priser i SEK",
+        "label": "Meta-text",
+        "name": "meta_text",
+        "type": "text"
+      },
+      {
+        "default": "Bröd & smörgåsar",
+        "label": "Flik 1",
+        "name": "tab_1",
+        "type": "text"
+      },
+      {
+        "default": "Italienska smörgåsar",
+        "label": "Flik 2",
+        "name": "tab_2",
+        "type": "text"
+      },
+      {
+        "default": "Sallader",
+        "label": "Flik 3",
+        "name": "tab_3",
+        "type": "text"
+      },
+      {
+        "default": "Drycker",
+        "label": "Flik 4",
+        "name": "tab_4",
+        "type": "text"
+      },
+      {
+        "default": "Wraps",
+        "label": "Flik 5",
+        "name": "tab_5",
+        "type": "text"
+      },
+      {
+        "default": "Meza",
+        "label": "Flik 6",
+        "name": "tab_6",
+        "type": "text"
+      }
+    ],
+    "title": "Östra Bageriet — Meny Hero (Text)"
+  },
+  "lumo/ob-site-footer": {
+    "block_name": "lumo/ob-site-footer",
+    "html_template": "<style>.ob-footer{background:var(--ob-stone-900);color:var(--ob-cream);padding:60px 28px 28px;}.ob-footer-inner{max-width:1320px;margin:0 auto;}.ob-footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px;}.ob-footer-logo img{height:60px;width:auto;filter:brightness(0) invert(1) sepia(0.25) saturate(1.5) hue-rotate(15deg);opacity:0.85;}.ob-footer-tagline{font-size:14px;line-height:1.6;color:rgba(251,246,236,0.55);margin-top:10px;max-width:280px;}.ob-footer-col-title{font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--ob-wheat-soft);margin-bottom:12px;}.ob-footer-col ul{list-style:none;display:flex;flex-direction:column;gap:6px;}.ob-footer-col li{font-size:14px;color:rgba(251,246,236,0.65);}.ob-footer-col a{color:rgba(251,246,236,0.65);transition:color 150ms;}.ob-footer-col a:hover{color:var(--ob-wheat-soft);}.ob-footer-bottom{padding-top:20px;border-top:1px solid rgba(201,160,99,0.18);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:rgba(251,246,236,0.35);}.ob-footer-bottom-links{display:flex;gap:18px;}@media(max-width:860px){.ob-footer-grid{grid-template-columns:1fr 1fr;gap:28px;}.ob-footer{padding:48px 20px 24px;}}@media(max-width:480px){.ob-footer-grid{grid-template-columns:1fr;}}</style><footer class=\"ob-footer\"><div class=\"ob-footer-inner\"><div class=\"ob-footer-grid\"><div><div class=\"ob-footer-logo\"><img src=\"{{logo_url}}\" alt=\"{{site_name}}\"></div><p class=\"ob-footer-tagline\">{{tagline}}</p></div><div class=\"ob-footer-col\"><p class=\"ob-footer-col-title\">Besök</p><ul><li>{{address_line_1}}</li><li>{{address_line_2}}</li><li>Mån–Fre {{hours_weekday}}</li><li>Lör {{hours_saturday}}</li></ul></div><div class=\"ob-footer-col\"><p class=\"ob-footer-col-title\">Kontakt</p><ul><li><a href=\"{{phone_href}}\">{{phone}}</a></li><li><a href=\"{{sms_href}}\">SMS {{sms}}</a></li><li><a href=\"{{email_href}}\">{{email}}</a></li></ul></div><div class=\"ob-footer-col\"><p class=\"ob-footer-col-title\">Catering</p><ul><li><a href=\"/catering/\">Kontorslunch</a></li><li><a href=\"/catering/\">Frukostmöten</a></li><li><a href=\"/catering/\">Mezetallrik</a></li><li><a href=\"/catering/#offert\">Be om offert</a></li></ul></div></div><div class=\"ob-footer-bottom\"><span>{{copyright}}</span><div class=\"ob-footer-bottom-links\"><span>Instagram</span><span>Facebook</span><span>Tripadvisor</span></div></div></div></footer>",
+    "schema": [
+      {
+        "default": "",
+        "label": "Logotyp",
+        "name": "logo_url",
+        "type": "image"
+      },
+      {
+        "default": "Östra Bageriet",
+        "label": "Företagsnamn",
+        "name": "site_name",
+        "type": "text"
+      },
+      {
+        "default": "Bageri, café & catering inuti Östra stations vänthall, sedan 1996.",
+        "label": "Slogan",
+        "name": "tagline",
+        "type": "text"
+      },
+      {
+        "default": "Drottning Kristinas väg 1",
+        "label": "Adress rad 1",
+        "name": "address_line_1",
+        "type": "text"
+      },
+      {
+        "default": "114 28 Stockholm",
+        "label": "Adress rad 2",
+        "name": "address_line_2",
+        "type": "text"
+      },
+      {
+        "default": "07–18",
+        "label": "Öppettid mån–fre",
+        "name": "hours_weekday",
+        "type": "text"
+      },
+      {
+        "default": "08–16",
+        "label": "Öppettid lör",
+        "name": "hours_saturday",
+        "type": "text"
+      },
+      {
+        "default": "08-612 50 50",
+        "label": "Telefon",
+        "name": "phone",
+        "type": "text"
+      },
+      {
+        "default": "tel:0861250050",
+        "label": "Telefon href",
+        "name": "phone_href",
+        "type": "url"
+      },
+      {
+        "default": "073-99 38 704",
+        "label": "SMS",
+        "name": "sms",
+        "type": "text"
+      },
+      {
+        "default": "sms:0739938704",
+        "label": "SMS href",
+        "name": "sms_href",
+        "type": "url"
+      },
+      {
+        "default": "Fkuorie@hotmail.com",
+        "label": "E-post",
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "default": "mailto:Fkuorie@hotmail.com",
+        "label": "E-post href",
+        "name": "email_href",
+        "type": "url"
+      },
+      {
+        "default": "© 2026 Östra Bageriet · Alla rättigheter förbehållna",
+        "label": "Copyright",
+        "name": "copyright",
+        "type": "text"
+      }
+    ],
+    "title": "Östra Bageriet — Footer"
+  },
+  "lumo/ob-site-header": {
+    "block_name": "lumo/ob-site-header",
+    "html_template": "<style>.ob-header{position:sticky;top:0;z-index:100;background:rgba(251,246,236,0.94);backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);border-bottom:1px solid var(--ob-border);}.admin-bar .ob-header{top:32px;}@media(max-width:782px){.admin-bar .ob-header{top:46px;}}.ob-header-inner{max-width:1320px;margin:0 auto;padding:0 28px;height:82px;display:flex;align-items:center;gap:20px;}.ob-header-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;}.ob-header-logo img{height:74px;width:auto;}.ob-header-nav{display:flex;gap:0;margin-left:auto;align-items:center;}.ob-header-nav a{padding:8px 14px;font-family:var(--ob-font-sans);font-size:15px;font-weight:500;color:var(--ob-ink-2);border-radius:var(--ob-r-pill);transition:background 150ms,color 150ms;}.ob-header-nav a:hover{color:var(--ob-ink);background:var(--ob-stone-50);}.ob-header-nav a.current-menu-item{color:var(--ob-skog-600);background:var(--ob-skog-50);font-weight:600;}.ob-header-cta{margin-left:12px;background:var(--ob-saffran-400);color:#fff;padding:10px 20px;border-radius:var(--ob-r-pill);font-family:var(--ob-font-sans);font-weight:600;font-size:14px;white-space:nowrap;flex-shrink:0;box-shadow:var(--ob-shadow-warm);transition:background 150ms,transform 150ms;}.ob-header-cta:hover{background:var(--ob-saffran-500);transform:translateY(-1px);}.ob-hamburger-toggle{display:none;}.ob-hamburger-btn{display:none;flex-direction:column;justify-content:center;gap:5px;width:38px;height:38px;cursor:pointer;margin-left:auto;flex-shrink:0;}.ob-hamburger-btn span{display:block;height:2px;background:var(--ob-bark);border-radius:2px;transition:transform 240ms,opacity 240ms;}.ob-hamburger-toggle:checked~.ob-header .ob-hamburger-btn span:nth-child(1){transform:translateY(7px) rotate(45deg);}.ob-hamburger-toggle:checked~.ob-header .ob-hamburger-btn span:nth-child(2){opacity:0;}.ob-hamburger-toggle:checked~.ob-header .ob-hamburger-btn span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}.ob-mobile-drawer{display:none;flex-direction:column;gap:4px;padding:14px 20px 20px;border-top:1px solid var(--ob-border);background:rgba(251,246,236,0.98);position:sticky;top:82px;z-index:99;box-shadow:0 8px 20px -8px rgba(31,27,22,0.15);}.ob-mobile-drawer a{padding:12px 14px;font-family:var(--ob-font-sans);font-size:16px;font-weight:500;color:var(--ob-ink);border-radius:var(--ob-r-md);transition:background 150ms;}.ob-mobile-drawer a:hover{background:var(--ob-stone-50);}.ob-drawer-cta{margin-top:8px;background:var(--ob-saffran-400);color:#fff;text-align:center;font-weight:600;border-radius:var(--ob-r-pill)!important;}.ob-drawer-cta:hover{background:var(--ob-saffran-500)!important;}@media(max-width:860px){.ob-header-nav{display:none;}.ob-header-cta{display:none;}.ob-hamburger-btn{display:flex;}.ob-hamburger-toggle:checked~.ob-mobile-drawer{display:flex;}}</style>\n<input type='checkbox' id='ob-hamburger-toggle' class='ob-hamburger-toggle' aria-hidden='true'>\n<header class='ob-header'>\n  <div class='ob-header-inner'>\n    <a href='/' class='ob-header-logo' aria-label='{{site_name}} — Startsida'>\n      <img src='{{logo_url}}' alt='{{site_name}}'>\n    </a>\n    <nav class='ob-header-nav' aria-label='Huvudnavigation'>\n      <a href='/'>Hem</a>\n      <a href='/meny/'>Meny</a>\n      <a href='/catering/'>Catering</a>\n      <a href='/#kontakt'>Kontakt</a>\n    </nav>\n    <a href='{{cta_url}}' class='ob-header-cta'>{{cta_text}}</a>\n    <label for='ob-hamburger-toggle' class='ob-hamburger-btn' aria-label='Öppna meny'>\n      <span></span><span></span><span></span>\n    </label>\n  </div>\n</header>\n<nav class='ob-mobile-drawer' aria-label='Mobilnavigation'>\n  <a href='/'>Hem</a>\n  <a href='/meny/'>Meny</a>\n  <a href='/catering/'>Catering</a>\n  <a href='/#kontakt'>Kontakt</a>\n  <a href='{{cta_url}}' class='ob-drawer-cta'>{{cta_text}}</a>\n</nav>",
+    "schema": [
+      {
+        "default": "",
+        "label": "Logotyp",
+        "name": "logo_url",
+        "type": "image"
+      },
+      {
+        "default": "Östra Bageriet",
+        "label": "Företagsnamn",
+        "name": "site_name",
+        "type": "text"
+      },
+      {
+        "default": "Beställ →",
+        "label": "CTA-text",
+        "name": "cta_text",
+        "type": "text"
+      },
+      {
+        "default": "/catering/",
+        "label": "CTA-länk",
+        "name": "cta_url",
+        "type": "url"
+      }
+    ],
+    "title": "Östra Bageriet — Header"
+  },
+  "lumo/ob-trust-strip": {
+    "block_name": "lumo/ob-trust-strip",
+    "html_template": "<style>.ob-trust-strip{max-width:1320px;margin:0 auto;padding:40px 28px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;}.ob-trust-item{display:flex;align-items:center;gap:8px;font-family:var(--ob-font-sans);font-size:14px;font-weight:500;color:var(--ob-ink-2);padding:10px 18px;background:var(--ob-paper);border:1px solid var(--ob-border);border-radius:var(--ob-r-pill);box-shadow:var(--ob-shadow-1);}.ob-trust-num{font-family:var(--ob-font-sans);font-weight:700;color:var(--ob-skog-500);font-size:15px;font-feature-settings:\"tnum\" 1;}</style><div class=\"ob-trust-strip\"><div class='ob-trust-item'><span class='ob-trust-num'>{{item_1_num}}</span>{{item_1_label}}</div><div class='ob-trust-item'><span class='ob-trust-num'>{{item_2_num}}</span>{{item_2_label}}</div><div class='ob-trust-item'><span class='ob-trust-num'>{{item_3_num}}</span>{{item_3_label}}</div><div class='ob-trust-item'><span class='ob-trust-num'>{{item_4_num}}</span>{{item_4_label}}</div><div class='ob-trust-item'><span class='ob-trust-num'>{{item_5_num}}</span>{{item_5_label}}</div></div>",
+    "schema": [
+      {
+        "default": "2M+",
+        "label": "Nyckeltal 1 — siffra",
+        "name": "item_1_num",
+        "type": "text"
+      },
+      {
+        "default": "smörgåsar sålda",
+        "label": "Nyckeltal 1 — text",
+        "name": "item_1_label",
+        "type": "text"
+      },
+      {
+        "default": "20+",
+        "label": "Nyckeltal 2 — siffra",
+        "name": "item_2_num",
+        "type": "text"
+      },
+      {
+        "default": "år i branschen",
+        "label": "Nyckeltal 2 — text",
+        "name": "item_2_label",
+        "type": "text"
+      },
+      {
+        "default": "07:00",
+        "label": "Nyckeltal 3 — siffra",
+        "name": "item_3_num",
+        "type": "text"
+      },
+      {
+        "default": "öppnar mån–fre",
+        "label": "Nyckeltal 3 — text",
+        "name": "item_3_label",
+        "type": "text"
+      },
+      {
+        "default": "★ 4.8",
+        "label": "Nyckeltal 4 — siffra",
+        "name": "item_4_num",
+        "type": "text"
+      },
+      {
+        "default": "på Google",
+        "label": "Nyckeltal 4 — text",
+        "name": "item_4_label",
+        "type": "text"
+      },
+      {
+        "default": "🌱",
+        "label": "Nyckeltal 5 — siffra",
+        "name": "item_5_num",
+        "type": "text"
+      },
+      {
+        "default": "Veganska alternativ",
+        "label": "Nyckeltal 5 — text",
+        "name": "item_5_label",
+        "type": "text"
+      }
+    ],
+    "title": "Östra Bageriet — Trust Strip"
+  },
+  "lumo/ob-usp-strip": {
+    "block_name": "lumo/ob-usp-strip",
+    "html_template": "<style>.ob-usp-strip{max-width:1100px;margin:0 auto;padding:48px 28px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}.ob-usp-card{background:var(--ob-paper);border:1px solid var(--ob-border);border-radius:var(--ob-r-lg);padding:28px 24px;box-shadow:var(--ob-shadow-1);}.ob-usp-icon{width:44px;height:44px;background:var(--ob-skog-50);border-radius:var(--ob-r-md);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}.ob-usp-title{font-family:var(--ob-font-display);font-weight:600;font-size:18px;color:var(--ob-ink);margin-bottom:6px;}.ob-usp-desc{font-family:var(--ob-font-sans);font-size:14px;line-height:1.55;color:var(--ob-ink-2);}@media(max-width:700px){.ob-usp-strip{grid-template-columns:1fr;}}</style><div class=\"ob-usp-strip\"><div class='ob-usp-card'><div class='ob-usp-icon'><svg width='22' height='22' viewBox='0 0 22 22' fill='none'><path d='M3 11h16M11 3v16' stroke='var(--ob-skog-500)' stroke-width='1.8' stroke-linecap='round'/><circle cx='11' cy='11' r='8' stroke='var(--ob-skog-400)' stroke-width='1.4'/></svg></div><h3 class='ob-usp-title'>{{card_1_title}}</h3><p class='ob-usp-desc'>{{card_1_desc}}</p></div><div class='ob-usp-card'><div class='ob-usp-icon'><svg width='22' height='22' viewBox='0 0 22 22' fill='none'><rect x='3' y='5' width='16' height='14' rx='2' stroke='var(--ob-skog-500)' stroke-width='1.5'/><path d='M7 3v4M15 3v4M3 9h16' stroke='var(--ob-skog-500)' stroke-width='1.5' stroke-linecap='round'/></svg></div><h3 class='ob-usp-title'>{{card_2_title}}</h3><p class='ob-usp-desc'>{{card_2_desc}}</p></div><div class='ob-usp-card'><div class='ob-usp-icon'><svg width='22' height='22' viewBox='0 0 22 22' fill='none'><path d='M11 4c-3.87 0-7 3.13-7 7 0 2.96 1.84 5.5 4.46 6.57' stroke='var(--ob-skog-500)' stroke-width='1.5' stroke-linecap='round'/><path d='M15 10c0 2.21-1.79 4-4 4' stroke='var(--ob-skog-400)' stroke-width='1.4' stroke-linecap='round'/><path d='M16 14l3 3M16 17l3-3' stroke='var(--ob-skog-500)' stroke-width='1.5' stroke-linecap='round'/></svg></div><h3 class='ob-usp-title'>{{card_3_title}}</h3><p class='ob-usp-desc'>{{card_3_desc}}</p></div></div>",
+    "schema": [
+      {
+        "default": "Leverans till dörren",
+        "label": "USP 1 — titel",
+        "name": "card_1_title",
+        "type": "text"
+      },
+      {
+        "default": "Vi kör ut till kontor i centrala Stockholm. Allt levereras i tid, färdigt att serveras.",
+        "label": "USP 1 — beskrivning",
+        "name": "card_1_desc",
+        "type": "textarea"
+      },
+      {
+        "default": "Beställ 24h i förväg",
+        "label": "USP 2 — titel",
+        "name": "card_2_title",
+        "type": "text"
+      },
+      {
+        "default": "Skicka din beställning senast dagen innan kl 14:00 — vi bekräftar direkt.",
+        "label": "USP 2 — beskrivning",
+        "name": "card_2_desc",
+        "type": "textarea"
+      },
+      {
+        "default": "Skräddarsytt",
+        "label": "USP 3 — titel",
+        "name": "card_3_title",
+        "type": "text"
+      },
+      {
+        "default": "Allergier, kostval, temadagar — skriv det i offerten så sätter vi ihop ett paket.",
+        "label": "USP 3 — beskrivning",
+        "name": "card_3_desc",
+        "type": "textarea"
+      }
+    ],
+    "title": "Östra Bageriet — USP Strip"
+  },
+  "lumo/ob-visit-strip": {
+    "block_name": "lumo/ob-visit-strip",
+    "html_template": "<style>.ob-visit-strip{background:var(--ob-cream-2);border-top:1px solid var(--ob-border);border-bottom:1px solid var(--ob-border);padding:60px 28px;scroll-margin-top:80px;}.ob-visit-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}.ob-visit-eyebrow{font-family:var(--ob-font-sans);font-size:12px;font-weight:600;letter-spacing:0.20em;text-transform:uppercase;color:var(--ob-saffran-500);margin-bottom:10px;}.ob-visit-title{font-family:var(--ob-font-display);font-weight:600;font-size:clamp(28px,3.5vw,44px);line-height:1.1;letter-spacing:-0.01em;color:var(--ob-ink);margin-bottom:24px;text-wrap:balance;}.ob-visit-details{display:flex;flex-direction:column;gap:16px;}.ob-visit-row{display:flex;flex-direction:column;gap:2px;}.ob-visit-label{font-family:var(--ob-font-sans);font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--ob-ink-3);}.ob-visit-value{font-family:var(--ob-font-display);font-size:18px;color:var(--ob-ink);line-height:1.4;}.ob-visit-value a{color:var(--ob-ink);border-bottom:1px solid var(--ob-wheat-soft);transition:color 150ms;}.ob-visit-value a:hover{color:var(--ob-skog-500);}.ob-visit-hours-grid{display:grid;grid-template-columns:1fr auto;column-gap:24px;row-gap:4px;max-width:280px;}.ob-visit-hours-day{font-family:var(--ob-font-sans);font-size:14px;color:var(--ob-ink-2);}.ob-visit-hours-time{font-family:var(--ob-font-sans);font-size:14px;font-weight:600;color:var(--ob-ink);font-feature-settings:\"tnum\" 1;text-align:right;}.ob-visit-map{position:relative;height:340px;border-radius:var(--ob-r-lg);overflow:hidden;box-shadow:var(--ob-shadow-3);border:1px solid var(--ob-border);}.ob-visit-map iframe{width:100%;height:100%;border:0;display:block;}@media(max-width:860px){.ob-visit-inner{grid-template-columns:1fr;}.ob-visit-map{height:280px;}.ob-visit-strip{padding:48px 20px;}}</style><section class='ob-visit-strip' id='kontakt'><div class='ob-visit-inner'><div><p class='ob-visit-eyebrow'>{{eyebrow}}</p><h2 class='ob-visit-title'>{{title}}</h2><div class='ob-visit-details'><div class='ob-visit-row'><span class='ob-visit-label'>Adress</span><span class='ob-visit-value'><a href='{{maps_url}}' target='_blank' rel='noopener'>{{address}}</a></span></div><div class='ob-visit-row'><span class='ob-visit-label'>Öppettider</span><div class='ob-visit-hours-grid'><span class='ob-visit-hours-day'>Måndag–Fredag</span><span class='ob-visit-hours-time'>{{hours_weekday}}</span><span class='ob-visit-hours-day'>Lördag</span><span class='ob-visit-hours-time'>{{hours_saturday}}</span><span class='ob-visit-hours-day'>Söndag</span><span class='ob-visit-hours-time'>{{hours_sunday}}</span></div></div><div class='ob-visit-row'><span class='ob-visit-label'>Kontakt</span><span class='ob-visit-value'><a href='{{phone_href}}'>{{phone}}</a><br><a href='{{sms_href}}'>SMS {{sms}}</a><br><a href='{{email_href}}'>{{email}}</a></span></div></div></div><div class='ob-visit-map' aria-label='Karta till {{site_name}}'><iframe src='https://maps.google.com/maps?q=Drottning+Kristinas+v%C3%A4g+1%2C+114+28+Stockholm&output=embed&z=16' allowfullscreen loading='lazy' referrerpolicy='no-referrer-when-downgrade' title='Karta till {{site_name}}'></iframe></div></div></section>",
+    "schema": [
+      {
+        "default": "Hitta hit",
+        "label": "Etikett",
+        "name": "eyebrow",
+        "type": "text"
+      },
+      {
+        "default": "Inuti Östra stations vänthall.",
+        "label": "Rubrik",
+        "name": "title",
+        "type": "text"
+      },
+      {
+        "default": "Östra Bageriet",
+        "label": "Företagsnamn",
+        "name": "site_name",
+        "type": "text"
+      },
+      {
+        "default": "Drottning Kristinas väg 1\n114 28 Stockholm",
+        "label": "Adress",
+        "name": "address",
+        "type": "textarea"
+      },
+      {
+        "default": "https://maps.google.com/?q=Drottning+Kristinas+väg+1,+114+28+Stockholm",
+        "label": "Google Maps-länk",
+        "name": "maps_url",
+        "type": "url"
+      },
+      {
+        "default": "07:00–18:00",
+        "label": "Öppettid mån–fre",
+        "name": "hours_weekday",
+        "type": "text"
+      },
+      {
+        "default": "08:00–16:00",
+        "label": "Öppettid lördag",
+        "name": "hours_saturday",
+        "type": "text"
+      },
+      {
+        "default": "Stängt",
+        "label": "Öppettid söndag",
+        "name": "hours_sunday",
+        "type": "text"
+      },
+      {
+        "default": "08-612 50 50",
+        "label": "Telefon",
+        "name": "phone",
+        "type": "text"
+      },
+      {
+        "default": "tel:0861250050",
+        "label": "Telefon href",
+        "name": "phone_href",
+        "type": "url"
+      },
+      {
+        "default": "073-99 38 704",
+        "label": "SMS",
+        "name": "sms",
+        "type": "text"
+      },
+      {
+        "default": "sms:0739938704",
+        "label": "SMS href",
+        "name": "sms_href",
+        "type": "url"
+      },
+      {
+        "default": "fkuorie@hotmail.com",
+        "label": "E-post",
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "default": "mailto:fkuorie@hotmail.com",
+        "label": "E-post href",
+        "name": "email_href",
+        "type": "url"
+      }
+    ],
+    "title": "Östra Bageriet — Visit Strip (Kontakt)"
+  },
+  "lumo/site-footer": {
+    "block_name": "lumo/site-footer",
+    "html_template": "<style>.ob-footer{background:var(--ob-stone-900);color:var(--ob-cream);padding:60px 28px 28px;}.ob-footer-inner{max-width:1320px;margin:0 auto;}.ob-footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px;}.ob-footer-logo img{height:60px;width:auto;filter:brightness(0) invert(1) sepia(0.25) saturate(1.5) hue-rotate(15deg);opacity:0.85;}.ob-footer-tagline{font-size:14px;line-height:1.6;color:rgba(251,246,236,0.55);margin-top:10px;max-width:280px;}.ob-footer-col-title{font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--ob-wheat-soft);margin-bottom:12px;}.ob-footer-col ul{list-style:none;display:flex;flex-direction:column;gap:6px;}.ob-footer-col li{font-size:14px;color:rgba(251,246,236,0.65);}.ob-footer-col a{color:rgba(251,246,236,0.65);text-decoration:none;transition:color 150ms;}.ob-footer-col a:hover{color:var(--ob-wheat-soft);}.ob-footer-bottom{padding-top:20px;border-top:1px solid rgba(201,160,99,0.18);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:rgba(251,246,236,0.35);}.ob-footer-bottom-links{display:flex;gap:18px;}@media(max-width:860px){.ob-footer-grid{grid-template-columns:1fr 1fr;gap:28px;}.ob-footer{padding:48px 20px 24px;}}@media(max-width:480px){.ob-footer-grid{grid-template-columns:1fr;}}</style><footer class=\"ob-footer\"><div class=\"ob-footer-inner\"><div class=\"ob-footer-grid\"><div><div class=\"ob-footer-logo\"><img src=\"{{logo_url}}\" alt=\"{{site_name}}\"></div><p class=\"ob-footer-tagline\">{{tagline}}</p></div><div class=\"ob-footer-col\"><p class=\"ob-footer-col-title\">Besök</p><ul><li>{{address_line_1}}</li><li>{{address_line_2}}</li><li>Mån–Fre {{hours_weekday}}</li><li>Lör {{hours_saturday}}</li></ul></div><div class=\"ob-footer-col\"><p class=\"ob-footer-col-title\">Kontakt</p><ul><li><a href=\"{{phone_href}}\">{{phone}}</a></li><li><a href=\"{{sms_href}}\">SMS {{sms}}</a></li><li><a href=\"{{email_href}}\">{{email}}</a></li></ul></div><div class=\"ob-footer-col\"><p class=\"ob-footer-col-title\">Catering</p><ul><li><a href=\"/catering/\">Kontorslunch</a></li><li><a href=\"/catering/\">Frukostmöten</a></li><li><a href=\"/catering/\">Mezetallrik</a></li><li><a href=\"/catering/#offert\">Be om offert</a></li></ul></div></div><div class=\"ob-footer-bottom\"><span>{{copyright}}</span><div class=\"ob-footer-bottom-links\"><span>Instagram</span><span>Facebook</span><span>Tripadvisor</span></div></div></div></footer>",
+    "schema": [
+      {
+        "default": "https://rivy.templweb.com/wp-content/uploads/2026/04/logo.png",
+        "label": "Logotyp",
+        "name": "logo_url",
+        "type": "image"
+      },
+      {
+        "default": "Östra Bageriet",
+        "label": "Företagsnamn",
+        "name": "site_name",
+        "type": "text"
+      },
+      {
+        "default": "Bageri, café & catering inuti Östra stations vänthall, sedan 1996.",
+        "label": "Slogan",
+        "name": "tagline",
+        "type": "text"
+      },
+      {
+        "default": "Drottning Kristinas väg 1",
+        "label": "Adress rad 1",
+        "name": "address_line_1",
+        "type": "text"
+      },
+      {
+        "default": "114 28 Stockholm",
+        "label": "Adress rad 2",
+        "name": "address_line_2",
+        "type": "text"
+      },
+      {
+        "default": "07–18",
+        "label": "Öppettid mån–fre",
+        "name": "hours_weekday",
+        "type": "text"
+      },
+      {
+        "default": "08–16",
+        "label": "Öppettid lör",
+        "name": "hours_saturday",
+        "type": "text"
+      },
+      {
+        "default": "08-612 50 50",
+        "label": "Telefon",
+        "name": "phone",
+        "type": "text"
+      },
+      {
+        "default": "tel:0861250050",
+        "label": "Telefon href",
+        "name": "phone_href",
+        "type": "url"
+      },
+      {
+        "default": "073-99 38 704",
+        "label": "SMS",
+        "name": "sms",
+        "type": "text"
+      },
+      {
+        "default": "sms:0739938704",
+        "label": "SMS href",
+        "name": "sms_href",
+        "type": "url"
+      },
+      {
+        "default": "fkuorie@hotmail.com",
+        "label": "E-post",
+        "name": "email",
+        "type": "text"
+      },
+      {
+        "default": "mailto:fkuorie@hotmail.com",
+        "label": "E-post href",
+        "name": "email_href",
+        "type": "url"
+      },
+      {
+        "default": "© 2026 Östra Bageriet · Alla rättigheter förbehållna",
+        "label": "Copyright",
+        "name": "copyright",
+        "type": "text"
+      }
+    ],
+    "title": "Östra Bageriet — Footer"
+  },
+  "lumo/site-header": {
+    "block_name": "lumo/site-header",
+    "html_template": "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin><link href=\"https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=DM+Sans:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap\" rel=\"stylesheet\">\n<style>.ob-header{position:sticky;top:0;z-index:100;background:rgba(251,246,236,0.94);backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);border-bottom:1px solid var(--ob-border);}.admin-bar .ob-header{top:32px;}@media(max-width:782px){.admin-bar .ob-header{top:46px;}}.ob-header-inner{max-width:1320px;margin:0 auto;padding:0 28px;height:82px;display:flex;align-items:center;gap:20px;}.ob-header-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;}.ob-header-logo img{height:74px;width:auto;}.ob-header-nav{display:flex;gap:0;margin-left:auto;align-items:center;}.ob-header-nav a{padding:8px 14px;font-family:var(--ob-font-sans);font-size:15px;font-weight:500;color:var(--ob-ink-2);border-radius:var(--ob-r-pill);transition:background 150ms,color 150ms;}.ob-header-nav a:hover{color:var(--ob-ink);background:var(--ob-stone-50);}.ob-header-nav a.current-menu-item{color:var(--ob-skog-600);background:var(--ob-skog-50);font-weight:600;}.ob-header-cta{margin-left:12px;background:var(--ob-saffran-400);color:#fff;padding:10px 20px;border-radius:var(--ob-r-pill);font-family:var(--ob-font-sans);font-weight:600;font-size:14px;white-space:nowrap;flex-shrink:0;box-shadow:var(--ob-shadow-warm);transition:background 150ms,transform 150ms;}.ob-header-cta:hover{background:var(--ob-saffran-500);transform:translateY(-1px);}.ob-hamburger-toggle{display:none;}.ob-hamburger-btn{display:none;flex-direction:column;justify-content:center;gap:5px;width:38px;height:38px;cursor:pointer;margin-left:auto;flex-shrink:0;}.ob-hamburger-btn span{display:block;height:2px;background:var(--ob-bark);border-radius:2px;transition:transform 240ms,opacity 240ms;}.ob-hamburger-toggle:checked~.ob-header .ob-hamburger-btn span:nth-child(1){transform:translateY(7px) rotate(45deg);}.ob-hamburger-toggle:checked~.ob-header .ob-hamburger-btn span:nth-child(2){opacity:0;}.ob-hamburger-toggle:checked~.ob-header .ob-hamburger-btn span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}.ob-mobile-drawer{display:none;flex-direction:column;gap:4px;padding:14px 20px 20px;border-top:1px solid var(--ob-border);background:rgba(251,246,236,0.98);position:sticky;top:82px;z-index:99;box-shadow:0 8px 20px -8px rgba(31,27,22,0.15);}.ob-mobile-drawer a{padding:12px 14px;font-family:var(--ob-font-sans);font-size:16px;font-weight:500;color:var(--ob-ink);border-radius:var(--ob-r-md);transition:background 150ms;}.ob-mobile-drawer a:hover{background:var(--ob-stone-50);}.ob-drawer-cta{margin-top:8px;background:var(--ob-saffran-400);color:#fff;text-align:center;font-weight:600;border-radius:var(--ob-r-pill)!important;}.ob-drawer-cta:hover{background:var(--ob-saffran-500)!important;}@media(max-width:860px){.ob-header-nav{display:none;}.ob-header-cta{display:none;}.ob-hamburger-btn{display:flex;}.ob-hamburger-toggle:checked~.ob-mobile-drawer{display:flex;}}</style>\n<input type='checkbox' id='ob-hamburger-toggle' class='ob-hamburger-toggle' aria-hidden='true'>\n<header class='ob-header'>\n  <div class='ob-header-inner'>\n    <a href='/' class='ob-header-logo' aria-label='{{site_name}} — Startsida'>\n      <img src='{{logo_url}}' alt='{{site_name}}'>\n    </a>\n    <nav class='ob-header-nav' aria-label='Huvudnavigation'>\n      <a href='/'>Hem</a>\n      <a href='/meny/'>Meny</a>\n      <a href='/catering/'>Catering</a>\n      <a href='/#kontakt'>Kontakt</a>\n    </nav>\n    <a href='{{cta_url}}' class='ob-header-cta'>{{cta_text}}</a>\n    <label for='ob-hamburger-toggle' class='ob-hamburger-btn' aria-label='Öppna meny'>\n      <span></span><span></span><span></span>\n    </label>\n  </div>\n</header>\n<nav class='ob-mobile-drawer' aria-label='Mobilnavigation'>\n  <a href='/'>Hem</a>\n  <a href='/meny/'>Meny</a>\n  <a href='/catering/'>Catering</a>\n  <a href='/#kontakt'>Kontakt</a>\n  <a href='{{cta_url}}' class='ob-drawer-cta'>{{cta_text}}</a>\n</nav>",
+    "schema": [
+      {
+        "default": "https://rivy.templweb.com/wp-content/uploads/2026/04/logo.png",
+        "label": "Logotyp",
+        "name": "logo_url",
+        "type": "image"
+      },
+      {
+        "default": "Östra Bageriet",
+        "label": "Företagsnamn",
+        "name": "site_name",
+        "type": "text"
+      },
+      {
+        "default": "Beställ →",
+        "label": "CTA-text",
+        "name": "cta_text",
+        "type": "text"
+      },
+      {
+        "default": "/catering/",
+        "label": "CTA-länk",
+        "name": "cta_url",
+        "type": "url"
+      }
+    ],
+    "title": "Östra Bageriet — Header"
+  }
+}

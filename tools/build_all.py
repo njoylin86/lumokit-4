@@ -336,7 +336,11 @@ def print_mode_banner(overwrite_content: bool, keep_pages: set, force: bool) -> 
 
 def build_all(bundle_path: str, allow_production: bool = False,
               overwrite_content: bool = False, force: bool = False,
-              keep_pages: set | None = None, resume: bool = False) -> None:
+              keep_pages: set | None = None, resume: bool = False,
+              force_overwrite_drift: bool = False,
+              skip_drift_check: bool = False,
+              only: set | None = None,
+              dry_run: bool = False) -> None:
     check_env_guard(allow_production)
     keep_pages = keep_pages or set()
     print_mode_banner(overwrite_content, keep_pages, force)
@@ -381,28 +385,109 @@ def build_all(bundle_path: str, allow_production: bool = False,
     # --- Step 0a: Push platform config (hidden, only if present) ----------
     if platform_config:
         step += 1
-        print(f"\n[{step}/{total_steps}] Pushing platform config...")
-        push_platform_config(platform_config)
+        if dry_run:
+            print(f"\n[{step}/{total_steps}] [DRY-RUN] Skulle pusha platform config: {platform_config}")
+        else:
+            print(f"\n[{step}/{total_steps}] Pushing platform config...")
+            push_platform_config(platform_config)
 
     # --- Step 0b: Push global settings (company info etc.) ----------------
     if global_settings:
         step += 1
-        print(f"\n[{step}/{total_steps}] Pushing global settings...")
-        push_global_settings(global_settings)
+        if dry_run:
+            print(f"\n[{step}/{total_steps}] [DRY-RUN] Skulle pusha global settings: {list(global_settings.keys())}")
+        else:
+            print(f"\n[{step}/{total_steps}] Pushing global settings...")
+            push_global_settings(global_settings)
 
     # --- Step 0c: Push snippets (Google Fonts, analytics etc.) -----------
     if snippets:
         step += 1
-        print(f"\n[{step}/{total_steps}] Pushing {len(snippets)} snippet(s)...")
-        push_snippets(snippets)
+        if dry_run:
+            snippet_titles = [s.get("title", "?") for s in snippets]
+            print(f"\n[{step}/{total_steps}] [DRY-RUN] Skulle pusha {len(snippets)} snippet(s): {snippet_titles}")
+        else:
+            print(f"\n[{step}/{total_steps}] Pushing {len(snippets)} snippet(s)...")
+            push_snippets(snippets)
 
     # --- Step 1: Push components ------------------------------------------
     step += 1
     if components:
-        print(f"\n[{step}/{total_steps}] Pushing {len(components)} component(s)...")
+        # Drift-check + intent-check: live är auktoritär. Default tillåter ingen
+        # bred push — användaren måste antingen ange --only <namn> (selektivt)
+        # eller --push-all-changes (medvetet bred). Drift-check hämtar live och
+        # rapporterar vad som skulle skickas.
+        snapshot_path = path.parent / ".last_pushed_components.json"
+        noop_names: set[str] = set()
+        if not skip_drift_check:
+            from drift_check import check_drift, save_snapshot
+            print(f"\n[{step}/{total_steps}a] Drift-check mot live...")
+            try:
+                drift = check_drift(
+                    components, WP_URL,
+                    (WP_USERNAME, WP_APP_PASSWORD),
+                    snapshot_path,
+                )
+            except Exception as e:
+                print(f"  [WARN] Drift-check misslyckades: {e}")
+                print(f"         Fortsätter utan check (samma beteende som tidigare).")
+                drift = None
+
+            if drift is not None:
+                drift.print_report(force_overwrite_drift=force_overwrite_drift)
+                if drift.has_blocking_drift and not force_overwrite_drift:
+                    sys.exit(1)
+                noop_names = {d.block_name for d in drift.by_status("NOOP")}
+
+                # Intent-gate: alla komponenter som skulle pushas (SAFE/DRIFT/CONFLICT/NEW)
+                # måste täckas av --only ELLER --push-all-changes (= force_overwrite_drift).
+                would_push = [d for d in drift.diffs
+                              if d.status not in ("NOOP",)
+                              and (only is None or d.block_name in only)]
+                non_noop_names = {d.block_name for d in drift.diffs if d.status != "NOOP"}
+                if non_noop_names and only is None and not force_overwrite_drift:
+                    print()
+                    print("  [ABORT] Det finns ändringar att pusha men ingen explicit intention.")
+                    print(f"          {len(non_noop_names)} komponent(er) skulle skrivas till live.")
+                    print(f"          Live är auktoritär — du måste vara explicit:")
+                    print()
+                    print(f"            --only <namn>[,<namn>...]   Pusha bara dessa specifika komponenter")
+                    print(f"            --force-overwrite-drift     Pusha alla diffar (gamla beteendet)")
+                    print()
+                    print(f"          Tips: börja med --only och lista exakt vad du vill ändra.")
+                    sys.exit(1)
+
+                if only is not None:
+                    unknown = only - {d.block_name for d in drift.diffs}
+                    if unknown:
+                        print(f"\n[ERROR] --only innehåller okända block_name: {sorted(unknown)}")
+                        sys.exit(1)
+
+        # Filter: --only begränsar till listan
+        push_list = []
+        for component in components:
+            bn = component.get("block_name", "unknown")
+            if bn in noop_names:
+                continue
+            if only is not None and bn not in only:
+                continue
+            push_list.append(component)
+
+        if not push_list:
+            print(f"\n[{step}/{total_steps}] Inga komponenter att pusha (alla NOOP eller filtrerade bort).")
+        else:
+            print(f"\n[{step}/{total_steps}] {'[DRY-RUN] Skulle pusha' if dry_run else 'Pushar'} "
+                  f"{len(push_list)} komponent(er)"
+                  f"{f' (filtrerat via --only)' if only is not None else ''}"
+                  f"{f', skippar {len(noop_names)} NOOP' if noop_names else ''}...")
+        if dry_run:
+            for c in push_list:
+                print(f"  [DRY-RUN] skulle pusha: {c['block_name']}")
         failed = []
         component_state = state.get("components", {})
-        for component in components:
+        for component in push_list:
+            if dry_run:
+                break  # alla rapporterade ovan i [DRY-RUN]-loopen
             block_name = component.get("block_name", "unknown")
             if resume and component_state.get(block_name, {}).get("status") == "ok":
                 print(f"  [SKIP]  {block_name} (already deployed)")
@@ -421,6 +506,21 @@ def build_all(bundle_path: str, allow_production: bool = False,
             print(f"        Deploy state saved to {state_path.relative_to(ROOT)}")
             print(f"        Fix errors and re-run with --resume to skip successful components.")
             sys.exit(1)
+
+        # Snapshota det vi faktiskt pushat — uppdatera bara de berörda komponenterna
+        # så att otouched komponenter behåller sin tidigare snapshot (= live).
+        if not skip_drift_check and push_list and not dry_run:
+            from drift_check import load_snapshot
+            existing = load_snapshot(snapshot_path) or {}
+            for c in push_list:
+                existing[c["block_name"]] = c
+            snapshot_path.parent.mkdir(parents=True, exist_ok=True)
+            snapshot_path.write_text(
+                json.dumps(existing, indent=2, ensure_ascii=False, sort_keys=True),
+                encoding="utf-8",
+            )
+            print(f"  [SNAP] {snapshot_path.relative_to(ROOT)} uppdaterad "
+                  f"({len(push_list)} pushade, {len(existing)} totalt i snapshot).")
     else:
         print(f"\n[{step}/{total_steps}] No components in bundle — skipping component push.")
 
@@ -430,6 +530,9 @@ def build_all(bundle_path: str, allow_production: bool = False,
         print(f"\n[{step}/{total_steps}] Page sync SKIPPED (default). "
               f"Components/CSS pushed; sidornas innehåll är orört.")
         print(f"        Vill du skriva över sidornas innehåll: lägg till --overwrite-content")
+    elif dry_run:
+        slugs = [p.get("slug") for p in pages if not p.get("keep_content")]
+        print(f"\n[{step}/{total_steps}] [DRY-RUN] Skulle skriva över {len(slugs)} sida(or): {slugs}")
     else:
         if keep_pages:
             kept_slugs = []
@@ -465,13 +568,16 @@ def build_all(bundle_path: str, allow_production: bool = False,
             sync_page_statuses(pages)
 
     # --- Step 3: Compile & push CSS from this bundle only -----------------
-    print(f"\n[CSS] Compiling Tailwind CSS from {Path(bundle_path).name} ...")
-    result = subprocess.run(
-        [sys.executable, str(Path(__file__).parent / "compile_tailwind.py"), str(path)],
-        cwd=str(ROOT),
-    )
-    if result.returncode != 0:
-        print("[WARN] CSS compilation failed — push styles manually with compile_tailwind.py")
+    if dry_run:
+        print(f"\n[CSS] [DRY-RUN] Skulle kompilera Tailwind CSS och pusha till WP.")
+    else:
+        print(f"\n[CSS] Compiling Tailwind CSS from {Path(bundle_path).name} ...")
+        result = subprocess.run(
+            [sys.executable, str(Path(__file__).parent / "compile_tailwind.py"), str(path)],
+            cwd=str(ROOT),
+        )
+        if result.returncode != 0:
+            print("[WARN] CSS compilation failed — push styles manually with compile_tailwind.py")
 
     # --- Step 4: Record what was deployed -------------------------------
     bundle_dir = Path(bundle_path).resolve().parent
@@ -482,6 +588,10 @@ def build_all(bundle_path: str, allow_production: bool = False,
         bridge_version = v.get("bridge_version", "unknown")
     except Exception:
         pass
+
+    if dry_run:
+        print(f"\n[DRY-RUN] Inget skickades till WP. Kör utan --dry-run för att faktiskt pusha.")
+        return
 
     record = {
         "deployed_at": datetime.now().isoformat(timespec="seconds"),
@@ -503,12 +613,17 @@ if __name__ == "__main__":
         print()
         print("  Default: pushar BARA komponenter + CSS. Sidornas innehåll lämnas orört.")
         print()
-        print("  --overwrite-content    Skriv över sidornas innehåll. Visar varning + frågar JA.")
-        print("                         Eventuella WP Admin-redigeringar går förlorade.")
-        print("  --keep-pages slug,..   Vid --overwrite-content: behåll dessa sidor orörda.")
-        print("  --force                Hoppa över JA-prompten (för automation/CI).")
-        print("  --resume               Hoppa över komponenter som redan lyckades i föregående körning.")
-        print("  --production           Tillåt push mot WP_ENV=production.")
+        print("  --overwrite-content       Skriv över sidornas innehåll. Visar varning + frågar JA.")
+        print("                            Eventuella WP Admin-redigeringar går förlorade.")
+        print("  --keep-pages slug,..      Vid --overwrite-content: behåll dessa sidor orörda.")
+        print("  --force                   Hoppa över JA-prompten (för automation/CI).")
+        print("  --resume                  Hoppa över komponenter som redan lyckades i föregående körning.")
+        print("  --production              Tillåt push mot WP_ENV=production.")
+        print("  --only name[,name...]     Pusha BARA dessa komponenter. Allt annat lämnas orört.")
+        print("                            Ex: --only lumo/hero,lumo/site-header")
+        print("  --dry-run                 Visa vad som skulle pushas utan att skicka något till WP.")
+        print("  --force-overwrite-drift   Pusha alla diffar (gamla beteendet — farligt).")
+        print("  --skip-drift-check        Stäng av drift-checken helt (ej rekommenderat).")
         sys.exit(1)
 
     args = sys.argv[1:]
@@ -517,6 +632,14 @@ if __name__ == "__main__":
     overwrite_content = "--overwrite-content" in args
     force = "--force" in args
     resume = "--resume" in args
+    force_overwrite_drift = "--force-overwrite-drift" in args or "--push-all-changes" in args
+    skip_drift_check = "--skip-drift-check" in args
+    dry_run = "--dry-run" in args
+    only: set | None = None
+    if "--only" in args:
+        idx = args.index("--only")
+        if idx + 1 < len(args):
+            only = {s.strip() for s in args[idx + 1].split(",") if s.strip()}
     keep_pages: set = set()
     if "--keep-pages" in args:
         idx = args.index("--keep-pages")
@@ -525,4 +648,7 @@ if __name__ == "__main__":
 
     build_all(bundle_path, allow_production=allow_production,
               overwrite_content=overwrite_content, force=force,
-              keep_pages=keep_pages, resume=resume)
+              keep_pages=keep_pages, resume=resume,
+              force_overwrite_drift=force_overwrite_drift,
+              skip_drift_check=skip_drift_check,
+              only=only, dry_run=dry_run)
