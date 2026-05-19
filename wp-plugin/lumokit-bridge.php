@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // Single source of truth for bridge version. Bumped by tools/release.py.
-define( 'LUMOKIT_BRIDGE_VERSION', '1.2.0' );
+define( 'LUMOKIT_BRIDGE_VERSION', '1.6.0' );
 
 define( 'LUMOKIT_OPTION_KEY', 'lumokit_components' );
 
@@ -146,6 +146,22 @@ function lumokit_register_routes() {
 		[
 			'methods'             => WP_REST_Server::CREATABLE,
 			'callback'            => 'lumokit_sync_block_acf',
+			'permission_callback' => 'lumokit_auth_check',
+		],
+	] );
+
+	register_rest_route( 'lumokit/v1', '/page-insert-block', [
+		[
+			'methods'             => WP_REST_Server::CREATABLE,
+			'callback'            => 'lumokit_page_insert_block',
+			'permission_callback' => 'lumokit_auth_check',
+		],
+	] );
+
+	register_rest_route( 'lumokit/v1', '/page-swap-block', [
+		[
+			'methods'             => WP_REST_Server::CREATABLE,
+			'callback'            => 'lumokit_page_swap_block',
 			'permission_callback' => 'lumokit_auth_check',
 		],
 	] );
@@ -435,10 +451,14 @@ function lumokit_build_page( WP_REST_Request $request ) {
 			}
 
 			$value_to_bake = $default;
-			if ( $type === 'image' || $type === 'file' ) {
-				// ACF expects an attachment ID for image/file fields. Look it up from the URL
-				// in our schema default. If the URL doesn't resolve to a known attachment,
-				// skip baking — admin will show empty picker but at least frontend renders.
+			if ( $type === 'true_false' ) {
+				// ACF stores true_false as integer 1 or 0 in block data.
+				$value_to_bake = ( $default === true || $default === 1 || $default === '1' ) ? 1 : 0;
+			} elseif ( $type === 'image' || $type === 'file' || $type === 'media' ) {
+				// ACF expects an attachment ID for image/file/media fields. Look it up from
+				// the URL in our schema default. If the URL doesn't resolve to a known
+				// attachment, skip baking — admin will show empty picker but at least
+				// frontend renders.
 				if ( ! empty( $default ) && filter_var( $default, FILTER_VALIDATE_URL ) ) {
 					$attachment_id = attachment_url_to_postid( $default );
 					if ( $attachment_id ) {
@@ -562,7 +582,7 @@ function lumokit_sync_block_acf( WP_REST_Request $request ) {
 	$attachment_fields = [];
 	foreach ( $schema as $field_def ) {
 		$t = $field_def['type'] ?? '';
-		if ( $t === 'image' || $t === 'file' ) {
+		if ( $t === 'image' || $t === 'file' || $t === 'media' ) {
 			$attachment_fields[ sanitize_key( $field_def['name'] ) ] = true;
 		}
 	}
@@ -599,7 +619,12 @@ function lumokit_sync_block_acf( WP_REST_Request $request ) {
 		$fields_done  = [];
 		$blocks_count = 0;
 
-		$walk = function ( &$blocks_ref ) use ( &$walk, &$changed, &$fields_done, &$blocks_count, $short_name, $resolved_fields ) {
+		// Compute ACF field-key prefix once. ACF resolves block fields via
+		// _<name> reference keys — without them, get_field() returns null and
+		// the renderer falls back to block_data which can have stale/missing entries.
+		$slug_prefix = sanitize_title( str_replace( '/', '_', $block_name ) );
+
+		$walk = function ( &$blocks_ref ) use ( &$walk, &$changed, &$fields_done, &$blocks_count, $short_name, $resolved_fields, $slug_prefix ) {
 			foreach ( $blocks_ref as &$block ) {
 				if ( ( $block['blockName'] ?? '' ) === $short_name ) {
 					$blocks_count++;
@@ -608,8 +633,12 @@ function lumokit_sync_block_acf( WP_REST_Request $request ) {
 					}
 					foreach ( $resolved_fields as $name => $new_value ) {
 						$old = $block['attrs']['data'][ $name ] ?? null;
-						if ( $old != $new_value ) {
-							$block['attrs']['data'][ $name ] = $new_value;
+						$ref_key   = 'field_' . $slug_prefix . '_' . $name;
+						$ref_name  = '_' . $name;
+						$old_ref   = $block['attrs']['data'][ $ref_name ] ?? null;
+						if ( $old != $new_value || $old_ref !== $ref_key ) {
+							$block['attrs']['data'][ $name ]     = $new_value;
+							$block['attrs']['data'][ $ref_name ] = $ref_key;
 							$changed = true;
 							$fields_done[ $name ] = true;
 						}
@@ -642,9 +671,13 @@ function lumokit_sync_block_acf( WP_REST_Request $request ) {
 
 		if ( ! $dry_run ) {
 			$new_content = serialize_blocks( $blocks );
+			// wp_update_post passes data through wp_unslash internally — så vi MÅSTE
+			// wp_slash innan, annars strippas backslashes ur unicode-escapes som
+			// < (< i block-attr-JSON), vilket korrupterar OCH ANDRA fält på
+			// samma sida (inte bara de vi syncar). Lärdom 2026-05-19.
 			$res = wp_update_post( [
 				'ID'           => $page->ID,
-				'post_content' => $new_content,
+				'post_content' => wp_slash( $new_content ),
 			], true );
 			if ( is_wp_error( $res ) ) {
 				$entry['error'] = $res->get_error_message();
@@ -664,6 +697,286 @@ function lumokit_sync_block_acf( WP_REST_Request $request ) {
 		'skipped'    => $skipped,
 		'unresolved' => (object) $unresolved,
 	] );
+}
+
+/**
+ * POST /wp-json/lumokit/v1/page-insert-block
+ *
+ * Inserts a new ACF-block instance into an existing page's post_content
+ * WITHOUT rebuilding the rest of the page. Used when adding a block to a
+ * page that already has klient-edited content (keep_content pages).
+ *
+ * Body:
+ *   page_slug:    string — target page
+ *   block_name:   string — e.g. "lumo/photo-tour"
+ *   after_block:  string (optional) — insert immediately after first block with
+ *                                     this blockName. Use "first" to prepend,
+ *                                     "last" or omit to append.
+ *   dry_run:      bool   (optional)
+ */
+function lumokit_page_insert_block( WP_REST_Request $request ) {
+	$body = $request->get_json_params();
+
+	$page_slug   = sanitize_title( $body['page_slug'] ?? '' );
+	$block_name  = $body['block_name'] ?? '';
+	$after_block = $body['after_block'] ?? 'last';
+	$dry_run     = ! empty( $body['dry_run'] );
+
+	if ( empty( $page_slug ) || empty( $block_name ) ) {
+		return new WP_Error( 'missing_field', 'Required: page_slug, block_name.', [ 'status' => 400 ] );
+	}
+
+	$page = get_page_by_path( $page_slug, OBJECT, 'page' );
+	if ( ! $page ) {
+		return new WP_Error( 'page_not_found', "Page not found: {$page_slug}", [ 'status' => 404 ] );
+	}
+
+	$components = get_option( LUMOKIT_OPTION_KEY, [] );
+	if ( ! isset( $components[ $block_name ] ) ) {
+		return new WP_Error( 'block_not_registered', "Block not registered: {$block_name}", [ 'status' => 400 ] );
+	}
+
+	$short_name  = lumokit_block_short_name( $block_name );
+	$slug_prefix = sanitize_title( str_replace( '/', '_', $block_name ) );
+	$schema      = $components[ $block_name ]['schema'] ?? [];
+	$target_name = $after_block === 'first' || $after_block === 'last' ? $after_block : ( 'acf/' . lumokit_block_short_name( $after_block ) );
+
+	// Build new block data (mirror lumokit_build_page's baking logic)
+	$data = new stdClass();
+	foreach ( $schema as $field_def ) {
+		$name      = sanitize_key( $field_def['name'] ?? '' );
+		$type      = $field_def['type'] ?? 'text';
+		$default   = $field_def['default'] ?? '';
+		$field_key = 'field_' . $slug_prefix . '_' . $name;
+
+		if ( $type === 'nav_menu' ) {
+			continue;
+		}
+
+		$value_to_bake = $default;
+		if ( $type === 'true_false' ) {
+			$value_to_bake = ( $default === true || $default === 1 || $default === '1' ) ? 1 : 0;
+		} elseif ( $type === 'image' || $type === 'file' || $type === 'media' ) {
+			if ( ! empty( $default ) && filter_var( $default, FILTER_VALIDATE_URL ) ) {
+				$attachment_id = attachment_url_to_postid( $default );
+				if ( $attachment_id ) {
+					$value_to_bake = $attachment_id;
+				} else {
+					continue;
+				}
+			} elseif ( is_numeric( $default ) ) {
+				$value_to_bake = (int) $default;
+			} else {
+				continue;
+			}
+		}
+
+		$data->{$name}       = $value_to_bake;
+		$data->{'_' . $name} = $field_key;
+	}
+
+	$attrs = [
+		'id'   => 'block_' . uniqid(),
+		'name' => 'acf/' . $short_name,
+		'data' => $data,
+		'mode' => 'preview',
+	];
+	$new_block_markup = '<!-- wp:acf/' . $short_name . ' ' . wp_json_encode( $attrs, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . ' /-->';
+
+	// Parse existing blocks and find insertion point
+	$blocks   = parse_blocks( $page->post_content );
+	$new_list = [];
+	$inserted = false;
+
+	if ( $target_name === 'first' ) {
+		$new_list[]     = [ 'blockName' => null, 'attrs' => [], 'innerBlocks' => [], 'innerHTML' => $new_block_markup, 'innerContent' => [ $new_block_markup ] ];
+		foreach ( $blocks as $b ) {
+			$new_list[] = $b;
+		}
+		$inserted = true;
+	} elseif ( $target_name === 'last' ) {
+		foreach ( $blocks as $b ) {
+			$new_list[] = $b;
+		}
+		$new_list[] = [ 'blockName' => null, 'attrs' => [], 'innerBlocks' => [], 'innerHTML' => $new_block_markup, 'innerContent' => [ $new_block_markup ] ];
+		$inserted   = true;
+	} else {
+		foreach ( $blocks as $b ) {
+			$new_list[] = $b;
+			if ( ! $inserted && ( $b['blockName'] ?? '' ) === $target_name ) {
+				$new_list[] = [ 'blockName' => null, 'attrs' => [], 'innerBlocks' => [], 'innerHTML' => $new_block_markup, 'innerContent' => [ $new_block_markup ] ];
+				$inserted   = true;
+			}
+		}
+	}
+
+	if ( ! $inserted ) {
+		return new WP_Error( 'target_not_found', "Target block not found on page: {$after_block}", [ 'status' => 404 ] );
+	}
+
+	// Check for existing instance of the new block on this page — abort if found
+	foreach ( $blocks as $b ) {
+		if ( ( $b['blockName'] ?? '' ) === 'acf/' . $short_name ) {
+			return new WP_Error( 'block_already_exists', "Block {$block_name} already exists on page {$page_slug}.", [ 'status' => 409 ] );
+		}
+	}
+
+	$new_content = serialize_blocks( $new_list );
+
+	$response = [
+		'success'        => true,
+		'page_slug'      => $page_slug,
+		'block_inserted' => $block_name,
+		'after'          => $after_block,
+		'dry_run'        => $dry_run,
+	];
+
+	if ( ! $dry_run ) {
+		$res = wp_update_post( [
+			'ID'           => $page->ID,
+			'post_content' => wp_slash( $new_content ),
+		], true );
+		if ( is_wp_error( $res ) ) {
+			return new WP_Error( 'update_failed', $res->get_error_message(), [ 'status' => 500 ] );
+		}
+		$response['page_id'] = $page->ID;
+	}
+
+	return rest_ensure_response( $response );
+}
+
+/**
+ * POST /wp-json/lumokit/v1/page-swap-block
+ *
+ * Byter ut ett block-instans på en sida från old_block_name till new_block_name.
+ * Behåller överlappande fält-värden (samma fält-namn → samma värde överförs).
+ * Nya fält bakas in med schema-defaults för det nya komponentschemat.
+ * Borttagna fält droppas tyst (orphan data).
+ *
+ * Body:
+ *   page_slug:       string
+ *   old_block_name:  string — e.g. "lumo/photo-tour"
+ *   new_block_name:  string — e.g. "lumo/photo-tour-hem"
+ *   dry_run:         bool   (optional)
+ */
+function lumokit_page_swap_block( WP_REST_Request $request ) {
+	$body = $request->get_json_params();
+
+	$page_slug      = sanitize_title( $body['page_slug'] ?? '' );
+	$old_block_name = $body['old_block_name'] ?? '';
+	$new_block_name = $body['new_block_name'] ?? '';
+	$dry_run        = ! empty( $body['dry_run'] );
+
+	if ( empty( $page_slug ) || empty( $old_block_name ) || empty( $new_block_name ) ) {
+		return new WP_Error( 'missing_field', 'Required: page_slug, old_block_name, new_block_name.', [ 'status' => 400 ] );
+	}
+
+	$page = get_page_by_path( $page_slug, OBJECT, 'page' );
+	if ( ! $page ) {
+		return new WP_Error( 'page_not_found', "Page not found: {$page_slug}", [ 'status' => 404 ] );
+	}
+
+	$components = get_option( LUMOKIT_OPTION_KEY, [] );
+	if ( ! isset( $components[ $new_block_name ] ) ) {
+		return new WP_Error( 'block_not_registered', "New block not registered: {$new_block_name}", [ 'status' => 400 ] );
+	}
+
+	$old_short      = 'acf/' . lumokit_block_short_name( $old_block_name );
+	$new_short      = 'acf/' . lumokit_block_short_name( $new_block_name );
+	$new_slug_pfx   = sanitize_title( str_replace( '/', '_', $new_block_name ) );
+	$new_schema     = $components[ $new_block_name ]['schema'] ?? [];
+
+	// Build defaults for the new schema (URL→ID for images/files/media, 1/0 for true_false)
+	$new_defaults = new stdClass();
+	foreach ( $new_schema as $field_def ) {
+		$name      = sanitize_key( $field_def['name'] ?? '' );
+		$type      = $field_def['type'] ?? 'text';
+		$default   = $field_def['default'] ?? '';
+		$field_key = 'field_' . $new_slug_pfx . '_' . $name;
+
+		if ( $type === 'nav_menu' ) {
+			continue;
+		}
+
+		$value_to_bake = $default;
+		if ( $type === 'true_false' ) {
+			$value_to_bake = ( $default === true || $default === 1 || $default === '1' ) ? 1 : 0;
+		} elseif ( $type === 'image' || $type === 'file' || $type === 'media' ) {
+			if ( ! empty( $default ) && filter_var( $default, FILTER_VALIDATE_URL ) ) {
+				$attachment_id = attachment_url_to_postid( $default );
+				if ( $attachment_id ) {
+					$value_to_bake = $attachment_id;
+				} else {
+					continue;
+				}
+			} elseif ( is_numeric( $default ) ) {
+				$value_to_bake = (int) $default;
+			} else {
+				continue;
+			}
+		}
+		$new_defaults->{$name}        = $value_to_bake;
+		$new_defaults->{'_' . $name}  = $field_key;
+	}
+
+	$blocks   = parse_blocks( $page->post_content );
+	$swapped  = 0;
+	foreach ( $blocks as &$block ) {
+		if ( ( $block['blockName'] ?? '' ) !== $old_short ) {
+			continue;
+		}
+
+		$old_data = (array) ( $block['attrs']['data'] ?? [] );
+		$new_data = (array) $new_defaults;
+		// Carry over any overlapping field values from the old instance
+		// (excluding underscore-ref keys — those must match the new schema's field keys).
+		foreach ( $old_data as $k => $v ) {
+			if ( strpos( $k, '_' ) === 0 ) continue;
+			if ( property_exists( $new_defaults, $k ) ) {
+				$new_data[ $k ]        = $v;
+				$new_data[ '_' . $k ]  = 'field_' . $new_slug_pfx . '_' . $k;
+			}
+		}
+
+		$block['blockName']        = $new_short;
+		$block['attrs']['name']    = $new_short;
+		$block['attrs']['data']    = $new_data;
+
+		// Re-serialize this block alone — replace its innerHTML/innerContent placeholder.
+		$attrs_json = wp_json_encode( $block['attrs'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
+		$markup     = '<!-- wp:' . $new_short . ' ' . $attrs_json . ' /-->';
+		$block['innerHTML']    = $markup;
+		$block['innerContent'] = [ $markup ];
+		$swapped++;
+	}
+	unset( $block );
+
+	if ( $swapped === 0 ) {
+		return new WP_Error( 'block_not_found', "Block {$old_block_name} not found on page {$page_slug}", [ 'status' => 404 ] );
+	}
+
+	$response = [
+		'success'        => true,
+		'page_slug'      => $page_slug,
+		'page_id'        => $page->ID,
+		'swapped'        => $swapped,
+		'old_block_name' => $old_block_name,
+		'new_block_name' => $new_block_name,
+		'dry_run'        => $dry_run,
+	];
+
+	if ( ! $dry_run ) {
+		$new_content = serialize_blocks( $blocks );
+		$res = wp_update_post( [
+			'ID'           => $page->ID,
+			'post_content' => wp_slash( $new_content ),
+		], true );
+		if ( is_wp_error( $res ) ) {
+			return new WP_Error( 'update_failed', $res->get_error_message(), [ 'status' => 500 ] );
+		}
+	}
+
+	return rest_ensure_response( $response );
 }
 
 /**
@@ -1539,25 +1852,30 @@ function lumokit_schema_to_acf_fields( array $schema, $block_name ) {
 
 		$name = sanitize_key( $field_def['name'] );
 
-		$allowed_types = [ 'text', 'textarea', 'image', 'url', 'file' ];
+		$allowed_types = [ 'text', 'textarea', 'image', 'url', 'file', 'media', 'true_false' ];
 		if ( ! in_array( $type, $allowed_types, true ) ) {
 			$type = 'text';
 		}
+
+		// `media` is LumoKit's generic media picker — accepts image/video/PDF/etc.
+		// Backed by an ACF file field at the storage level; renderer exposes
+		// type/mime/as_bg helper vars per field.
+		$acf_type = $type === 'media' ? 'file' : $type;
 
 		$field = [
 			'key'           => 'field_' . $slug_prefix . '_' . $name,
 			'name'          => $name,
 			'label'         => $label,
-			'type'          => $type,
+			'type'          => $acf_type,
 			'default_value' => '',
 		];
 
-		// File fields: return URL string so mustache resolves to a plain URL.
-		// Optional mime_types restriction (e.g. mp4,webm for video uploads) can be
-		// declared in the schema as "mime_types": "mp4,webm".
-		if ( $type === 'file' ) {
+		// File/media fields: return URL string so mustache resolves to a plain URL.
+		// `file` accepts optional mime_types restriction (e.g. "mp4,webm"); `media`
+		// is intentionally unrestricted so klient kan ladda upp valfri media-typ.
+		if ( $acf_type === 'file' ) {
 			$field['return_format'] = 'url';
-			if ( ! empty( $field_def['mime_types'] ) ) {
+			if ( $type === 'file' && ! empty( $field_def['mime_types'] ) ) {
 				$field['mime_types'] = $field_def['mime_types'];
 			}
 		}
@@ -1694,8 +2012,15 @@ function lumokit_render_block( $block, $content = '', $is_preview = false ) {
 		$default = $field_def['default'] ?? '';
 		$value   = get_field( $name );
 
-		if ( ( $type === 'image' || $type === 'file' ) && is_array( $value ) ) {
+		if ( ( $type === 'image' || $type === 'file' || $type === 'media' ) && is_array( $value ) ) {
 			$value = $value['url'] ?? '';
+		}
+
+		// true_false fields: normalize ACF return (bool/1/0/'') to a clean
+		// mustache-safe string. "1" when checked, "" when unchecked — lets templates
+		// use `data-foo="{{name}}"` + CSS attribute selectors `[data-foo="1"]`.
+		if ( $type === 'true_false' ) {
+			$value = ! empty( $value ) ? '1' : '';
 		}
 
 		// Has user explicitly set this specific field? Check if the field key OR
@@ -1709,8 +2034,8 @@ function lumokit_render_block( $block, $content = '', $is_preview = false ) {
 		// (e.g. field group not yet cached). Read directly from block_data as fallback.
 		if ( empty( $value ) && isset( $block_data[ $name ] ) && $block_data[ $name ] !== '' ) {
 			$value = $block_data[ $name ];
-			// If an image field stored an attachment ID, resolve it to a URL.
-			if ( $type === 'image' && is_numeric( $value ) ) {
+			// If an image/file/media field stored an attachment ID, resolve it to a URL.
+			if ( ( $type === 'image' || $type === 'file' || $type === 'media' ) && is_numeric( $value ) ) {
 				$value = wp_get_attachment_url( (int) $value ) ?: '';
 			}
 		}
@@ -1726,6 +2051,36 @@ function lumokit_render_block( $block, $content = '', $is_preview = false ) {
 
 		if ( $type === 'textarea' && ! empty( $value ) ) {
 			$value = nl2br( $value );
+		}
+
+		// Media fields expose 4 extra helper vars besides {{name}}:
+		//   {{name__type}}   "image" | "video" | "other"
+		//   {{name__mime}}   "image/jpeg" / "video/mp4" / …
+		//   {{name__id}}     attachment ID (string), empty if not resolvable
+		//   {{name__as_bg}}  ready-made <img> or <video> for "fill the parent" usage
+		if ( $type === 'media' ) {
+			$media_url  = $value ?? '';
+			$media_id   = $media_url ? attachment_url_to_postid( $media_url ) : 0;
+			$media_mime = $media_id ? ( get_post_mime_type( $media_id ) ?: '' ) : '';
+			$media_kind = 'other';
+			if ( strpos( $media_mime, 'image/' ) === 0 ) {
+				$media_kind = 'image';
+			} elseif ( strpos( $media_mime, 'video/' ) === 0 ) {
+				$media_kind = 'video';
+			}
+
+			$as_bg = '';
+			if ( $media_kind === 'image' && $media_url ) {
+				$as_bg = '<img class="lumo-media-bg" src="' . esc_url( $media_url ) . '" alt="" loading="lazy">';
+			} elseif ( $media_kind === 'video' && $media_url ) {
+				$mime_attr = $media_mime ? ' type="' . esc_attr( $media_mime ) . '"' : '';
+				$as_bg     = '<video class="lumo-media-bg" autoplay muted loop playsinline preload="metadata"><source src="' . esc_url( $media_url ) . '"' . $mime_attr . '></video>';
+			}
+
+			$replacements[ '{{' . $name . '__type}}' ]  = $media_kind;
+			$replacements[ '{{' . $name . '__mime}}' ]  = $media_mime;
+			$replacements[ '{{' . $name . '__id}}' ]    = $media_id ? (string) $media_id : '';
+			$replacements[ '{{' . $name . '__as_bg}}' ] = $as_bg;
 		}
 
 		$replacements[ '{{' . $name . '}}' ] = $value ?? '';
@@ -1978,6 +2333,11 @@ function lumokit_output_styles() {
 	$css = get_option( LUMOKIT_CSS_OPTION_KEY, '' );
 	echo '<style id="lumokit-styles">' . $css . '</style>' . "\n";
 	echo '<style id="lumokit-reset">body{margin:0;}</style>' . "\n";
+	// Standard CSS för `media__as_bg`-helper. Sätter mediat i absolut fill-läge
+	// inom föräldra-elementet. Föräldern måste vara position:relative.
+	echo '<style id="lumokit-media-bg">' .
+		'.lumo-media-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}' .
+		'</style>' . "\n";
 	echo '<style id="lumokit-nav">
 			nav ul{list-style:none!important;margin:0!important;padding:0!important;}
 			nav li{display:inline-block!important;position:relative;margin:0 10px!important;}

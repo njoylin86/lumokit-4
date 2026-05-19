@@ -54,8 +54,28 @@ def extract_mustache_vars(html: str) -> set[str]:
     return set(MUSTACHE_VAR.findall(html))
 
 
+MEDIA_SUFFIXES = ("__type", "__mime", "__id", "__as_bg")
+
+
 def extract_schema_names(schema: list) -> set[str]:
     return {field["name"] for field in schema if "name" in field}
+
+
+def normalize_template_vars(vars_set: set[str], schema: list) -> set[str]:
+    """Map media-helper vars (`name__as_bg` etc) back to the base media field name
+    so orphan-var checks pass. Used only for the orphan-var/orphan-field comparison."""
+    media_names = {f["name"] for f in schema if f.get("type") == "media" and "name" in f}
+    out: set[str] = set()
+    for v in vars_set:
+        for suffix in MEDIA_SUFFIXES:
+            if v.endswith(suffix):
+                base = v[: -len(suffix)]
+                if base in media_names:
+                    out.add(base)
+                    break
+        else:
+            out.add(v)
+    return out
 
 
 def check_contrast(html: str) -> list[str]:
@@ -113,6 +133,7 @@ def validate_component(component: dict) -> tuple[list[str], list[str]]:
         "site_hours_sunday",
     }
     template_vars  = extract_mustache_vars(html) - GLOBAL_VARS
+    template_vars  = normalize_template_vars(template_vars, schema)
     schema_names   = extract_schema_names(schema)
 
     orphan_vars    = template_vars - schema_names

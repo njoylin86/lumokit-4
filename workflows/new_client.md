@@ -40,6 +40,63 @@ FAS 2 — DEPLOYA  → WP-creds, domän, e-mail, redirects
 
 ---
 
+## Arkitektur-regler — FÖLJ STRIKT från första byggesteget
+
+### CSS-pipeline (KRITISKT — annars uppstår samma friktion som på alvsjotandvard)
+
+**Regel:** Custom CSS levereras via `bundle["snippets"]`. ALDRIG som `<style>`-block inuti en komponents `html_template`.
+
+När du kopierar baseline-mall för ny klient (BASIC från `patricia-teles`, PREMIUM från `alvsjotandvard`):
+
+**Första migrerings-steget innan content fylls i:**
+
+1. Splitta `build_site_header(tokens_css)` → två funktioner i `build_bundle.py`:
+   ```python
+   def build_layout_css(tokens_css: str) -> str:
+       """Returnerar all CSS (tokens + LAYOUT_CSS + header-variants + hero-bg + inactive).
+       Får INTE innehålla mustache — kör inte genom Bridge:s resolver."""
+       # ... header_variant_css, header_light_override, hero_bg_css, inactive_css ...
+       return f"{tokens_css}\n{LAYOUT_CSS}\n{header_variant_css}\n{header_light_override}\n{hero_bg_css}\n{inactive_css}"
+
+   def build_site_header() -> dict:
+       # ... HTML only, no <style> block in html_template ...
+       return {"block_name": "lumo/site-header", "html_template": ..., "schema": [...]}
+   ```
+
+2. I `main()`:
+   ```python
+   tokens_css = TOKENS_FILE.read_text(encoding="utf-8")
+   layout_css = build_layout_css(tokens_css)
+   site_header = build_site_header()
+   ```
+
+3. I bundle-dict:
+   ```python
+   bundle = {
+       ...,
+       "components": [...],
+       "snippets": [
+           {"name": "lumokit-layout", "type": "css", "code": layout_css},
+       ],
+       ...
+   }
+   ```
+
+4. Verifiera: gör `git grep '"<style>"' clients/<klient>/build_bundle.py` — ska returnera tomt.
+
+**Varför:** `compile_tailwind.py` plockar redan upp `snippets[type=css]` och prependar till Tailwind-output. Bridge:n servar via `<style id="lumokit-styles">` i `<head>`. En CSS-edit = en file change + en push. Ingen override-sync, ingen drift mellan source/live.
+
+**Konsekvens av att hoppa över detta steg:** Varje framtida CSS-edit kräver ~60 sekunder och dubbla edits istället för ~20 sekunder + en edit. Drift mellan source/override skapar mysterious bugs (se `feedback_live_overrides_mechanism`).
+
+Se `project_css_refactor.md` för full bakgrund och historik.
+
+### Andra arkitektur-regler
+- Inga `<style>`-block i NÅGON komponents `html_template`. Punkt.
+- Bilder hardcodas inte i komponenters template — använd `{{site_url}}/wp-content/uploads/...` mustache så domänbyte fungerar
+- Mustache-syntax används inte i snippets (de körs inte genom resolvern)
+
+---
+
 ## FAS 2 — För att lansera
 
 ### Teknik
