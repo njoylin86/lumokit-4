@@ -13,15 +13,13 @@
       "name": "hero_video_desktop",
       "type": "file",
       "label": "Bakgrundsvideo desktop",
-      "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4",
-      "mime_types": "mp4"
+      "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4"
     },
     {
       "name": "hero_video_mobile",
       "type": "file",
       "label": "Bakgrundsvideo mobil",
-      "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4",
-      "mime_types": "mp4"
+      "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4"
     },
     {
       "name": "eyebrow",

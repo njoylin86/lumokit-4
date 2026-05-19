@@ -4685,14 +4685,12 @@
       {
         "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4",
         "label": "Bakgrundsvideo desktop",
-        "mime_types": "mp4",
         "name": "hero_video_desktop",
         "type": "file"
       },
       {
         "default": "{{site_url}}/wp-content/uploads/2026/05/video_mp_.mp4",
         "label": "Bakgrundsvideo mobil",
-        "mime_types": "mp4",
         "name": "hero_video_mobile",
         "type": "file"
       },
